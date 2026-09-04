@@ -227,7 +227,6 @@ button[type="submit"]:hover:not(:disabled) {
   color: #22EE44;
 }
 
-/* Override any hardcoded white and #e6e6e6 off-white text */
 [data-theme="green"] .text-white,
 [data-theme="green"] [style*="color: #ffffff"],
 [data-theme="green"] [style*="color:#ffffff"],
@@ -239,15 +238,71 @@ button[type="submit"]:hover:not(:disabled) {
 [data-theme="green"] [style*="color: rgb(255, 255, 255)"],
 [data-theme="green"] [style*="color: rgb(230, 230, 230)"],
 [data-theme="green"] [style*="color:rgb(230,230,230)"],
-[data-mode="dark"] [style*="color: #e6e6e6"],
-[data-mode="dark"] [style*="color:#e6e6e6"],
-[data-mode="dark"] [style*="color: rgb(230, 230, 230)"],
-[data-mode="dark"] [style*="color:rgb(230,230,230)"] {
+[data-theme="green"][data-mode="dark"] [style*="color: #e6e6e6"],
+[data-theme="green"][data-mode="dark"] [style*="color:#e6e6e6"],
+[data-theme="green"][data-mode="dark"] [style*="color: rgb(230, 230, 230)"],
+[data-theme="green"][data-mode="dark"] [style*="color:rgb(230,230,230)"] {
   color: #22EE44 !important;
 }
 
 [data-theme="green"] [data-language="plaintext"] span {
   color: #22EE44 !important;
+}
+
+/* Cyberpunk Theme Synchronization: Shifts header chassis, lightning, circuitry, and hero vector art */
+[data-theme="green"] .cyber-theme-element {
+  filter: none;
+}
+
+[data-theme="purple"] .cyber-theme-element {
+  filter: hue-rotate(140deg);
+}
+
+[data-theme="blue"] .cyber-theme-element {
+  filter: hue-rotate(85deg);
+}
+
+[data-theme="orange"] .cyber-theme-element {
+  filter: hue-rotate(255deg);
+}
+
+[data-theme="aurora"] .cyber-theme-element {
+  filter: hue-rotate(55deg);
+}
+
+[data-theme="obsidian"] .cyber-theme-element {
+  filter: grayscale(100%) brightness(1.2) contrast(1.1);
+}
+
+/* Also apply to Hero section background vector */
+[data-theme="green"] .hero-section::before {
+  filter: none;
+}
+
+[data-theme="purple"] .hero-section::before {
+  filter: hue-rotate(140deg);
+}
+
+[data-theme="blue"] .hero-section::before {
+  filter: hue-rotate(85deg);
+}
+
+[data-theme="orange"] .hero-section::before {
+  filter: hue-rotate(255deg);
+}
+
+[data-theme="aurora"] .hero-section::before {
+  filter: hue-rotate(55deg);
+}
+
+[data-theme="obsidian"] .hero-section::before {
+  filter: grayscale(100%) brightness(1.2) contrast(1.1);
+}
+
+/* Ensure Theme Switcher & Mode Toggle dropdown colors are never filtered */
+.no-cyber-filter,
+.no-cyber-filter * {
+  filter: none !important;
 }
 
 /* Blog images: Ensure border-radius is applied immediately to prevent FOUC */

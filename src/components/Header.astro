@@ -42,7 +42,7 @@ const navItems = [
 
   <!-- TOP LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire top edge -->
   <div 
-    class="w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_0_20px_rgba(34,197,94,0.7)]"
+    class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_0_20px_rgba(34,197,94,0.7)]"
     style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-bottom: 1px solid rgba(34, 197, 94, 0.45);`}
     aria-hidden="true"
   ></div>
@@ -52,7 +52,7 @@ const navItems = [
     <div class="relative flex items-stretch h-[56px] sm:h-[62px]">
       
       <!-- 1. LEFT ENDCAP: Complete left border with spark plug terminals & lightning arcs -->
-      <div class="relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
+      <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
         <img 
           src={endcapLeftSvg.src} 
           alt="" 
@@ -66,21 +66,21 @@ const navItems = [
         
         <!-- Cyberpunk Motherboard Background (OLED Black base with Glowing PCB Circuit Traces) -->
         <div 
-          class="absolute -inset-x-1 inset-y-0 z-0 pointer-events-none"
+          class="cyber-theme-element absolute -inset-x-1 inset-y-0 z-0 pointer-events-none"
           style={`background-color: #000000; background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat-x; background-size: auto 100%; box-shadow: inset 0 0 35px rgba(34, 197, 94, 0.12);`}
           aria-hidden="true"
         ></div>
 
         <!-- Inner Top Lightning Rail (Directly connects left and right endcap top anchors) -->
         <div 
-          class="absolute top-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_1px_8px_rgba(34,197,94,0.4)]"
+          class="cyber-theme-element absolute top-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_1px_8px_rgba(34,197,94,0.4)]"
           style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
           aria-hidden="true"
         ></div>
 
         <!-- Inner Bottom Lightning Rail (Directly connects left and right endcap bottom anchors) -->
         <div 
-          class="absolute bottom-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_-1px_8px_rgba(34,197,94,0.4)]"
+          class="cyber-theme-element absolute bottom-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_-1px_8px_rgba(34,197,94,0.4)]"
           style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
           aria-hidden="true"
         ></div>
@@ -91,7 +91,7 @@ const navItems = [
           <!-- Left: Wide Stylized Tekromancy Wordmark -->
           <a 
             href="/" 
-            class="group flex items-center shrink-0 transition-transform duration-150 hover:scale-[1.02]" 
+            class="cyber-theme-element group flex items-center shrink-0 transition-transform duration-150 hover:scale-[1.02]" 
             aria-label="Tekromancy - Home"
           >
             <img 
@@ -107,11 +107,11 @@ const navItems = [
             src={dividerSvg.src} 
             alt="" 
             aria-hidden="true" 
-            class="h-6 sm:h-8 w-auto shrink-0 hidden xl:block mx-1 opacity-80 pointer-events-none" 
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden xl:block mx-1 opacity-80 pointer-events-none" 
           />
 
           <!-- Middle: Menu Items (Graphic Words) -->
-          <nav class="hidden lg:flex items-center gap-1 xl:gap-2 shrink-0" aria-label="Main navigation">
+          <nav class="cyber-theme-element hidden lg:flex items-center gap-1 xl:gap-2 shrink-0" aria-label="Main navigation">
             {navItems.map((item) => (
               <a
                 href={item.href}
@@ -133,7 +133,7 @@ const navItems = [
             src={dividerSvg.src} 
             alt="" 
             aria-hidden="true" 
-            class="h-6 sm:h-8 w-auto shrink-0 hidden lg:block mx-1 opacity-80 pointer-events-none" 
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden lg:block mx-1 opacity-80 pointer-events-none" 
           />
 
           <!-- Right Controls: Transmit Button + Divider + Theme Switcher / Mobile Button -->
@@ -141,7 +141,7 @@ const navItems = [
             <!-- Transmit Button -->
             <a 
               href="/contact" 
-              class="group block transition-transform duration-150 hover:scale-105"
+              class="cyber-theme-element group block transition-transform duration-150 hover:scale-105"
               aria-label="Transmit"
             >
               <img 
@@ -157,11 +157,11 @@ const navItems = [
               src={dividerSvg.src} 
               alt="" 
               aria-hidden="true" 
-              class="h-5 sm:h-7 w-auto shrink-0 hidden sm:block opacity-60 pointer-events-none" 
+              class="cyber-theme-element h-5 sm:h-7 w-auto shrink-0 hidden sm:block opacity-60 pointer-events-none" 
             />
 
             <!-- Theme Switcher & Mode Toggle Module -->
-            <div class="flex items-center gap-1 p-0.5 sm:p-1 rounded-lg border border-[#22c55e]/35 bg-[#000000]/90 shadow-[0_0_10px_rgba(34,197,94,0.2)]">
+            <div class="no-cyber-filter flex items-center gap-1 p-0.5 sm:p-1 rounded-lg border border-[var(--token-color-border)] bg-[#000000]/90 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
               <ModeToggle client:load />
               <ThemeSwitcher client:load />
             </div>
@@ -170,7 +170,7 @@ const navItems = [
             <button
               type="button"
               id="mobile-menu-button"
-              class="lg:hidden p-1.5 sm:p-2 rounded-lg border border-[#22c55e]/40 bg-[#000000] text-[#22c55e] hover:border-[#22c55e] hover:shadow-[0_0_12px_rgba(34,197,94,0.5)] transition-all ml-0.5"
+              class="cyber-theme-element lg:hidden p-1.5 sm:p-2 rounded-lg border border-[#22c55e]/40 bg-[#000000] text-[#22c55e] hover:border-[#22c55e] hover:shadow-[0_0_12px_rgba(34,197,94,0.5)] transition-all ml-0.5"
               aria-label="Toggle Navigation Console"
               aria-expanded="false"
               aria-controls="mobile-menu"
@@ -183,7 +183,7 @@ const navItems = [
       </div>
 
       <!-- 3. RIGHT ENDCAP: Complete right border with spark plug terminals & lightning arcs -->
-      <div class="relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
+      <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
         <img 
           src={endcapRightSvg.src} 
           alt="" 
@@ -197,7 +197,7 @@ const navItems = [
 
   <!-- BOTTOM LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire bottom edge -->
   <div 
-    class="w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_4px_24px_rgba(34,197,94,0.6)]"
+    class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_4px_24px_rgba(34,197,94,0.6)]"
     style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-top: 1px solid rgba(34, 197, 94, 0.45);`}
     aria-hidden="true"
   ></div>
@@ -205,7 +205,7 @@ const navItems = [
   <!-- Cyberpunk Mobile Deck Console (Drawer) -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden w-full max-w-[1600px] mx-auto mt-2 rounded-xl border overflow-hidden backdrop-blur-2xl transition-all shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+    class="cyber-theme-element hidden lg:hidden w-full max-w-[1600px] mx-auto mt-2 rounded-xl border overflow-hidden backdrop-blur-2xl transition-all shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
     role="menu"
     aria-labelledby="mobile-menu-button"
     style={`background-color: rgba(0, 0, 0, 0.96); background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat-x; background-size: auto 80px; border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);`}
