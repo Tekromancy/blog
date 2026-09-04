@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 48" fill="none" class="cyber-nav-divider">
+  <defs>
+    <filter id="divider-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="laser-beam" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.1" />
+      <stop offset="25%" stop-color="#22c55e" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="1" />
+      <stop offset="75%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Central Laser Filament -->
+  <line x1="8" y1="2" x2="8" y2="46" stroke="url(#laser-beam)" stroke-width="1.5" filter="url(#divider-glow)" />
+
+  <!-- Micro Horizontal Tick Crossbars -->
+  <line x1="4" y1="8" x2="12" y2="8" stroke="#22c55e" stroke-width="1" opacity="0.6" />
+  <line x1="4" y1="40" x2="12" y2="40" stroke="#38bdf8" stroke-width="1" opacity="0.6" />
+
+  <!-- Central Cyber Diamond Diode -->
+  <polygon points="8,18 13,24 8,30 3,24" fill="#06120a" stroke="#22c55e" stroke-width="1.2" filter="url(#divider-glow)" />
+  <polygon points="8,21 11,24 8,27 5,24" fill="#86efac" />
+  
+  <!-- Tiny Lightning Spark -->
+  <path d="M 8,14 L 6,17 L 10,19 L 8,22" stroke="#ffffff" stroke-width="0.8" fill="none" opacity="0.9" filter="url(#divider-glow)" />
+</svg>

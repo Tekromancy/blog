@@ -5,6 +5,9 @@ import image3 from '../assets/blog/3.jpg';
 import image4 from '../assets/blog/4.jpg';
 import image5 from '../assets/blog/5.jpg';
 import image6 from '../assets/blog/6.jpg';
+import image7 from '../assets/blog/7.jpg';
+import image8 from '../assets/blog/8.png';
+import image9 from '../assets/blog/9.png';
 import type { ImageMetadata } from 'astro';
 
 // Map image filenames to imported images
@@ -15,6 +18,9 @@ export const blogImages: Record<string, ImageMetadata> = {
 	'4.jpg': image4,
 	'5.jpg': image5,
 	'6.jpg': image6,
+	'7.jpg': image7,
+	'8.png': image8,
+	'9.png': image9,
 };
 
 // Helper function to get image by filename

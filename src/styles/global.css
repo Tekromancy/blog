@@ -198,6 +198,58 @@ button[type="submit"]:hover:not(:disabled) {
 	color: #fefefe!important;
 }
 
+/* Green Theme: Enforce #22EE44 for all white / primary text */
+[data-theme="green"] {
+  --token-color-text-primary: #22EE44;
+}
+
+[data-theme="green"] h1,
+[data-theme="green"] h2,
+[data-theme="green"] h3,
+[data-theme="green"] h4,
+[data-theme="green"] h5,
+[data-theme="green"] h6,
+[data-theme="green"] p,
+[data-theme="green"] .prose,
+[data-theme="green"] .prose h1,
+[data-theme="green"] .prose h2,
+[data-theme="green"] .prose h3,
+[data-theme="green"] .prose h4,
+[data-theme="green"] .prose h5,
+[data-theme="green"] .prose h6,
+[data-theme="green"] .prose p,
+[data-theme="green"] .prose ul li,
+[data-theme="green"] .prose ol li,
+[data-theme="green"] .prose strong,
+[data-theme="green"] .prose code,
+[data-theme="green"] .prose pre code,
+[data-theme="green"] .prose blockquote {
+  color: #22EE44;
+}
+
+/* Override any hardcoded white and #e6e6e6 off-white text */
+[data-theme="green"] .text-white,
+[data-theme="green"] [style*="color: #ffffff"],
+[data-theme="green"] [style*="color:#ffffff"],
+[data-theme="green"] [style*="color: #f8fafc"],
+[data-theme="green"] [style*="color: #f9fafb"],
+[data-theme="green"] [style*="color: #f2f2f2"],
+[data-theme="green"] [style*="color: #e6e6e6"],
+[data-theme="green"] [style*="color:#e6e6e6"],
+[data-theme="green"] [style*="color: rgb(255, 255, 255)"],
+[data-theme="green"] [style*="color: rgb(230, 230, 230)"],
+[data-theme="green"] [style*="color:rgb(230,230,230)"],
+[data-mode="dark"] [style*="color: #e6e6e6"],
+[data-mode="dark"] [style*="color:#e6e6e6"],
+[data-mode="dark"] [style*="color: rgb(230, 230, 230)"],
+[data-mode="dark"] [style*="color:rgb(230,230,230)"] {
+  color: #22EE44 !important;
+}
+
+[data-theme="green"] [data-language="plaintext"] span {
+  color: #22EE44 !important;
+}
+
 /* Blog images: Ensure border-radius is applied immediately to prevent FOUC */
 main article img[alt],
 main article [data-astro-cid] img {

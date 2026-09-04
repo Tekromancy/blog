@@ -1,0 +1,677 @@
+---
+// CyberTelemetryBar.astro - Live Cyberpunk Single-Line Stock Ticker HUD
+---
+
+<div
+  id="cyber-telemetry-bar"
+  class="w-full bg-[#000000] border-b border-[#22c55e]/30 text-[#22EE44] font-mono text-[10px] sm:text-[11px] select-none overflow-hidden relative z-40 h-[26px] flex items-center leading-none"
+  aria-label="Live Client Machine Telemetry Ticker"
+>
+  <!-- Edge Vignette Fades for Authentic Marquee Effect -->
+  <div class="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-[#000000] to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-[#000000] to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+
+  <!-- Continuous Scrolling Ticker Container across the entire width -->
+  <div class="ticker-wrapper w-full overflow-hidden whitespace-nowrap relative cursor-default" title="Hover to pause telemetry ticker">
+    <div class="ticker-track" id="ticker-track">
+      
+      <!-- Primary Telemetry Track Group -->
+      <div class="ticker-group" id="ticker-group-primary">
+        
+        <!-- Beacon -->
+        <span class="ticker-item">
+          <span class="relative flex h-2 w-2 mr-1">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22EE44] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22EE44] shadow-[0_0_8px_#22EE44]"></span>
+          </span>
+          <span class="font-bold tracking-wider text-[#22EE44]">SYS::LIVE_TELEMETRY</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Precision Clock & Timezone -->
+        <span class="ticker-item">
+          <span class="telem-label">TIME</span>
+          <span class="telem-val telem-clock">--:--:--</span>
+          <span class="telem-dim telem-tz">[UTC]</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Real Live FPS -->
+        <span class="ticker-item">
+          <span class="telem-label">LIVE_FPS</span>
+          <span class="telem-val-green font-bold telem-fps">--.- FPS</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Host OS & Kernel Arch -->
+        <span class="ticker-item">
+          <span class="telem-label">HOST_OS</span>
+          <span class="telem-val-green telem-os">DETECTING...</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- CPU Concurrency -->
+        <span class="ticker-item">
+          <span class="telem-label">CPU_CONCURRENCY</span>
+          <span class="telem-val telem-cpu">-- CORES</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Device RAM -->
+        <span class="ticker-item">
+          <span class="telem-label">DEVICE_RAM</span>
+          <span class="telem-val telem-mem">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- GPU Hardware Renderer -->
+        <span class="ticker-item">
+          <span class="telem-label">GPU_ACCELERATOR</span>
+          <span class="telem-val-cyan telem-gpu">SCANNING_WEBGL...</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- WebGL & Texture Max -->
+        <span class="ticker-item">
+          <span class="telem-label">MAX_TEXTURE</span>
+          <span class="telem-val telem-tex">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Viewport & Screen Display -->
+        <span class="ticker-item">
+          <span class="telem-label">DISPLAY</span>
+          <span class="telem-val telem-disp">--x--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Color Gamut Spectrum -->
+        <span class="ticker-item">
+          <span class="telem-label">COLOR_GAMUT</span>
+          <span class="telem-val telem-gamut">sRGB_STANDARD</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Battery / Power State -->
+        <span class="ticker-item">
+          <span class="telem-label">POWER</span>
+          <span class="telem-val telem-battery">AC_ONLINE</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Network Uplink -->
+        <span class="ticker-item">
+          <span class="telem-label">NETWORK</span>
+          <span class="telem-val telem-net">ONLINE</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- RTT Latency -->
+        <span class="ticker-item">
+          <span class="telem-label">RTT_LATENCY</span>
+          <span class="telem-val-cyan telem-rtt">--ms</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- JS Heap Memory -->
+        <span class="ticker-item">
+          <span class="telem-label">JS_HEAP</span>
+          <span class="telem-val telem-heap">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- DOM Load & TTFB Timing -->
+        <span class="ticker-item">
+          <span class="telem-label">DOM_SPEED</span>
+          <span class="telem-val telem-dom">READY</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Audio Context Sampling Rate -->
+        <span class="ticker-item">
+          <span class="telem-label">AUDIO_SAMPLER</span>
+          <span class="telem-val telem-audio">48kHz STEREO</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Input Topology -->
+        <span class="ticker-item">
+          <span class="telem-label">INPUT_TOPOLOGY</span>
+          <span class="telem-val telem-input">POINTER</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Cryptography Context -->
+        <span class="ticker-item">
+          <span class="telem-label">SECURITY_CTX</span>
+          <span class="telem-val-green telem-crypto">TLS_1.3 // WASM</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Hardware I/O APIs -->
+        <span class="ticker-item">
+          <span class="telem-label">HARDWARE_I/O</span>
+          <span class="telem-val telem-hw">WebUSB/HID/Serial</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- System Locale & Encoding -->
+        <span class="ticker-item">
+          <span class="telem-label">LOCALE</span>
+          <span class="telem-val telem-lang">en-US [UTF-8]</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- System Integrity Banner -->
+        <span class="ticker-item">
+          <span class="telem-val-green font-bold">INTEGRITY_CHECK::PASS [0x7F_KRNL_STABLE]</span>
+        </span>
+        <span class="ticker-sep">///</span>
+
+      </div>
+
+      <!-- Secondary Telemetry Track Group (Identical copy for 100% seamless infinite looping) -->
+      <div class="ticker-group" id="ticker-group-secondary" aria-hidden="true">
+        
+        <!-- Beacon -->
+        <span class="ticker-item">
+          <span class="relative flex h-2 w-2 mr-1">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22EE44] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22EE44] shadow-[0_0_8px_#22EE44]"></span>
+          </span>
+          <span class="font-bold tracking-wider text-[#22EE44]">SYS::LIVE_TELEMETRY</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Precision Clock & Timezone -->
+        <span class="ticker-item">
+          <span class="telem-label">TIME</span>
+          <span class="telem-val telem-clock">--:--:--</span>
+          <span class="telem-dim telem-tz">[UTC]</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Real Live FPS -->
+        <span class="ticker-item">
+          <span class="telem-label">LIVE_FPS</span>
+          <span class="telem-val-green font-bold telem-fps">--.- FPS</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Host OS & Kernel Arch -->
+        <span class="ticker-item">
+          <span class="telem-label">HOST_OS</span>
+          <span class="telem-val-green telem-os">DETECTING...</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- CPU Concurrency -->
+        <span class="ticker-item">
+          <span class="telem-label">CPU_CONCURRENCY</span>
+          <span class="telem-val telem-cpu">-- CORES</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Device RAM -->
+        <span class="ticker-item">
+          <span class="telem-label">DEVICE_RAM</span>
+          <span class="telem-val telem-mem">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- GPU Hardware Renderer -->
+        <span class="ticker-item">
+          <span class="telem-label">GPU_ACCELERATOR</span>
+          <span class="telem-val-cyan telem-gpu">SCANNING_WEBGL...</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- WebGL & Texture Max -->
+        <span class="ticker-item">
+          <span class="telem-label">MAX_TEXTURE</span>
+          <span class="telem-val telem-tex">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Viewport & Screen Display -->
+        <span class="ticker-item">
+          <span class="telem-label">DISPLAY</span>
+          <span class="telem-val telem-disp">--x--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Color Gamut Spectrum -->
+        <span class="ticker-item">
+          <span class="telem-label">COLOR_GAMUT</span>
+          <span class="telem-val telem-gamut">sRGB_STANDARD</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Battery / Power State -->
+        <span class="ticker-item">
+          <span class="telem-label">POWER</span>
+          <span class="telem-val telem-battery">AC_ONLINE</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Network Uplink -->
+        <span class="ticker-item">
+          <span class="telem-label">NETWORK</span>
+          <span class="telem-val telem-net">ONLINE</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- RTT Latency -->
+        <span class="ticker-item">
+          <span class="telem-label">RTT_LATENCY</span>
+          <span class="telem-val-cyan telem-rtt">--ms</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- JS Heap Memory -->
+        <span class="ticker-item">
+          <span class="telem-label">JS_HEAP</span>
+          <span class="telem-val telem-heap">--</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- DOM Load & TTFB Timing -->
+        <span class="ticker-item">
+          <span class="telem-label">DOM_SPEED</span>
+          <span class="telem-val telem-dom">READY</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Audio Context Sampling Rate -->
+        <span class="ticker-item">
+          <span class="telem-label">AUDIO_SAMPLER</span>
+          <span class="telem-val telem-audio">48kHz STEREO</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Input Topology -->
+        <span class="ticker-item">
+          <span class="telem-label">INPUT_TOPOLOGY</span>
+          <span class="telem-val telem-input">POINTER</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Cryptography Context -->
+        <span class="ticker-item">
+          <span class="telem-label">SECURITY_CTX</span>
+          <span class="telem-val-green telem-crypto">TLS_1.3 // WASM</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- Hardware I/O APIs -->
+        <span class="ticker-item">
+          <span class="telem-label">HARDWARE_I/O</span>
+          <span class="telem-val telem-hw">WebUSB/HID/Serial</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- System Locale & Encoding -->
+        <span class="ticker-item">
+          <span class="telem-label">LOCALE</span>
+          <span class="telem-val telem-lang">en-US [UTF-8]</span>
+        </span>
+        <span class="ticker-sep">//</span>
+
+        <!-- System Integrity Banner -->
+        <span class="ticker-item">
+          <span class="telem-val-green font-bold">INTEGRITY_CHECK::PASS [0x7F_KRNL_STABLE]</span>
+        </span>
+        <span class="ticker-sep">///</span>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .ticker-wrapper {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    contain: layout paint;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    animation: ticker-slide 115s linear infinite;
+  }
+
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+
+  .ticker-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .telem-label {
+    color: #16a34a;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .telem-val {
+    color: #86efac;
+    font-weight: 500;
+  }
+
+  .telem-val-green {
+    color: #22EE44;
+    font-weight: 600;
+  }
+
+  .telem-val-cyan {
+    color: #38bdf8;
+    font-weight: 500;
+  }
+
+  .telem-dim {
+    color: #15803d;
+    font-size: 9px;
+    opacity: 0.8;
+  }
+
+  .ticker-sep {
+    color: rgba(34, 197, 94, 0.4);
+    font-size: 10px;
+    padding: 0 0.15rem;
+  }
+
+  @keyframes ticker-slide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function initTickerTelemetry() {
+      function setTelemetry(className, value, title) {
+        const elements = document.querySelectorAll(`.${className}`);
+        elements.forEach((el) => {
+          el.textContent = value;
+          if (title) el.title = title;
+        });
+      }
+
+      // 1. Live Precision Clock & Timezone
+      function updateClock() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        const s = String(now.getSeconds()).padStart(2, "0");
+        const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, "0");
+        setTelemetry("telem-clock", `${h}:${m}:${s}.${ms}`);
+
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const shortTz = tz ? tz.split("/").pop().replace(/_/g, " ") : "LOCAL";
+          setTelemetry("telem-tz", `[${shortTz}]`, tz);
+        } catch (e) {
+          setTelemetry("telem-tz", "[LOCAL]");
+        }
+      }
+      setInterval(updateClock, 100);
+      updateClock();
+
+      // 2. Real Host OS & Architecture
+      const ua = navigator.userAgent;
+      let osName = "LINUX";
+      let arch = "x86_64";
+      if (ua.indexOf("Windows NT 10.0") !== -1) osName = "WINDOWS 10/11";
+      else if (ua.indexOf("Windows NT") !== -1) osName = "WINDOWS";
+      else if (ua.indexOf("Macintosh") !== -1 || ua.indexOf("Mac OS X") !== -1) {
+        osName = "macOS";
+        arch = ua.indexOf("Intel") !== -1 ? "x86_64" : "APPLE_SILICON";
+      } else if (ua.indexOf("Android") !== -1) osName = "ANDROID_LINUX";
+      else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1) osName = "APPLE_iOS";
+      else if (ua.indexOf("Linux") !== -1) osName = "LINUX_KERNEL";
+
+      if (ua.indexOf("x86_64") !== -1 || ua.indexOf("x64") !== -1 || ua.indexOf("Win64") !== -1) {
+        arch = "x86_64";
+      } else if (ua.indexOf("aarch64") !== -1 || ua.indexOf("arm64") !== -1) {
+        arch = "AARCH64";
+      }
+      setTelemetry("telem-os", `${osName} [${arch}]`);
+
+      // 3. CPU Concurrency
+      const threads = navigator.hardwareConcurrency;
+      setTelemetry("telem-cpu", threads ? `${threads} THREADS` : "MULTI-CORE");
+
+      // 4. Device Memory
+      if ("deviceMemory" in navigator && navigator.deviceMemory) {
+        setTelemetry("telem-mem", `${navigator.deviceMemory} GiB RAM`);
+      } else {
+        setTelemetry("telem-mem", ">=8 GiB RAM");
+      }
+
+      // 5. GPU Hardware Acceleration & Max Texture (WebGL Inspection)
+      try {
+        const canvas = document.createElement("canvas");
+        const gl = canvas.getContext("webgl2") || canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        if (gl) {
+          const isWebGL2 = typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext;
+          const maxTex = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+          setTelemetry("telem-tex", `${maxTex}px [${isWebGL2 ? "WebGL2" : "WebGL1"}]`);
+
+          const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+          if (debugInfo) {
+            let renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "";
+            renderer = renderer.replace(/^ANGLE \((.+)\)$/, "$1");
+            renderer = renderer.replace(/Direct3D.+/i, "").replace(/OpenGL.+/i, "").replace(/vulkan.+/i, "").replace(/Metal/i, "").replace(/PCIe.+/i, "");
+            renderer = renderer.replace(/^[A-Za-z]+,\s*/, "").trim();
+            setTelemetry("telem-gpu", renderer || "WEBGL_GPU", renderer);
+          } else {
+            const r = gl.getParameter(gl.RENDERER) || "GPU_ACCEL";
+            setTelemetry("telem-gpu", r, r);
+          }
+        } else {
+          setTelemetry("telem-gpu", "HARDWARE_ACCEL");
+          setTelemetry("telem-tex", "4096px");
+        }
+      } catch (e) {
+        setTelemetry("telem-gpu", "GPU_ACCEL");
+      }
+
+      // 6. Display, DPR & Refresh Metrics
+      function updateDisplay() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = window.screen.width;
+        const h = window.screen.height;
+        const bits = window.screen.colorDepth || 24;
+        let hdr = false;
+        try {
+          hdr = window.matchMedia("(dynamic-range: high)").matches;
+        } catch (e) {}
+        setTelemetry("telem-disp", `${w}x${h} @ ${dpr.toFixed(dpr % 1 === 0 ? 0 : 1)}x (${bits}b${hdr ? " HDR" : ""})`);
+      }
+      updateDisplay();
+      window.addEventListener("resize", updateDisplay);
+
+      // 7. Color Gamut
+      try {
+        if (window.matchMedia("(color-gamut: rec2020)").matches) {
+          setTelemetry("telem-gamut", "WIDE_REC.2020");
+        } else if (window.matchMedia("(color-gamut: p3)").matches) {
+          setTelemetry("telem-gamut", "DCI-P3_CINEMA");
+        } else {
+          setTelemetry("telem-gamut", "sRGB_STANDARD");
+        }
+      } catch (e) {
+        setTelemetry("telem-gamut", "sRGB");
+      }
+
+      // 8. Battery / Power Telemetry
+      if ("getBattery" in navigator && typeof navigator.getBattery === "function") {
+        navigator.getBattery().then((battery) => {
+          function updateBattery() {
+            const pct = Math.round(battery.level * 100);
+            const status = battery.charging ? "AC_CHARGING" : "DISCHARGING";
+            setTelemetry("telem-battery", `${pct}% [${status}]`);
+          }
+          updateBattery();
+          battery.addEventListener("levelchange", updateBattery);
+          battery.addEventListener("chargingchange", updateBattery);
+        }).catch(() => {
+          setTelemetry("telem-battery", "AC_STABLE");
+        });
+      } else {
+        setTelemetry("telem-battery", "AC_POWERED");
+      }
+
+      // 9. Network Connection, Speed & Live Latency RTT
+      function updateNetwork() {
+        const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (!navigator.onLine) {
+          setTelemetry("telem-net", "DISCONNECTED");
+          setTelemetry("telem-rtt", "OFFLINE");
+          return;
+        }
+
+        if (conn) {
+          const type = (conn.effectiveType || conn.type || "HIGH_SPD").toUpperCase();
+          const downlink = conn.downlink ? `${conn.downlink}M` : "";
+          setTelemetry("telem-net", downlink ? `${type} [${downlink}]` : type);
+          setTelemetry("telem-rtt", conn.rtt ? `RTT ${conn.rtt}ms` : "RTT <10ms");
+        } else {
+          setTelemetry("telem-net", "ONLINE // GIGABIT");
+          const t0 = performance.now();
+          setTimeout(() => {
+            const rtt = Math.max(1, Math.round(performance.now() - t0));
+            setTelemetry("telem-rtt", `RTT ~${rtt}ms`);
+          }, 0);
+        }
+      }
+      updateNetwork();
+      window.addEventListener("online", updateNetwork);
+      window.addEventListener("offline", updateNetwork);
+      if (navigator.connection) {
+        navigator.connection.addEventListener("change", updateNetwork);
+      }
+
+      // 10. JS Memory Heap (Chromium Performance API)
+      function updateMemoryHeap() {
+        if (performance && performance.memory) {
+          const usedMB = Math.round(performance.memory.usedJSHeapSize / (1024 * 1024));
+          const totalMB = Math.round(performance.memory.totalJSHeapSize / (1024 * 1024));
+          setTelemetry("telem-heap", `${usedMB}MB / ${totalMB}MB`);
+        } else {
+          setTelemetry("telem-heap", "V8_ENGINE_OK");
+        }
+      }
+      updateMemoryHeap();
+      setInterval(updateMemoryHeap, 4000);
+
+      // 11. Page Navigation & DOM Load Speed
+      setTimeout(() => {
+        try {
+          const navEntries = performance.getEntriesByType("navigation");
+          if (navEntries && navEntries.length > 0) {
+            const nav = navEntries[0];
+            const domReady = Math.round(nav.domContentLoadedEventEnd || nav.responseEnd);
+            const ttfb = Math.round(nav.responseStart - nav.requestStart);
+            setTelemetry("telem-dom", `DOM: ${domReady}ms (TTFB: ${ttfb > 0 ? ttfb : 24}ms)`);
+          } else {
+            setTelemetry("telem-dom", "DOM_READY: <100ms");
+          }
+        } catch (e) {
+          setTelemetry("telem-dom", "DOM_READY");
+        }
+      }, 500);
+
+      // 12. Audio Context Sample Rate
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          const actx = new AudioCtx();
+          setTelemetry("telem-audio", `${actx.sampleRate / 1000}kHz STEREO`);
+          actx.close();
+        } else {
+          setTelemetry("telem-audio", "AUDIO_READY");
+        }
+      } catch (e) {
+        setTelemetry("telem-audio", "PCM_AUDIO");
+      }
+
+      // 13. Input Topology (Touch / Fine Pointer)
+      const hasTouch = navigator.maxTouchPoints > 0;
+      const isFine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+      setTelemetry("telem-input", `${isFine ? "MOUSE/POINTER" : "TOUCH"} [TOUCH_PTS: ${navigator.maxTouchPoints || 0}]`);
+
+      // 14. Security & Cryptography Protocol
+      const isSec = window.isSecureContext || window.location.protocol === "https:";
+      const hasSubtle = Boolean(window.crypto && window.crypto.subtle);
+      const hasWasm = typeof WebAssembly === "object";
+      setTelemetry("telem-crypto", `${isSec ? "TLS_1.3" : "LOCAL"}${hasSubtle ? " // SUBTLE_CRYPTO" : ""}${hasWasm ? " // WASM" : ""}`);
+
+      // 15. Hardware Subsystems (WebUSB, WebHID, WebSerial, WebBluetooth)
+      const hwFeatures = [];
+      if ("usb" in navigator) hwFeatures.push("USB");
+      if ("hid" in navigator) hwFeatures.push("HID");
+      if ("serial" in navigator) hwFeatures.push("SERIAL");
+      if ("bluetooth" in navigator) hwFeatures.push("BLE");
+      setTelemetry("telem-hw", hwFeatures.length > 0 ? `${hwFeatures.join("/")} READY` : "SYS_I/O READY");
+
+      // 16. Language & Character Encoding
+      const lang = navigator.language || "en-US";
+      setTelemetry("telem-lang", `${lang} [UTF-8]`);
+
+      // 17. Live FPS Counter
+      if (!window.__telemFpsActive) {
+        window.__telemFpsActive = true;
+        let frames = 0;
+        let lastTime = performance.now();
+
+        function countFps(now) {
+          frames++;
+          if (now - lastTime >= 600) {
+            const currentFps = ((frames * 1000) / (now - lastTime)).toFixed(1);
+            setTelemetry("telem-fps", `${currentFps} FPS`);
+            frames = 0;
+            lastTime = now;
+          }
+          requestAnimationFrame(countFps);
+        }
+        requestAnimationFrame(countFps);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initTickerTelemetry);
+    } else {
+      initTickerTelemetry();
+    }
+    document.addEventListener("astro:page-load", initTickerTelemetry);
+    document.addEventListener("astro:after-swap", initTickerTelemetry);
+  })();
+</script>

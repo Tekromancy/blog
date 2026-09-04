@@ -86,7 +86,9 @@ export function generateDarkVariant(lightTokens: DesignTokens): DesignTokens {
       
       // Invert text colors
       text: {
-        primary: adjustBrightness(lightTokens.color.text.inverse, 0.9), // Light text
+        primary: lightTokens.color.text.primary === '#22EE44' || lightTokens.color.text.inverse === '#22EE44'
+          ? '#22EE44'
+          : (adjustBrightness(lightTokens.color.text.inverse, 0.9) === '#e6e6e6' ? '#22EE44' : adjustBrightness(lightTokens.color.text.inverse, 0.9)),
         secondary: adjustBrightness(lightTokens.color.text.inverse, 0.7), // Medium light
         muted: adjustBrightness(lightTokens.color.text.inverse, 0.85), // Improved contrast: changed from 0.5 to 0.7 to 0.85 for better WCAG AA compliance on dark backgrounds
         inverse: lightTokens.color.text.primary, // Dark text for light backgrounds

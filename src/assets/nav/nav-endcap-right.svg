@@ -1,0 +1,238 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46 60" fill="none" preserveAspectRatio="none">
+  <defs>
+    <!-- Intense High-Voltage Plasma Glow Filter -->
+    <filter id="tesla-plasma-r-v3" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.5" result="blur1" />
+      <feGaussianBlur stdDeviation="3.5" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Linear Gradients for Live Electric Arcs -->
+    <linearGradient id="tesla-bolt-r-v3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="15%" stop-color="#38bdf8" />
+      <stop offset="35%" stop-color="#86efac" />
+      <stop offset="55%" stop-color="#ffffff" />
+      <stop offset="75%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+
+    <!-- Electrified Plate Radial Field -->
+    <radialGradient id="plasma-core-glow-r-v3" cx="65%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4" />
+      <stop offset="60%" stop-color="#032535" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <style>
+    @keyframes spark-ignition-r {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      10% { opacity: 0.45; transform: scale(0.9); }
+      18% { opacity: 1; transform: scale(1.18); }
+      40% { opacity: 0.65; transform: scale(0.95); }
+      58% { opacity: 1; transform: scale(1.22); }
+      72% { opacity: 0.5; transform: scale(0.9); }
+      86% { opacity: 1; transform: scale(1.12); }
+    }
+    @keyframes tesla-body-surge-r {
+      0%, 100% { opacity: 0.95; }
+      12% { opacity: 0.6; }
+      22% { opacity: 1; }
+      48% { opacity: 0.7; }
+      64% { opacity: 1; }
+      78% { opacity: 0.6; }
+      86% { opacity: 1; }
+    }
+    .spark-gap-active-r {
+      animation: spark-ignition-r 0.95s infinite ease-in-out;
+      transform-origin: center;
+    }
+    .live-body-arc-r {
+      animation: tesla-body-surge-r 1.6s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Dark Base Armor Plate with 45-degree Chamfers -->
+  <polygon 
+    points="0,1 32,1 44.5,13.5 44.5,46.5 32,59 0,59" 
+    fill="#020709" 
+    stroke="#0c4a6e" 
+    stroke-width="1.2" 
+  />
+  <polygon 
+    points="0,1 32,1 44.5,13.5 44.5,46.5 32,59 0,59" 
+    fill="url(#plasma-core-glow-r-v3)" 
+  />
+
+  <!-- Internal Circuit PCB Tracks (Etched in Hull) -->
+  <g stroke="#38bdf8" stroke-width="0.8" fill="none" opacity="0.65">
+    <path d="M 0,12 L 18,12 L 26,20 L 34,20 L 40,14" />
+    <path d="M 0,48 L 18,48 L 26,40 L 34,40 L 40,46" />
+    <line x1="22" y1="2" x2="22" y2="58" stroke-dasharray="2 4" opacity="0.4" />
+  </g>
+
+  <!-- Central Capacitor / Plasma Reactor Cell -->
+  <g>
+    <rect x="23" y="24" width="12" height="12" rx="2" fill="#031d28" stroke="#38bdf8" stroke-width="1" />
+    <polygon points="29,25 34,30 29,35 24,30" fill="#38bdf8" opacity="0.85" filter="url(#tesla-plasma-r-v3)" />
+    <polygon points="29,27 32,30 29,33 26,30" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+    <line x1="19" y1="30" x2="23" y2="30" stroke="#86efac" stroke-width="1.2" />
+    <line x1="35" y1="30" x2="39" y2="30" stroke="#ffffff" stroke-width="1.2" />
+  </g>
+
+  <!-- High-Voltage Outer Contour Lightning Surge -->
+  <path 
+    class="live-body-arc-r"
+    d="M 14,2 L 22,1 L 32,2 L 37,7 L 44,13 L 45.5,19 L 43,25 L 45.5,31 L 42.5,37 L 45,44 L 43.5,48 L 36,54 L 32,58 L 22,59 L 14,58" 
+    stroke="#38bdf8" 
+    stroke-width="3.2" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+    filter="url(#tesla-plasma-r-v3)" 
+  />
+  <path 
+    class="live-body-arc-r"
+    d="M 14,2 L 22,1 L 32,2 L 37,7 L 44,13 L 45.5,19 L 43,25 L 45.5,31 L 42.5,37 L 45,44 L 43.5,48 L 36,54 L 32,58 L 22,59 L 14,58" 
+    stroke="url(#tesla-bolt-r-v3)" 
+    stroke-width="1.8" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+  />
+  <path 
+    class="live-body-arc-r"
+    d="M 14,2 L 22,1 L 32,2 L 37,7 L 44,13 L 45.5,19 L 43,25 L 45.5,31 L 42.5,37 L 45,44 L 43.5,48 L 36,54 L 32,58 L 22,59 L 14,58" 
+    stroke="#ffffff" 
+    stroke-width="0.9" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+  />
+
+  <!-- Exterior Corona Discharges Shooting Into Void from Armor Teeth -->
+  <g stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" fill="none" filter="url(#tesla-plasma-r-v3)">
+    <path d="M 44,13 L 48,9 L 47,5" stroke="#ffffff" />
+    <path d="M 45.5,19 L 50,21 L 47,23" stroke="#22c55e" />
+    <path d="M 45.5,31 L 51,30 L 48,34" stroke="#ffffff" />
+    <path d="M 43.5,48 L 48,52 L 47,56" stroke="#7dd3fc" />
+  </g>
+
+  <!-- =================================================================== -->
+  <!-- 1. TOP SPARK PLUG TERMINAL: Receives/Fires Electricity Across Top Rail -->
+  <!-- =================================================================== -->
+  <g id="right-top-spark-plug">
+    <!-- Ceramic Ribbed Insulator Barrel -->
+    <rect x="11.5" y="0.8" width="9.5" height="4.4" rx="1.2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.6" />
+    <line x1="15" y1="0.8" x2="15" y2="5.2" stroke="#64748b" stroke-width="0.8" />
+    <line x1="18" y1="0.8" x2="18" y2="5.2" stroke="#64748b" stroke-width="0.8" />
+
+    <!-- Brass / Bronze Hex Nut Collar -->
+    <rect x="8" y="0.4" width="3.5" height="5.2" rx="0.5" fill="#ca8a04" stroke="#854d0e" stroke-width="0.6" />
+    <line x1="9.8" y1="0.4" x2="9.8" y2="5.6" stroke="#fef08a" stroke-width="0.6" />
+
+    <!-- Threaded Metal Shell -->
+    <rect x="5.5" y="1.2" width="2.5" height="3.6" fill="#475569" stroke="#1e293b" stroke-width="0.5" />
+
+    <!-- Tungsten Center Electrode Core -->
+    <line x1="2.5" y1="3" x2="5.5" y2="3" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" />
+
+    <!-- L-Shaped Ground Strap -->
+    <path d="M 7,0.3 L 2,0.3 L 2,1.8" stroke="#cbd5e1" stroke-width="0.9" fill="none" />
+
+    <!-- ACTIVE SPARK GAP & PLASMA DISCHARGE INITIATOR -->
+    <g class="spark-gap-active-r">
+      <!-- High-Voltage Arc Gap Flash -->
+      <circle cx="2" cy="2.5" r="2.2" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+      <circle cx="2" cy="2.5" r="1.1" fill="#7dd3fc" />
+      
+      <!-- Electricity Launch Jet (Arced Bolt Fired/Connected from Rail) -->
+      <path 
+        d="M 2,2.5 L 0.5,1.2 L -0.5,3.2 L -2,1.8 L -3.5,3.5 L -5,2.2" 
+        stroke="#ffffff" 
+        stroke-width="1.6" 
+        stroke-linecap="round" 
+        stroke-linejoin="miter" 
+        fill="none" 
+        filter="url(#tesla-plasma-r-v3)" 
+      />
+      <path 
+        d="M 2,2.5 L 0.5,1.2 L -0.5,3.2 L -2,1.8 L -3.5,3.5 L -5,2.2" 
+        stroke="#38bdf8" 
+        stroke-width="2.6" 
+        stroke-linecap="round" 
+        stroke-linejoin="miter" 
+        fill="none" 
+        opacity="0.8" 
+      />
+    </g>
+  </g>
+
+  <!-- =================================================================== -->
+  <!-- 2. BOTTOM SPARK PLUG TERMINAL: Receives/Fires Electricity Across Bottom Rail -->
+  <!-- =================================================================== -->
+  <g id="right-bottom-spark-plug">
+    <!-- Ceramic Ribbed Insulator Barrel -->
+    <rect x="11.5" y="54.8" width="9.5" height="4.4" rx="1.2" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.6" />
+    <line x1="15" y1="54.8" x2="15" y2="59.2" stroke="#64748b" stroke-width="0.8" />
+    <line x1="18" y1="54.8" x2="18" y2="59.2" stroke="#64748b" stroke-width="0.8" />
+
+    <!-- Brass / Bronze Hex Nut Collar -->
+    <rect x="8" y="54.4" width="3.5" height="5.2" rx="0.5" fill="#ca8a04" stroke="#854d0e" stroke-width="0.6" />
+    <line x1="9.8" y1="54.4" x2="9.8" y2="59.6" stroke="#fef08a" stroke-width="0.6" />
+
+    <!-- Threaded Metal Shell -->
+    <rect x="5.5" y="55.2" width="2.5" height="3.6" fill="#475569" stroke="#1e293b" stroke-width="0.5" />
+
+    <!-- Tungsten Center Electrode Core -->
+    <line x1="2.5" y1="57" x2="5.5" y2="57" stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" />
+
+    <!-- L-Shaped Ground Strap -->
+    <path d="M 7,59.7 L 2,59.7 L 2,58.2" stroke="#cbd5e1" stroke-width="0.9" fill="none" />
+
+    <!-- ACTIVE SPARK GAP & PLASMA DISCHARGE INITIATOR -->
+    <g class="spark-gap-active-r">
+      <!-- High-Voltage Arc Gap Flash -->
+      <circle cx="2" cy="57.5" r="2.2" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+      <circle cx="2" cy="57.5" r="1.1" fill="#86efac" />
+      
+      <!-- Electricity Launch Jet (Arced Bolt Fired/Connected from Rail) -->
+      <path 
+        d="M 2,57.5 L 0.5,58.8 L -0.5,56.8 L -2,58.2 L -3.5,56.5 L -5,57.8" 
+        stroke="#ffffff" 
+        stroke-width="1.6" 
+        stroke-linecap="round" 
+        stroke-linejoin="miter" 
+        fill="none" 
+        filter="url(#tesla-plasma-r-v3)" 
+      />
+      <path 
+        d="M 2,57.5 L 0.5,58.8 L -0.5,56.8 L -2,58.2 L -3.5,56.5 L -5,57.8" 
+        stroke="#22c55e" 
+        stroke-width="2.6" 
+        stroke-linecap="round" 
+        stroke-linejoin="miter" 
+        fill="none" 
+        opacity="0.8" 
+      />
+    </g>
+  </g>
+
+  <!-- Plasma Spark Balls at Sharp Vertices -->
+  <circle cx="44" cy="13" r="1.8" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+  <circle cx="45.5" cy="19" r="1.6" fill="#38bdf8" filter="url(#tesla-plasma-r-v3)" />
+  <circle cx="45.5" cy="31" r="1.8" fill="#86efac" filter="url(#tesla-plasma-r-v3)" />
+  <circle cx="43.5" cy="48" r="1.8" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+
+  <!-- Solder Vias with Glowing Plasma Rings -->
+  <circle cx="18" cy="12" r="2" fill="#000000" stroke="#38bdf8" stroke-width="1" />
+  <circle cx="18" cy="12" r="1" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+
+  <circle cx="18" cy="48" r="2" fill="#000000" stroke="#4ade80" stroke-width="1" />
+  <circle cx="18" cy="48" r="1" fill="#ffffff" filter="url(#tesla-plasma-r-v3)" />
+</svg>

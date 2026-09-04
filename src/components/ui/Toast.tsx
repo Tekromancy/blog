@@ -102,7 +102,7 @@ export default function Toast({
       }`}
       style={{
         backgroundColor: style.background,
-        color: '#ffffff',
+        color: style.foreground,
         borderColor: style.border,
         borderWidth: '1px',
         boxShadow: 'var(--token-shadow-3)',
@@ -122,8 +122,8 @@ export default function Toast({
             onClick={action.onClick}
             className="rounded px-2 py-1 text-xs font-medium transition-colors cursor-pointer hover:opacity-80"
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              color: '#ffffff',
+              backgroundColor: 'rgba(34, 238, 68, 0.15)',
+              color: style.foreground,
             }}
           >
             {action.label}
@@ -133,7 +133,7 @@ export default function Toast({
           type="button"
           onClick={handleClose}
           className="rounded p-1 transition-opacity cursor-pointer hover:opacity-70"
-          style={{ color: '#ffffff' }}
+          style={{ color: style.foreground }}
           aria-label="Dismiss notification"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

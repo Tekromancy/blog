@@ -1,333 +1,384 @@
 ---
 import { SITE } from "../config/site.mjs";
+import { Icon } from "astro-icon/components";
 
-// Web3Forms integration
-// Get your access key from https://web3forms.com
+// Web3Forms integration: check if access key is configured
 const web3formsAccessKey = SITE.web3formsAccessKey || "";
+const isConfigured = Boolean(web3formsAccessKey && web3formsAccessKey.trim() !== "");
+const githubUrl = "https://github.com/Tekromancy/blog/";
 ---
 
-<form
-  id="contact-form"
-  class="space-y-6"
-  aria-label="Contact form"
-  novalidate
-  action="https://api.web3forms.com/submit"
-  method="POST"
->
-  <!-- Web3Forms Access Key (hidden) -->
-  {web3formsAccessKey && (
+{!isConfigured ? (
+  <div 
+    class="rounded-2xl border p-8 sm:p-10 relative overflow-hidden backdrop-blur-xl transition-all"
+    style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.35); box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);"
+  >
+    <!-- Cyberpunk Corner Accents -->
+    <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#22c55e] pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#38bdf8] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#22c55e] pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#38bdf8] pointer-events-none"></div>
+
+    <div class="flex flex-col items-center text-center">
+      <!-- Cybernetic GitHub Emblem -->
+      <div 
+        class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border shadow-[0_0_20px_rgba(34,197,94,0.35)]"
+        style="background-color: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.5); color: #22c55e;"
+      >
+        <Icon name="tabler:brand-github" class="w-9 h-9" aria-hidden="true" />
+      </div>
+
+      <!-- Telemetry Sub-badge -->
+      <div 
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border"
+        style="background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.3); color: #4ade80;"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></span>
+        <span>CHANNEL::PUBLIC_DISCUSSIONS</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-bold font-mono tracking-tight mb-3" style="color: var(--token-color-text-primary, #ffffff);">
+        Connect via GitHub
+      </h2>
+
+      <p class="text-sm sm:text-base max-w-lg mb-8 leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
+        The web dispatch form is currently offline. Technical inquiries, architectural discussions, bug reports, and research dispatches are managed in public on GitHub.
+      </p>
+
+      <!-- Primary GitHub Dispatch Action Card -->
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group w-full max-w-lg p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
+        style="background-color: rgba(10, 18, 12, 0.9); border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);"
+        onmouseenter={(e) => {
+          e.currentTarget.style.borderColor = '#22c55e';
+          e.currentTarget.style.boxShadow = '0 0 25px rgba(34, 197, 94, 0.45)';
+          e.currentTarget.style.backgroundColor = 'rgba(15, 26, 18, 0.95)';
+        }}
+        onmouseleave={(e) => {
+          e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
+          e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.15)';
+          e.currentTarget.style.backgroundColor = 'rgba(10, 18, 12, 0.9)';
+        }}
+        aria-label="Open Tekromancy GitHub repository"
+      >
+        <div class="flex items-center gap-3.5 min-w-0">
+          <div class="p-2.5 rounded-lg bg-[#22c55e]/15 text-[#22c55e] shrink-0 border border-[#22c55e]/30">
+            <Icon name="tabler:git-pull-request" class="w-5 h-5" />
+          </div>
+          <div class="flex flex-col text-left min-w-0">
+            <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#22c55e] transition-colors truncate">
+              Tekromancy/blog
+            </span>
+            <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
+              Discussions • Issues • Pull Requests
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#22c55e]/60 bg-[#22c55e]/20 text-[#22c55e] shrink-0 group-hover:bg-[#22c55e] group-hover:text-black transition-all">
+          <span>VISIT</span>
+          <Icon name="tabler:external-link" class="w-4 h-4" />
+        </div>
+      </a>
+
+      <!-- Quick Git Clone Command Hint -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+        <span class="opacity-60">$</span>
+        <code class="px-2.5 py-1 rounded border border-[#22c55e]/30 bg-black/70 text-[#4ade80] text-[11px] sm:text-xs">git clone https://github.com/Tekromancy/blog.git</code>
+      </div>
+    </div>
+  </div>
+) : (
+  <form
+    id="contact-form"
+    class="space-y-6"
+    aria-label="Contact form"
+    novalidate
+    action="https://api.web3forms.com/submit"
+    method="POST"
+  >
+    <!-- Web3Forms Access Key (hidden) -->
     <input type="hidden" name="access_key" value={web3formsAccessKey} />
-  )}
-  
-  <!-- Web3Forms Subject (optional) -->
-  <input type="hidden" name="subject" value="New Contact Form Submission" />
-  
-  <!-- Web3Forms redirect (optional - prevents page reload) -->
-  <input type="hidden" name="redirect" value="false" />
-  
-  <!-- Honeypot spam protection -->
-  <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
-  <!-- Success Message -->
-  <div
-    id="success-message"
-    class="hidden p-4 border rounded-lg"
-    style="background-color: var(--token-color-success, #10b981); border-color: var(--token-color-success, #10b981); color: var(--token-color-success-foreground, #ffffff);"
-    role="alert"
-    aria-live="polite"
-  >
-    <p class="font-medium" style="color: var(--token-color-success-foreground, #ffffff);">Thank you for your message!</p>
-    <p class="text-sm mt-1" style="color: var(--token-color-success-foreground, #ffffff); opacity: 0.9;">We'll get back to you soon.</p>
-  </div>
+    
+    <!-- Web3Forms Subject (optional) -->
+    <input type="hidden" name="subject" value="New Contact Form Submission - Tekromancy" />
+    
+    <!-- Web3Forms redirect (optional - prevents page reload) -->
+    <input type="hidden" name="redirect" value="false" />
+    
+    <!-- Honeypot spam protection -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
 
-  <!-- Error Message -->
-  <div
-    id="error-message"
-    class="hidden p-4 border rounded-lg"
-    style="background-color: var(--token-color-error, #ef4444); border-color: var(--token-color-error, #ef4444); color: var(--token-color-error-foreground, #ffffff);"
-    role="alert"
-    aria-live="assertive"
-  >
-    <p class="font-medium" id="error-text" style="color: var(--token-color-error-foreground, #ffffff);"></p>
-  </div>
-
-  <!-- Name Field -->
-  <div>
-    <label for="name" class="block text-sm font-medium mb-2" style="color: var(--token-color-text-primary, #111827);">
-      Name <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
-    </label>
-    <input
-      type="text"
-      id="name"
-      name="from_name"
-      class="w-full px-4 py-3 border rounded-lg outline-none transition-colors"
-      style="border-color: var(--token-color-border, #e5e7eb); background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827);"
-      required
-      aria-required="true"
-      aria-describedby="name-error"
-      autocomplete="name"
-    />
-    <span
-      id="name-error"
-      class="mt-1 text-sm hidden"
-      style="color: var(--token-color-error, #ef4444);"
+    <!-- Success Message -->
+    <div
+      id="success-message"
+      class="hidden p-4 border rounded-lg"
+      style="background-color: var(--token-color-success, #10b981); border-color: var(--token-color-success, #10b981); color: var(--token-color-success-foreground, #ffffff);"
       role="alert"
       aria-live="polite"
-    ></span>
-  </div>
+    >
+      <p class="font-medium" style="color: var(--token-color-success-foreground, #ffffff);">Transmission received!</p>
+      <p class="text-sm mt-1" style="color: var(--token-color-success-foreground, #ffffff); opacity: 0.9;">We will respond to your dispatch shortly.</p>
+    </div>
 
-  <!-- Email Field -->
-  <div>
-    <label for="email" class="block text-sm font-medium mb-2" style="color: var(--token-color-text-primary, #111827);">
-      Email <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
-    </label>
-    <input
-      type="email"
-      id="email"
-      name="from_email"
-      class="w-full px-4 py-3 border rounded-lg outline-none transition-colors"
-      style="border-color: var(--token-color-border, #e5e7eb); background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827);"
-      required
-      aria-required="true"
-      aria-describedby="email-error"
-      autocomplete="email"
-    />
-    <span
-      id="email-error"
-      class="mt-1 text-sm hidden"
-      style="color: var(--token-color-error, #ef4444);"
+    <!-- Error Message -->
+    <div
+      id="error-message"
+      class="hidden p-4 border rounded-lg"
+      style="background-color: var(--token-color-error, #ef4444); border-color: var(--token-color-error, #ef4444); color: var(--token-color-error-foreground, #ffffff);"
       role="alert"
-      aria-live="polite"
-    ></span>
-  </div>
+      aria-live="assertive"
+    >
+      <p class="font-medium" id="error-text" style="color: var(--token-color-error-foreground, #ffffff);"></p>
+    </div>
 
-  <!-- Message Field -->
-  <div>
-    <label for="message" class="block text-sm font-medium mb-2" style="color: var(--token-color-text-primary, #111827);">
-      Message <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
-    </label>
-    <textarea
-      id="message"
-      name="message"
-      rows="6"
-      class="w-full px-4 py-3 border rounded-lg outline-none transition-colors resize-none"
-      style="border-color: var(--token-color-border, #e5e7eb); background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827);"
-      required
-      aria-required="true"
-      aria-describedby="message-error"
-    ></textarea>
-    <span
-      id="message-error"
-      class="mt-1 text-sm hidden"
-      style="color: var(--token-color-error, #ef4444);"
-      role="alert"
-      aria-live="polite"
-    ></span>
-  </div>
+    <!-- Name Field -->
+    <div>
+      <label for="name" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Name <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="Ada Lovelace"
+        aria-required="true"
+        aria-describedby="name-error"
+      />
+      <span
+        id="name-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
 
-  <!-- Submit Button -->
-  <button
-    type="submit"
-    id="submit-button"
-      class="w-full px-6 py-3 rounded-lg transition-all font-medium focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
-      style="background-color: var(--token-color-primary, #000000); color: var(--token-color-primary-foreground, #ffffff);"
-  >
-    <span id="submit-text">Send Message</span>
-    <span id="submit-loading" class="hidden">Sending...</span>
-  </button>
-</form>
+    <!-- Email Field -->
+    <div>
+      <label for="email" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Email <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="ada@kernel.org"
+        aria-required="true"
+        aria-describedby="email-error"
+      />
+      <span
+        id="email-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
+
+    <!-- Subject Field (optional) -->
+    <div>
+      <label for="subject-field" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Subject
+      </label>
+      <input
+        type="text"
+        id="subject-field"
+        name="custom_subject"
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="eBPF Tracepoint Optimization"
+      />
+    </div>
+
+    <!-- Message Field -->
+    <div>
+      <label for="message" class="block text-sm font-medium mb-2 font-mono" style="color: var(--token-color-text-primary, #111827);">
+        Message <span style="color: var(--token-color-error, #ef4444);" aria-label="required">*</span>
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="5"
+        class="w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none font-mono text-sm resize-y"
+        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-text-primary, #111827);"
+        placeholder="Provide technical dispatch details..."
+        aria-required="true"
+        aria-describedby="message-error"
+      ></textarea>
+      <span
+        id="message-error"
+        class="mt-1 text-sm hidden font-mono"
+        style="color: var(--token-color-error, #ef4444);"
+        role="alert"
+        aria-live="polite"
+      ></span>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      id="submit-button"
+      class="w-full px-6 py-3 rounded-lg transition-all font-mono font-bold tracking-wider uppercase focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+      style="background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000); box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);"
+    >
+      <span id="submit-text">Transmit Dispatch</span>
+      <span id="submit-loading" class="hidden">Encrypting &amp; Sending...</span>
+    </button>
+  </form>
+)}
 
 <script>
-  const form = document.getElementById("contact-form") as HTMLFormElement;
-  const submitButton = document.getElementById("submit-button") as HTMLButtonElement;
-  const submitText = document.getElementById("submit-text") as HTMLSpanElement;
-  const submitLoading = document.getElementById("submit-loading") as HTMLSpanElement;
-  const successMessage = document.getElementById("success-message") as HTMLDivElement;
-  const errorMessage = document.getElementById("error-message") as HTMLDivElement;
-  const errorText = document.getElementById("error-text") as HTMLParagraphElement;
+  const form = document.getElementById("contact-form") as HTMLFormElement | null;
+  if (form) {
+    const submitButton = document.getElementById("submit-button") as HTMLButtonElement;
+    const submitText = document.getElementById("submit-text") as HTMLSpanElement;
+    const submitLoading = document.getElementById("submit-loading") as HTMLSpanElement;
+    const successMessage = document.getElementById("success-message") as HTMLDivElement;
+    const errorMessage = document.getElementById("error-message") as HTMLDivElement;
+    const errorText = document.getElementById("error-text") as HTMLParagraphElement;
 
-  // Field elements
-  const nameInput = document.getElementById("name") as HTMLInputElement;
-  const emailInput = document.getElementById("email") as HTMLInputElement;
-  const messageInput = document.getElementById("message") as HTMLTextAreaElement;
-  const nameError = document.getElementById("name-error") as HTMLSpanElement;
-  const emailError = document.getElementById("email-error") as HTMLSpanElement;
-  const messageError = document.getElementById("message-error") as HTMLSpanElement;
+    const nameInput = document.getElementById("name") as HTMLInputElement;
+    const emailInput = document.getElementById("email") as HTMLInputElement;
+    const messageInput = document.getElementById("message") as HTMLTextAreaElement;
 
-  // Validation functions
-  function validateEmail(email: string): boolean {
+    const nameError = document.getElementById("name-error") as HTMLSpanElement;
+    const emailError = document.getElementById("email-error") as HTMLSpanElement;
+    const messageError = document.getElementById("message-error") as HTMLSpanElement;
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
 
-  function showFieldError(field: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement, message: string) {
-    field.setAttribute("aria-invalid", "true");
-    field.classList.add("border-red-500");
-    errorElement.textContent = message;
-    errorElement.classList.remove("hidden");
-  }
+    function showFieldError(input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement, message: string) {
+      errorElement.textContent = message;
+      errorElement.classList.remove("hidden");
+      input.style.borderColor = "var(--token-color-error, #ef4444)";
+      input.setAttribute("aria-invalid", "true");
+    }
 
-  function clearFieldError(field: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement) {
-    field.setAttribute("aria-invalid", "false");
-    field.classList.remove("border-red-500");
-    errorElement.classList.add("hidden");
-    errorElement.textContent = "";
-  }
+    function clearFieldError(input: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement) {
+      errorElement.textContent = "";
+      errorElement.classList.add("hidden");
+      input.style.borderColor = "var(--token-color-border, #e5e7eb)";
+      input.removeAttribute("aria-invalid");
+    }
 
-  function hideAllMessages() {
-    successMessage.classList.add("hidden");
-    errorMessage.classList.add("hidden");
-  }
+    function hideAllMessages() {
+      successMessage.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+    }
 
-  function setLoading(loading: boolean) {
-    submitButton.disabled = loading;
-    if (loading) {
+    // Input validation listeners
+    nameInput?.addEventListener("blur", () => {
+      if (!nameInput.value.trim()) {
+        showFieldError(nameInput, nameError, "Name is required");
+      } else {
+        clearFieldError(nameInput, nameError);
+      }
+    });
+
+    emailInput?.addEventListener("blur", () => {
+      if (!emailInput.value.trim()) {
+        showFieldError(emailInput, emailError, "Email is required");
+      } else if (!emailRegex.test(emailInput.value.trim())) {
+        showFieldError(emailInput, emailError, "Please enter a valid email address");
+      } else {
+        clearFieldError(emailInput, emailError);
+      }
+    });
+
+    messageInput?.addEventListener("blur", () => {
+      if (!messageInput.value.trim()) {
+        showFieldError(messageInput, messageError, "Message is required");
+      } else if (messageInput.value.trim().length < 10) {
+        showFieldError(messageInput, messageError, "Message must be at least 10 characters");
+      } else {
+        clearFieldError(messageInput, messageError);
+      }
+    });
+
+    // Form submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideAllMessages();
+
+      // Clear previous errors
+      clearFieldError(nameInput, nameError);
+      clearFieldError(emailInput, emailError);
+      clearFieldError(messageInput, messageError);
+
+      // Validate all fields
+      let isValid = true;
+
+      if (!nameInput.value.trim()) {
+        showFieldError(nameInput, nameError, "Name is required");
+        isValid = false;
+      }
+
+      if (!emailInput.value.trim()) {
+        showFieldError(emailInput, emailError, "Email is required");
+        isValid = false;
+      } else if (!emailRegex.test(emailInput.value.trim())) {
+        showFieldError(emailInput, emailError, "Please enter a valid email address");
+        isValid = false;
+      }
+
+      if (!messageInput.value.trim()) {
+        showFieldError(messageInput, messageError, "Message is required");
+        isValid = false;
+      } else if (messageInput.value.trim().length < 10) {
+        showFieldError(messageInput, messageError, "Message must be at least 10 characters");
+        isValid = false;
+      }
+
+      if (!isValid) {
+        const firstError = form.querySelector('[aria-invalid="true"]') as HTMLElement;
+        firstError?.focus();
+        return;
+      }
+
+      // Submit form
+      submitButton.disabled = true;
       submitText.classList.add("hidden");
       submitLoading.classList.remove("hidden");
-    } else {
-      submitText.classList.remove("hidden");
-      submitLoading.classList.add("hidden");
-    }
-  }
 
-  // Real-time validation
-  nameInput.addEventListener("blur", () => {
-    const value = nameInput.value.trim();
-    if (!value) {
-      showFieldError(nameInput, nameError, "Name is required");
-    } else if (value.length < 2) {
-      showFieldError(nameInput, nameError, "Name must be at least 2 characters");
-    } else {
-      clearFieldError(nameInput, nameError);
-    }
-  });
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
 
-  emailInput.addEventListener("blur", () => {
-    const value = emailInput.value.trim();
-    if (!value) {
-      showFieldError(emailInput, emailError, "Email is required");
-    } else if (!validateEmail(value)) {
-      showFieldError(emailInput, emailError, "Please enter a valid email address");
-    } else {
-      clearFieldError(emailInput, emailError);
-    }
-  });
+        const data = await response.json();
 
-  messageInput.addEventListener("blur", () => {
-    const value = messageInput.value.trim();
-    if (!value) {
-      showFieldError(messageInput, messageError, "Message is required");
-    } else if (value.length < 10) {
-      showFieldError(messageInput, messageError, "Message must be at least 10 characters");
-    } else {
-      clearFieldError(messageInput, messageError);
-    }
-  });
-
-  // Check if Web3Forms access key is configured
-  const accessKeyInput = form.querySelector('input[name="access_key"]') as HTMLInputElement;
-  const hasAccessKey = accessKeyInput && accessKeyInput.value.trim() !== "";
-
-  if (!hasAccessKey) {
-    // Show warning if access key is not configured
-    const warningDiv = document.createElement("div");
-    warningDiv.className = "p-4 border rounded-lg text-sm";
-    // Use warning color with opacity for background, solid for border
-    // Background adapts to theme mode
-    const isDark = document.documentElement.getAttribute('data-mode') === 'dark';
-    warningDiv.style.backgroundColor = isDark 
-      ? 'rgba(245, 158, 11, 0.2)' 
-      : 'rgba(245, 158, 11, 0.1)';
-    warningDiv.style.borderColor = 'var(--token-color-warning, #f59e0b)';
-    warningDiv.style.borderWidth = '1px';
-    // Use text-primary for good contrast
-    warningDiv.style.color = 'var(--token-color-text-primary, #111827)';
-    warningDiv.innerHTML = `
-      <p class="font-medium mb-1" style="color: var(--token-color-text-primary, #111827);"><span style="color: var(--token-color-warning, #f59e0b);">⚠️</span> Web3Forms not configured</p>
-      <p style="color: var(--token-color-text-primary, #111827);">Please add your Web3Forms access key to <code style="background-color: var(--token-color-surface, rgba(0, 0, 0, 0.1)); padding: 2px 4px; border-radius: 4px; color: var(--token-color-text-primary, #111827);">src/config/site.mjs</code>. Get your key from <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer" class="underline" style="color: var(--token-color-primary, #2563eb);">web3forms.com</a></p>
-    `;
-    form.insertBefore(warningDiv, form.firstChild);
-  }
-
-  // Form submission
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    hideAllMessages();
-
-    // Check if access key is configured
-    if (!hasAccessKey) {
-      errorText.textContent = "Form is not configured. Please contact the site administrator.";
-      errorMessage.classList.remove("hidden");
-      errorMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      return;
-    }
-
-    // Clear previous errors
-    clearFieldError(nameInput, nameError);
-    clearFieldError(emailInput, emailError);
-    clearFieldError(messageInput, messageError);
-
-    // Validate all fields
-    let isValid = true;
-
-    if (!nameInput.value.trim()) {
-      showFieldError(nameInput, nameError, "Name is required");
-      isValid = false;
-    }
-
-    if (!emailInput.value.trim()) {
-      showFieldError(emailInput, emailError, "Email is required");
-      isValid = false;
-    } else if (!validateEmail(emailInput.value.trim())) {
-      showFieldError(emailInput, emailError, "Please enter a valid email address");
-      isValid = false;
-    }
-
-    if (!messageInput.value.trim()) {
-      showFieldError(messageInput, messageError, "Message is required");
-      isValid = false;
-    } else if (messageInput.value.trim().length < 10) {
-      showFieldError(messageInput, messageError, "Message must be at least 10 characters");
-      isValid = false;
-    }
-
-    if (!isValid) {
-      // Focus first error field
-      const firstError = form.querySelector('[aria-invalid="true"]') as HTMLElement;
-      if (firstError) {
-        firstError.focus();
-      }
-      return;
-    }
-
-    // Submit form to Web3Forms
-    setLoading(true);
-
-    try {
-      const formData = new FormData(form);
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        successMessage.classList.remove("hidden");
-        form.reset();
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      } else {
-        errorText.textContent = data.message || "Failed to send message. Please try again.";
+        if (response.ok && data.success) {
+          form.reset();
+          successMessage.classList.remove("hidden");
+          successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          throw new Error(data.message || "Failed to transmit message. Please try again.");
+        }
+      } catch (error) {
+        errorText.textContent = error instanceof Error ? error.message : "An unexpected error occurred.";
         errorMessage.classList.remove("hidden");
         errorMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } finally {
+        submitButton.disabled = false;
+        submitText.classList.remove("hidden");
+        submitLoading.classList.add("hidden");
       }
-    } catch (error) {
-      errorText.textContent = "Network error. Please check your connection and try again.";
-      errorMessage.classList.remove("hidden");
-      errorMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    } finally {
-      setLoading(false);
-    }
-  });
+    });
+  }
 </script>

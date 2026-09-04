@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 10" fill="none" preserveAspectRatio="none">
+  <defs>
+    <!-- Intense High-Voltage Plasma Glow Filters -->
+    <filter id="bottom-plasma-glow" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="1.8" result="blur1" />
+      <feGaussianBlur stdDeviation="3.5" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur2" />
+        <feMergeNode in="blur1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="bottom-lightning-core-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="20%" stop-color="#ffffff" />
+      <stop offset="35%" stop-color="#4ade80" />
+      <stop offset="50%" stop-color="#22c55e" />
+      <stop offset="65%" stop-color="#ffffff" />
+      <stop offset="85%" stop-color="#7dd3fc" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <linearGradient id="bus-rail-green-bottom" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#15803d" />
+      <stop offset="30%" stop-color="#22c55e" />
+      <stop offset="70%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    @keyframes lightning-surge-bottom {
+      0%, 100% { opacity: 0.95; }
+      15% { opacity: 0.7; }
+      30% { opacity: 1; }
+      60% { opacity: 0.6; }
+      75% { opacity: 1; }
+      90% { opacity: 0.8; }
+    }
+    @keyframes branch-flicker-bottom {
+      0%, 100% { opacity: 0.45; }
+      20% { opacity: 1; }
+      40% { opacity: 0.35; }
+      70% { opacity: 0.95; }
+      85% { opacity: 0.5; }
+    }
+    .live-lightning-bottom-main {
+      animation: lightning-surge-bottom 1.8s infinite ease-in-out;
+    }
+    .live-lightning-bottom-forks {
+      animation: branch-flicker-bottom 1.5s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Base Neon Green Bus Wire (Anchor) -->
+  <line x1="0" y1="6" x2="160" y2="6" stroke="url(#bus-rail-green-bottom)" stroke-width="2.5" opacity="0.85" />
+  <line x1="0" y1="6" x2="160" y2="6" stroke="#4ade80" stroke-width="1" opacity="0.9" />
+
+  <!-- Outer Plasma Green/Cyan Aura for Continuous Lightning -->
+  <path 
+    class="live-lightning-bottom-main"
+    d="M 0,6 L 8,3 L 14,8.5 L 22,4 L 30,9 L 38,3.5 L 46,8 L 54,3 L 62,8.5 L 70,3.5 L 78,8 L 86,3 L 94,8.5 L 102,3.5 L 110,8 L 118,3.5 L 126,8.5 L 134,3 L 142,8 L 150,3.5 L 160,6" 
+    stroke="#22c55e" 
+    stroke-width="3.5" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    opacity="0.85" 
+    filter="url(#bottom-plasma-glow)" 
+  />
+
+  <!-- PRIMARY CONTINUOUS LIGHTNING BOLT (White-hot core dancing across entire 160px width) -->
+  <path 
+    class="live-lightning-bottom-main"
+    d="M 0,6 L 8,3 L 14,8.5 L 22,4 L 30,9 L 38,3.5 L 46,8 L 54,3 L 62,8.5 L 70,3.5 L 78,8 L 86,3 L 94,8.5 L 102,3.5 L 110,8 L 118,3.5 L 126,8.5 L 134,3 L 142,8 L 150,3.5 L 160,6" 
+    stroke="url(#bottom-lightning-core-grad)" 
+    stroke-width="1.8" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+  />
+  <path 
+    class="live-lightning-bottom-main"
+    d="M 0,6 L 8,3 L 14,8.5 L 22,4 L 30,9 L 38,3.5 L 46,8 L 54,3 L 62,8.5 L 70,3.5 L 78,8 L 86,3 L 94,8.5 L 102,3.5 L 110,8 L 118,3.5 L 126,8.5 L 134,3 L 142,8 L 150,3.5 L 160,6" 
+    stroke="#ffffff" 
+    stroke-width="0.9" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+  />
+
+  <!-- SECONDARY COUNTER-PHASE LIGHTNING BOLT -->
+  <path 
+    class="live-lightning-bottom-forks"
+    d="M 0,6.5 L 12,3.5 L 24,9 L 36,4 L 48,8.5 L 60,3.5 L 72,8 L 84,4 L 96,8.5 L 108,3.5 L 120,8 L 132,4 L 144,8.5 L 154,3.5 L 160,6.5" 
+    stroke="#4ade80" 
+    stroke-width="1.2" 
+    stroke-linecap="round" 
+    stroke-linejoin="miter" 
+    fill="none" 
+    opacity="0.9" 
+  />
+
+  <!-- High-Voltage Fork Discharges Leaping Off the Bottom Rail -->
+  <g class="live-lightning-bottom-forks" stroke="#ffffff" stroke-width="1.1" stroke-linecap="round" fill="none" filter="url(#bottom-plasma-glow)">
+    <!-- Downward discharge spikes -->
+    <path d="M 30,9 L 33,11.5 L 36,9.5" stroke="#38bdf8" />
+    <path d="M 62,8.5 L 65,11.2 L 68,9" stroke="#ffffff" />
+    <path d="M 94,8.5 L 97,11.2 L 100,9" stroke="#38bdf8" />
+    <path d="M 126,8.5 L 129,11.5 L 132,9.5" stroke="#4ade80" />
+    <!-- Upward PCB ground strikes -->
+    <path d="M 8,3 L 11,0.8 L 13,2.8" stroke="#4ade80" />
+    <path d="M 54,3 L 57,0.5 L 60,2.5" stroke="#ffffff" />
+    <path d="M 86,3 L 89,0.8 L 92,2.8" stroke="#38bdf8" />
+    <path d="M 134,3 L 137,0.5 L 140,2.5" stroke="#ffffff" />
+  </g>
+
+  <!-- Plasma Spark Nodes -->
+  <circle cx="8" cy="3" r="1.4" fill="#ffffff" filter="url(#bottom-plasma-glow)" />
+  <circle cx="30" cy="9" r="1.5" fill="#38bdf8" filter="url(#bottom-plasma-glow)" />
+  <circle cx="62" cy="8.5" r="1.5" fill="#86efac" filter="url(#bottom-plasma-glow)" />
+  <circle cx="86" cy="3" r="1.4" fill="#ffffff" filter="url(#bottom-plasma-glow)" />
+  <circle cx="118" cy="3.5" r="1.4" fill="#38bdf8" filter="url(#bottom-plasma-glow)" />
+  <circle cx="142" cy="8" r="1.4" fill="#ffffff" filter="url(#bottom-plasma-glow)" />
+
+  <!-- Solder Vias along Green Bus -->
+  <circle cx="4" cy="6" r="1.6" fill="#000000" stroke="#22c55e" stroke-width="0.8" />
+  <circle cx="82" cy="6" r="1.6" fill="#000000" stroke="#4ade80" stroke-width="0.8" />
+  <circle cx="156" cy="6" r="1.6" fill="#000000" stroke="#38bdf8" stroke-width="0.8" />
+</svg>

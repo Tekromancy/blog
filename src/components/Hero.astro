@@ -13,11 +13,11 @@ import sketchSvg from "../assets/sketch.svg";
     <!-- Interactive terminal badge -->
     <ScrollReveal client:load>
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border mb-8 text-xs font-mono shadow-xs backdrop-blur-sm"
-        style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #f8fafc);"
+        style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: #22EE44;"
       >
-        <span class="inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: var(--token-color-success, #10b981);"></span>
+        <span class="inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: #22EE44;"></span>
         <span class="opacity-75">tekromancy@node-01:~$</span>
-        <span style="color: var(--token-color-primary, #0ea5e9);">uname -r -m</span>
+        <span style="color: #22EE44;">uname -r -m</span>
         <span class="opacity-60">// 6.12.x-zen x86_64</span>
       </div>
     </ScrollReveal>
@@ -98,17 +98,11 @@ import sketchSvg from "../assets/sketch.svg";
     height: 100%;
     z-index: 0;
     pointer-events: none;
-    background-color: var(--token-color-primary, #2563eb);
-    mask-image: var(--sketch-svg);
-    -webkit-mask-image: var(--sketch-svg);
-    mask-size: contain;
-    -webkit-mask-size: contain;
-    mask-position: center;
-    -webkit-mask-position: center;
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    opacity: 0.1;
-    transition: background-color var(--token-motion-duration-normal, 200ms) var(--token-motion-easing-default, cubic-bezier(0.4, 0, 0.2, 1));
+    background-image: var(--sketch-svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.45;
   }
 
   /* Ensure Hero content is above the background */
