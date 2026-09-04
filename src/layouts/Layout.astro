@@ -67,11 +67,8 @@ const robotsContent = [
 		<noscript>
 			<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" />
 		</noscript>
-		<!-- Obsidian Theme: Space Grotesk (sans) + IBM Plex Serif (serif) + JetBrains Mono (mono) -->
-		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-		<noscript>
-			<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-		</noscript>
+		<!-- Obsidian & Tech Fonts: Space Grotesk (sans) + IBM Plex Serif (serif) + JetBrains Mono (mono) -->
+		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 		
 		<!-- Preload Critical Resources -->
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
@@ -101,7 +98,7 @@ const robotsContent = [
 		<!-- View Transitions -->
 		<ClientRouter />
 	</head>
-	<body class="min-h-screen" style="background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827);">
+	<body class="min-h-screen" style="background-color: var(--token-color-background, #000000); color: var(--token-color-text-primary, #111827);">
 		<script is:inline>
 			/**
 			 * Early Theme Initialization
@@ -122,18 +119,18 @@ const robotsContent = [
 				const storedTheme = localStorage.getItem('theme');
 				const storedMode = localStorage.getItem('mode');
 				
-				// Set theme (default to blue if not set)
+				// Set theme (default to green for terminal / matrix tech aesthetic)
 				// Architecture: Validate against available themes to prevent invalid states
 				const theme = storedTheme && availableThemes.includes(storedTheme) 
 					? storedTheme 
-					: 'blue';
+					: 'green';
 				document.documentElement.setAttribute('data-theme', theme);
 				
-				// Set mode (default based on system preference if not set)
-				// Architecture: Respects user's system preference if no explicit choice
+				// Set mode (default to dark for tech aesthetic, or user preference)
+				// Architecture: Respects user's stored choice, defaults to dark
 				let mode = storedMode === 'light' || storedMode === 'dark' 
 					? storedMode 
-					: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+					: 'dark';
 				document.documentElement.setAttribute('data-mode', mode);
 			})();
 			

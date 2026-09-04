@@ -9,17 +9,24 @@ import { SITE } from "../config/site.mjs";
 
 <Layout
   title={`Contact | ${SITE.title}`}
-  description="Get in touch with us. We'd love to hear from you about Astro Theme Switcher or any questions you may have."
+  description="Initiate contact with Tekromancy. Open for systems engineering inquiries, technical discussions, and architecture consulting."
   canonicalURL={`${SITE.url}/contact`}
 >
   <Header />
   <main id="main-content" role="main">
     <section class="max-w-2xl mx-auto px-4 py-20">
       <ScrollReveal client:idle>
-        <h1 class="text-5xl font-bold mb-4" style="color: var(--token-color-text-primary, #111827);">Contact</h1>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border" style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #0ea5e9);">
+          <span>// OPEN SOCKET</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold font-mono tracking-tight mb-4" style="color: var(--token-color-text-primary, #111827);">
+          Initiate Transmission
+        </h1>
       </ScrollReveal>
       <ScrollReveal client:idle delay={0.2}>
-        <p class="text-xl mb-12" style="color: var(--token-color-text-muted, #374151);">Get in touch with us. We'd love to hear from you.</p>
+        <p class="text-lg md:text-xl mb-12 leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
+          Have questions about Linux kernel internals, Kubernetes architecture, local LLM pipelines, or security? Transmit your dispatch below.
+        </p>
       </ScrollReveal>
       
       <ScrollReveal client:idle delay={0.3}>

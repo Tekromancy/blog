@@ -5,18 +5,98 @@ import Hero from "../components/Hero.astro";
 import Features from "../components/Features.astro";
 import CTA from "../components/CTA.astro";
 import Footer from "../components/Footer.astro";
+import ScrollReveal from "../components/ScrollReveal.tsx";
 import { SITE } from "../config/site.mjs";
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+const latestPosts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
 <Layout
-  title={SITE.title}
-  description="Tekromancy: passionate about technology."
+  title={`${SITE.title} | ${SITE.subtitle}`}
+  description={SITE.description}
   canonicalURL={SITE.url}
 >
   <Header />
   <main id="main-content" role="main">
     <Hero />
     <Features />
+
+    <!-- Recent Articles Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16 border-t" style="border-color: var(--token-color-border, #e5e7eb);">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-md mb-3 inline-block" style="background-color: var(--token-color-surface, #1e293b); color: var(--token-color-primary, #0ea5e9);">
+            LATEST FIELD NOTES
+          </span>
+          <h2 class="text-3xl md:text-4xl font-bold font-mono tracking-tight" style="color: var(--token-color-text-primary, #111827);">
+            Recent Dispatches
+          </h2>
+        </div>
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-1.5 font-mono text-sm font-medium transition-colors"
+          style="color: var(--token-color-primary, #0ea5e9);"
+        >
+          <span>View all articles</span>
+          <Icon name="tabler:arrow-right" class="w-4 h-4" aria-hidden="true" />
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {latestPosts.map((post, index) => {
+          const firstTag = post.data.tags && post.data.tags.length > 0 ? post.data.tags[0] : null;
+          return (
+            <ScrollReveal client:load delay={0.1 * index}>
+              <article
+                class="rounded-xl border p-6 h-full flex flex-col justify-between transition-all hover:shadow-md"
+                style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
+              >
+                <div>
+                  <div class="flex items-center justify-between text-xs font-mono mb-3" style="color: var(--token-color-text-muted, #64748b);">
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </time>
+                    {firstTag && (
+                      <span class="px-2 py-0.5 rounded font-mono" style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
+                        #{firstTag}
+                      </span>
+                    )}
+                  </div>
+                  <h3 class="text-lg font-bold font-mono mb-2 line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
+                    <a
+                      href={`/blog/${post.id}`}
+                      class="transition-colors hover:text-[var(--token-color-primary)]"
+                    >
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p class="text-sm line-clamp-3 mb-6" style="color: var(--token-color-text-muted, #64748b);">
+                    {post.data.description}
+                  </p>
+                </div>
+                <a
+                  href={`/blog/${post.id}`}
+                  class="inline-flex items-center gap-1 text-xs font-mono font-medium transition-colors"
+                  style="color: var(--token-color-primary, #0ea5e9);"
+                >
+                  <span>Read deep-dive</span>
+                  <span>→</span>
+                </a>
+              </article>
+            </ScrollReveal>
+          );
+        })}
+      </div>
+    </section>
+
     <CTA />
   </main>
   <Footer />

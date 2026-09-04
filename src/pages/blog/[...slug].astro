@@ -129,17 +129,18 @@ const ogImageUrl = heroImage ? new URL(heroImage.src, import.meta.env.SITE || SI
 					</div>
 				</ScrollReveal>
 
-			<footer class="mt-12 pt-8 border-t border-gray-200">
-				<a
-					href="/blog"
-					class="transition-colors inline-flex items-center gap-2"
-					style="color: var(--token-color-text-muted, #374151);"
-					onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-					onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-				>
-					← Back to Blog
-				</a>
-			</footer>
+				<footer class="mt-12 pt-8 border-t" style="border-color: var(--token-color-border, #e5e7eb);">
+					<a
+						href="/blog"
+						class="transition-colors inline-flex items-center gap-2"
+						style="color: var(--token-color-text-muted, #374151);"
+						onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
+						onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
+					>
+						← Back to Blog
+					</a>
+				</footer>
+			</div>
 		</article>
 	</main>
 	<Footer />

@@ -41,6 +41,14 @@ html {
 }
 
 /* 
+ * OLED Pure Black for Dark Mode
+ * Ensures 0% sub-pixel illumination on OLED displays
+ */
+[data-mode="dark"] {
+  --token-color-background: #000000;
+}
+
+/* 
  * Smooth theme transitions
  * 
  * Architecture Decision: Global transitions on all elements provide:

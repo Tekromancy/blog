@@ -1,236 +1,303 @@
 ---
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import ThemeSwitcher from "./ThemeSwitcher.tsx";
 import ModeToggle from "./ModeToggle.tsx";
+
+import logoImg from "../assets/nav/logo.jpg";
+import articlesImg from "../assets/nav/articles.jpg";
+import linuxImg from "../assets/nav/linux.jpg";
+import k8sImg from "../assets/nav/k8s.jpg";
+import aimlImg from "../assets/nav/aiml.jpg";
+import secImg from "../assets/nav/security.jpg";
+import aboutImg from "../assets/nav/about.jpg";
+
+const navItems = [
+  { href: "/blog", label: "Articles", tag: "// 01", image: articlesImg, desc: "Field Dispatches & Research" },
+  { href: "/blog?tag=linux", label: "Linux", tag: "// 02", image: linuxImg, desc: "Kernel internals & eBPF" },
+  { href: "/blog?tag=kubernetes", label: "K8s", tag: "// 03", image: k8sImg, desc: "Cloud native orchestration" },
+  { href: "/blog?tag=ai-ml", label: "AI/ML", tag: "// 04", image: aimlImg, desc: "vLLM, CUDA & Neural inference" },
+  { href: "/blog?tag=security", label: "SecOps", tag: "// 05", image: secImg, desc: "Hardening & CTF wargames" },
+  { href: "/about", label: "About", tag: "// 06", image: aboutImg, desc: "Technomancy Manifesto" },
+];
 ---
 
 <header
-  class="w-full sticky top-0 z-50"
+  class="w-full sticky top-0 z-50 transition-colors backdrop-blur-xl"
   role="banner"
-  style="background-color: var(--token-color-background, #ffffff);"
+  style="background-color: rgba(0, 0, 0, 0.95);"
 >
-  <div class="w-full border-b" style="border-color: var(--token-color-border, #e5e7eb);">
-    <nav
-      class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
-      aria-label="Main navigation"
-    >
-    <a
-      href="/"
-      class="text-2xl font-bold transition-colors"
-      style="color: var(--token-color-text-primary, #111827);"
-      onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-      onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-      aria-label="Astro Theme Switcher - Home"
-    >
-      Astro Theme Switcher
-    </a>
-    
-    <!-- Mobile menu button -->
-    <button
-      type="button"
-      class="md:hidden p-2 focus:outline-none focus:ring-2 rounded-lg transition-colors"
-      style="color: var(--token-color-text-primary, #111827);"
-      onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-      onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-      onfocus={(e) => {
-        e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-        e.currentTarget.style.outline = '2px solid var(--token-color-primary, #000000)';
-        e.currentTarget.style.outlineOffset = '2px';
-      }}
-      aria-label="Toggle menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      id="mobile-menu-button"
-    >
-      <Icon name="tabler:menu-2" class="w-6 h-6" aria-hidden="true" />
-    </button>
-
-    <!-- Desktop navigation -->
-    <ul class="hidden md:flex items-center gap-6" role="list">
-      <li>
-        <a
-          href="/landing"
-          class="transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-          onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-          aria-current={Astro.url.pathname === '/landing' ? 'page' : undefined}
-        >
-          Landing
-        </a>
-      </li>
-      <li>
-        <a
-          href="/blog"
-          class="transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-          onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-          aria-current={Astro.url.pathname.startsWith('/blog') ? 'page' : undefined}
-        >
-          Blog
-        </a>
-      </li>
-      <li>
-        <a
-          href="/features"
-          class="transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-          onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-          aria-current={Astro.url.pathname === '/features' ? 'page' : undefined}
-        >
-          Features
-        </a>
-      </li>
-      <li>
-        <a
-          href="/about"
-          class="transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #000000)'}
-          onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)'}
-          aria-current={Astro.url.pathname === '/about' ? 'page' : undefined}
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href="/contact"
-          class="px-4 py-2 rounded-lg transition-colors"
-          style="background-color: var(--token-color-primary, #000000); color: var(--token-color-primary-foreground, #ffffff);"
-          onmouseenter={(e) => {
-            const primary = getComputedStyle(document.documentElement).getPropertyValue('--token-color-primary').trim();
-            e.currentTarget.style.opacity = '0.9';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.opacity = '1';
-          }}
-          aria-current={Astro.url.pathname === '/contact' ? 'page' : undefined}
-        >
-          Contact
-        </a>
-      </li>
-      <li class="flex items-center gap-2">
-        <ModeToggle client:load />
-        <ThemeSwitcher client:load />
-      </li>
-    </ul>
-  </nav>
+  <!-- Cyberpunk Telemetry HUD Ticker Strip -->
+  <div 
+    class="hidden md:flex items-center justify-between px-4 sm:px-6 py-1 border-b text-[10px] font-mono tracking-widest uppercase select-none"
+    style="background-color: #000000; border-color: rgba(34, 197, 94, 0.15); color: var(--token-color-primary, #22c55e);"
+  >
+    <div class="flex items-center gap-3">
+      <span class="inline-flex items-center gap-1.5 font-bold">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></span>
+        SYS::ONLINE
+      </span>
+      <span class="opacity-30">|</span>
+      <span class="opacity-75">NODE::01_ZEN_x86_64</span>
+      <span class="opacity-30">|</span>
+      <span class="opacity-75">KERNEL::6.12.x-eBPF</span>
+      <span class="opacity-30">|</span>
+      <span class="opacity-75">CIPHER::AES-256-GCM</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="opacity-60">PROTO::TEKROMANCY_v2.5</span>
+      <span class="opacity-30">|</span>
+      <span class="tracking-normal text-emerald-400 font-semibold flex items-center gap-1">
+        <span class="inline-block w-1.5 h-1.5 bg-[#22c55e] rounded-full shadow-[0_0_6px_#22c55e]"></span>
+        MESH_ACTIVE
+      </span>
+    </div>
   </div>
 
-  <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden w-full border-t border-b"
-    role="menu"
-    aria-labelledby="mobile-menu-button"
-    style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
+  <!-- Main Cyberpunk Navigation Bar -->
+  <div 
+    class="w-full border-b relative"
+    style="border-color: rgba(34, 197, 94, 0.25); box-shadow: 0 4px 20px -2px rgba(34, 197, 94, 0.12);"
   >
-    <ul class="flex flex-col py-4" role="list">
-      <li>
-        <a
-          href="/landing"
-          class="block px-4 py-3 transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-primary, #000000)';
-            e.currentTarget.style.backgroundColor = 'var(--token-color-accent, rgba(0, 0, 0, 0.05))';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-            e.currentTarget.style.backgroundColor = 'transparent';
-          }}
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/landing' ? 'page' : undefined}
-        >
-          Landing
-        </a>
-      </li>
-      <li>
-        <a
-          href="/blog"
-          class="block px-4 py-3 transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-primary, #000000)';
-            e.currentTarget.style.backgroundColor = 'var(--token-color-accent, rgba(0, 0, 0, 0.05))';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-            e.currentTarget.style.backgroundColor = 'transparent';
-          }}
-          role="menuitem"
-          aria-current={Astro.url.pathname.startsWith('/blog') ? 'page' : undefined}
-        >
-          Blog
-        </a>
-      </li>
-      <li>
-        <a
-          href="/features"
-          class="block px-4 py-3 transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-primary, #000000)';
-            e.currentTarget.style.backgroundColor = 'var(--token-color-accent, rgba(0, 0, 0, 0.05))';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-            e.currentTarget.style.backgroundColor = 'transparent';
-          }}
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/features' ? 'page' : undefined}
-        >
-          Features
-        </a>
-      </li>
-      <li>
-        <a
-          href="/about"
-          class="block px-4 py-3 transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-primary, #000000)';
-            e.currentTarget.style.backgroundColor = 'var(--token-color-accent, rgba(0, 0, 0, 0.05))';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-            e.currentTarget.style.backgroundColor = 'transparent';
-          }}
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/about' ? 'page' : undefined}
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href="/contact"
-          class="block px-4 py-3 transition-colors"
-          style="color: var(--token-color-text-primary, #111827);"
-          onmouseenter={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-primary, #000000)';
-            e.currentTarget.style.backgroundColor = 'var(--token-color-hover, rgba(0, 0, 0, 0.05))';
-          }}
-          onmouseleave={(e) => {
-            e.currentTarget.style.color = 'var(--token-color-text-primary, #111827)';
-            e.currentTarget.style.backgroundColor = 'transparent';
-          }}
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/contact' ? 'page' : undefined}
-        >
-          Contact
-        </a>
-      </li>
-      <li class="px-4 py-3">
-        <div class="flex items-center gap-3">
+    <!-- Cyberpunk Corner Accents -->
+    <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#22c55e]/60 pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#22c55e]/60 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#22c55e]/60 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#22c55e]/60 pointer-events-none"></div>
+
+    <nav
+      class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between"
+      aria-label="Main navigation"
+    >
+      <!-- Tekromancy Cyber Emblem Logo -->
+      <a
+        href="/"
+        class="group flex items-center gap-3 transition-transform"
+        aria-label="Tekromancy - Home"
+      >
+        <div class="relative">
+          <div class="w-10 h-10 rounded-lg overflow-hidden border border-[#22c55e]/60 shadow-[0_0_15px_rgba(34,197,94,0.4)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.8)] group-hover:border-[#22c55e] transition-all duration-300 bg-black">
+            <Image 
+              src={logoImg} 
+              alt="Tekromancy Cyber Sigil" 
+              width={80} 
+              height={80} 
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+            />
+          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#22c55e] border-2 border-black shadow-[0_0_8px_#22c55e]"></span>
+        </div>
+        
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="text-xl sm:text-2xl font-black font-mono tracking-tight bg-gradient-to-r from-[#22c55e] via-[#4ade80] to-[#38bdf8] bg-clip-text text-transparent group-hover:brightness-125 transition-all">
+              Tekromancy
+            </span>
+            <span class="text-[9px] font-mono px-1.5 py-0.2 rounded border border-[#22c55e]/40 text-[#22c55e] bg-[#22c55e]/10 tracking-widest uppercase hidden sm:inline-block">
+              SYS
+            </span>
+          </div>
+          <span class="text-[10px] font-mono tracking-widest text-[#22c55e]/70 group-hover:text-[#22c55e] transition-colors -mt-0.5">
+            &gt; INFRA &amp; CODE_
+          </span>
+        </div>
+      </a>
+      
+      <!-- Mobile menu trigger -->
+      <button
+        type="button"
+        class="md:hidden p-2.5 focus:outline-none rounded-lg border transition-all"
+        style="background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.4); color: #22c55e;"
+        onmouseenter={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+          e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.4)';
+        }}
+        onmouseleave={(e) => {
+          e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.08)';
+          e.currentTarget.style.boxShadow = 'none';
+        }}
+        aria-label="Toggle navigation console"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        id="mobile-menu-button"
+      >
+        <Icon name="tabler:terminal-2" class="w-5 h-5" aria-hidden="true" />
+      </button>
+
+      <!-- Desktop Cyber Modules Navigation -->
+      <ul class="hidden md:flex items-center gap-1.5 lg:gap-2" role="list">
+        {navItems.map((item) => {
+          const isActive = Astro.url.pathname === item.href || (item.href.includes('?') && Astro.url.pathname + Astro.url.search === item.href);
+          return (
+            <li>
+              <a
+                href={item.href}
+                class="group relative flex items-center gap-2 px-2.5 py-1.5 rounded-lg border transition-all"
+                style={isActive 
+                  ? "border-color: rgba(34, 197, 94, 0.5); background-color: rgba(34, 197, 94, 0.12); box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);" 
+                  : "border-color: transparent; background-color: transparent;"}
+                onmouseenter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
+                  e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.08)';
+                  e.currentTarget.style.boxShadow = '0 0 12px rgba(34, 197, 94, 0.25)';
+                }}
+                onmouseleave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = 'transparent';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.boxShadow = 'none';
+                  } else {
+                    e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                    e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.12)';
+                    e.currentTarget.style.boxShadow = '0 0 12px rgba(34, 197, 94, 0.2)';
+                  }
+                }}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <!-- Stylized Cyber Micro-Emblem -->
+                <div class="w-6 h-6 rounded-md overflow-hidden border border-[#22c55e]/40 shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.3)] group-hover:shadow-[0_0_12px_rgba(34,197,94,0.6)] group-hover:border-[#22c55e] transition-all bg-black">
+                  <Image 
+                    src={item.image} 
+                    alt={item.label} 
+                    width={48} 
+                    height={48} 
+                    class="w-full h-full object-cover group-hover:scale-115 transition-transform duration-200" 
+                  />
+                </div>
+                
+                <span class="text-xs font-mono font-medium tracking-tight text-[var(--token-color-text-primary)] group-hover:text-[#22c55e] transition-colors">
+                  {item.label}
+                </span>
+
+                {isActive && (
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_6px_#22c55e]"></span>
+                )}
+              </a>
+            </li>
+          );
+        })}
+
+        <!-- Cyber Transmission Socket Link -->
+        <li class="ml-1">
+          <a
+            href="/contact"
+            class="group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold transition-all overflow-hidden cursor-pointer"
+            style="background-color: rgba(34, 197, 94, 0.12); border-color: rgba(34, 197, 94, 0.55); color: #22c55e; box-shadow: 0 0 12px rgba(34, 197, 94, 0.25);"
+            onmouseenter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.6)';
+              e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.22)';
+              e.currentTarget.style.borderColor = '#22c55e';
+            }}
+            onmouseleave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 12px rgba(34, 197, 94, 0.25)';
+              e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.12)';
+              e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.55)';
+            }}
+            aria-current={Astro.url.pathname === '/contact' ? 'page' : undefined}
+          >
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
+            </span>
+            <span class="tracking-wider">TRANSMIT</span>
+          </a>
+        </li>
+
+        <!-- Switcher Controls -->
+        <li class="flex items-center gap-2 ml-2 pl-2 border-l" style="border-color: rgba(34, 197, 94, 0.25);">
           <ModeToggle client:load />
           <ThemeSwitcher client:load />
-        </div>
-      </li>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Cyberpunk Mobile Deck Navigator -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden w-full border-b backdrop-blur-2xl transition-all"
+    role="menu"
+    aria-labelledby="mobile-menu-button"
+    style="background-color: rgba(0, 0, 0, 0.98); border-color: rgba(34, 197, 94, 0.3); box-shadow: inset 0 0 40px rgba(34, 197, 94, 0.08);"
+  >
+    <!-- Console Status Sub-header -->
+    <div class="px-4 py-2 border-b text-[10px] font-mono tracking-wider flex justify-between items-center" style="border-color: rgba(34, 197, 94, 0.15); color: #22c55e;">
+      <span class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+        // DECK_NAVIGATOR //
+      </span>
+      <span class="opacity-70">SEC_LEVEL::UNRESTRICTED</span>
+    </div>
+
+    <!-- Stylized Grid of Menu Items with Custom Art -->
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-4" role="list">
+      {navItems.map((item) => {
+        const isActive = Astro.url.pathname === item.href || (item.href.includes('?') && Astro.url.pathname + Astro.url.search === item.href);
+        return (
+          <li>
+            <a
+              href={item.href}
+              class="flex items-center gap-3 p-2.5 rounded-xl border transition-all"
+              style={isActive 
+                ? "background-color: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.6); box-shadow: 0 0 15px rgba(34, 197, 94, 0.25);" 
+                : "background-color: rgba(10, 14, 11, 0.85); border-color: rgba(34, 197, 94, 0.2);"}
+              onmouseenter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.7)';
+                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
+                e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.3)';
+              }}
+              onmouseleave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.2)';
+                  e.currentTarget.style.backgroundColor = 'rgba(10, 14, 11, 0.85)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }
+              }}
+              role="menuitem"
+              aria-current={isActive ? 'page' : undefined}
+            >
+              <div class="w-11 h-11 rounded-lg overflow-hidden border border-[#22c55e]/50 shrink-0 shadow-[0_0_10px_rgba(34,197,94,0.3)] bg-black">
+                <Image 
+                  src={item.image} 
+                  alt={item.label} 
+                  width={88} 
+                  height={88} 
+                  class="w-full h-full object-cover" 
+                />
+              </div>
+              <div class="flex flex-col min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-sm font-bold font-mono text-[var(--token-color-text-primary)]">
+                    {item.label}
+                  </span>
+                  <span class="text-[10px] font-mono text-[#22c55e]/80">
+                    {item.tag}
+                  </span>
+                </div>
+                <span class="text-xs text-[var(--token-color-text-muted)] truncate">
+                  {item.desc}
+                </span>
+              </div>
+            </a>
+          </li>
+        );
+      })}
     </ul>
+
+    <!-- Bottom Deck Controls -->
+    <div class="p-4 border-t flex flex-wrap items-center justify-between gap-3" style="border-color: rgba(34, 197, 94, 0.2);">
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-xs font-bold border border-[#22c55e]/60 bg-[#22c55e]/15 text-[#22c55e] shadow-[0_0_12px_rgba(34,197,94,0.25)]"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#22c55e] animate-ping"></span>
+        OPEN COMMS SOCKET
+      </a>
+      <div class="flex items-center gap-3">
+        <ModeToggle client:load />
+        <ThemeSwitcher client:load />
+      </div>
+    </div>
   </div>
 </header>
 

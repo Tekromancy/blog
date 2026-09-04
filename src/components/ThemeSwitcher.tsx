@@ -23,7 +23,7 @@ import { getTheme, setTheme, getAvailableThemes, getThemeNames, type ThemeId } f
 import { getThemeById } from '../themes';
 
 export default function ThemeSwitcher() {
-  const [currentTheme, setCurrentTheme] = useState<ThemeId>('blue');
+  const [currentTheme, setCurrentTheme] = useState<ThemeId>('green');
   const [isOpen, setIsOpen] = useState(false);
   const themes = getAvailableThemes();
   const themeNames = getThemeNames();
@@ -121,7 +121,7 @@ export default function ThemeSwitcher() {
           <div 
             className="absolute left-0 sm:left-auto sm:right-0 mt-2 w-48 rounded-lg shadow-lg z-20"
             style={{
-              backgroundColor: 'var(--token-color-background, #ffffff)',
+              backgroundColor: 'var(--token-color-surface, #000000)',
               border: '1px solid var(--token-color-border, #e5e7eb)',
               boxShadow: 'var(--token-shadow-3, 0 4px 6px -1px rgb(0 0 0 / 0.1))',
             }}

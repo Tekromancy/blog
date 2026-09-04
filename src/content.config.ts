@@ -11,7 +11,7 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		tags: z.array(z.string()).default([]),
-		author: z.string().default('Astro Theme Switcher'),
+		author: z.string().default('Joshua Edward McLaughlin Cox'),
 	}),
 });
 

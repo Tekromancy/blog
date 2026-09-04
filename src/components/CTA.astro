@@ -3,22 +3,36 @@ import ScrollReveal from "./ScrollReveal.tsx";
 import { Icon } from "astro-icon/components";
 ---
 
-<section id="about" class="max-w-6xl mx-auto px-4 py-20">
+<section id="cta" class="max-w-5xl mx-auto px-4 py-16">
   <ScrollReveal client:idle scale={true}>
-    <div class="rounded-2xl p-12 text-center" style="background-color: var(--token-color-primary, #000000); color: var(--token-color-primary-foreground, #ffffff);">
-      <h2 class="text-4xl font-bold mb-4" style="color: var(--token-color-primary-foreground, #ffffff);">Ready to Get Started?</h2>
-      <p class="text-xl mb-8 max-w-2xl mx-auto" style="color: var(--token-color-primary-foreground, #ffffff); opacity: 0.9;">
-        Start building beautiful, themeable websites with a production-ready design system. Perfect for developers and agencies.
+    <div class="rounded-2xl p-10 md:p-14 text-center border relative overflow-hidden shadow-lg" style="background-color: var(--token-color-surface, #0f172a); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #ffffff);">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border" style="background-color: var(--token-color-background, #020617); border-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary, #0ea5e9);">
+        <span>$ cat /etc/motd</span>
+      </div>
+      <h2 class="text-3xl md:text-5xl font-extrabold font-mono mb-4" style="color: var(--token-color-text-primary, #ffffff);">
+        Master the Art of Infrastructure
+      </h2>
+      <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-85 leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
+        From low-level kernel tracing to multi-cluster Kubernetes deployments and local AI pipelines, learn how to build resilient, sovereign tech stacks.
       </p>
-      <a
-        href="/components"
-        class="inline-flex items-center gap-2 px-8 py-3 rounded-lg transition-opacity font-medium hover:opacity-90"
-        style="background-color: var(--token-color-primary-foreground, #ffffff); color: var(--token-color-primary, #000000);"
-        aria-label="View component library"
-      >
-        <Icon name="tabler:components" class="w-5 h-5" aria-hidden="true" />
-        View Components
-      </a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/blog"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium font-mono text-sm shadow-md transition-opacity hover:opacity-90"
+          style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);"
+        >
+          <Icon name="tabler:terminal" class="w-4 h-4" aria-hidden="true" />
+          <span>Browse All Articles</span>
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium font-mono text-sm border transition-colors"
+          style="background-color: var(--token-color-background, #020617); color: var(--token-color-text-primary, #ffffff); border-color: var(--token-color-border, #334155);"
+        >
+          <Icon name="tabler:info-circle" class="w-4 h-4" aria-hidden="true" />
+          <span>About Tekromancy</span>
+        </a>
+      </div>
     </div>
   </ScrollReveal>
 </section>

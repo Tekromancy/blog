@@ -14,79 +14,115 @@ const blogPosts = (await getCollection('blog')).sort(
 ---
 
 <Layout
-	title={`Blog | ${SITE.title}`}
-	description="Read our latest blog posts about web development, Astro, and more."
+	title={`Articles & Field Notes | ${SITE.title}`}
+	description="Deep-dive tutorials, system benchmarks, and architecture guides on Linux, Kubernetes, AI/ML engineering, networking, and cybersecurity."
 	canonicalURL={`${SITE.url}/blog`}
 >
 	<Header />
 	<main id="main-content" role="main" class="min-h-screen" style="background-color: var(--token-color-background, #ffffff);">
 		<div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
-			<header class="text-center mb-16">
+			<header class="text-center mb-12">
 				<ScrollReveal client:load>
-					<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--token-color-text-primary, #111827);">
-						Blog
+					<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border" style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #0ea5e9);">
+						<span>ARCHIVES &amp; TRANSMISSIONS</span>
+					</div>
+					<h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4" style="color: var(--token-color-text-primary, #111827);">
+						Articles &amp; Field Notes
 					</h1>
 				</ScrollReveal>
 				<ScrollReveal client:load delay={0.2}>
-					<p class="text-lg md:text-xl max-w-2xl mx-auto" style="color: var(--token-color-text-muted, #374151);">
-						Just some posts about things I've learned.
+					<p class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style="color: var(--token-color-text-muted, #64748b);">
+						Low-level guides, production post-mortems, and architectural blueprints for the curious systems engineer.
 					</p>
+				</ScrollReveal>
+
+				<!-- Tag Filter Pills -->
+				<ScrollReveal client:load delay={0.3}>
+					<div class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono" id="tag-filters">
+						<button
+							data-filter="all"
+							class="filter-btn active px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium"
+							style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff); border-color: var(--token-color-primary, #0ea5e9);"
+						>
+							All Dispatches
+						</button>
+						{['linux', 'kubernetes', 'ai-ml', 'networking', 'security', 'devops'].map((t) => (
+							<button
+								data-filter={t}
+								class="filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium"
+								style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-muted, #64748b);"
+							>
+								#{t}
+							</button>
+						))}
+					</div>
 				</ScrollReveal>
 			</header>
 
 			{blogPosts.length === 0 ? (
 				<div class="text-center py-12">
-					<p style="color: var(--token-color-text-muted, #374151);">No blog posts yet. Check back soon!</p>
+					<p style="color: var(--token-color-text-muted, #64748b);">No articles found in this archive.</p>
 				</div>
 			) : (
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
 					{blogPosts.map((post, index) => {
 						const heroImage = getBlogImage(post.data.heroImage);
-						const firstTag = post.data.tags && post.data.tags.length > 0 ? post.data.tags[0] : null;
+						const tags = post.data.tags || [];
+						const firstTag = tags.length > 0 ? tags[0] : null;
 						return (
-							<article class="rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col" style="background-color: var(--token-color-background, #ffffff);">
+							<article
+								class="post-card rounded-xl border hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col"
+								data-tags={tags.join(',')}
+								style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
+							>
 								<a
 									href={`/blog/${post.id}`}
-									class="block group"
+									class="block group flex-1 flex flex-col"
 								>
-									{heroImage && (
-										<div class="w-full h-48 md:h-56 overflow-hidden rounded-t-lg">
+									{heroImage ? (
+										<div class="w-full h-48 md:h-52 overflow-hidden rounded-t-xl relative">
 											<Image
 												src={heroImage}
 												alt={post.data.title}
 												transition:name={`blog-image-${post.id}`}
-												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200 rounded-t-lg"
-												style="border-radius: 0.5rem 0.5rem 0 0;"
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
 												loading="lazy"
 												widths={[400, 800, 1200]}
 												sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 											/>
 										</div>
-									)}
-									<ScrollReveal client:load delay={0.1 + index * 0.1}>
-										<div class="p-6 flex flex-col flex-1">
-											<div class="flex items-center gap-3 mb-3 text-sm" style="color: var(--token-color-text-muted, #374151);">
-												<time datetime={post.data.pubDate.toISOString()}>
-													{post.data.pubDate.toLocaleDateString('en-US', {
-														year: 'numeric',
-														month: 'short',
-														day: 'numeric',
-													})}
-												</time>
-												{firstTag && (
-													<span class="px-2.5 py-1 rounded-md text-xs font-medium" style="background-color: var(--token-color-surface, #f9fafb); color: var(--token-color-text-primary, #111827);">
-														{firstTag}
-													</span>
-												)}
-											</div>
-											<h2 class="text-xl md:text-2xl font-bold mb-3 transition-colors line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
-												{post.data.title}
-											</h2>
-											<p class="text-sm md:text-base flex-1 line-clamp-3" style="color: var(--token-color-text-muted, #374151);">
-												{post.data.description}
-											</p>
+									) : (
+										<div class="w-full h-32 flex items-center justify-between px-6 rounded-t-xl border-b" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+											<span class="font-mono text-xs opacity-75" style="color: var(--token-color-primary, #0ea5e9);">&gt;_ sys.dispatch</span>
+											<span class="font-mono text-xs" style="color: var(--token-color-text-muted, #64748b);">tekromancy.com</span>
 										</div>
-									</ScrollReveal>
+									)}
+									<div class="p-6 flex flex-col flex-1">
+										<div class="flex items-center justify-between gap-3 mb-3 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+											<time datetime={post.data.pubDate.toISOString()}>
+												{post.data.pubDate.toLocaleDateString('en-US', {
+													year: 'numeric',
+													month: 'short',
+													day: 'numeric',
+												})}
+											</time>
+											{firstTag && (
+												<span class="px-2 py-0.5 rounded font-mono font-medium" style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
+													#{firstTag}
+												</span>
+											)}
+										</div>
+										<h2 class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2 group-hover:text-[var(--token-color-primary)]" style="color: var(--token-color-text-primary, #111827);">
+											{post.data.title}
+										</h2>
+										<p class="text-sm leading-relaxed flex-1 line-clamp-3 mb-4" style="color: var(--token-color-text-muted, #64748b);">
+											{post.data.description}
+										</p>
+										<div class="pt-4 border-t flex items-center justify-between text-xs font-mono" style="border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-primary, #0ea5e9);">
+											<span>Read article</span>
+											<span>→</span>
+										</div>
+									</div>
 								</a>
 							</article>
 						);
@@ -97,6 +133,68 @@ const blogPosts = (await getCollection('blog')).sort(
 	</main>
 	<Footer />
 </Layout>
+
+<script is:inline>
+	(function() {
+		function setupFilter() {
+			var filterBtns = document.querySelectorAll('.filter-btn');
+			var cards = document.querySelectorAll('.post-card');
+			if (!filterBtns.length) return;
+
+			function applyFilter(filter) {
+				filterBtns.forEach(function(btn) {
+					var match = btn.getAttribute('data-filter') === filter;
+					if (match) {
+						btn.style.backgroundColor = 'var(--token-color-primary, #0ea5e9)';
+						btn.style.color = 'var(--token-color-primary-foreground, #ffffff)';
+						btn.style.borderColor = 'var(--token-color-primary, #0ea5e9)';
+					} else {
+						btn.style.backgroundColor = 'var(--token-color-surface, #f8fafc)';
+						btn.style.color = 'var(--token-color-text-muted, #64748b)';
+						btn.style.borderColor = 'var(--token-color-border, #e2e8f0)';
+					}
+				});
+
+				cards.forEach(function(card) {
+					var tags = (card.getAttribute('data-tags') || '').split(',');
+					if (filter === 'all' || tags.indexOf(filter) !== -1) {
+						card.style.display = 'flex';
+					} else {
+						card.style.display = 'none';
+					}
+				});
+			}
+
+			filterBtns.forEach(function(btn) {
+				btn.onclick = function() {
+					var filter = btn.getAttribute('data-filter');
+					applyFilter(filter);
+					var url = new URL(window.location);
+					if (filter === 'all') {
+						url.searchParams.delete('tag');
+					} else {
+						url.searchParams.set('tag', filter);
+					}
+					window.history.replaceState({}, '', url);
+				};
+			});
+
+			var params = new URLSearchParams(window.location.search);
+			var tagParam = params.get('tag');
+			if (tagParam) {
+				applyFilter(tagParam);
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupFilter);
+		} else {
+			setupFilter();
+		}
+		document.addEventListener('astro:page-load', setupFilter);
+		document.addEventListener('astro:after-swap', setupFilter);
+	})();
+</script>
 
 <style>
 	/* Critical CSS: Ensure border-radius is applied immediately to prevent FOUC */

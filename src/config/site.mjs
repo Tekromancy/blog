@@ -1,6 +1,7 @@
 export const SITE = {
   title: "Tekromancy",
-  description: "Passionate about technology.",
+  subtitle: "Technomancy, Infrastructure & Code",
+  description: "Deep dives into Linux internals, Kubernetes orchestration, AI/ML systems, distributed networking, and cybersecurity.",
   defaultLanguage: "en",
   url: "https://tekromancy.com", // Production URL
   author: "Joshua Edward McLaughlin Cox",

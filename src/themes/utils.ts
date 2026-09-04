@@ -160,14 +160,14 @@ export function applyTheme(themeId: string, mode: 'light' | 'dark' = 'light'): v
  * Get current theme from storage or default
  */
 export function getCurrentTheme(availableThemes: string[]): string {
-  if (typeof window === 'undefined') return availableThemes[0] || 'blue';
+  if (typeof window === 'undefined') return 'green';
   
   const stored = localStorage.getItem('theme');
   if (stored && availableThemes.includes(stored)) {
     return stored;
   }
   
-  return availableThemes[0] || 'blue';
+  return availableThemes.includes('green') ? 'green' : (availableThemes[0] || 'green');
 }
 
 /**
