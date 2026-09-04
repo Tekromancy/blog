@@ -28,7 +28,7 @@ const navItems = [
   { href: "/blog?tag=kubernetes", label: "Kubernetes", svg: menuK8sSvg, desc: "Container Cloud Orchestration" },
   { href: "/blog?tag=ai-ml", label: "AI / ML", svg: menuAimlSvg, desc: "vLLM, CUDA & Neural Models" },
   { href: "/blog?tag=security", label: "SecOps", svg: menuSecSvg, desc: "Hardening & CTF Wargames" },
-  { href: "/about", label: "About", svg: menuAboutSvg, desc: "Technomancy Manifesto" },
+  { href: "/about", label: "About", svg: menuAboutSvg, desc: "Tekromancy Manifesto" },
 ];
 ---
 
@@ -41,7 +41,7 @@ const navItems = [
   <CyberTelemetryBar />
 
   <!-- TOP LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire top edge -->
-  <div 
+  <div
     class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_0_20px_rgba(34,197,94,0.7)]"
     style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-bottom: 1px solid rgba(34, 197, 94, 0.45);`}
     aria-hidden="true"
@@ -50,36 +50,36 @@ const navItems = [
   <!-- Main Cyberpunk Navigation Cockpit Container -->
   <div class="relative w-full max-w-[1600px] mx-auto px-2 sm:px-4 py-1 sm:py-1.5">
     <div class="relative flex items-stretch h-[56px] sm:h-[62px]">
-      
+
       <!-- 1. LEFT ENDCAP: Complete left border with spark plug terminals & lightning arcs -->
       <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
-        <img 
-          src={endcapLeftSvg.src} 
-          alt="" 
-          aria-hidden="true" 
-          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(34,197,94,0.8)]" 
+        <img
+          src={endcapLeftSvg.src}
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(34,197,94,0.8)]"
         />
       </div>
 
       <!-- 2. MIDDLE CHASSIS: Circuit Motherboard Background, Inner Lightning Rails & Controls -->
       <div class="relative flex-1 h-full min-w-0 flex items-center justify-between px-1.5 sm:px-3 z-10 -ml-[1px] -mr-[1px]">
-        
+
         <!-- Cyberpunk Motherboard Background (OLED Black base with Glowing PCB Circuit Traces) -->
-        <div 
+        <div
           class="cyber-theme-element absolute -inset-x-1 inset-y-0 z-0 pointer-events-none"
           style={`background-color: #000000; background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat-x; background-size: auto 100%; box-shadow: inset 0 0 35px rgba(34, 197, 94, 0.12);`}
           aria-hidden="true"
         ></div>
 
         <!-- Inner Top Lightning Rail (Directly connects left and right endcap top anchors) -->
-        <div 
+        <div
           class="cyber-theme-element absolute top-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_1px_8px_rgba(34,197,94,0.4)]"
           style={`background-image: url('${borderTopSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
           aria-hidden="true"
         ></div>
 
         <!-- Inner Bottom Lightning Rail (Directly connects left and right endcap bottom anchors) -->
-        <div 
+        <div
           class="cyber-theme-element absolute bottom-0 -left-1 -right-1 h-[6px] z-20 pointer-events-none opacity-90 shadow-[0_-1px_8px_rgba(34,197,94,0.4)]"
           style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%;`}
           aria-hidden="true"
@@ -87,27 +87,27 @@ const navItems = [
 
         <!-- Inner Navigation Content (Above Background & Borders) -->
         <div class="relative z-30 w-full h-full flex items-center justify-between gap-1 sm:gap-2">
-          
+
           <!-- Left: Wide Stylized Tekromancy Wordmark -->
-          <a 
-            href="/" 
-            class="cyber-theme-element group flex items-center shrink-0 transition-transform duration-150 hover:scale-[1.02]" 
+          <a
+            href="/"
+            class="cyber-theme-element group flex items-center shrink-0 transition-transform duration-150 hover:scale-[1.02]"
             aria-label="Tekromancy - Home"
           >
-            <img 
-              src={wordmarkSvg.src} 
-              alt="Tekromancy" 
-              class="h-7 sm:h-9 w-auto max-w-[165px] sm:max-w-[240px] object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.45)] group-hover:drop-shadow-[0_0_18px_rgba(34,197,94,0.85)] transition-all" 
+            <img
+              src={wordmarkSvg.src}
+              alt="Tekromancy"
+              class="h-7 sm:h-9 w-auto max-w-[165px] sm:max-w-[240px] object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.45)] group-hover:drop-shadow-[0_0_18px_rgba(34,197,94,0.85)] transition-all"
             />
             <span class="sr-only">Tekromancy</span>
           </a>
 
           <!-- Divider between Logo and Menu Items -->
-          <img 
-            src={dividerSvg.src} 
-            alt="" 
-            aria-hidden="true" 
-            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden xl:block mx-1 opacity-80 pointer-events-none" 
+          <img
+            src={dividerSvg.src}
+            alt=""
+            aria-hidden="true"
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden xl:block mx-1 opacity-80 pointer-events-none"
           />
 
           <!-- Middle: Menu Items (Graphic Words) -->
@@ -118,9 +118,9 @@ const navItems = [
                 class="group relative inline-block transition-transform duration-150 hover:scale-105"
                 aria-label={item.label}
               >
-                <img 
-                  src={item.svg.src} 
-                  alt={item.label} 
+                <img
+                  src={item.svg.src}
+                  alt={item.label}
                   class="h-6 xl:h-7 w-auto object-contain drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)] transition-all"
                 />
                 <span class="sr-only">{item.label}</span>
@@ -129,35 +129,35 @@ const navItems = [
           </nav>
 
           <!-- Divider between Menu Items and Utilities -->
-          <img 
-            src={dividerSvg.src} 
-            alt="" 
-            aria-hidden="true" 
-            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden lg:block mx-1 opacity-80 pointer-events-none" 
+          <img
+            src={dividerSvg.src}
+            alt=""
+            aria-hidden="true"
+            class="cyber-theme-element h-6 sm:h-8 w-auto shrink-0 hidden lg:block mx-1 opacity-80 pointer-events-none"
           />
 
           <!-- Right Controls: Transmit Button + Divider + Theme Switcher / Mobile Button -->
           <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             <!-- Transmit Button -->
-            <a 
-              href="/contact" 
+            <a
+              href="/contact"
               class="cyber-theme-element group block transition-transform duration-150 hover:scale-105"
               aria-label="Transmit"
             >
-              <img 
-                src={menuTransmitSvg.src} 
-                alt="Transmit" 
+              <img
+                src={menuTransmitSvg.src}
+                alt="Transmit"
                 class="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_8px_rgba(34,197,94,0.35)] group-hover:drop-shadow-[0_0_18px_rgba(56,189,248,0.85)] transition-all"
               />
               <span class="sr-only">Transmit</span>
             </a>
 
             <!-- Divider -->
-            <img 
-              src={dividerSvg.src} 
-              alt="" 
-              aria-hidden="true" 
-              class="cyber-theme-element h-5 sm:h-7 w-auto shrink-0 hidden sm:block opacity-60 pointer-events-none" 
+            <img
+              src={dividerSvg.src}
+              alt=""
+              aria-hidden="true"
+              class="cyber-theme-element h-5 sm:h-7 w-auto shrink-0 hidden sm:block opacity-60 pointer-events-none"
             />
 
             <!-- Theme Switcher & Mode Toggle Module -->
@@ -184,11 +184,11 @@ const navItems = [
 
       <!-- 3. RIGHT ENDCAP: Complete right border with spark plug terminals & lightning arcs -->
       <div class="cyber-theme-element relative h-full w-[32px] sm:w-[44px] shrink-0 z-20 pointer-events-none">
-        <img 
-          src={endcapRightSvg.src} 
-          alt="" 
-          aria-hidden="true" 
-          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(56,189,248,0.8)]" 
+        <img
+          src={endcapRightSvg.src}
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-fill drop-shadow-[0_0_12px_rgba(56,189,248,0.8)]"
         />
       </div>
 
@@ -196,7 +196,7 @@ const navItems = [
   </div>
 
   <!-- BOTTOM LIGHTNING BORDER: High-voltage continuous lightning dancing across the entire bottom edge -->
-  <div 
+  <div
     class="cyber-theme-element w-full h-[8px] sm:h-[10px] z-30 pointer-events-none relative shadow-[0_4px_24px_rgba(34,197,94,0.6)]"
     style={`background-image: url('${borderBottomSvg.src}'); background-repeat: repeat-x; background-size: 160px 100%; border-top: 1px solid rgba(34, 197, 94, 0.45);`}
     aria-hidden="true"
@@ -271,12 +271,12 @@ const navItems = [
     function initMenu() {
       var button = document.getElementById('mobile-menu-button');
       var menu = document.getElementById('mobile-menu');
-      
+
       if (!button || !menu) {
         setTimeout(initMenu, 100);
         return;
       }
-      
+
       button.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -289,13 +289,13 @@ const navItems = [
         }
       };
     }
-    
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initMenu);
     } else {
       setTimeout(initMenu, 0);
     }
-    
+
     document.addEventListener('astro:page-load', initMenu);
     document.addEventListener('astro:after-swap', initMenu);
   })();

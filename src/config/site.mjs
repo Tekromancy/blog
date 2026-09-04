@@ -1,6 +1,6 @@
 export const SITE = {
   title: "Tekromancy",
-  subtitle: "Technomancy, Infrastructure & Code",
+  subtitle: "Tekromancy, Infrastructure & Code",
   description: "Deep dives into Linux internals, Kubernetes orchestration, AI/ML systems, distributed networking, and cybersecurity.",
   defaultLanguage: "en",
   url: "https://tekromancy.com", // Production URL
