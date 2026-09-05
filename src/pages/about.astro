@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import ScrollReveal from "../components/ScrollReveal.tsx";
 import { SITE } from "../config/site.mjs";
 import { Icon } from "astro-icon/components";
+import { getAllAuthors } from "../data/authors";
 ---
 
 <Layout
@@ -101,22 +102,63 @@ import { Icon } from "astro-icon/components";
         </ScrollReveal>
 
         <ScrollReveal client:load delay={0.5}>
-          <h2>Author</h2>
-          <div class="not-prose p-6 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center gap-6 my-6" style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e2e8f0);">
-            <div class="w-16 h-16 rounded-xl flex items-center justify-center font-mono font-bold text-2xl shrink-0" style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);">
-              JC
-            </div>
-            <div>
-              <h3 class="text-xl font-bold font-mono mb-1" style="color: var(--token-color-text-primary, #111827);">
-                Joshua Edward McLaughlin Cox
-              </h3>
-              <p class="text-sm font-mono mb-3" style="color: var(--token-color-primary, #0ea5e9);">
-                Technomancer &amp; Systems Architect
-              </p>
-              <p class="text-sm" style="color: var(--token-color-text-muted, #64748b);">
-                Passionate about low-level Linux systems engineering, high-scale Kubernetes deployments, local artificial intelligence pipelines, and defensive security. Building robust, sovereign computing environments that stand the test of time.
-              </p>
-            </div>
+          <h2>Authors &amp; Technomancers</h2>
+          <div class="not-prose grid grid-cols-1 gap-6 my-6">
+            {getAllAuthors().map((author) => (
+              <div class="p-6 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center gap-6" style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e2e8f0);">
+                <div class="w-16 h-16 rounded-xl flex items-center justify-center font-mono font-bold text-2xl shrink-0" style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);">
+                  {author.initials || 'JC'}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                    <h3 class="text-xl font-bold font-mono" style="color: var(--token-color-text-primary, #111827);">
+                      {author.name}
+                    </h3>
+                    {author.role && (
+                      <span class="text-xs font-mono px-2 py-0.5 rounded border self-start sm:self-auto" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-primary, #0ea5e9);">
+                        {author.role}
+                      </span>
+                    )}
+                  </div>
+                  {author.bio && (
+                    <p class="text-sm leading-relaxed mb-3" style="color: var(--token-color-text-muted, #64748b);">
+                      {author.bio}
+                    </p>
+                  )}
+                  <div class="flex items-center gap-4 text-xs font-mono">
+                    {author.github && (
+                      <a
+                        href={author.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:underline"
+                        style="color: var(--token-color-primary, #0ea5e9);"
+                      >
+                        github ↗
+                      </a>
+                    )}
+                    {author.website && (
+                      <a
+                        href={author.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:underline"
+                        style="color: var(--token-color-text-muted, #64748b);"
+                      >
+                        website ↗
+                      </a>
+                    )}
+                    <a
+                      href={`/blog?author=${encodeURIComponent(author.name)}`}
+                      class="hover:underline ml-auto"
+                      style="color: var(--token-color-text-muted, #64748b);"
+                    >
+                      View dispatches →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </ScrollReveal>
 

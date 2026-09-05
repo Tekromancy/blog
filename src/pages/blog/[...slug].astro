@@ -7,6 +7,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { SITE } from '../../config/site.mjs';
 import { Image } from 'astro:assets';
 import { getBlogImage } from '../../utils/blogImages';
+import { getPostAuthors, formatAuthorNames } from '../../data/authors';
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection('blog');
@@ -25,6 +26,8 @@ const { Content } = await render(post);
 const heroImage = getBlogImage(post.data.heroImage);
 // Get the image URL for ogImage meta tag
 const ogImageUrl = heroImage ? new URL(heroImage.src, import.meta.env.SITE || SITE.url).href : undefined;
+const authors = getPostAuthors(post.data);
+const authorNamesStr = formatAuthorNames(authors);
 ---
 
 <Layout
@@ -104,7 +107,23 @@ const ogImageUrl = heroImage ? new URL(heroImage.src, import.meta.env.SITE || SI
 									})}
 								</time>
 							)}
-							{post.data.author && <span>by {post.data.author}</span>}
+							{authors.length > 0 && (
+								<span class="inline-flex items-center gap-1.5 flex-wrap">
+									<span>by</span>
+									{authors.map((author, i) => (
+										<span class="inline-flex items-center gap-1 font-medium">
+											<a
+												href={`/blog?author=${encodeURIComponent(author.name)}`}
+												class="hover:underline transition-colors font-mono text-xs sm:text-sm"
+												style="color: var(--token-color-primary, #22EE44);"
+											>
+												{author.name}
+											</a>
+											{i < authors.length - 2 ? <span>,</span> : i === authors.length - 2 ? <span class="opacity-75">&amp;</span> : null}
+										</span>
+									))}
+								</span>
+							)}
 						</div>
 					</ScrollReveal>
 					{post.data.tags && post.data.tags.length > 0 && (
@@ -128,6 +147,96 @@ const ogImageUrl = heroImage ? new URL(heroImage.src, import.meta.env.SITE || SI
 						<Content />
 					</div>
 				</ScrollReveal>
+
+				<!-- Co-Authors & Contributors Section -->
+				<section class="mt-14 pt-8 border-t" style="border-color: var(--token-color-border, #334155);">
+					<h3 class="text-xs font-mono uppercase tracking-wider mb-6 flex items-center gap-2" style="color: var(--token-color-primary, #22EE44);">
+						<span class="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style="background-color: var(--token-color-primary, #22EE44);"></span>
+						<span>{authors.length > 1 ? '// CO-AUTHORS & CONTRIBUTORS' : '// ABOUT THE AUTHOR'}</span>
+					</h3>
+					<div class="grid grid-cols-1 gap-4">
+						{authors.map((author) => (
+							<div
+								class="p-6 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center gap-5 transition-all"
+								style="background-color: var(--token-color-surface, #0e0a12); border-color: var(--token-color-border, #1f2937);"
+							>
+								<div
+									class="w-14 h-14 rounded-xl flex items-center justify-center font-mono font-bold text-xl shrink-0 shadow-sm"
+									style="background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000);"
+								>
+									{author.initials || 'JC'}
+								</div>
+								<div class="flex-1 min-w-0">
+									<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+										<h4 class="text-lg font-bold font-mono" style="color: var(--token-color-text-primary, #111827);">
+											<a href={`/blog?author=${encodeURIComponent(author.name)}`} class="hover:underline">
+												{author.name}
+											</a>
+										</h4>
+										{author.role && (
+											<span class="text-xs font-mono px-2 py-0.5 rounded border self-start sm:self-auto" style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22c55e);">
+												{author.role}
+											</span>
+										)}
+									</div>
+									{author.bio && (
+										<p class="text-sm leading-relaxed mb-3" style="color: var(--token-color-text-muted, #94a3b8);">
+											{author.bio}
+										</p>
+									)}
+									<div class="flex items-center gap-3 text-xs font-mono">
+										{author.github && (
+											<a
+												href={author.github}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="inline-flex items-center gap-1 hover:underline"
+												style="color: var(--token-color-primary, #22c55e);"
+											>
+												<span>github ↗</span>
+											</a>
+										)}
+										{author.website && (
+											<a
+												href={author.website}
+												target="_blank"
+												rel="noopener noreferrer"
+												class="inline-flex items-center gap-1 hover:underline"
+												style="color: var(--token-color-text-muted, #94a3b8);"
+											>
+												<span>website ↗</span>
+											</a>
+										)}
+										<a
+											href={`/blog?author=${encodeURIComponent(author.name)}`}
+											class="inline-flex items-center gap-1 hover:underline ml-auto"
+											style="color: var(--token-color-text-muted, #94a3b8);"
+										>
+											<span>View all dispatches →</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+
+				<!-- Schema.org JSON-LD Article structured data with multiple Person authors -->
+				<script type="application/ld+json" set:html={JSON.stringify({
+					"@context": "https://schema.org",
+					"@type": "BlogPosting",
+					"headline": post.data.title,
+					"description": post.data.description,
+					"datePublished": post.data.pubDate.toISOString(),
+					"dateModified": (post.data.updatedDate || post.data.pubDate).toISOString(),
+					"author": authors.map((a) => ({
+						"@type": "Person",
+						"name": a.name,
+						...(a.website ? { "url": a.website } : {}),
+						...(a.role ? { "jobTitle": a.role } : {})
+					})),
+					...(ogImageUrl ? { "image": ogImageUrl } : {})
+				})} />
 
 				<footer class="mt-12 pt-8 border-t" style="border-color: var(--token-color-border, #e5e7eb);">
 					<a

@@ -7,6 +7,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { SITE } from '../../config/site.mjs';
 import { Image } from 'astro:assets';
 import { getBlogImage } from '../../utils/blogImages';
+import { getPostAuthors, formatAuthorNames } from '../../data/authors';
 
 const blogPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -59,6 +60,17 @@ const blogPosts = (await getCollection('blog')).sort(
 				</ScrollReveal>
 			</header>
 
+			<!-- Active Author Filter Banner -->
+			<div id="author-filter-banner" class="hidden mb-6 p-4 rounded-xl border font-mono text-xs flex items-center justify-between" style="background-color: var(--token-color-surface, #0e0a12); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #ffffff);">
+				<div class="flex items-center gap-2">
+					<span class="w-2 h-2 rounded-full inline-block" style="background-color: var(--token-color-primary, #22EE44);"></span>
+					<span>FILTERED BY AUTHOR: <strong id="author-filter-name" style="color: var(--token-color-primary, #22EE44);"></strong></span>
+				</div>
+				<a href="/blog" class="px-2.5 py-1 rounded border hover:underline" style="border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);">
+					Clear Filter ×
+				</a>
+			</div>
+
 			{blogPosts.length === 0 ? (
 				<div class="text-center py-12">
 					<p style="color: var(--token-color-text-muted, #64748b);">No articles found in this archive.</p>
@@ -69,10 +81,13 @@ const blogPosts = (await getCollection('blog')).sort(
 						const heroImage = getBlogImage(post.data.heroImage);
 						const tags = post.data.tags || [];
 						const firstTag = tags.length > 0 ? tags[0] : null;
+						const authors = getPostAuthors(post.data);
+						const authorNamesStr = formatAuthorNames(authors);
 						return (
 							<article
 								class="post-card rounded-xl border hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col"
 								data-tags={tags.join(',')}
+								data-authors={authors.map((a) => a.name.toLowerCase()).join('|')}
 								style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
 							>
 								<a
@@ -98,7 +113,7 @@ const blogPosts = (await getCollection('blog')).sort(
 										</div>
 									)}
 									<div class="p-6 flex flex-col flex-1">
-										<div class="flex items-center justify-between gap-3 mb-3 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
 											<time datetime={post.data.pubDate.toISOString()}>
 												{post.data.pubDate.toLocaleDateString('en-US', {
 													year: 'numeric',
@@ -111,6 +126,10 @@ const blogPosts = (await getCollection('blog')).sort(
 													#{firstTag}
 												</span>
 											)}
+										</div>
+										<div class="text-[11px] font-mono mb-3 flex items-center gap-1.5 truncate" style="color: var(--token-color-primary, #22EE44);">
+											<span class="opacity-70">by</span>
+											<span class="font-medium truncate">{authorNamesStr}</span>
 										</div>
 										<h2 class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2 group-hover:text-[var(--token-color-primary)]" style="color: var(--token-color-text-primary, #111827);">
 											{post.data.title}
@@ -165,11 +184,41 @@ const blogPosts = (await getCollection('blog')).sort(
 				});
 			}
 
+			var authorBanner = document.getElementById('author-filter-banner');
+			var authorNameEl = document.getElementById('author-filter-name');
+
+			function applyAuthorFilter(authorName) {
+				if (!authorName) return;
+				var target = authorName.toLowerCase().trim();
+				if (authorBanner && authorNameEl) {
+					authorBanner.classList.remove('hidden');
+					authorNameEl.textContent = authorName;
+				}
+				filterBtns.forEach(function(btn) {
+					btn.style.backgroundColor = 'var(--token-color-surface, #f8fafc)';
+					btn.style.color = 'var(--token-color-text-muted, #64748b)';
+					btn.style.borderColor = 'var(--token-color-border, #e2e8f0)';
+				});
+				cards.forEach(function(card) {
+					var authors = (card.getAttribute('data-authors') || '').split('|');
+					var matched = authors.some(function(a) {
+						return a.indexOf(target) !== -1 || target.indexOf(a) !== -1;
+					});
+					if (matched) {
+						card.style.display = 'flex';
+					} else {
+						card.style.display = 'none';
+					}
+				});
+			}
+
 			filterBtns.forEach(function(btn) {
 				btn.onclick = function() {
+					if (authorBanner) authorBanner.classList.add('hidden');
 					var filter = btn.getAttribute('data-filter');
 					applyFilter(filter);
 					var url = new URL(window.location);
+					url.searchParams.delete('author');
 					if (filter === 'all') {
 						url.searchParams.delete('tag');
 					} else {
@@ -180,8 +229,11 @@ const blogPosts = (await getCollection('blog')).sort(
 			});
 
 			var params = new URLSearchParams(window.location.search);
+			var authorParam = params.get('author');
 			var tagParam = params.get('tag');
-			if (tagParam) {
+			if (authorParam) {
+				applyAuthorFilter(authorParam);
+			} else if (tagParam) {
 				applyFilter(tagParam);
 			}
 		}

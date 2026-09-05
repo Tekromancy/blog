@@ -11,6 +11,7 @@ import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getBlogImage } from "../utils/blogImages";
+import { getPostAuthors, formatAuthorNames } from "../data/authors";
 
 const latestPosts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -79,7 +80,7 @@ const latestPosts = (await getCollection("blog"))
                     )}
                   </a>
                   <div class="p-6">
-                    <div class="flex items-center justify-between text-xs font-mono mb-3" style="color: var(--token-color-text-muted, #64748b);">
+                    <div class="flex items-center justify-between text-xs font-mono mb-2" style="color: var(--token-color-text-muted, #64748b);">
                       <time datetime={post.data.pubDate.toISOString()}>
                         {post.data.pubDate.toLocaleDateString("en-US", {
                           year: "numeric",
@@ -92,6 +93,10 @@ const latestPosts = (await getCollection("blog"))
                           #{firstTag}
                         </span>
                       )}
+                    </div>
+                    <div class="text-[11px] font-mono mb-2 flex items-center gap-1.5 truncate" style="color: var(--token-color-primary, #22EE44);">
+                      <span class="opacity-70">by</span>
+                      <span class="font-medium truncate">{formatAuthorNames(getPostAuthors(post.data))}</span>
                     </div>
                     <h3 class="text-lg font-bold font-mono mb-2 line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
                       <a

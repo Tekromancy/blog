@@ -4,7 +4,9 @@ description: "Bootstrapping instant KinD and K3s clusters pre-loaded with ArgoCD
 pubDate: "2026-06-09"
 heroImage: "8.png"
 tags: ["kubernetes", "gitops", "argocd", "devops", "cloud-native"]
-author: "Joshua Edward McLaughlin Cox"
+authors:
+  - "Joshua Edward McLaughlin Cox"
+  - "DeployCoop Core Team"
 ---
 
 Following on the heels of our deep dive into [Kubash](https://kubash.org), there is another critical challenge developers face: building full-featured, multi-tenant Kubernetes application environments locally without spending hours manually wrangling Helm values, ingress manifests, and self-signed TLS certificate trust chains.

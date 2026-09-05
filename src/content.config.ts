@@ -12,6 +12,7 @@ const blog = defineCollection({
 		heroImage: z.string().optional(),
 		tags: z.array(z.string()).default([]),
 		author: z.string().default('Joshua Edward McLaughlin Cox'),
+		authors: z.array(z.string()).optional(),
 	}),
 });
 
