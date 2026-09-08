@@ -19,11 +19,13 @@ import menuLinuxSvg from "../assets/nav/menu-linux.svg";
 import menuK8sSvg from "../assets/nav/menu-k8s.svg";
 import menuAimlSvg from "../assets/nav/menu-aiml.svg";
 import menuSecSvg from "../assets/nav/menu-security.svg";
+import menuEventsSvg from "../assets/nav/menu-events.svg";
 import menuAboutSvg from "../assets/nav/menu-about.svg";
 import menuTransmitSvg from "../assets/nav/menu-transmit.svg";
 
 const navItems = [
   { href: "/blog", label: "Articles", svg: menuArticlesSvg, desc: "Field Dispatches & Research" },
+  { href: "/events", label: "Events", svg: menuEventsSvg, desc: "Field Operations & CTF", isLive: true },
   { href: "/blog?tag=linux", label: "Linux", svg: menuLinuxSvg, desc: "Kernel Internals & eBPF" },
   { href: "/blog?tag=kubernetes", label: "Kubernetes", svg: menuK8sSvg, desc: "Container Cloud Orchestration" },
   { href: "/blog?tag=ai-ml", label: "AI / ML", svg: menuAimlSvg, desc: "vLLM, CUDA & Neural Models" },
@@ -111,7 +113,7 @@ const navItems = [
           />
 
           <!-- Middle: Menu Items (Graphic Words) -->
-          <nav class="cyber-theme-element hidden lg:flex items-center gap-1 xl:gap-2 shrink-0" aria-label="Main navigation">
+          <nav class="cyber-theme-element hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0" aria-label="Main navigation">
             {navItems.map((item) => (
               <a
                 href={item.href}
@@ -121,8 +123,18 @@ const navItems = [
                 <img
                   src={item.svg.src}
                   alt={item.label}
-                  class="h-6 xl:h-7 w-auto object-contain drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)] transition-all"
+                  class={`h-6 xl:h-7 w-auto object-contain transition-all ${
+                    item.isLive
+                      ? 'drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] group-hover:drop-shadow-[0_0_18px_rgba(251,191,36,0.95)]'
+                      : 'drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]'
+                  }`}
                 />
+                {item.isLive && (
+                  <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5 pointer-events-none">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#fbbf24] shadow-[0_0_6px_#fbbf24]"></span>
+                  </span>
+                )}
                 <span class="sr-only">{item.label}</span>
               </a>
             ))}
@@ -165,6 +177,19 @@ const navItems = [
               <ModeToggle client:load />
               <ThemeSwitcher client:load />
             </div>
+
+            <!-- Mobile Quick-Access Events Button -->
+            <a
+              href="/events"
+              class="lg:hidden cyber-theme-element group flex items-center gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg border border-[#fbbf24]/50 bg-[#000000] text-[#fbbf24] hover:border-[#fbbf24] hover:shadow-[0_0_12px_rgba(251,191,36,0.6)] transition-all text-[11px] font-mono font-bold shrink-0"
+              aria-label="Events and Field Operations"
+            >
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#fbbf24]"></span>
+              </span>
+              <span>EVENTS</span>
+            </a>
 
             <!-- Mobile Navigation Console Toggle Button -->
             <button
@@ -225,22 +250,31 @@ const navItems = [
         <li>
           <a
             href={item.href}
-            class="flex items-center justify-between p-3 rounded-xl border transition-all"
-            style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"
+            class="relative flex items-center justify-between p-3 rounded-xl border transition-all"
+            style={item.isLive 
+              ? "background-color: rgba(18, 14, 4, 0.95); border-color: rgba(251, 191, 36, 0.45); box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.1);" 
+              : "background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"}
             onmouseenter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.8)';
-              e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
-              e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.3)';
+              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.9)' : 'rgba(34, 197, 94, 0.8)';
+              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(251, 191, 36, 0.2)' : 'rgba(34, 197, 94, 0.15)';
+              e.currentTarget.style.boxShadow = item.isLive ? '0 0 18px rgba(251, 191, 36, 0.4)' : '0 0 15px rgba(34, 197, 94, 0.3)';
             }}
             onmouseleave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.25)';
-              e.currentTarget.style.backgroundColor = 'rgba(4, 9, 5, 0.9)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.45)' : 'rgba(34, 197, 94, 0.25)';
+              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(18, 14, 4, 0.95)' : 'rgba(4, 9, 5, 0.9)';
+              e.currentTarget.style.boxShadow = item.isLive ? 'inset 0 0 15px rgba(251, 191, 36, 0.1)' : 'none';
             }}
             role="menuitem"
           >
             <!-- Stylized Wordmark SVG -->
-            <img src={item.svg.src} alt={item.label} class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
+            <div class="relative flex items-center gap-2">
+              <img src={item.svg.src} alt={item.label} class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
+              {item.isLive && (
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#fbbf24]/20 border border-[#fbbf24]/60 text-[#fbbf24] animate-pulse">
+                  ACTIVE
+                </span>
+              )}
+            </div>
             <span class="text-[11px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
             <span class="sr-only">{item.label}</span>
           </a>

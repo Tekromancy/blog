@@ -8,6 +8,7 @@ import image6 from '../assets/blog/6.jpg';
 import image7 from '../assets/blog/7.jpg';
 import image8 from '../assets/blog/8.png';
 import image9 from '../assets/blog/9.png';
+import image10 from '../assets/blog/10.jpg';
 import type { ImageMetadata } from 'astro';
 
 // Map image filenames to imported images
@@ -21,6 +22,7 @@ export const blogImages: Record<string, ImageMetadata> = {
 	'7.jpg': image7,
 	'8.png': image8,
 	'9.png': image9,
+	'10.jpg': image10,
 };
 
 // Helper function to get image by filename
