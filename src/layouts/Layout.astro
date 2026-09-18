@@ -1,28 +1,28 @@
 ---
-import '../styles/global.css';
-import { SITE } from '../config/site.mjs';
-import type { SEOProps } from '../types/seo';
-import { ClientRouter } from 'astro:transitions';
+import "../styles/global.css";
+import { SITE } from "../config/site.mjs";
+import type { SEOProps } from "../types/seo";
+import { ClientRouter } from "astro:transitions";
 
 interface Props extends SEOProps {
-  lang?: string;
+	lang?: string;
 }
 
 const {
-  title = SITE.title,
-  description = SITE.description,
-  canonicalURL,
-  ogTitle = title,
-  ogDescription = description,
-  ogImage = SITE.ogImage,
-  ogType = 'website',
-  twitterCard = 'summary_large_image',
-  twitterTitle = ogTitle,
-  twitterDescription = ogDescription,
-  twitterImage = ogImage,
-  noindex = false,
-  nofollow = false,
-  lang = SITE.defaultLanguage,
+	title = SITE.title,
+	description = SITE.description,
+	canonicalURL,
+	ogTitle = title,
+	ogDescription = description,
+	ogImage = SITE.ogImage,
+	ogType = "website",
+	twitterCard = "summary_large_image",
+	twitterTitle = ogTitle,
+	twitterDescription = ogDescription,
+	twitterImage = ogImage,
+	noindex = false,
+	nofollow = false,
+	lang = SITE.defaultLanguage,
 } = Astro.props;
 
 // Construct full URLs
@@ -32,10 +32,10 @@ const siteURL = new URL(canonicalPath, SITE.url);
 
 // Handle image URLs - support both absolute URLs and relative paths
 const getFullImageUrl = (image: string): string => {
-  if (image.startsWith('http://') || image.startsWith('https://')) {
-    return image;
-  }
-  return new URL(image, SITE.url).href;
+	if (image.startsWith("http://") || image.startsWith("https://")) {
+		return image;
+	}
+	return new URL(image, SITE.url).href;
 };
 
 const fullOgImage = getFullImageUrl(ogImage);
@@ -43,9 +43,9 @@ const fullTwitterImage = getFullImageUrl(twitterImage);
 
 // Build robots meta content
 const robotsContent = [
-  noindex ? 'noindex' : 'index',
-  nofollow ? 'nofollow' : 'follow',
-].join(', ');
+	noindex ? "noindex" : "index",
+	nofollow ? "nofollow" : "follow",
+].join(", ");
 ---
 
 <!doctype html>
@@ -54,32 +54,49 @@ const robotsContent = [
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title={`${SITE.title} RSS Feed`}
+			href="/rss.xml"
+		/>
 		<meta name="generator" content={Astro.generator} />
-		
+
 		<!-- Resource Hints -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		
+
 		<!-- Premium Theme Fonts - Loaded asynchronously to prevent render blocking -->
 		<!-- Aurora Theme: Poppins (sans) + Cormorant Garamond (serif) + Fira Code (mono) -->
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+			media="print"
+			onload="this.media='all'"
+		/>
 		<noscript>
-			<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" />
+			<link
+				href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap"
+				rel="stylesheet"
+			/>
 		</noscript>
 		<!-- Obsidian & Tech Fonts: Space Grotesk (sans) + IBM Plex Serif (serif) + JetBrains Mono (mono) -->
-		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-		
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
 		<!-- Preload Critical Resources -->
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
-		
+
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="robots" content={robotsContent} />
 		<link rel="canonical" href={siteURL.href} />
-		
+
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={siteURL.href} />
@@ -87,7 +104,7 @@ const robotsContent = [
 		<meta property="og:description" content={ogDescription} />
 		<meta property="og:image" content={fullOgImage} />
 		<meta property="og:site_name" content={SITE.title} />
-		
+
 		<!-- Twitter -->
 		<meta name="twitter:card" content={twitterCard} />
 		<meta name="twitter:url" content={siteURL.href} />
@@ -96,97 +113,116 @@ const robotsContent = [
 		<meta name="twitter:image" content={fullTwitterImage} />
 
 		<!-- Google Analytics (GA4) -->
-		{SITE.googleAnalyticsId && (
-			<>
-				<link rel="preconnect" href="https://www.googletagmanager.com" />
-				<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-				<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`}></script>
-				<script is:inline define:vars={{ gaId: SITE.googleAnalyticsId }}>
+		{
+			SITE.googleAnalyticsId && (
+				<>
+					<link rel="preconnect" href="https://www.googletagmanager.com" />
+					<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+					<script
+						is:inline
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=${SITE.googleAnalyticsId}`}
+					/>
+					<script
+						is:inline
+						set:html={`
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
-					gtag('config', gaId);
+					gtag('config', '${SITE.googleAnalyticsId}');
 
 					document.addEventListener('astro:after-swap', () => {
-						gtag('config', gaId, {
+						gtag('config', '${SITE.googleAnalyticsId}', {
 							page_path: window.location.pathname,
 							page_location: window.location.href,
 							page_title: document.title,
 						});
 					});
-				</script>
-			</>
-		)}
-		
+				`}
+					/>
+				</>
+			)
+		}
+
 		<!-- View Transitions -->
 		<ClientRouter />
 	</head>
-	<body class="min-h-screen" style="background-color: var(--token-color-background, #000000); color: var(--token-color-text-primary, #111827);">
+	<body
+		class="min-h-screen"
+		style="background-color: var(--token-color-background, #000000); color: var(--token-color-text-primary, #111827);"
+	>
 		<script is:inline>
 			/**
 			 * Early Theme Initialization
-			 * 
+			 *
 			 * Architecture Decision: This script runs BEFORE page render to prevent
 			 * theme flash (FOUC - Flash of Unstyled Content). We use is:inline so it
 			 * executes immediately, not after Astro processes it.
-			 * 
+			 *
 			 * Why inline script:
 			 * 1. Executes synchronously before page paint
 			 * 2. No external dependencies
 			 * 3. Works even if JavaScript is slow to load
 			 * 4. Prevents visual flash when switching themes
 			 */
-			(function() {
+			(function () {
 				// Available color themes (light/dark are modes, not themes)
-				const availableThemes = ['blue', 'green', 'purple', 'orange', 'aurora', 'obsidian'];
-				const storedTheme = localStorage.getItem('theme');
-				const storedMode = localStorage.getItem('mode');
-				
+				const availableThemes = [
+					"blue",
+					"green",
+					"purple",
+					"orange",
+					"aurora",
+					"obsidian",
+				];
+				const storedTheme = localStorage.getItem("theme");
+				const storedMode = localStorage.getItem("mode");
+
 				// Set theme (default to green for terminal / matrix tech aesthetic)
 				// Architecture: Validate against available themes to prevent invalid states
-				const theme = storedTheme && availableThemes.includes(storedTheme) 
-					? storedTheme 
-					: 'green';
-				document.documentElement.setAttribute('data-theme', theme);
-				
+				const theme =
+					storedTheme && availableThemes.includes(storedTheme)
+						? storedTheme
+						: "green";
+				document.documentElement.setAttribute("data-theme", theme);
+
 				// Set mode (default to dark for tech aesthetic, or user preference)
 				// Architecture: Respects user's stored choice, defaults to dark
-				let mode = storedMode === 'light' || storedMode === 'dark' 
-					? storedMode 
-					: 'dark';
-				document.documentElement.setAttribute('data-mode', mode);
+				let mode =
+					storedMode === "light" || storedMode === "dark" ? storedMode : "dark";
+				document.documentElement.setAttribute("data-mode", mode);
 			})();
-			
+
 			/**
 			 * View Transition Support
-			 * 
+			 *
 			 * Architecture Decision: Re-apply theme on Astro view transitions because:
 			 * 1. View transitions don't trigger full page reload
 			 * 2. Data attributes might not persist across transitions
 			 * 3. Ensures theme consistency during client-side navigation
-			 * 
+			 *
 			 * This is necessary for Astro's view transitions feature.
 			 */
-			document.addEventListener('astro:page-load', function() {
-				const storedTheme = localStorage.getItem('theme');
-				const storedMode = localStorage.getItem('mode');
+			document.addEventListener("astro:page-load", function () {
+				const storedTheme = localStorage.getItem("theme");
+				const storedMode = localStorage.getItem("mode");
 				if (storedTheme) {
-					document.documentElement.setAttribute('data-theme', storedTheme);
+					document.documentElement.setAttribute("data-theme", storedTheme);
 				}
-				if (storedMode === 'light' || storedMode === 'dark') {
-					document.documentElement.setAttribute('data-mode', storedMode);
+				if (storedMode === "light" || storedMode === "dark") {
+					document.documentElement.setAttribute("data-mode", storedMode);
 				}
 			});
-			
+
 			// Also listen for after-swap to ensure theme persists
-			document.addEventListener('astro:after-swap', function() {
-				const storedTheme = localStorage.getItem('theme');
-				const storedMode = localStorage.getItem('mode');
+			document.addEventListener("astro:after-swap", function () {
+				const storedTheme = localStorage.getItem("theme");
+				const storedMode = localStorage.getItem("mode");
 				if (storedTheme) {
-					document.documentElement.setAttribute('data-theme', storedTheme);
+					document.documentElement.setAttribute("data-theme", storedTheme);
 				}
-				if (storedMode === 'light' || storedMode === 'dark') {
-					document.documentElement.setAttribute('data-mode', storedMode);
+				if (storedMode === "light" || storedMode === "dark") {
+					document.documentElement.setAttribute("data-mode", storedMode);
 				}
 			});
 		</script>

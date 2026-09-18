@@ -3,136 +3,222 @@ import { Icon } from "astro-icon/components";
 ---
 
 <footer
-  id="contact"
-  class="w-full py-12"
-  role="contentinfo"
-  style="background-color: var(--token-color-background, #000000);"
+	id="contact"
+	class="w-full py-12"
+	role="contentinfo"
+	style="background-color: var(--token-color-background, #000000);"
 >
-  <div class="w-full border-t mb-12" style="border-color: var(--token-color-border, #e5e7eb);"></div>
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-3 gap-8 mb-8">
-      <div>
-        <div class="flex items-center gap-2 mb-4">
-          <span class="inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold font-mono shadow-sm" style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);">
-            &gt;_
-          </span>
-          <h2 class="text-xl font-bold font-mono" style="color: var(--token-color-text-primary, #111827);">Tekromancy</h2>
-        </div>
-        <p class="text-sm leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
-          Tekromancy, Infrastructure & Systems Engineering. Deep dives into Linux internals, Kubernetes orchestration, AI/ML systems, distributed networking, and cybersecurity.
-        </p>
-      </div>
-      <div>
-        <h2 class="text-base font-semibold font-mono mb-4" style="color: var(--token-color-text-primary, #111827);">Core Domains</h2>
-        <ul class="space-y-2 text-sm font-mono">
-          <li>
-            <a
-              href="/blog?tag=linux"
-              class="transition-colors hover:underline"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              # Linux &amp; Kernel Internals
-            </a>
-          </li>
-          <li>
-            <a
-              href="/blog?tag=kubernetes"
-              class="transition-colors hover:underline"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              # Kubernetes &amp; Cloud Native
-            </a>
-          </li>
-          <li>
-            <a
-              href="/blog?tag=ai-ml"
-              class="transition-colors hover:underline"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              # AI / ML Engineering
-            </a>
-          </li>
-          <li>
-            <a
-              href="/blog?tag=networking"
-              class="transition-colors hover:underline"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              # Advanced Networking
-            </a>
-          </li>
-          <li>
-            <a
-              href="/blog?tag=security"
-              class="transition-colors hover:underline"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              # Cybersecurity &amp; SecOps
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="text-base font-semibold font-mono mb-4" style="color: var(--token-color-text-primary, #111827);">Navigation</h2>
-        <ul class="space-y-2 text-sm">
-          <li>
-            <a
-              href="/blog"
-              class="flex items-center gap-2 transition-colors"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              <Icon name="tabler:article" class="w-4 h-4" aria-hidden="true" />
-              <span>All Articles</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/about"
-              class="flex items-center gap-2 transition-colors"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              <Icon name="tabler:user" class="w-4 h-4" aria-hidden="true" />
-              <span>About Tekromancy</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="/contact"
-              class="flex items-center gap-2 transition-colors"
-              style="color: var(--token-color-text-muted, #374151);"
-              onmouseenter={(e) => e.currentTarget.style.color = 'var(--token-color-primary, #0ea5e9)'}
-              onmouseleave={(e) => e.currentTarget.style.color = 'var(--token-color-text-muted, #374151)'}
-            >
-              <Icon name="tabler:mail" class="w-4 h-4" aria-hidden="true" />
-              <span>Contact</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="w-full border-t pt-8" style="border-color: var(--token-color-border, #e5e7eb);">
-      <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono" style="color: var(--token-color-text-muted, #374151);">
-        <p>
-          &copy; {new Date().getFullYear()} Tekromancy. All rights reserved. By Joshua Edward McLaughlin Cox.
-        </p>
-        <p class="mt-2 sm:mt-0 opacity-75">
-          Crafted with Astro &amp; Systems Wizardry
-        </p>
-      </div>
-    </div>
-  </div>
+	<div
+		class="w-full border-t mb-12"
+		style="border-color: var(--token-color-border, #e5e7eb);"
+	>
+	</div>
+	<div class="max-w-6xl mx-auto px-4">
+		<div class="grid md:grid-cols-3 gap-8 mb-8">
+			<div>
+				<div class="flex items-center gap-2 mb-4">
+					<span
+						class="inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold font-mono shadow-sm"
+						style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);"
+					>
+						&gt;_
+					</span>
+					<h2
+						class="text-xl font-bold font-mono"
+						style="color: var(--token-color-text-primary, #111827);"
+					>
+						Tekromancy
+					</h2>
+				</div>
+				<p
+					class="text-sm leading-relaxed"
+					style="color: var(--token-color-text-muted, #374151);"
+				>
+					Tekromancy, Infrastructure & Systems Engineering. Deep dives into
+					Linux internals, Kubernetes orchestration, AI/ML systems, distributed
+					networking, and cybersecurity.
+				</p>
+			</div>
+			<div>
+				<h2
+					class="text-base font-semibold font-mono mb-4"
+					style="color: var(--token-color-text-primary, #111827);"
+				>
+					Core Domains
+				</h2>
+				<ul class="space-y-2 text-sm font-mono">
+					<li>
+						<a
+							href="/blog?tag=linux"
+							class="transition-colors hover:underline"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							# Linux &amp; Kernel Internals
+						</a>
+					</li>
+					<li>
+						<a
+							href="/blog?tag=kubernetes"
+							class="transition-colors hover:underline"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							# Kubernetes &amp; Cloud Native
+						</a>
+					</li>
+					<li>
+						<a
+							href="/blog?tag=ai-ml"
+							class="transition-colors hover:underline"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							# AI / ML Engineering
+						</a>
+					</li>
+					<li>
+						<a
+							href="/blog?tag=networking"
+							class="transition-colors hover:underline"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							# Advanced Networking
+						</a>
+					</li>
+					<li>
+						<a
+							href="/blog?tag=security"
+							class="transition-colors hover:underline"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							# Cybersecurity &amp; SecOps
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h2
+					class="text-base font-semibold font-mono mb-4"
+					style="color: var(--token-color-text-primary, #111827);"
+				>
+					Navigation
+				</h2>
+				<ul class="space-y-2 text-sm">
+					<li>
+						<a
+							href="/blog"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:article" class="w-4 h-4" aria-hidden="true" />
+							<span>All Articles</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/about"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:user" class="w-4 h-4" aria-hidden="true" />
+							<span>About Tekromancy</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/contact"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:mail" class="w-4 h-4" aria-hidden="true" />
+							<span>Contact</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/rss.xml"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon
+								name="tabler:rss"
+								class="w-4 h-4 text-[#f59e0b]"
+								aria-hidden="true"
+							/>
+							<span>RSS Feed</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div
+			class="w-full border-t pt-8"
+			style="border-color: var(--token-color-border, #e5e7eb);"
+		>
+			<div
+				class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono"
+				style="color: var(--token-color-text-muted, #374151);"
+			>
+				<p>
+					&copy; {new Date().getFullYear()} Tekromancy. All rights reserved. By Joshua
+					Edward McLaughlin Cox.
+				</p>
+				<p class="mt-2 sm:mt-0 opacity-75">
+					Crafted with Astro &amp; Systems Wizardry
+				</p>
+			</div>
+		</div>
+	</div>
 </footer>

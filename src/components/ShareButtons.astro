@@ -1,0 +1,160 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	title: string;
+	url: string;
+	description?: string;
+}
+
+const { title, url } = Astro.props;
+
+const hnUrl = `https://news.ycombinator.com/submitlink?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
+const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+const redditUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const markdownCitation = `[${title}](${url})`;
+---
+
+<div
+	class="share-dispatch-container my-8 p-4 sm:p-6 rounded-xl border border-[var(--token-color-border,#22c55e)]/30 bg-[#050b07]/80 backdrop-blur-md"
+>
+	<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+		<div>
+			<div class="flex items-center gap-2 mb-1">
+				<span
+					class="inline-block w-2 h-2 rounded-full bg-[#22c55e] animate-pulse"
+				></span>
+				<span
+					class="text-xs font-mono font-bold tracking-wider text-[#22c55e] uppercase"
+					>&gt; BROADCAST_TELEMETRY</span
+				>
+			</div>
+			<h3 class="text-sm font-semibold font-mono text-gray-200">
+				Share or Cite This Dispatch
+			</h3>
+		</div>
+
+		<!-- Social & Aggregator Action Buttons -->
+		<div class="flex flex-wrap items-center gap-2">
+			<!-- Hacker News -->
+			<a
+				href={hnUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-[#ff6600]/40 bg-[#ff6600]/10 text-[#ff6600] hover:bg-[#ff6600]/20 hover:border-[#ff6600] transition-all"
+				title="Submit to Hacker News"
+			>
+				<Icon name="tabler:brand-ycombinator" class="w-4 h-4" />
+				<span>HN</span>
+			</a>
+
+			<!-- Reddit -->
+			<a
+				href={redditUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-[#ff4500]/40 bg-[#ff4500]/10 text-[#ff4500] hover:bg-[#ff4500]/20 hover:border-[#ff4500] transition-all"
+				title="Submit to Reddit"
+			>
+				<Icon name="tabler:brand-reddit" class="w-4 h-4" />
+				<span>Reddit</span>
+			</a>
+
+			<!-- X / Twitter -->
+			<a
+				href={xUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-sky-400/40 bg-sky-400/10 text-sky-400 hover:bg-sky-400/20 hover:border-sky-400 transition-all"
+				title="Post on X"
+			>
+				<Icon name="tabler:brand-x" class="w-4 h-4" />
+				<span>Post</span>
+			</a>
+
+			<!-- LinkedIn -->
+			<a
+				href={linkedInUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-blue-400/40 bg-blue-400/10 text-blue-400 hover:bg-blue-400/20 hover:border-blue-400 transition-all"
+				title="Share on LinkedIn"
+			>
+				<Icon name="tabler:brand-linkedin" class="w-4 h-4" />
+				<span>LinkedIn</span>
+			</a>
+
+			<!-- Copy URL Button -->
+			<button
+				type="button"
+				id="copy-link-btn"
+				data-url={url}
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-500 transition-all cursor-pointer"
+				title="Copy Link to Clipboard"
+			>
+				<Icon name="tabler:link" class="w-4 h-4" />
+				<span id="copy-link-text">Copy Link</span>
+			</button>
+
+			<!-- Copy Markdown Citation Button -->
+			<button
+				type="button"
+				id="copy-md-btn"
+				data-md={markdownCitation}
+				class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium border border-gray-600 bg-gray-900/60 text-gray-300 hover:border-gray-400 transition-all cursor-pointer"
+				title="Copy Markdown Link Syntax"
+			>
+				<span>[md]</span>
+				<span id="copy-md-text">Citation</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<script is:inline>
+	function setupCopyButtons() {
+		const copyLinkBtn = document.getElementById("copy-link-btn");
+		const copyLinkText = document.getElementById("copy-link-text");
+		if (copyLinkBtn && copyLinkText) {
+			copyLinkBtn.onclick = async () => {
+				const url = copyLinkBtn.getAttribute("data-url");
+				if (url) {
+					try {
+						await navigator.clipboard.writeText(url);
+						const original = copyLinkText.textContent;
+						copyLinkText.textContent = "Copied!";
+						setTimeout(() => {
+							copyLinkText.textContent = original;
+						}, 2000);
+					} catch (e) {
+						console.error("Failed to copy", e);
+					}
+				}
+			};
+		}
+
+		const copyMdBtn = document.getElementById("copy-md-btn");
+		const copyMdText = document.getElementById("copy-md-text");
+		if (copyMdBtn && copyMdText) {
+			copyMdBtn.onclick = async () => {
+				const md = copyMdBtn.getAttribute("data-md");
+				if (md) {
+					try {
+						await navigator.clipboard.writeText(md);
+						const original = copyMdText.textContent;
+						copyMdText.textContent = "Copied!";
+						setTimeout(() => {
+							copyMdText.textContent = original;
+						}, 2000);
+					} catch (e) {
+						console.error("Failed to copy", e);
+					}
+				}
+			};
+		}
+	}
+
+	setupCopyButtons();
+	document.addEventListener("astro:after-swap", setupCopyButtons);
+</script>
