@@ -1,18 +1,19 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import ScrollReveal from '../../components/ScrollReveal.tsx';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { SITE } from '../../config/site.mjs';
-import { Image } from 'astro:assets';
-import { getBlogImage } from '../../utils/blogImages';
-import { getPostAuthors, formatAuthorNames } from '../../data/authors';
-import { getUpcomingEvents } from '../../data/events';
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollReveal from "../../components/ScrollReveal.tsx";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { SITE } from "../../config/site.mjs";
+import { Image } from "astro:assets";
+import { getBlogImage } from "../../utils/blogImages";
+import { getPostAuthors, formatAuthorNames } from "../../data/authors";
+import { getUpcomingEvents } from "../../data/events";
 
-const blogPosts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const isDev = import.meta.env.DEV;
+const blogPosts = (
+	await getCollection("blog", ({ data }) => isDev || !data.draft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const upcomingEvents = getUpcomingEvents();
 ---
 
@@ -22,26 +23,46 @@ const upcomingEvents = getUpcomingEvents();
 	canonicalURL={`${SITE.url}/blog`}
 >
 	<Header />
-	<main id="main-content" role="main" class="min-h-screen" style="background-color: var(--token-color-background, #ffffff);">
+	<main
+		id="main-content"
+		role="main"
+		class="min-h-screen"
+		style="background-color: var(--token-color-background, #ffffff);"
+	>
 		<div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
 			<header class="text-center mb-12">
 				<ScrollReveal client:load>
-					<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border" style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);">
-						<span style="color: var(--token-color-primary, #22EE44);">ARCHIVES &amp; TRANSMISSIONS</span>
+					<div
+						class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border"
+						style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);"
+					>
+						<span style="color: var(--token-color-primary, #22EE44);"
+							>ARCHIVES &amp; TRANSMISSIONS</span
+						>
 					</div>
-					<h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4" style="color: var(--token-color-text-primary, #111827);">
+					<h1
+						class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4"
+						style="color: var(--token-color-text-primary, #111827);"
+					>
 						Articles &amp; Field Notes
 					</h1>
 				</ScrollReveal>
 				<ScrollReveal client:load delay={0.2}>
-					<p class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" style="color: var(--token-color-text-muted, #64748b);">
-						Low-level guides, production post-mortems, and architectural blueprints for the curious systems engineer.
+					<p
+						class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+						style="color: var(--token-color-text-muted, #64748b);"
+					>
+						Low-level guides, production post-mortems, and architectural
+						blueprints for the curious systems engineer.
 					</p>
 				</ScrollReveal>
 
 				<!-- Tag Filter Pills -->
 				<ScrollReveal client:load delay={0.3}>
-					<div class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono" id="tag-filters">
+					<div
+						class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono"
+						id="tag-filters"
+					>
 						<button
 							data-filter="all"
 							class="filter-btn active px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium"
@@ -49,341 +70,495 @@ const upcomingEvents = getUpcomingEvents();
 						>
 							All Dispatches
 						</button>
-						{['linux', 'kubernetes', 'ai-ml', 'networking', 'security', 'devops'].map((t) => (
-							<button
-								data-filter={t}
-								class="filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium"
-								style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-muted, #64748b);"
-							>
-								#{t}
-							</button>
-						))}
+						{
+							[
+								"linux",
+								"kubernetes",
+								"ai-ml",
+								"networking",
+								"security",
+								"devops",
+							].map((t) => (
+								<button
+									data-filter={t}
+									class="filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium"
+									style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-muted, #64748b);"
+								>
+									#{t}
+								</button>
+							))
+						}
 					</div>
 				</ScrollReveal>
 			</header>
 
 			<!-- Upcoming Events & Field Operations Section -->
-			{upcomingEvents.length > 0 && (
-				<section class="mb-16" aria-labelledby="upcoming-events-heading">
-					<ScrollReveal client:load delay={0.35}>
-						<div class="flex items-center justify-between mb-6 pb-3 border-b" style="border-color: var(--token-color-border, #334155);">
-							<div class="flex items-center gap-3">
-								<span class="relative flex h-3 w-3">
-									<span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: var(--token-color-primary, #22EE44);"></span>
-									<span class="relative inline-flex rounded-full h-3 w-3" style="background-color: var(--token-color-primary, #22EE44);"></span>
-								</span>
-								<h2 id="upcoming-events-heading" class="text-xl md:text-2xl font-bold font-mono tracking-tight" style="color: var(--token-color-text-primary, #111827);">
-									Upcoming Field Operations &amp; Events
-								</h2>
-							</div>
-							<span class="font-mono text-xs px-2.5 py-1 rounded-full border hidden sm:inline-block" style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);">
-								LIVE INTEL // {upcomingEvents.length} ACTIVE
-							</span>
-						</div>
-
-						<div class="space-y-6">
-							{upcomingEvents.map((event) => (
-								<div
-									class="relative rounded-2xl border p-6 md:p-8 overflow-hidden transition-all duration-300 hover:shadow-xl"
-									style="background-color: var(--token-color-surface, #0f172a); border-color: var(--token-color-border, #334155);"
+			{
+				upcomingEvents.length > 0 && (
+					<section class="mb-16" aria-labelledby="upcoming-events-heading">
+						<ScrollReveal client:load delay={0.35}>
+							<div
+								class="flex items-center justify-between mb-6 pb-3 border-b"
+								style="border-color: var(--token-color-border, #334155);"
+							>
+								<div class="flex items-center gap-3">
+									<span class="relative flex h-3 w-3">
+										<span
+											class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+											style="background-color: var(--token-color-primary, #22EE44);"
+										/>
+										<span
+											class="relative inline-flex rounded-full h-3 w-3"
+											style="background-color: var(--token-color-primary, #22EE44);"
+										/>
+									</span>
+									<h2
+										id="upcoming-events-heading"
+										class="text-xl md:text-2xl font-bold font-mono tracking-tight"
+										style="color: var(--token-color-text-primary, #111827);"
+									>
+										Upcoming Field Operations &amp; Events
+									</h2>
+								</div>
+								<span
+									class="font-mono text-xs px-2.5 py-1 rounded-full border hidden sm:inline-block"
+									style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);"
 								>
-									<!-- Background subtle cyber ambient glow -->
+									LIVE INTEL // {upcomingEvents.length} ACTIVE
+								</span>
+							</div>
+
+							<div class="space-y-6">
+								{upcomingEvents.map((event) => (
 									<div
-										class="absolute top-0 right-0 w-96 h-96 opacity-10 pointer-events-none rounded-full blur-3xl"
-										style="background-color: var(--token-color-primary, #22EE44);"
-										aria-hidden="true"
-									></div>
-
-									<!-- Top Badges & Meta -->
-									<div class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-4">
-										<div class="flex flex-wrap items-center gap-2">
-											<span
-												class="px-2.5 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border"
-												style="background-color: var(--token-color-primary, #22EE44); color: var(--token-color-primary-foreground, #000000); border-color: var(--token-color-primary, #22EE44);"
-											>
-												{event.typeLabel}
-											</span>
-											<span
-												class="px-2.5 py-1 rounded text-xs font-mono font-semibold border flex items-center gap-1.5"
-												style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.05)); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);"
-											>
-												<span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background-color: var(--token-color-primary, #22EE44);"></span>
-												{event.statusLabel}
-											</span>
-										</div>
+										class="relative rounded-2xl border p-6 md:p-8 overflow-hidden transition-all duration-300 hover:shadow-xl"
+										style="background-color: var(--token-color-surface, #0f172a); border-color: var(--token-color-border, #334155);"
+									>
+										{/* Background subtle cyber ambient glow */}
 										<div
-											class="flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded border"
-											style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.03)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);"
-										>
-											<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--token-color-primary, #22EE44);">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-											</svg>
-											<span>{event.location}</span>
-											{event.venue && <span class="opacity-70 hidden md:inline">({event.venue})</span>}
-										</div>
-									</div>
+											class="absolute top-0 right-0 w-96 h-96 opacity-10 pointer-events-none rounded-full blur-3xl"
+											style="background-color: var(--token-color-primary, #22EE44);"
+											aria-hidden="true"
+										/>
 
-									<!-- Title & Organization -->
-									<div class="relative z-10 mb-4">
-										<h3 class="text-2xl md:text-3xl font-extrabold font-mono mb-2 tracking-tight" style="color: var(--token-color-text-primary, #f8fafc);">
-											{event.title}
-										</h3>
-										<div class="flex flex-wrap items-center gap-1.5 text-xs md:text-sm font-mono" style="color: var(--token-color-text-muted, #94a3b8);">
-											<span>In association with</span>
-											<a
-												href={event.orgUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="font-bold underline decoration-dotted transition-opacity hover:opacity-80"
-												style="color: var(--token-color-primary, #22EE44);"
-											>
-												{event.organization} ({event.displayOrgUrl || 'aicyberalliance.org'}) ↗
-											</a>
-										</div>
-									</div>
-
-									<!-- Description -->
-									<p class="relative z-10 text-sm md:text-base leading-relaxed mb-6 max-w-4xl" style="color: var(--token-color-text-muted, #cbd5e1);">
-										{event.description}
-									</p>
-
-									<!-- Operational Tracks / Highlights -->
-									{event.highlights && event.highlights.length > 0 && (
-										<div class="relative z-10 mb-6 p-4 rounded-xl border" style="background-color: var(--token-color-background, #020617); border-color: var(--token-color-border, #334155);">
-											<div class="text-xs font-mono font-semibold uppercase tracking-wider mb-3" style="color: var(--token-color-primary, #22EE44);">
-												// Operational Tracks &amp; Challenge Vectors
+										{/* Top Badges & Meta */}
+										<div class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-4">
+											<div class="flex flex-wrap items-center gap-2">
+												<span
+													class="px-2.5 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border"
+													style="background-color: var(--token-color-primary, #22EE44); color: var(--token-color-primary-foreground, #000000); border-color: var(--token-color-primary, #22EE44);"
+												>
+													{event.typeLabel}
+												</span>
+												<span
+													class="px-2.5 py-1 rounded text-xs font-mono font-semibold border flex items-center gap-1.5"
+													style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.05)); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);"
+												>
+													<span
+														class="w-1.5 h-1.5 rounded-full animate-pulse"
+														style="background-color: var(--token-color-primary, #22EE44);"
+													/>
+													{event.statusLabel}
+												</span>
 											</div>
-											<div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs font-mono" style="color: var(--token-color-text-primary, #f1f5f9);">
-												{event.highlights.map((h) => (
-													<div class="flex items-start gap-2">
-														<span class="font-bold shrink-0" style="color: var(--token-color-primary, #22EE44);">[+]</span>
-														<span>{h}</span>
-													</div>
+											<div
+												class="flex items-center gap-1.5 text-xs font-mono px-3 py-1 rounded border"
+												style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.03)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);"
+											>
+												<svg
+													class="w-3.5 h-3.5"
+													fill="none"
+													stroke="currentColor"
+													viewBox="0 0 24 24"
+													style="color: var(--token-color-primary, #22EE44);"
+												>
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														stroke-width="2"
+														d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+													/>
+													<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														stroke-width="2"
+														d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+													/>
+												</svg>
+												<span>{event.location}</span>
+												{event.venue && (
+													<span class="opacity-70 hidden md:inline">
+														({event.venue})
+													</span>
+												)}
+											</div>
+										</div>
+
+										{/* Title & Organization */}
+										<div class="relative z-10 mb-4">
+											<h3
+												class="text-2xl md:text-3xl font-extrabold font-mono mb-2 tracking-tight"
+												style="color: var(--token-color-text-primary, #f8fafc);"
+											>
+												{event.title}
+											</h3>
+											<div
+												class="flex flex-wrap items-center gap-1.5 text-xs md:text-sm font-mono"
+												style="color: var(--token-color-text-muted, #94a3b8);"
+											>
+												<span>In association with</span>
+												<a
+													href={event.orgUrl}
+													target="_blank"
+													rel="noopener noreferrer"
+													class="font-bold underline decoration-dotted transition-opacity hover:opacity-80"
+													style="color: var(--token-color-primary, #22EE44);"
+												>
+													{event.organization} (
+													{event.displayOrgUrl || "aicyberalliance.org"}) ↗
+												</a>
+											</div>
+										</div>
+
+										{/* Description */}
+										<p
+											class="relative z-10 text-sm md:text-base leading-relaxed mb-6 max-w-4xl"
+											style="color: var(--token-color-text-muted, #cbd5e1);"
+										>
+											{event.description}
+										</p>
+
+										{/* Operational Tracks / Highlights */}
+										{event.highlights && event.highlights.length > 0 && (
+											<div
+												class="relative z-10 mb-6 p-4 rounded-xl border"
+												style="background-color: var(--token-color-background, #020617); border-color: var(--token-color-border, #334155);"
+											>
+												<div
+													class="text-xs font-mono font-semibold uppercase tracking-wider mb-3"
+													style="color: var(--token-color-primary, #22EE44);"
+												>
+													// Operational Tracks &amp; Challenge Vectors
+												</div>
+												<div
+													class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs font-mono"
+													style="color: var(--token-color-text-primary, #f1f5f9);"
+												>
+													{event.highlights.map((h) => (
+														<div class="flex items-start gap-2">
+															<span
+																class="font-bold shrink-0"
+																style="color: var(--token-color-primary, #22EE44);"
+															>
+																[+]
+															</span>
+															<span>{h}</span>
+														</div>
+													))}
+												</div>
+											</div>
+										)}
+
+										{/* Tags & CTAs Footer */}
+										<div
+											class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t"
+											style="border-color: var(--token-color-border, #334155);"
+										>
+											<div class="flex flex-wrap gap-1.5">
+												{event.tags.map((t) => (
+													<span
+														class="text-[11px] font-mono px-2 py-0.5 rounded border"
+														style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.03)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);"
+													>
+														#{t}
+													</span>
 												))}
 											</div>
-										</div>
-									)}
-
-									<!-- Tags & CTAs Footer -->
-									<div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t" style="border-color: var(--token-color-border, #334155);">
-										<div class="flex flex-wrap gap-1.5">
-											{event.tags.map((t) => (
-												<span class="text-[11px] font-mono px-2 py-0.5 rounded border" style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.03)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);">
-													#{t}
-												</span>
-											))}
-										</div>
-										<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-											{event.secondaryCta && (
+											<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+												{event.secondaryCta && (
+													<a
+														href={event.secondaryCta.url}
+														class="px-3.5 py-2 rounded-lg font-mono text-xs font-semibold border transition-all hover:scale-[1.02] flex items-center gap-1.5"
+														style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.04)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #f8fafc);"
+													>
+														<span>{event.secondaryCta.label}</span>
+													</a>
+												)}
 												<a
-													href={event.secondaryCta.url}
-													class="px-3.5 py-2 rounded-lg font-mono text-xs font-semibold border transition-all hover:scale-[1.02] flex items-center gap-1.5"
-													style="background-color: var(--token-color-surface-elevated, rgba(255,255,255,0.04)); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #f8fafc);"
+													href={event.primaryCta.url}
+													target="_blank"
+													rel="noopener noreferrer"
+													class="px-4 py-2 rounded-lg font-mono text-xs font-bold transition-all shadow-md hover:scale-[1.02] flex items-center gap-1.5"
+													style="background-color: var(--token-color-primary, #22EE44); color: var(--token-color-primary-foreground, #000000);"
 												>
-													<span>{event.secondaryCta.label}</span>
+													<span>{event.primaryCta.label}</span>
 												</a>
-											)}
-											<a
-												href={event.primaryCta.url}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="px-4 py-2 rounded-lg font-mono text-xs font-bold transition-all shadow-md hover:scale-[1.02] flex items-center gap-1.5"
-												style="background-color: var(--token-color-primary, #22EE44); color: var(--token-color-primary-foreground, #000000);"
-											>
-												<span>{event.primaryCta.label}</span>
-											</a>
+											</div>
 										</div>
 									</div>
-								</div>
-							))}
-						</div>
-					</ScrollReveal>
-				</section>
-			)}
+								))}
+							</div>
+						</ScrollReveal>
+					</section>
+				)
+			}
 
 			<!-- Active Author Filter Banner -->
-			<div id="author-filter-banner" class="hidden mb-6 p-4 rounded-xl border font-mono text-xs flex items-center justify-between" style="background-color: var(--token-color-surface, #0e0a12); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #ffffff);">
+			<div
+				id="author-filter-banner"
+				class="hidden mb-6 p-4 rounded-xl border font-mono text-xs flex items-center justify-between"
+				style="background-color: var(--token-color-surface, #0e0a12); border-color: var(--token-color-border, #334155); color: var(--token-color-text-primary, #ffffff);"
+			>
 				<div class="flex items-center gap-2">
-					<span class="w-2 h-2 rounded-full inline-block" style="background-color: var(--token-color-primary, #22EE44);"></span>
-					<span>FILTERED BY AUTHOR: <strong id="author-filter-name" style="color: var(--token-color-primary, #22EE44);"></strong></span>
+					<span
+						class="w-2 h-2 rounded-full inline-block"
+						style="background-color: var(--token-color-primary, #22EE44);"
+					></span>
+					<span
+						>FILTERED BY AUTHOR: <strong
+							id="author-filter-name"
+							style="color: var(--token-color-primary, #22EE44);"
+						></strong></span
+					>
 				</div>
-				<a href="/blog" class="px-2.5 py-1 rounded border hover:underline" style="border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);">
+				<a
+					href="/blog"
+					class="px-2.5 py-1 rounded border hover:underline"
+					style="border-color: var(--token-color-border, #334155); color: var(--token-color-text-muted, #94a3b8);"
+				>
 					Clear Filter ×
 				</a>
 			</div>
 
 			<!-- Dispatches Section Header -->
-			<div class="flex items-center justify-between mb-6 pb-3 border-b" style="border-color: var(--token-color-border, #334155);">
-				<div class="flex items-center gap-2 text-sm font-mono font-semibold" style="color: var(--token-color-text-primary, #111827);">
+			<div
+				class="flex items-center justify-between mb-6 pb-3 border-b"
+				style="border-color: var(--token-color-border, #334155);"
+			>
+				<div
+					class="flex items-center gap-2 text-sm font-mono font-semibold"
+					style="color: var(--token-color-text-primary, #111827);"
+				>
 					<span style="color: var(--token-color-primary, #22EE44);">&gt;_</span>
 					<span>ARCHIVED DISPATCHES &amp; TRANSMISSIONS</span>
 				</div>
-				<span class="font-mono text-xs" style="color: var(--token-color-text-muted, #64748b);">
+				<span
+					class="font-mono text-xs"
+					style="color: var(--token-color-text-muted, #64748b);"
+				>
 					{blogPosts.length} entries
 				</span>
 			</div>
 
-			{blogPosts.length === 0 ? (
-				<div class="text-center py-12">
-					<p style="color: var(--token-color-text-muted, #64748b);">No articles found in this archive.</p>
-				</div>
-			) : (
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
-					{blogPosts.map((post, index) => {
-						const heroImage = getBlogImage(post.data.heroImage);
-						const tags = post.data.tags || [];
-						const firstTag = tags.length > 0 ? tags[0] : null;
-						const authors = getPostAuthors(post.data);
-						const authorNamesStr = formatAuthorNames(authors);
-						return (
-							<article
-								class="post-card rounded-xl border hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col"
-								data-tags={tags.join(',')}
-								data-authors={authors.map((a) => a.name.toLowerCase()).join('|')}
-								style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
-							>
-								<a
-									href={`/blog/${post.id}`}
-									class="block group flex-1 flex flex-col"
+			{
+				blogPosts.length === 0 ? (
+					<div class="text-center py-12">
+						<p style="color: var(--token-color-text-muted, #64748b);">
+							No articles found in this archive.
+						</p>
+					</div>
+				) : (
+					<div
+						class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+						id="posts-grid"
+					>
+						{blogPosts.map((post, index) => {
+							const heroImage = getBlogImage(post.data.heroImage);
+							const tags = post.data.tags || [];
+							const firstTag = tags.length > 0 ? tags[0] : null;
+							const authors = getPostAuthors(post.data);
+							const authorNamesStr = formatAuthorNames(authors);
+							return (
+								<article
+									class="post-card rounded-xl border hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col"
+									data-tags={tags.join(",")}
+									data-authors={authors
+										.map((a) => a.name.toLowerCase())
+										.join("|")}
+									style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
 								>
-									{heroImage ? (
-										<div class="w-full h-48 md:h-52 overflow-hidden rounded-t-xl relative">
-											<Image
-												src={heroImage}
-												alt={post.data.title}
-												transition:name={`blog-image-${post.id}`}
-												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-												loading="lazy"
-												widths={[400, 800, 1200]}
-												sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-											/>
-										</div>
-									) : (
-										<div class="w-full h-32 flex items-center justify-between px-6 rounded-t-xl border-b" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
-											<span class="font-mono text-xs opacity-75" style="color: var(--token-color-primary, #0ea5e9);">&gt;_ sys.dispatch</span>
-											<span class="font-mono text-xs" style="color: var(--token-color-text-muted, #64748b);">tekromancy.com</span>
-										</div>
-									)}
-									<div class="p-6 flex flex-col flex-1">
-										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
-											<time datetime={post.data.pubDate.toISOString()}>
-												{post.data.pubDate.toLocaleDateString('en-US', {
-													year: 'numeric',
-													month: 'short',
-													day: 'numeric',
-												})}
-											</time>
-											{firstTag && (
-												<span class="px-2 py-0.5 rounded font-mono font-medium" style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
-													#{firstTag}
+									<a
+										href={`/blog/${post.id}`}
+										class="block group flex-1 flex flex-col"
+									>
+										{heroImage ? (
+											<div class="w-full h-48 md:h-52 overflow-hidden rounded-t-xl relative">
+												<Image
+													src={heroImage}
+													alt={post.data.title}
+													transition:name={`blog-image-${post.id}`}
+													class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+													loading="lazy"
+													widths={[400, 800, 1200]}
+													sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+												/>
+											</div>
+										) : (
+											<div
+												class="w-full h-32 flex items-center justify-between px-6 rounded-t-xl border-b"
+												style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);"
+											>
+												<span
+													class="font-mono text-xs opacity-75"
+													style="color: var(--token-color-primary, #0ea5e9);"
+												>
+													&gt;_ sys.dispatch
 												</span>
-											)}
+												<span
+													class="font-mono text-xs"
+													style="color: var(--token-color-text-muted, #64748b);"
+												>
+													tekromancy.com
+												</span>
+											</div>
+										)}
+										<div class="p-6 flex flex-col flex-1">
+											<div
+												class="flex items-center justify-between gap-3 mb-2 text-xs font-mono"
+												style="color: var(--token-color-text-muted, #64748b);"
+											>
+												<time datetime={post.data.pubDate.toISOString()}>
+													{post.data.pubDate.toLocaleDateString("en-US", {
+														year: "numeric",
+														month: "short",
+														day: "numeric",
+													})}
+												</time>
+												<div class="flex items-center gap-1.5">
+													{post.data.draft && (
+														<span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] tracking-wider uppercase border border-amber-500/60 bg-amber-500/20 text-amber-300">
+															DRAFT
+														</span>
+													)}
+													{firstTag && (
+														<span
+															class="px-2 py-0.5 rounded font-mono font-medium"
+															style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);"
+														>
+															#{firstTag}
+														</span>
+													)}
+												</div>
+											</div>
+											<div
+												class="text-[11px] font-mono mb-3 flex items-center gap-1.5 truncate"
+												style="color: var(--token-color-primary, #22EE44);"
+											>
+												<span class="opacity-70">by</span>
+												<span class="font-medium truncate">
+													{authorNamesStr}
+												</span>
+											</div>
+											<h2
+												class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2 group-hover:text-[var(--token-color-primary)]"
+												style="color: var(--token-color-text-primary, #111827);"
+											>
+												{post.data.title}
+											</h2>
+											<p
+												class="text-sm leading-relaxed flex-1 line-clamp-3 mb-4"
+												style="color: var(--token-color-text-muted, #64748b);"
+											>
+												{post.data.description}
+											</p>
+											<div
+												class="pt-4 border-t flex items-center justify-between text-xs font-mono"
+												style="border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-primary, #0ea5e9);"
+											>
+												<span>Read article</span>
+												<span>→</span>
+											</div>
 										</div>
-										<div class="text-[11px] font-mono mb-3 flex items-center gap-1.5 truncate" style="color: var(--token-color-primary, #22EE44);">
-											<span class="opacity-70">by</span>
-											<span class="font-medium truncate">{authorNamesStr}</span>
-										</div>
-										<h2 class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2 group-hover:text-[var(--token-color-primary)]" style="color: var(--token-color-text-primary, #111827);">
-											{post.data.title}
-										</h2>
-										<p class="text-sm leading-relaxed flex-1 line-clamp-3 mb-4" style="color: var(--token-color-text-muted, #64748b);">
-											{post.data.description}
-										</p>
-										<div class="pt-4 border-t flex items-center justify-between text-xs font-mono" style="border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-primary, #0ea5e9);">
-											<span>Read article</span>
-											<span>→</span>
-										</div>
-									</div>
-								</a>
-							</article>
-						);
-					})}
-				</div>
-			)}
+									</a>
+								</article>
+							);
+						})}
+					</div>
+				)
+			}
 		</div>
 	</main>
 	<Footer />
 </Layout>
 
 <script is:inline>
-	(function() {
+	(function () {
 		function setupFilter() {
-			var filterBtns = document.querySelectorAll('.filter-btn');
-			var cards = document.querySelectorAll('.post-card');
+			var filterBtns = document.querySelectorAll(".filter-btn");
+			var cards = document.querySelectorAll(".post-card");
 			if (!filterBtns.length) return;
 
 			function applyFilter(filter) {
-				filterBtns.forEach(function(btn) {
-					var match = btn.getAttribute('data-filter') === filter;
+				filterBtns.forEach(function (btn) {
+					var match = btn.getAttribute("data-filter") === filter;
 					if (match) {
-						btn.style.backgroundColor = 'var(--token-color-primary, #0ea5e9)';
-						btn.style.color = 'var(--token-color-primary-foreground, #ffffff)';
-						btn.style.borderColor = 'var(--token-color-primary, #0ea5e9)';
+						btn.style.backgroundColor = "var(--token-color-primary, #0ea5e9)";
+						btn.style.color = "var(--token-color-primary-foreground, #ffffff)";
+						btn.style.borderColor = "var(--token-color-primary, #0ea5e9)";
 					} else {
-						btn.style.backgroundColor = 'var(--token-color-surface, #f8fafc)';
-						btn.style.color = 'var(--token-color-text-muted, #64748b)';
-						btn.style.borderColor = 'var(--token-color-border, #e2e8f0)';
+						btn.style.backgroundColor = "var(--token-color-surface, #f8fafc)";
+						btn.style.color = "var(--token-color-text-muted, #64748b)";
+						btn.style.borderColor = "var(--token-color-border, #e2e8f0)";
 					}
 				});
 
-				cards.forEach(function(card) {
-					var tags = (card.getAttribute('data-tags') || '').split(',');
-					if (filter === 'all' || tags.indexOf(filter) !== -1) {
-						card.style.display = 'flex';
+				cards.forEach(function (card) {
+					var tags = (card.getAttribute("data-tags") || "").split(",");
+					if (filter === "all" || tags.indexOf(filter) !== -1) {
+						card.style.display = "flex";
 					} else {
-						card.style.display = 'none';
+						card.style.display = "none";
 					}
 				});
 			}
 
-			var authorBanner = document.getElementById('author-filter-banner');
-			var authorNameEl = document.getElementById('author-filter-name');
+			var authorBanner = document.getElementById("author-filter-banner");
+			var authorNameEl = document.getElementById("author-filter-name");
 
 			function applyAuthorFilter(authorName) {
 				if (!authorName) return;
 				var target = authorName.toLowerCase().trim();
 				if (authorBanner && authorNameEl) {
-					authorBanner.classList.remove('hidden');
+					authorBanner.classList.remove("hidden");
 					authorNameEl.textContent = authorName;
 				}
-				filterBtns.forEach(function(btn) {
-					btn.style.backgroundColor = 'var(--token-color-surface, #f8fafc)';
-					btn.style.color = 'var(--token-color-text-muted, #64748b)';
-					btn.style.borderColor = 'var(--token-color-border, #e2e8f0)';
+				filterBtns.forEach(function (btn) {
+					btn.style.backgroundColor = "var(--token-color-surface, #f8fafc)";
+					btn.style.color = "var(--token-color-text-muted, #64748b)";
+					btn.style.borderColor = "var(--token-color-border, #e2e8f0)";
 				});
-				cards.forEach(function(card) {
-					var authors = (card.getAttribute('data-authors') || '').split('|');
-					var matched = authors.some(function(a) {
+				cards.forEach(function (card) {
+					var authors = (card.getAttribute("data-authors") || "").split("|");
+					var matched = authors.some(function (a) {
 						return a.indexOf(target) !== -1 || target.indexOf(a) !== -1;
 					});
 					if (matched) {
-						card.style.display = 'flex';
+						card.style.display = "flex";
 					} else {
-						card.style.display = 'none';
+						card.style.display = "none";
 					}
 				});
 			}
 
-			filterBtns.forEach(function(btn) {
-				btn.onclick = function() {
-					if (authorBanner) authorBanner.classList.add('hidden');
-					var filter = btn.getAttribute('data-filter');
+			filterBtns.forEach(function (btn) {
+				btn.onclick = function () {
+					if (authorBanner) authorBanner.classList.add("hidden");
+					var filter = btn.getAttribute("data-filter");
 					applyFilter(filter);
 					var url = new URL(window.location);
-					url.searchParams.delete('author');
-					if (filter === 'all') {
-						url.searchParams.delete('tag');
+					url.searchParams.delete("author");
+					if (filter === "all") {
+						url.searchParams.delete("tag");
 					} else {
-						url.searchParams.set('tag', filter);
+						url.searchParams.set("tag", filter);
 					}
-					window.history.replaceState({}, '', url);
+					window.history.replaceState({}, "", url);
 				};
 			});
 
 			var params = new URLSearchParams(window.location.search);
-			var authorParam = params.get('author');
-			var tagParam = params.get('tag');
+			var authorParam = params.get("author");
+			var tagParam = params.get("tag");
 			if (authorParam) {
 				applyAuthorFilter(authorParam);
 			} else if (tagParam) {
@@ -391,13 +566,13 @@ const upcomingEvents = getUpcomingEvents();
 			}
 		}
 
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', setupFilter);
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", setupFilter);
 		} else {
 			setupFilter();
 		}
-		document.addEventListener('astro:page-load', setupFilter);
-		document.addEventListener('astro:after-swap', setupFilter);
+		document.addEventListener("astro:page-load", setupFilter);
+		document.addEventListener("astro:after-swap", setupFilter);
 	})();
 </script>
 

@@ -8,8 +8,10 @@ interface Props {
 
 const { currentPost, allPosts } = Astro.props;
 
-// Filter out current post
-const otherPosts = allPosts.filter((p) => p.id !== currentPost.id);
+// Filter out current post and drafts
+const otherPosts = allPosts.filter(
+	(p) => p.id !== currentPost.id && !p.data.draft
+);
 
 // Score posts by number of matching tags
 const currentTags = new Set(currentPost.data.tags || []);

@@ -42,6 +42,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 	canonicalURL={`${SITE.url}/blog/${post.id}`}
 	ogType="article"
 	ogImage={ogImageUrl}
+	noindex={post.data.draft}
 >
 	<Header />
 	<main id="main-content" role="main" class="min-h-screen">
@@ -93,6 +94,22 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 				)
 			}
 			<div class="px-4 pt-8 pb-16">
+				{
+					post.data.draft && (
+						<div class="mb-6 p-4 rounded-xl border border-amber-500/60 bg-amber-500/10 text-amber-300 font-mono text-xs flex flex-wrap items-center justify-between gap-3 shadow-lg">
+							<div class="flex items-center gap-2.5">
+								<span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+								<span>
+									<strong>DRAFT TELEMETRY:</strong> This dispatch is unlisted
+									and pending final review.
+								</span>
+							</div>
+							<span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold border border-amber-500/40 bg-amber-500/20">
+								DRAFT
+							</span>
+						</div>
+					)
+				}
 				<header class="mb-8">
 					<ScrollReveal client:load delay={0.2}>
 						<h1

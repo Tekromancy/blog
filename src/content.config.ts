@@ -1,9 +1,9 @@
-import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const blog = defineCollection({
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
@@ -11,8 +11,9 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
 		tags: z.array(z.string()).default([]),
-		author: z.string().default('Joshua Edward McLaughlin Cox'),
+		author: z.string().default("Joshua Edward McLaughlin Cox"),
 		authors: z.array(z.string()).optional(),
+		draft: z.boolean().default(false),
 	}),
 });
 
