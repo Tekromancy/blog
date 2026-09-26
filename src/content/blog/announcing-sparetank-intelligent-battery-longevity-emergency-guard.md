@@ -6,6 +6,7 @@ updatedDate: "2026-09-26"
 heroImage: "13.jpg"
 tags: ["android", "apps", "battery", "hardware", "privacy", "longevity"]
 author: "Joshua Edward McLaughlin Cox"
+draft: true
 ---
 
 Modern smartphones pack astonishing computational density: multi-gigahertz ARM cores, tensor processing units, high-refresh OLED matrices, and multi-band 5G radios. Yet every single one of these capabilities rests upon an electrochemical component that has barely changed in thirty years: the lithium-ion pouch cell.

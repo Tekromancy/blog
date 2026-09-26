@@ -6,7 +6,6 @@ updatedDate: "2026-09-25"
 heroImage: "talos-bare-metal.jpg"
 tags: ["kubernetes", "devops", "storage", "security", "linux"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
 ---
 
 Running Kubernetes in public cloud environments (AWS EKS, Google GKE, Azure AKS) offers undeniable developer convenience, but it comes at an astronomical markup. Cloud providers charge exorbitant fees for cross-Availability Zone egress ($0.09/GB), managed control plane surcharges, and provisioned IOPS on cloud block volumes ($0.125/GB-mo plus $0.065 per provisioned IOPS).
