@@ -1,12 +1,11 @@
 ---
 title: "Announcing SpareTank: Intelligent Battery Longevity & Emergency Power Guard for Android"
 description: "Introducing SpareTank—a sovereign Android utility engineered to eliminate electrochemical cycle degradation with 25%–75% charging alerts while preserving a dedicated 15% emergency reserve tank for critical field contingencies."
-pubDate: "2026-09-26"
-updatedDate: "2026-09-26"
+pubDate: "2026-09-27"
+updatedDate: "2026-09-27"
 heroImage: "13.jpg"
 tags: ["android", "apps", "battery", "hardware", "privacy", "longevity"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
 ---
 
 Modern smartphones pack astonishing computational density: multi-gigahertz ARM cores, tensor processing units, high-refresh OLED matrices, and multi-band 5G radios. Yet every single one of these capabilities rests upon an electrochemical component that has barely changed in thirty years: the lithium-ion pouch cell.
