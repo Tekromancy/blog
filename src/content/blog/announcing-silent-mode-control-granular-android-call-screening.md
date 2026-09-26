@@ -85,6 +85,8 @@ Decouple acoustic alerts from tactile feedback. Configure emergency contacts to 
 ### 24-Hour Visual Schedule Matrix
 A visual timeline interface on the dashboard lets you inspect your device's alert posture at a glance across every hour of the day:
 
+![Silent Mode Control 24-Hour Visual Schedule Matrix Dashboard](/images/smc-schedule-matrix.jpg)
+
 | Mode / Group | 00:00 – 06:00 | 06:00 – 09:00 | 09:00 – 18:00 | 18:00 – 22:00 | 22:00 – 24:00 |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Emergency / VIP** | Full Ring | Full Ring | Full Ring | Full Ring | Full Ring |

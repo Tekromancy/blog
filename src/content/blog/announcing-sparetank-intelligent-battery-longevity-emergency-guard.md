@@ -78,6 +78,8 @@ If you are away from power and cannot charge, SpareTank treats **15% remaining c
 
 On the official [sparetank.tekromancy.com](https://sparetank.tekromancy.com) portal, we have published an interactive degradation calculator grounded in peer-reviewed battery degradation literature (Ecker et al., Journal of Power Sources). 
 
+![SpareTank Battery Capacity Retention Curve vs Conventional Charging](/images/sparetank-degradation-curve.jpg)
+
 Consider a standard 5,000 mAh smartphone battery over a 3-year deployment cycling 1.25 times per day:
 
 | Metric | Standard Unmanaged Charging | SpareTank Guided Protocol | Benefit |
