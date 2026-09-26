@@ -1,0 +1,257 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ScrollReveal from "../components/ScrollReveal.tsx";
+import { SITE } from "../config/site.mjs";
+import { TEKROMANCY_APPS } from "../data/apps";
+import { Icon } from "astro-icon/components";
+
+const apps = TEKROMANCY_APPS;
+---
+
+<Layout
+  title={`Sovereign Applications & Utilities | ${SITE.title}`}
+  description="Native Android applications and sovereign utilities built by Tekromancy. Featuring SpareTank for battery longevity and Silent Mode Control for granular telecom call screening."
+  canonicalURL={`${SITE.url}/apps`}
+>
+  <Header />
+
+  <main id="main-content" role="main" class="min-h-screen" style="background-color: var(--token-color-background, #000000);">
+    <!-- Hero / HUD Header -->
+    <div class="max-w-6xl mx-auto px-4 pt-16 pb-12 md:pt-24 md:pb-16">
+      <header class="text-center mb-16">
+        <ScrollReveal client:load>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-5 border shadow-lg" style="background-color: var(--token-color-surface, #0f172a); border-color: rgba(34, 197, 94, 0.35); color: #22c55e;">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#22c55e]"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
+            </span>
+            <span class="font-bold tracking-wider">// SOVEREIGN CLIENT APPS &amp; UTILITIES //</span>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-5" style="color: var(--token-color-text-primary, #f8fafc);">
+            Tekromancy Applications
+          </h1>
+        </ScrollReveal>
+
+        <ScrollReveal client:load delay={0.2}>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
+            Native Android applications and security-hardened tools engineered for longevity, privacy, and radical hardware autonomy. 100% on-device processing with zero telemetry surveillance.
+          </p>
+        </ScrollReveal>
+      </header>
+
+      <!-- Apps Roster Showcase -->
+      <div class="space-y-12">
+        {apps.map((app, index) => (
+          <ScrollReveal client:load delay={0.15 * (index + 1)}>
+            <article
+              id={app.id}
+              class="relative rounded-2xl border p-6 md:p-10 overflow-hidden transition-all duration-300 hover:shadow-2xl group"
+              style={`background-color: var(--token-color-surface, #0b1120); border-color: rgba(255, 255, 255, 0.1);`}
+            >
+              <!-- Dynamic Neon Radial Glow -->
+              <div
+                class="absolute -top-24 -right-24 w-96 h-96 opacity-15 pointer-events-none rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-25"
+                style={`background: radial-gradient(circle, ${app.accentFrom}, ${app.accentTo});`}
+                aria-hidden="true"
+              ></div>
+
+              <!-- Top Meta HUD Bar -->
+              <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b" style="border-color: rgba(255, 255, 255, 0.08);">
+                <div class="flex flex-wrap items-center gap-2.5">
+                  <span
+                    class="px-2.5 py-1 rounded text-[11px] font-mono font-bold tracking-wider uppercase border"
+                    style={`background-color: rgba(0, 0, 0, 0.6); border-color: ${app.accentFrom}60; color: ${app.accentFrom};`}
+                  >
+                    {app.category}
+                  </span>
+                  <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-white/5 text-gray-400 border border-white/10">
+                    {app.version}
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>
+                  </span>
+                  <span
+                    class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded border"
+                    style={`background-color: ${app.accentFrom}15; border-color: ${app.accentFrom}50; color: ${app.accentFrom};`}
+                  >
+                    {app.statusLabel}
+                  </span>
+                </div>
+              </div>
+
+              <!-- App Main Body Layout -->
+              <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Left Details & Copy (7 cols) -->
+                <div class="lg:col-span-7 space-y-5">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl shadow-xl border shrink-0"
+                      style={`background: linear-gradient(135deg, ${app.accentFrom}25, ${app.accentTo}15); border-color: ${app.accentFrom}50;`}
+                    >
+                      <span>{app.iconSymbol}</span>
+                    </div>
+                    <div>
+                      <h2 class="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-white flex items-center gap-3">
+                        <span>{app.name}</span>
+                      </h2>
+                      <p class="text-sm font-mono mt-1" style={`color: ${app.accentFrom};`}>
+                        {app.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p class="text-sm sm:text-base leading-relaxed text-gray-300">
+                    {app.description}
+                  </p>
+
+                  <!-- Highlights List -->
+                  <div class="space-y-2 pt-2">
+                    <div class="text-xs font-mono font-bold tracking-wider text-gray-400 uppercase">
+                      // Architectural Highlights
+                    </div>
+                    <ul class="grid sm:grid-cols-2 gap-2 text-xs font-mono text-gray-300">
+                      {app.highlights.map((highlight) => (
+                        <li class="flex items-start gap-2 bg-black/40 p-2.5 rounded-lg border border-white/5">
+                          <span style={`color: ${app.accentFrom};`} class="font-bold shrink-0">✓</span>
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <!-- Tags -->
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    {app.tags.map((tag) => (
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-gray-400 border border-white/10">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Right Technical Specs & CTAs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col justify-between h-full bg-black/60 rounded-xl p-5 sm:p-6 border border-white/10 space-y-6">
+                  <div>
+                    <div class="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-4 pb-2 border-b border-white/10 flex justify-between items-center">
+                      <span>Telemetry &amp; Specs</span>
+                      <span class="text-[10px] text-green-400">VERIFIED</span>
+                    </div>
+
+                    <dl class="space-y-2.5 text-xs font-mono">
+                      {app.specs.map((spec) => (
+                        <div class="flex justify-between items-center gap-2 py-1 border-b border-white/5">
+                          <dt class="text-gray-400">{spec.label}</dt>
+                          <dd class="text-white font-semibold text-right">{spec.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+
+                  <!-- Actions / Portal Buttons -->
+                  <div class="space-y-3 pt-2">
+                    <a
+                      href={app.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono font-bold text-sm text-black transition-all hover:scale-[1.02] shadow-lg"
+                      style={`background: linear-gradient(135deg, ${app.accentFrom}, ${app.accentTo});`}
+                    >
+                      <span>Launch {app.shortName} Portal</span>
+                      <Icon name="tabler:arrow-up-right" class="w-4 h-4" aria-hidden="true" />
+                    </a>
+
+                    {app.playStoreUrl && (
+                      <a
+                        href={app.playStoreUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-mono font-semibold text-xs text-gray-300 bg-white/5 border border-white/15 hover:bg-white/10 hover:border-white/30 transition-all"
+                      >
+                        <Icon name="tabler:brand-google-play" class="w-4 h-4 text-green-400" aria-hidden="true" />
+                        <span>Google Play Closed Beta</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <!-- Radical Sovereignty Principles -->
+      <section class="mt-20 pt-12 border-t border-white/10">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <div class="text-xs font-mono font-bold text-green-400 uppercase tracking-widest mb-2">
+            // CORE DESIGN DOCTRINE //
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-mono text-white">
+            Radical Hardware Autonomy
+          </h2>
+          <p class="text-sm font-mono text-gray-400 mt-2">
+            Every application built by Tekromancy adheres to strict privacy and local computational sovereignty tenets.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
+            <div class="text-2xl mb-3">🔒</div>
+            <h3 class="text-base font-bold font-mono text-white mb-2">100% On-Device Execution</h3>
+            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+              Zero central servers recording phone calls, contact books, charging logs, or location coordinates. Your data stays in local flash memory.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
+            <div class="text-2xl mb-3">⚡</div>
+            <h3 class="text-base font-bold font-mono text-white mb-2">Hardware Longevity</h3>
+            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+              We design tools that actively mitigate planned obsolescence, prevent battery cell degradation, and optimize silicon duty cycles.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
+            <div class="text-2xl mb-3">🚫</div>
+            <h3 class="text-base font-bold font-mono text-white mb-2">Zero Surveillance SDKs</h3>
+            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+              No invasive advertising libraries, no hidden tracker analytics, and no background wake-lock drains masquerading as utilities.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Labs & Pipeline Teaser -->
+      <section class="mt-12 p-8 rounded-2xl border border-white/10 bg-gradient-to-r from-emerald-950/20 via-black to-cyan-950/20 text-center">
+        <h3 class="text-lg font-bold font-mono text-white mb-2">
+          Want Early Beta Access to Tekromancy Builds?
+        </h3>
+        <p class="text-xs font-mono text-gray-400 max-w-xl mx-auto mb-6">
+          Join our open closed-beta testing group to receive immediate APK updates and direct access to upcoming sovereign tool releases.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="mailto:tekromancy@googlegroups.com?subject=Tekromancy%20Beta%20Access%20Request"
+            class="px-5 py-2.5 rounded-xl font-mono text-xs font-bold bg-[#22c55e] text-black hover:bg-[#22c55e]/90 transition-all shadow-md"
+          >
+            Request Beta Invite (tekromancy@googlegroups.com)
+          </a>
+          <a
+            href="/contact"
+            class="px-5 py-2.5 rounded-xl font-mono text-xs font-semibold bg-white/5 border border-white/15 text-gray-300 hover:bg-white/10 transition-all"
+          >
+            Direct Transmission Contact
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

@@ -150,6 +150,38 @@ import { Icon } from "astro-icon/components";
 					</li>
 					<li>
 						<a
+							href="/apps"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:apps" class="w-4 h-4 text-[#22c55e]" aria-hidden="true" />
+							<span>Sovereign Apps</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/events"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:calendar-event" class="w-4 h-4 text-[#fbbf24]" aria-hidden="true" />
+							<span>Field Ops &amp; Events</span>
+						</a>
+					</li>
+					<li>
+						<a
 							href="/about"
 							class="flex items-center gap-2 transition-colors"
 							style="color: var(--token-color-text-muted, #374151);"

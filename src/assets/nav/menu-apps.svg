@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 34" fill="none" class="cyber-word-badge">
+  <defs>
+    <filter id="badge-glow-apps" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <linearGradient id="apps-text-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22EE44" />
+      <stop offset="50%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <linearGradient id="apps-border-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Background Plate with Chamfered Left and Right Corners -->
+  <polygon points="6,2 86,2 90,6 90,28 86,32 6,32 2,28 2,6" fill="#040905" stroke="#163821" stroke-width="1.2" />
+
+  <!-- Neon Border Accent -->
+  <path d="M 2,12 L 2,6 L 6,2 L 16,2" stroke="#22c55e" stroke-width="1.5" fill="none" filter="url(#badge-glow-apps)" />
+  <path d="M 76,2 L 86,2 L 90,6 L 90,12" stroke="#38bdf8" stroke-width="1.5" fill="none" filter="url(#badge-glow-apps)" />
+  <path d="M 2,22 L 2,28 L 6,32 L 16,32" stroke="#22c55e" stroke-width="1.5" fill="none" filter="url(#badge-glow-apps)" />
+  <path d="M 76,32 L 86,32 L 90,28 L 90,22" stroke="#38bdf8" stroke-width="1.5" fill="none" filter="url(#badge-glow-apps)" />
+
+  <!-- Micro Technical Index -->
+  <text x="8" y="10" font-family="'JetBrains Mono', monospace" font-size="6" font-weight="800" fill="#38bdf8" opacity="0.85">APP</text>
+
+  <!-- Terminal Device / App Grid Icon -->
+  <g transform="translate(10, 15)">
+    <rect x="0" y="0" width="3" height="3" rx="0.5" fill="#22EE44" />
+    <rect x="4.5" y="0" width="3" height="3" rx="0.5" fill="#38bdf8" />
+    <rect x="0" y="4.5" width="3" height="3" rx="0.5" fill="#38bdf8" />
+    <rect x="4.5" y="4.5" width="3" height="3" rx="0.5" fill="#22EE44" />
+  </g>
+
+  <!-- Stylized Word "APPS" -->
+  <text x="21" y="22" font-family="'Space Grotesk', 'JetBrains Mono', sans-serif" font-weight="800" font-size="12" letter-spacing="1.5" fill="url(#apps-text-grad)">APPS</text>
+
+  <!-- Right Circuit Lightning Dot -->
+  <circle cx="82" cy="17" r="1.5" fill="#38bdf8" filter="url(#badge-glow-apps)" />
+  <path d="M 82,17 L 86,17" stroke="#38bdf8" stroke-width="1" />
+</svg>
