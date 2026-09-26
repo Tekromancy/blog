@@ -31,6 +31,7 @@ export const AUTHORS: Record<string, Author> = {
     bio: 'Passionate about low-level Linux systems engineering, high-scale Kubernetes deployments, local artificial intelligence pipelines, and defensive security. Building robust, sovereign computing environments that stand the test of time.',
     initials: 'JC',
     github: 'https://github.com/joshuacox',
+    linkedin: 'https://www.linkedin.com/in/coxjosh/',
     website: 'https://tekromancy.com',
   },
   'tekromancy-collective': {

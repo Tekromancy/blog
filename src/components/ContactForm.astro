@@ -5,7 +5,8 @@ import { Icon } from "astro-icon/components";
 // Web3Forms integration: check if access key is configured
 const web3formsAccessKey = SITE.web3formsAccessKey || "";
 const isConfigured = Boolean(web3formsAccessKey && web3formsAccessKey.trim() !== "");
-const githubUrl = "https://github.com/Tekromancy/blog/";
+const githubUrl = SITE.github || "https://github.com/Tekromancy/blog/";
+const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
 ---
 
 {!isConfigured ? (
@@ -20,12 +21,20 @@ const githubUrl = "https://github.com/Tekromancy/blog/";
     <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#38bdf8] pointer-events-none"></div>
 
     <div class="flex flex-col items-center text-center">
-      <!-- Cybernetic GitHub Emblem -->
-      <div 
-        class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border shadow-[0_0_20px_rgba(34,197,94,0.35)]"
-        style="background-color: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.5); color: #22c55e;"
-      >
-        <Icon name="tabler:brand-github" class="w-9 h-9" aria-hidden="true" />
+      <!-- Dual Cybernetic Emblems -->
+      <div class="flex items-center gap-4 mb-6">
+        <div 
+          class="w-14 h-14 rounded-2xl flex items-center justify-center border shadow-[0_0_20px_rgba(14,165,233,0.35)]"
+          style="background-color: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.5); color: #0ea5e9;"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-8 h-8" aria-hidden="true" />
+        </div>
+        <div 
+          class="w-14 h-14 rounded-2xl flex items-center justify-center border shadow-[0_0_20px_rgba(34,197,94,0.35)]"
+          style="background-color: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.5); color: #22c55e;"
+        >
+          <Icon name="tabler:brand-github" class="w-8 h-8" aria-hidden="true" />
+        </div>
       </div>
 
       <!-- Telemetry Sub-badge -->
@@ -34,60 +43,112 @@ const githubUrl = "https://github.com/Tekromancy/blog/";
         style="background-color: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.3); color: #4ade80;"
       >
         <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse"></span>
-        <span>CHANNEL::PUBLIC_DISCUSSIONS</span>
+        <span>CHANNELS::DIRECT_TRANSMISSION</span>
       </div>
 
       <h2 class="text-2xl sm:text-3xl font-bold font-mono tracking-tight mb-3" style="color: var(--token-color-text-primary, #ffffff);">
-        Connect via GitHub
+        Direct Transmission Channels
       </h2>
 
       <p class="text-sm sm:text-base max-w-lg mb-8 leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
-        The web dispatch form is currently offline. Technical inquiries, architectural discussions, bug reports, and research dispatches are managed in public on GitHub.
+        Connect directly with Joshua Edward McLaughlin Cox on LinkedIn for systems architecture consulting, technical discussions, or professional networking. Research dispatches, issues, and code are maintained in public on GitHub.
       </p>
 
-      <!-- Primary GitHub Dispatch Action Card -->
-      <a
-        href={githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group w-full max-w-lg p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
-        style="background-color: rgba(10, 18, 12, 0.9); border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);"
-        onmouseenter={(e) => {
-          e.currentTarget.style.borderColor = '#22c55e';
-          e.currentTarget.style.boxShadow = '0 0 25px rgba(34, 197, 94, 0.45)';
-          e.currentTarget.style.backgroundColor = 'rgba(15, 26, 18, 0.95)';
-        }}
-        onmouseleave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
-          e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.15)';
-          e.currentTarget.style.backgroundColor = 'rgba(10, 18, 12, 0.9)';
-        }}
-        aria-label="Open Tekromancy GitHub repository"
-      >
-        <div class="flex items-center gap-3.5 min-w-0">
-          <div class="p-2.5 rounded-lg bg-[#22c55e]/15 text-[#22c55e] shrink-0 border border-[#22c55e]/30">
-            <Icon name="tabler:git-pull-request" class="w-5 h-5" />
+      <!-- Action Cards Stack -->
+      <div class="w-full max-w-lg space-y-4">
+        <!-- LinkedIn Action Card -->
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group w-full p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
+          style="background-color: rgba(10, 16, 26, 0.9); border-color: rgba(14, 165, 233, 0.45); box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);"
+          onmouseenter={(e) => {
+            e.currentTarget.style.borderColor = '#0ea5e9';
+            e.currentTarget.style.boxShadow = '0 0 25px rgba(14, 165, 233, 0.45)';
+            e.currentTarget.style.backgroundColor = 'rgba(12, 22, 36, 0.95)';
+          }}
+          onmouseleave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(14, 165, 233, 0.45)';
+            e.currentTarget.style.boxShadow = '0 0 15px rgba(14, 165, 233, 0.15)';
+            e.currentTarget.style.backgroundColor = 'rgba(10, 16, 26, 0.9)';
+          }}
+          aria-label="Connect with Joshua Cox on LinkedIn"
+        >
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="p-2.5 rounded-lg bg-[#0ea5e9]/15 text-[#0ea5e9] shrink-0 border border-[#0ea5e9]/30 group-hover:bg-[#0ea5e9]/25 transition-colors">
+              <Icon name="tabler:brand-linkedin" class="w-5 h-5" />
+            </div>
+            <div class="flex flex-col text-left min-w-0">
+              <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#38bdf8] transition-colors truncate">
+                LinkedIn // Joshua Cox
+              </span>
+              <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
+                Professional Network • Systems Architecture • Consulting
+              </span>
+            </div>
           </div>
-          <div class="flex flex-col text-left min-w-0">
-            <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#22c55e] transition-colors truncate">
-              Tekromancy/blog
-            </span>
-            <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
-              Discussions • Issues • Pull Requests
-            </span>
+
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#0ea5e9]/60 bg-[#0ea5e9]/20 text-[#38bdf8] shrink-0 group-hover:bg-[#0ea5e9] group-hover:text-black transition-all">
+            <span>CONNECT</span>
+            <Icon name="tabler:external-link" class="w-4 h-4" />
           </div>
-        </div>
+        </a>
 
-        <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#22c55e]/60 bg-[#22c55e]/20 text-[#22c55e] shrink-0 group-hover:bg-[#22c55e] group-hover:text-black transition-all">
-          <span>VISIT</span>
-          <Icon name="tabler:external-link" class="w-4 h-4" />
-        </div>
-      </a>
+        <!-- GitHub Action Card -->
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group w-full p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
+          style="background-color: rgba(10, 18, 12, 0.9); border-color: rgba(34, 197, 94, 0.45); box-shadow: 0 0 15px rgba(34, 197, 94, 0.15);"
+          onmouseenter={(e) => {
+            e.currentTarget.style.borderColor = '#22c55e';
+            e.currentTarget.style.boxShadow = '0 0 25px rgba(34, 197, 94, 0.45)';
+            e.currentTarget.style.backgroundColor = 'rgba(15, 26, 18, 0.95)';
+          }}
+          onmouseleave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
+            e.currentTarget.style.boxShadow = '0 0 15px rgba(34, 197, 94, 0.15)';
+            e.currentTarget.style.backgroundColor = 'rgba(10, 18, 12, 0.9)';
+          }}
+          aria-label="Open Tekromancy GitHub repository"
+        >
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="p-2.5 rounded-lg bg-[#22c55e]/15 text-[#22c55e] shrink-0 border border-[#22c55e]/30 group-hover:bg-[#22c55e]/25 transition-colors">
+              <Icon name="tabler:brand-github" class="w-5 h-5" />
+            </div>
+            <div class="flex flex-col text-left min-w-0">
+              <span class="font-mono font-bold text-sm sm:text-base text-[var(--token-color-text-primary)] group-hover:text-[#22c55e] transition-colors truncate">
+                GitHub // Tekromancy/blog
+              </span>
+              <span class="text-xs font-mono text-[var(--token-color-text-muted)] truncate">
+                Discussions • Issues • Open-Source PRs
+              </span>
+            </div>
+          </div>
 
-      <!-- Quick Git Clone Command Hint -->
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
-        <span class="opacity-60">$</span>
-        <code class="px-2.5 py-1 rounded border border-[#22c55e]/30 bg-black/70 text-[#4ade80] text-[11px] sm:text-xs">git clone https://github.com/Tekromancy/blog.git</code>
+          <div class="flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-mono text-xs font-bold border border-[#22c55e]/60 bg-[#22c55e]/20 text-[#22c55e] shrink-0 group-hover:bg-[#22c55e] group-hover:text-black transition-all">
+            <span>VISIT</span>
+            <Icon name="tabler:external-link" class="w-4 h-4" />
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Telemetry Links Hint -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+        <a 
+          href={linkedinUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1 text-[#38bdf8] hover:underline"
+        >
+          <span class="text-[#0ea5e9]">in/</span><code class="px-2 py-0.5 rounded border border-[#0ea5e9]/30 bg-black/60 text-[#38bdf8] text-[11px]">coxjosh</code>
+        </a>
+        <span class="opacity-40">•</span>
+        <span class="inline-flex items-center gap-1">
+          <span class="opacity-60">$</span><code class="px-2 py-0.5 rounded border border-[#22c55e]/30 bg-black/60 text-[#4ade80] text-[11px]">git clone https://github.com/Tekromancy/blog.git</code>
+        </span>
       </div>
     </div>
   </div>
@@ -235,6 +296,31 @@ const githubUrl = "https://github.com/Tekromancy/blog/";
       <span id="submit-text">Transmit Dispatch</span>
       <span id="submit-loading" class="hidden">Encrypting &amp; Sending...</span>
     </button>
+
+    <!-- Alternative Direct Channels -->
+    <div class="pt-4 border-t border-[var(--token-color-border)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono" style="color: var(--token-color-text-muted, #94a3b8);">
+      <span class="text-xs">// DIRECT FREQUENCIES:</span>
+      <div class="flex items-center gap-4">
+        <a 
+          href={linkedinUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1.5 text-[#0ea5e9] hover:text-[#38bdf8] transition-colors"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-4 h-4" />
+          <span>LinkedIn (Joshua Cox)</span>
+        </a>
+        <a 
+          href={githubUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-1.5 text-[#22c55e] hover:text-[#4ade80] transition-colors"
+        >
+          <Icon name="tabler:brand-github" class="w-4 h-4" />
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
   </form>
 )}
 

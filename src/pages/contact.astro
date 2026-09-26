@@ -5,11 +5,14 @@ import Footer from "../components/Footer.astro";
 import ContactForm from "../components/ContactForm.astro";
 import ScrollReveal from "../components/ScrollReveal.tsx";
 import { SITE } from "../config/site.mjs";
+import { Icon } from "astro-icon/components";
+
+const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
 ---
 
 <Layout
   title={`Contact | ${SITE.title}`}
-  description="Initiate contact with Tekromancy. Open for systems engineering inquiries, technical discussions, and architecture consulting."
+  description="Initiate contact with Tekromancy. Connect directly with Joshua Cox on LinkedIn or submit an architectural transmission."
   canonicalURL={`${SITE.url}/contact`}
 >
   <Header />
@@ -24,8 +27,8 @@ import { SITE } from "../config/site.mjs";
         </h1>
       </ScrollReveal>
       <ScrollReveal client:idle delay={0.2}>
-        <p class="text-lg md:text-xl mb-12 leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
-          Have questions about Linux kernel internals, Kubernetes architecture, local LLM pipelines, or security? Connect with us directly or open an architectural discussion.
+        <p class="text-lg md:text-xl mb-8 leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
+          Have questions about Linux kernel internals, Kubernetes architecture, local LLM pipelines, or security? Connect directly with <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="font-bold underline decoration-[#0ea5e9] text-[#0ea5e9] hover:text-[#38bdf8] transition-colors">Joshua Cox on LinkedIn</a> or transmit a dispatch through our secure channels.
         </p>
       </ScrollReveal>
       
