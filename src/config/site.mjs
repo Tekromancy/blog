@@ -8,6 +8,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/coxjosh/",
   github: "https://github.com/Tekromancy/blog/",
   ogImage: "/og-image.png", // Add this image to your public folder
+  googleAnalyticsId: "G-YBFSBJRJK8",
   // Web3Forms: Get your access key from https://web3forms.com
   // Leave empty to disable form submissions
   web3formsAccessKey: "", // e.g., "YOUR_ACCESS_KEY_HERE"
