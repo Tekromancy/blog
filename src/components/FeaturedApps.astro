@@ -1,0 +1,127 @@
+---
+import { TEKROMANCY_APPS } from "../data/apps";
+import { Icon } from "astro-icon/components";
+import ScrollReveal from "./ScrollReveal.tsx";
+
+const apps = TEKROMANCY_APPS;
+---
+
+<section class="max-w-6xl mx-auto px-4 py-16 border-t" style="border-color: var(--token-color-border, #e5e7eb);">
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+    <div>
+      <span
+        class="text-xs font-mono font-bold px-2.5 py-1 rounded-md mb-3 inline-block border"
+        style="background-color: var(--token-color-surface, #1e293b); border-color: rgba(34, 197, 94, 0.35); color: var(--token-color-primary, #22EE44);"
+      >
+        // TACTICAL CLIENTS // SOVEREIGN APPS
+      </span>
+      <h2
+        class="text-3xl md:text-4xl font-bold font-mono tracking-tight"
+        style="color: var(--token-color-text-primary, #111827);"
+      >
+        Featured Applications
+      </h2>
+    </div>
+    <a
+      href="/apps"
+      class="inline-flex items-center gap-1.5 font-mono text-sm font-medium transition-colors"
+      style="color: var(--token-color-primary, #0ea5e9);"
+    >
+      <span>Explore All Sovereign Tools</span>
+      <Icon name="tabler:arrow-right" class="w-4 h-4" aria-hidden="true" />
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    {apps.map((app, index) => (
+      <ScrollReveal client:load delay={0.15 * index}>
+        <div
+          class="relative rounded-2xl border p-6 sm:p-8 flex flex-col justify-between h-full overflow-hidden transition-all duration-300 hover:shadow-2xl group"
+          style="background-color: var(--token-color-surface, #0b1120); border-color: rgba(255, 255, 255, 0.1);"
+        >
+          <!-- Radial Ambient Glow -->
+          <div
+            class="absolute -top-20 -right-20 w-80 h-80 opacity-15 pointer-events-none rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-25"
+            style={`background: radial-gradient(circle, ${app.accentFrom}, ${app.accentTo});`}
+            aria-hidden="true"
+          ></div>
+
+          <div>
+            <!-- Top Status Row -->
+            <div class="flex items-center justify-between gap-2 mb-5">
+              <span
+                class="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-wider uppercase border"
+                style={`background-color: rgba(0, 0, 0, 0.5); border-color: ${app.accentFrom}50; color: ${app.accentFrom};`}
+              >
+                {app.category}
+              </span>
+              <div class="flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>
+                </span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-white/5 text-gray-300 border border-white/10">
+                  {app.statusLabel}
+                </span>
+              </div>
+            </div>
+
+            <!-- Title & Icon -->
+            <div class="flex items-center gap-4 mb-4">
+              <div
+                class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-2xl sm:text-3xl border shrink-0"
+                style={`background: linear-gradient(135deg, ${app.accentFrom}25, ${app.accentTo}15); border-color: ${app.accentFrom}50;`}
+              >
+                <span>{app.iconSymbol}</span>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-extrabold font-mono tracking-tight text-white group-hover:text-white transition-colors">
+                  {app.name}
+                </h3>
+                <p class="text-xs font-mono mt-0.5" style={`color: ${app.accentFrom};`}>
+                  {app.tagline}
+                </p>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm leading-relaxed text-gray-300 mb-6">
+              {app.description}
+            </p>
+
+            <!-- Highlights -->
+            <ul class="space-y-1.5 mb-6 text-xs font-mono text-gray-300">
+              {app.highlights.slice(0, 3).map((highlight) => (
+                <li class="flex items-start gap-2">
+                  <span style={`color: ${app.accentFrom};`} class="font-bold">✓</span>
+                  <span>{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+            <a
+              href={app.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-mono font-bold text-xs text-black transition-all hover:scale-[1.02] shadow-md"
+              style={`background: linear-gradient(135deg, ${app.accentFrom}, ${app.accentTo});`}
+            >
+              <span>Launch {app.shortName} Portal</span>
+              <Icon name="tabler:arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true" />
+            </a>
+
+            <a
+              href="/apps"
+              class="inline-flex items-center gap-1 text-xs font-mono text-gray-400 hover:text-white transition-colors"
+            >
+              <span>View Specs</span>
+              <Icon name="tabler:chevron-right" class="w-3.5 h-3.5" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </ScrollReveal>
+    ))}
+  </div>
+</section>

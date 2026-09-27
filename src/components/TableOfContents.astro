@@ -1,0 +1,106 @@
+---
+// TableOfContents.astro - Sticky Right-Rail Cyberpunk Navigation Tree
+import { Icon } from "astro-icon/components";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings = [] } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  filteredHeadings.length > 1 && (
+    <aside
+      id="toc-sidebar"
+      class="hidden xl:block w-64 shrink-0 text-xs font-mono select-none"
+      aria-label="Table of Contents"
+    >
+      <div class="sticky top-28 p-4 rounded-xl border border-white/10 bg-black/60 backdrop-blur-md max-h-[calc(100vh-140px)] overflow-y-auto shadow-2xl">
+        <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/10 text-gray-400 font-bold uppercase tracking-wider text-[11px]">
+          <Icon name="tabler:list-tree" class="w-4 h-4 text-[#22EE44]" />
+          <span>Table of Contents</span>
+        </div>
+
+        <nav>
+          <ul class="space-y-2">
+            {filteredHeadings.map((h) => (
+              <li class={h.depth === 3 ? "pl-3 border-l border-white/5" : ""}>
+                <a
+                  href={`#${h.slug}`}
+                  data-heading-slug={h.slug}
+                  class="toc-link block text-gray-400 hover:text-white transition-colors py-0.5 line-clamp-1"
+                >
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[10px] text-gray-500">
+          <span>// DISPATCH NAV //</span>
+          <a
+            href="#main-content"
+            class="hover:text-[#22EE44] transition-colors"
+          >
+            TOP ↑
+          </a>
+        </div>
+      </div>
+    </aside>
+  )
+}
+
+<script is:inline>
+  (function () {
+    function initTOC() {
+      var links = document.querySelectorAll(".toc-link");
+      if (!links.length) return;
+
+      var headings = Array.from(document.querySelectorAll("article h2, article h3")).filter(function(h) {
+        return h.id;
+      });
+
+      if (!headings.length) return;
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+              links.forEach(function (link) {
+                if (link.getAttribute("data-heading-slug") === id) {
+                  link.style.color = "#22EE44";
+                  link.style.fontWeight = "bold";
+                } else {
+                  link.style.color = "";
+                  link.style.fontWeight = "";
+                }
+              });
+            }
+          });
+        },
+        { rootMargin: "0px 0px -70% 0px", threshold: 0.1 }
+      );
+
+      headings.forEach(function (h) {
+        observer.observe(h);
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initTOC);
+    } else {
+      initTOC();
+    }
+    document.addEventListener("astro:page-load", initTOC);
+  })();
+</script>

@@ -57,10 +57,38 @@ const upcomingEvents = getUpcomingEvents();
 					</p>
 				</ScrollReveal>
 
+				<!-- Cyberpunk Instant Terminal Search Bar -->
+				<ScrollReveal client:load delay={0.25}>
+					<div class="relative max-w-2xl mx-auto mt-6">
+						<div class="relative flex items-center rounded-xl border border-white/10 bg-black/80 px-4 py-2.5 shadow-2xl focus-within:border-[#22EE44] focus-within:ring-1 focus-within:ring-[#22EE44] transition-all">
+							<span class="font-mono text-xs sm:text-sm text-[#22EE44] select-none mr-2 font-bold shrink-0">
+								root@tekromancy:~$
+							</span>
+							<input
+								id="blog-search-input"
+								type="text"
+								placeholder="grep -i dispatches, kernel, ebpf, cuda, tags..."
+								class="w-full bg-transparent font-mono text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none"
+								aria-label="Search dispatches"
+							/>
+							<button
+								id="search-clear-btn"
+								class="hidden font-mono text-xs text-gray-400 hover:text-white px-2 py-0.5 rounded ml-2"
+								title="Clear search"
+							>
+								ESC
+							</button>
+							<span class="hidden sm:inline-block font-mono text-[10px] text-gray-500 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded select-none shrink-0 ml-2">
+								/
+							</span>
+						</div>
+					</div>
+				</ScrollReveal>
+
 				<!-- Tag Filter Pills -->
 				<ScrollReveal client:load delay={0.3}>
 					<div
-						class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono"
+						class="flex flex-wrap justify-center gap-2 mt-6 text-xs font-mono"
 						id="tag-filters"
 					>
 						<button
@@ -77,6 +105,8 @@ const upcomingEvents = getUpcomingEvents();
 								"ai-ml",
 								"networking",
 								"security",
+								"apps",
+								"battery",
 								"devops",
 							].map((t) => (
 								<button
@@ -372,6 +402,8 @@ const upcomingEvents = getUpcomingEvents();
 								<article
 									class="post-card rounded-xl border hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col"
 									data-tags={tags.join(",")}
+									data-title={post.data.title.toLowerCase()}
+									data-desc={post.data.description.toLowerCase()}
 									data-authors={authors
 										.map((a) => a.name.toLowerCase())
 										.join("|")}
@@ -486,9 +518,43 @@ const upcomingEvents = getUpcomingEvents();
 		function setupFilter() {
 			var filterBtns = document.querySelectorAll(".filter-btn");
 			var cards = document.querySelectorAll(".post-card");
+			var searchInput = document.getElementById("blog-search-input");
+			var clearBtn = document.getElementById("search-clear-btn");
+			var currentFilter = "all";
+			var currentQuery = "";
 			if (!filterBtns.length) return;
 
+			function updateVisibility() {
+				var q = currentQuery.toLowerCase().trim();
+				var visibleCount = 0;
+
+				cards.forEach(function (card) {
+					var tags = (card.getAttribute("data-tags") || "").split(",");
+					var title = card.getAttribute("data-title") || "";
+					var desc = card.getAttribute("data-desc") || "";
+
+					var matchesTag = currentFilter === "all" || tags.indexOf(currentFilter) !== -1;
+					var matchesQuery = !q || title.indexOf(q) !== -1 || desc.indexOf(q) !== -1 || tags.some(function(t) { return t.indexOf(q) !== -1; });
+
+					if (matchesTag && matchesQuery) {
+						card.style.display = "flex";
+						visibleCount++;
+					} else {
+						card.style.display = "none";
+					}
+				});
+
+				if (clearBtn) {
+					if (q) {
+						clearBtn.classList.remove("hidden");
+					} else {
+						clearBtn.classList.add("hidden");
+					}
+				}
+			}
+
 			function applyFilter(filter) {
+				currentFilter = filter;
 				filterBtns.forEach(function (btn) {
 					var match = btn.getAttribute("data-filter") === filter;
 					if (match) {
@@ -501,15 +567,7 @@ const upcomingEvents = getUpcomingEvents();
 						btn.style.borderColor = "var(--token-color-border, #e2e8f0)";
 					}
 				});
-
-				cards.forEach(function (card) {
-					var tags = (card.getAttribute("data-tags") || "").split(",");
-					if (filter === "all" || tags.indexOf(filter) !== -1) {
-						card.style.display = "flex";
-					} else {
-						card.style.display = "none";
-					}
-				});
+				updateVisibility();
 			}
 
 			var authorBanner = document.getElementById("author-filter-banner");
@@ -540,6 +598,39 @@ const upcomingEvents = getUpcomingEvents();
 				});
 			}
 
+			if (searchInput) {
+				searchInput.oninput = function(e) {
+					currentQuery = e.target.value;
+					updateVisibility();
+					var url = new URL(window.location);
+					if (currentQuery.trim()) {
+						url.searchParams.set("q", currentQuery.trim());
+					} else {
+						url.searchParams.delete("q");
+					}
+					window.history.replaceState({}, "", url);
+				};
+			}
+
+			if (clearBtn) {
+				clearBtn.onclick = function() {
+					if (searchInput) searchInput.value = "";
+					currentQuery = "";
+					updateVisibility();
+					var url = new URL(window.location);
+					url.searchParams.delete("q");
+					window.history.replaceState({}, "", url);
+				};
+			}
+
+			// Key listener for '/' to focus search input
+			window.addEventListener("keydown", function(e) {
+				if ((e.key === "/" && document.activeElement !== searchInput) || (e.ctrlKey && e.key === "k") || (e.metaKey && e.key === "k")) {
+					e.preventDefault();
+					searchInput && searchInput.focus();
+				}
+			});
+
 			filterBtns.forEach(function (btn) {
 				btn.onclick = function () {
 					if (authorBanner) authorBanner.classList.add("hidden");
@@ -559,10 +650,19 @@ const upcomingEvents = getUpcomingEvents();
 			var params = new URLSearchParams(window.location.search);
 			var authorParam = params.get("author");
 			var tagParam = params.get("tag");
+			var queryParam = params.get("q");
+
+			if (queryParam && searchInput) {
+				searchInput.value = queryParam;
+				currentQuery = queryParam;
+			}
+
 			if (authorParam) {
 				applyAuthorFilter(authorParam);
 			} else if (tagParam) {
 				applyFilter(tagParam);
+			} else if (queryParam) {
+				updateVisibility();
 			}
 		}
 

@@ -6,6 +6,8 @@ import ScrollReveal from "../components/ScrollReveal.tsx";
 import { SITE } from "../config/site.mjs";
 import { TEKROMANCY_APPS } from "../data/apps";
 import { Icon } from "astro-icon/components";
+import BatteryRetentionCalculator from "../components/interactive/BatteryRetentionCalculator.tsx";
+import TelecomTimelineMatrix from "../components/interactive/TelecomTimelineMatrix.tsx";
 
 const apps = TEKROMANCY_APPS;
 ---
@@ -181,6 +183,19 @@ const apps = TEKROMANCY_APPS;
                   </div>
                 </div>
               </div>
+
+              <!-- Interactive Simulator Embed -->
+              {app.id === "sparetank" && (
+                <div class="mt-8 pt-6 border-t border-white/10">
+                  <BatteryRetentionCalculator client:visible />
+                </div>
+              )}
+
+              {app.id === "silent-mode-control" && (
+                <div class="mt-8 pt-6 border-t border-white/10">
+                  <TelecomTimelineMatrix client:visible />
+                </div>
+              )}
             </article>
           </ScrollReveal>
         ))}

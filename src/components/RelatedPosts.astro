@@ -31,7 +31,7 @@ scoredPosts.sort((a, b) => {
 	return b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf();
 });
 
-const relatedPosts = scoredPosts.slice(0, 2).map((item) => item.post);
+const relatedPosts = scoredPosts.slice(0, 3).map((item) => item.post);
 ---
 
 {
