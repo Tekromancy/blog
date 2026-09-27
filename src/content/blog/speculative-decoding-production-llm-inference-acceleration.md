@@ -127,3 +127,10 @@ When integrating speculative decoding into high-volume serving clusters:
 - **Draft Model Alignment**: Ensure the draft model shares the exact token vocabulary and prompt formatting templates as the target model.
 - **Batch Size Saturation**: Speculative decoding provides maximum speedup at low to moderate concurrent batch sizes ($N < 16$). Under massive multi-tenant batch saturation, the GPU naturally transitions from memory-bandwidth bound to compute bound, diminishing speculative gains.
 - **Speculative Trees (EAGLE & Medusa)**: For environments where hosting a separate draft model consumes too much VRAM, consider training shallow multi-token prediction heads (EAGLE) that branch speculative trees without requiring a distinct weights checkpoint.
+
+---
+
+### Further Reading & Deep-Dive Dispatches
+- [vLLM vs SGLang vs TensorRT-LLM: The Ultimate Production Serving Benchmark](/blog/vllm-vs-sglang-tensorrt-llm-benchmark) — High-throughput engine analysis, RadixAttention, and memory reuse.
+- [GPUDirect Storage & NVMe-oF in AI Compute Clusters: Bypassing the CPU Bottleneck](/blog/gpudirect-storage-nvme-of-ai-clusters-bypassing-cpu-bottleneck) — cuFile DMA architectures for multi-node model weight distribution.
+- [Local LLM Inference: Mastering vLLM and Ollama on Consumer & Enterprise Hardware](/blog/local-llm-inference-vllm-ollama) — Self-hosted inference pipelines, quantization, and memory management.

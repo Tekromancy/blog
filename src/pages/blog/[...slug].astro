@@ -12,6 +12,8 @@ import ShareButtons from "../../components/ShareButtons.astro";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 import ReadingProgressBar from "../../components/ReadingProgressBar.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
+import BatteryRetentionCalculator from "../../components/interactive/BatteryRetentionCalculator.tsx";
+import TelecomTimelineMatrix from "../../components/interactive/TelecomTimelineMatrix.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -198,6 +200,42 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 						<Content />
 					</div>
 				</ScrollReveal>
+
+				{post.id === "announcing-sparetank-intelligent-battery-longevity-emergency-guard" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 197, 94, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-green-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // CELL RETENTION LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Electrochemical Retention Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Adjust target charge thresholds to observe projected 3-year capacity retention and cycle lifespan multipliers in real time.
+							</p>
+							<BatteryRetentionCalculator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "announcing-silent-mode-control-granular-android-call-screening" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(168, 85, 247, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-purple-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // TELECOM PROTOCOL MATRIX</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive 24-Hour Call Firewall Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Simulate inbound telecom calls across scheduled time windows to observe automatic quiet hours, repeat caller bypasses, and contact screening.
+							</p>
+							<TelecomTimelineMatrix client:visible />
+						</div>
+					</ScrollReveal>
+				)}
 
 				<!-- Co-Authors & Contributors Section -->
 				<section

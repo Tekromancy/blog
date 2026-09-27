@@ -160,3 +160,11 @@ While static IP matching is helpful, modern adversaries rotate source IP ranges 
 3. **BGP Flowspec Peering**: The daemon simultaneously announces BGP Flowspec dispatches to upstream transit providers, shedding bandwidth upstream while scrubbing leftovers on-box.
 
 By pushing packet inspection into the driver level with eBPF XDP, engineers can build self-healing, carrier-grade network defenses on bare-metal commodity servers without surrender to extortionate cloud scrubbing fees.
+
+---
+
+### Further Reading & Deep-Dive Dispatches
+- [eBPF Linux Tracing Deep Dive](/blog/ebpf-linux-tracing-deep-dive) — Tracing kernel internals, kprobes, tracepoints, and production performance profiling.
+- [Bare-Metal Kubernetes: Talos Linux, Cilium CNI & Rook-Ceph](/blog/bare-metal-kubernetes-talos-cilium-rook-ceph) — Production eBPF routing, BGP peering, and cloud-native storage.
+- [io_uring: Building a High-Throughput Network Engine in Modern Linux](/blog/io-uring-high-throughput-network-engine) — Zero-copy userspace asynchronous I/O architectures.
+

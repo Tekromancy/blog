@@ -159,3 +159,11 @@ When provisioning infrastructure for GDS and NVMe over Fabrics (NVMe-oF):
 - **PCIe Switch Topology**: Ensure your NVMe SSDs and target GPUs are located under the same PCIe root complex or downstream switch (such as Broadcom PEX PCIe switches) to prevent cross-socket UPI/QPI traffic.
 - **`MOFED` & `nvidia-fs` Kernel Modules**: Verify that both the Mellanox OpenFabrics Enterprise Distribution (MOFED) and NVIDIA `nvidia-fs` kernel modules are properly loaded and aligned with your kernel version.
 - **IOMMU Configuration**: Enable ACS (Access Control Services) and IOMMU pass-through (`iommu=pt`) to permit hardware P2P DMA between non-root endpoints.
+
+---
+
+### Further Reading & Deep-Dive Dispatches
+- [Speculative Decoding: Accelerating Production LLM Inference by 2x–3x](/blog/speculative-decoding-production-llm-inference-acceleration) — Speculative verification loops, draft engines, and batch saturation.
+- [vLLM vs SGLang vs TensorRT-LLM: The Ultimate Production Serving Benchmark](/blog/vllm-vs-sglang-tensorrt-llm-benchmark) — High-throughput engine analysis, RadixAttention, and memory reuse.
+- [io_uring: Building a High-Throughput Network Engine in Modern Linux](/blog/io-uring-high-throughput-network-engine) — Zero-copy userspace asynchronous I/O architectures.
+
