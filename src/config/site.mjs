@@ -9,6 +9,9 @@ export const SITE = {
   github: "https://github.com/Tekromancy/blog/",
   ogImage: "/og-image.png", // Add this image to your public folder
   googleAnalyticsId: "G-YBFSBJRJK8",
+  googleAnalyticsPropertyId: "408486434",
+  googleAdsenseClientId: "ca-pub-8973108060277483",
+  googleAppId: "554699267",
   // Web3Forms: Get your access key from https://web3forms.com
   // Leave empty to disable form submissions
   web3formsAccessKey: "", // e.g., "YOUR_ACCESS_KEY_HERE"
