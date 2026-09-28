@@ -144,6 +144,22 @@ const robotsContent = [
 			)
 		}
 
+		<!-- Google AdSense -->
+		{
+			SITE.googleAdsenseClientId && (
+				<>
+					<link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+					<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+					<script
+						is:inline
+						async
+						src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.googleAdsenseClientId}`}
+						crossorigin="anonymous"
+					/>
+				</>
+			)
+		}
+
 		<!-- View Transitions -->
 		<ClientRouter />
 	</head>
