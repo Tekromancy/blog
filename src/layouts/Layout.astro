@@ -171,14 +171,51 @@ const robotsContent = [
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());
-					gtag('config', '${SITE.googleAnalyticsId}');
+					gtag('config', '${SITE.googleAnalyticsId}', {
+						send_page_view: true,
+						cookie_flags: 'SameSite=None;Secure',
+					});
 
+					// Global Telemetry Dispatcher for Engineering & Google Ads
+					window.trackTelemetry = function(eventName, params) {
+						params = params || {};
+						gtag('event', eventName, params);
+						try {
+							window.dispatchEvent(new CustomEvent('tekromancy:telemetry', {
+								detail: { eventName: eventName, params: params, timestamp: new Date().toISOString() }
+							}));
+						} catch (err) {}
+					};
+
+					// SPA Navigation Sync
 					document.addEventListener('astro:after-swap', () => {
 						gtag('config', '${SITE.googleAnalyticsId}', {
 							page_path: window.location.pathname,
 							page_location: window.location.href,
 							page_title: document.title,
 						});
+					});
+
+					// Automated Global Telemetry Delegation
+					document.addEventListener('click', (e) => {
+						const target = e.target && e.target.closest ? e.target.closest('a') : null;
+						if (!target) return;
+
+						const telemetryType = target.getAttribute('data-telemetry');
+						if (telemetryType) {
+							window.trackTelemetry(telemetryType, {
+								app_id: target.getAttribute('data-telemetry-app') || 'unknown',
+								destination: target.href,
+							});
+							return;
+						}
+
+						if (target.hostname === 'github.com') {
+							window.trackTelemetry('outbound_click', {
+								url: target.href,
+								label: 'github_repository',
+							});
+						}
 					});
 				`}
 					/>

@@ -598,6 +598,7 @@ const upcomingEvents = getUpcomingEvents();
 				});
 			}
 
+			var searchDebounceTimer = null;
 			if (searchInput) {
 				searchInput.oninput = function(e) {
 					currentQuery = e.target.value;
@@ -609,6 +610,23 @@ const upcomingEvents = getUpcomingEvents();
 						url.searchParams.delete("q");
 					}
 					window.history.replaceState({}, "", url);
+
+					clearTimeout(searchDebounceTimer);
+					var trimmedQ = currentQuery.trim();
+					if (trimmedQ.length >= 2) {
+						searchDebounceTimer = setTimeout(function() {
+							if (typeof window.trackTelemetry === "function") {
+								var matchCount = 0;
+								cards.forEach(function(c) {
+									if (c.style.display !== "none") matchCount++;
+								});
+								window.trackTelemetry("internal_search", {
+									query: trimmedQ,
+									result_count: matchCount
+								});
+							}
+						}, 750);
+					}
 				};
 			}
 

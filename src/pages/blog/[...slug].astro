@@ -522,6 +522,17 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 					navigator.clipboard.writeText(codeText).then(function () {
 						copyBtn.innerHTML = `<span class="text-[#22EE44] font-bold">COPIED // 0x00</span><span>✓</span>`;
 						copyBtn.style.borderColor = "#22EE44";
+
+						if (typeof window.trackTelemetry === "function") {
+							var codeEl = pre.querySelector("code");
+							var langClass = codeEl ? codeEl.className : "";
+							window.trackTelemetry("code_copy", {
+								article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, ""),
+								code_length: codeText.length,
+								language: langClass.replace("language-", "").trim() || "text"
+							});
+						}
+
 						setTimeout(function () {
 							copyBtn.innerHTML = `<span>COPY</span><span>⧉</span>`;
 							copyBtn.style.borderColor = "";
@@ -547,6 +558,35 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 			decorateCodeBlocks();
 		}
 		document.addEventListener("astro:page-load", decorateCodeBlocks);
+
+		// Article Scroll Depth Milestone Telemetry
+		var trackedMilestones = new Set();
+		function checkScrollDepth() {
+			var article = document.querySelector("article");
+			if (!article) return;
+			var rect = article.getBoundingClientRect();
+			var totalHeight = article.offsetHeight;
+			var visibleTop = window.scrollY || window.pageYOffset;
+			var articleTop = article.offsetTop;
+			var progress = Math.min(100, Math.max(0, Math.round(((visibleTop - articleTop + window.innerHeight * 0.5) / totalHeight) * 100)));
+
+			[25, 50, 75, 90].forEach(function (threshold) {
+				if (progress >= threshold && !trackedMilestones.has(threshold)) {
+					trackedMilestones.add(threshold);
+					if (typeof window.trackTelemetry === "function") {
+						window.trackTelemetry("scroll_milestone", {
+							depth: threshold,
+							article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, "")
+						});
+					}
+				}
+			});
+		}
+
+		window.addEventListener("scroll", checkScrollDepth, { passive: true });
+		document.addEventListener("astro:page-load", function () {
+			trackedMilestones.clear();
+		});
 	})();
 </script>
 
