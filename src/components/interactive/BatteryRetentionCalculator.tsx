@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { trackTelemetry, TELEMETRY_VALUES } from "../../utils/telemetry";
 
 export default function BatteryRetentionCalculator() {
   const [capacity, setCapacity] = useState<number>(5000);
   const [years, setYears] = useState<number>(3);
   const [cyclesPerDay, setCyclesPerDay] = useState<number>(1.2);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      trackTelemetry("simulator_interaction", {
+        simulator_name: "BatteryRetentionCalculator",
+        action_type: "calculate",
+        value: TELEMETRY_VALUES.SIMULATOR_ENGAGEMENT,
+        currency: "USD",
+        setting: `${capacity}mAh_${years}yrs_${cyclesPerDay}cyc`,
+      });
+    }, 1000);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [capacity, years, cyclesPerDay]);
 
   // Electrochemical degradation model calculations
   const totalCycles = years * 365 * cyclesPerDay;

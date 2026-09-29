@@ -170,15 +170,47 @@ const robotsContent = [
 						set:html={`
 					window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
+
+					// Google Consent Mode v2 (Enables Machine Learning Conversion Modeling)
+					gtag('consent', 'default', {
+						'ad_storage': 'granted',
+						'ad_user_data': 'granted',
+						'ad_personalization': 'granted',
+						'analytics_storage': 'granted',
+					});
+
 					gtag('js', new Date());
 					gtag('config', '${SITE.googleAnalyticsId}', {
 						send_page_view: true,
 						cookie_flags: 'SameSite=None;Secure',
 					});
 
-					// Global Telemetry Dispatcher for Engineering & Google Ads
+					// Preserve Google Ads Click Identifiers across View Transitions
+					(function() {
+						try {
+							var params = new URLSearchParams(window.location.search);
+							var clickId = params.get('gclid') || params.get('gbraid') || params.get('wbraid');
+							if (clickId) {
+								sessionStorage.setItem('tekromancy_click_id', clickId);
+							}
+						} catch (e) {}
+					})();
+
+					// Enhanced Conversions Helper for Google Ads Machine Learning
+					window.setEnhancedConversionData = function(data) {
+						if (!data) return;
+						var payload = {};
+						if (data.email) payload.email = data.email.trim().toLowerCase();
+						if (data.phone_number) payload.phone_number = data.phone_number.trim();
+						gtag('set', 'user_data', payload);
+					};
+
+					// Global Telemetry Dispatcher for Engineering & Google Ads Smart Bidding
 					window.trackTelemetry = function(eventName, params) {
 						params = params || {};
+						if (typeof params.value === 'number' && !params.currency) {
+							params.currency = 'USD';
+						}
 						gtag('event', eventName, params);
 						try {
 							window.dispatchEvent(new CustomEvent('tekromancy:telemetry', {
@@ -196,16 +228,26 @@ const robotsContent = [
 						});
 					});
 
-					// Automated Global Telemetry Delegation
+					// Automated Global Telemetry Delegation with Value-Based Bidding (VBB)
+					var TELEMETRY_VALUE_MAP = {
+						'app_play_store_click': 50.0,
+						'beta_group_click': 30.0,
+						'app_portal_click': 10.0,
+						'contact_intent_click': 15.0,
+					};
+
 					document.addEventListener('click', (e) => {
 						const target = e.target && e.target.closest ? e.target.closest('a') : null;
 						if (!target) return;
 
 						const telemetryType = target.getAttribute('data-telemetry');
 						if (telemetryType) {
+							var eventValue = TELEMETRY_VALUE_MAP[telemetryType] || undefined;
 							window.trackTelemetry(telemetryType, {
 								app_id: target.getAttribute('data-telemetry-app') || 'unknown',
 								destination: target.href,
+								value: eventValue,
+								currency: eventValue ? 'USD' : undefined,
 							});
 							return;
 						}

@@ -181,12 +181,15 @@ The following event taxonomy is now active across all production components:
 
 | Event Name | Firing Component / Trigger | Engineering & Ads Value |
 | :--- | :--- | :--- |
-| **\`code_copy\`** | \`src/pages/blog/[...slug].astro\` (Terminal code block COPY) | Identifies production-adopted recipes; measures technical utility |
-| **\`internal_search\`** | \`src/pages/blog/index.astro\` (Terminal grep input) | Discovers zero-result search queries to dictate content roadmap |
-| **\`app_play_store_click\`** | \`src/pages/apps.astro\` (Google Play Closed Beta link) | Primary conversion action imported directly into Google Ads tCPI |
-| **\`app_portal_click\`** | \`src/pages/apps.astro\` (Launch Portal button) | High-intent app engagement signal |
-| **\`scroll_milestone\`** | \`src/pages/blog/[...slug].astro\` (25%, 50%, 75%, 90%) | Measures real engineer reading depth and article retention |
-| **\`outbound_click\`** | Global click delegator in \`Layout.astro\` (GitHub links) | Tracks repository traffic and open-source contribution funnels |
+| **\`generate_lead\`** | \`src/components/ContactForm.astro\` (Form submission + Enhanced Conversions) | **$100.00** — Primary B2B conversion; trains Smart Bidding on high-value clients |
+| **\`app_play_store_click\`** | \`src/pages/apps.astro\` (Google Play Closed Beta link) | **$50.00** — Primary App Install conversion; trains tCPI algorithm |
+| **\`contact_intent_click\`** | \`src/components/ContactForm.astro\` (Direct LinkedIn connect) | **$15.00** — Direct professional inquiry |
+| **\`high_intent_engineer\`** | \`src/pages/blog/[...slug].astro\` (90% scroll depth + code copy) | **$10.00** — Solves cold-start learning phase; high qualification signal |
+| **\`simulator_interaction\`** | \`BatteryRetentionCalculator.tsx\` & \`TelecomTimelineMatrix.tsx\` | **$5.00** — Interactive simulator engagement |
+| **\`code_copy\`** | \`src/pages/blog/[...slug].astro\` (Terminal code block COPY) | **$2.50** — Identifies production-adopted recipes; measures technical utility |
+| **\`scroll_milestone\`** | \`src/pages/blog/[...slug].astro\` (90% completion) | **$1.00** — Deep reading engagement benchmark |
+| **\`internal_search\`** | \`src/pages/blog/index.astro\` (Terminal grep input) | **$0.50** — Discovers zero-result search queries to dictate content roadmap |
+| **\`outbound_click\`** | Global click delegator in \`Layout.astro\` (GitHub links) | Open-source community & repository adoption |
 
 ---
 
@@ -239,11 +242,14 @@ function run() {
     measurementId: SITE.googleAnalyticsId,
     appId: SITE.googleAppId,
     activeEvents: [
-      'code_copy',
-      'internal_search',
+      'generate_lead',
       'app_play_store_click',
-      'app_portal_click',
+      'contact_intent_click',
+      'high_intent_engineer',
+      'simulator_interaction',
+      'code_copy',
       'scroll_milestone',
+      'internal_search',
       'outbound_click',
     ],
     articlesCount: articles.length,

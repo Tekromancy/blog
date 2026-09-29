@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { trackTelemetry, TELEMETRY_VALUES } from "../../utils/telemetry";
 
 interface ScheduleBlock {
   group: string;
@@ -12,6 +13,17 @@ const HOURS = Array.from({ length: 24 }, (_, i) => i);
 
 export default function TelecomTimelineMatrix() {
   const [activeHour, setActiveHour] = useState<number>(14); // 2:00 PM default
+
+  const handleHourSelect = (h: number) => {
+    setActiveHour(h);
+    trackTelemetry("simulator_interaction", {
+      simulator_name: "TelecomTimelineMatrix",
+      action_type: "select_hour",
+      value: TELEMETRY_VALUES.SIMULATOR_ENGAGEMENT,
+      currency: "USD",
+      setting: `hour_${h}`,
+    });
+  };
 
   // Evaluate active posture based on selected hour
   const getHourPosture = (h: number) => {
@@ -91,7 +103,7 @@ export default function TelecomTimelineMatrix() {
             return (
               <button
                 key={h}
-                onClick={() => setActiveHour(h)}
+                onClick={() => handleHourSelect(h)}
                 className={`py-2 rounded text-[10px] font-bold transition-all flex flex-col items-center justify-center ${
                   isSelected
                     ? "bg-[#9333ea] text-white ring-2 ring-purple-400 scale-105 shadow-lg"

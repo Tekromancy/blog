@@ -61,6 +61,8 @@ const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
           href={linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
+          data-telemetry="contact_intent_click"
+          data-telemetry-app="linkedin_direct"
           class="group w-full p-4 sm:p-5 rounded-xl border flex items-center justify-between gap-4 transition-all duration-200 hover:scale-[1.02]"
           style="background-color: rgba(10, 16, 26, 0.9); border-color: rgba(14, 165, 233, 0.45); box-shadow: 0 0 15px rgba(14, 165, 233, 0.15);"
           onmouseenter={(e) => {
@@ -450,6 +452,18 @@ const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
         const data = await response.json();
 
         if (response.ok && data.success) {
+          const userEmail = emailInput?.value || "";
+          if (typeof (window as any).setEnhancedConversionData === "function" && userEmail) {
+            (window as any).setEnhancedConversionData({ email: userEmail });
+          }
+          if (typeof (window as any).trackTelemetry === "function") {
+            (window as any).trackTelemetry("generate_lead", {
+              lead_type: "contact_form_transmission",
+              subject: (document.getElementById("subject-field") as HTMLInputElement)?.value || "General",
+              value: 100.0,
+              currency: "USD",
+            });
+          }
           form.reset();
           successMessage.classList.remove("hidden");
           successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });

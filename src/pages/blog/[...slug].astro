@@ -517,21 +517,43 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 				copyBtn.className = "px-2.5 py-1 rounded text-[11px] font-mono text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex items-center gap-1.5 cursor-pointer";
 				copyBtn.innerHTML = `<span>COPY</span><span>⧉</span>`;
 
+				var hasCopiedCode = false;
+				var hasDeepRead = false;
+				var hasFiredHighIntent = false;
+
+				function checkHighIntent() {
+					if (hasCopiedCode && hasDeepRead && !hasFiredHighIntent) {
+						hasFiredHighIntent = true;
+						if (typeof window.trackTelemetry === "function") {
+							window.trackTelemetry("high_intent_engineer", {
+								article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, ""),
+								trigger: "code_copy_plus_90pct_depth",
+								value: 10.0,
+								currency: "USD"
+							});
+						}
+					}
+				}
+
 				copyBtn.onclick = function () {
 					var codeText = pre.innerText || pre.textContent || "";
 					navigator.clipboard.writeText(codeText).then(function () {
 						copyBtn.innerHTML = `<span class="text-[#22EE44] font-bold">COPIED // 0x00</span><span>✓</span>`;
 						copyBtn.style.borderColor = "#22EE44";
 
+						hasCopiedCode = true;
 						if (typeof window.trackTelemetry === "function") {
 							var codeEl = pre.querySelector("code");
 							var langClass = codeEl ? codeEl.className : "";
 							window.trackTelemetry("code_copy", {
 								article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, ""),
 								code_length: codeText.length,
-								language: langClass.replace("language-", "").trim() || "text"
+								language: langClass.replace("language-", "").trim() || "text",
+								value: 2.5,
+								currency: "USD"
 							});
 						}
+						checkHighIntent();
 
 						setTimeout(function () {
 							copyBtn.innerHTML = `<span>COPY</span><span>⧉</span>`;
@@ -576,8 +598,14 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 					if (typeof window.trackTelemetry === "function") {
 						window.trackTelemetry("scroll_milestone", {
 							depth: threshold,
-							article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, "")
+							article_id: window.location.pathname.replace(/^\/blog\//, "").replace(/\/$/, ""),
+							value: threshold === 90 ? 1.0 : undefined,
+							currency: threshold === 90 ? "USD" : undefined
 						});
+					}
+					if (threshold === 90 && typeof checkHighIntent === "function") {
+						hasDeepRead = true;
+						checkHighIntent();
 					}
 				}
 			});

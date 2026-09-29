@@ -1,14 +1,17 @@
 {
-  "generatedAt": "2026-09-29T04:27:54.199Z",
+  "generatedAt": "2026-09-29T13:47:45.930Z",
   "propertyId": "408486434",
   "measurementId": "G-YBFSBJRJK8",
   "appId": "554699267",
   "activeEvents": [
-    "code_copy",
-    "internal_search",
+    "generate_lead",
     "app_play_store_click",
-    "app_portal_click",
+    "contact_intent_click",
+    "high_intent_engineer",
+    "simulator_interaction",
+    "code_copy",
     "scroll_milestone",
+    "internal_search",
     "outbound_click"
   ],
   "articlesCount": 23,
