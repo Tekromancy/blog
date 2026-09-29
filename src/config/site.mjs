@@ -8,6 +8,7 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/in/coxjosh/",
   github: "https://github.com/Tekromancy/blog/",
   ogImage: "/og-image.png", // Add this image to your public folder
+  twitter: "@tekromancy",
   googleAnalyticsId: "G-YBFSBJRJK8",
   googleAnalyticsPropertyId: "408486434",
   googleAdsenseClientId: "ca-pub-8973108060277483",

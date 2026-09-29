@@ -17,12 +17,50 @@ import { getPostAuthors, formatAuthorNames } from "../data/authors";
 const latestPosts = (await getCollection("blog", ({ data }) => !data.draft))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
+
+const homeJsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			"@id": `${SITE.url}/#website`,
+			url: SITE.url,
+			name: SITE.title,
+			description: SITE.description,
+			publisher: {
+				"@id": `${SITE.url}/#organization`,
+			},
+			potentialAction: {
+				"@type": "SearchAction",
+				target: {
+					"@type": "EntryPoint",
+					urlTemplate: `${SITE.url}/blog?q={search_term_string}`,
+				},
+				"query-input": "required name=search_term_string",
+			},
+		},
+		{
+			"@type": "Organization",
+			"@id": `${SITE.url}/#organization`,
+			name: SITE.title,
+			url: SITE.url,
+			logo: {
+				"@type": "ImageObject",
+				url: `${SITE.url}/ads/logo-square-1200x1200.png`,
+				width: 1200,
+				height: 1200,
+			},
+			sameAs: [SITE.github, SITE.linkedin].filter(Boolean),
+		},
+	],
+};
 ---
 
 <Layout
 	title={`${SITE.title} | ${SITE.subtitle}`}
 	description={SITE.description}
 	canonicalURL={SITE.url}
+	jsonLd={homeJsonLd}
 >
 	<Header />
 	<main id="main-content" role="main">
@@ -125,12 +163,13 @@ const latestPosts = (await getCollection("blog", ({ data }) => !data.draft))
 													})}
 												</time>
 												{firstTag && (
-													<span
-														class="px-2 py-0.5 rounded font-mono font-medium"
+													<a
+														href={`/tags/${encodeURIComponent(firstTag)}`}
+														class="px-2 py-0.5 rounded font-mono font-medium hover:underline transition-colors"
 														style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);"
 													>
 														#{firstTag}
-													</span>
+													</a>
 												)}
 											</div>
 											<div

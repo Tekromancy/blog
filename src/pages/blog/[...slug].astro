@@ -46,43 +46,53 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 	canonicalURL={`${SITE.url}/blog/${post.id}`}
 	ogType="article"
 	ogImage={ogImageUrl}
+	ogImageWidth={1200}
+	ogImageHeight={630}
+	ogImageAlt={post.data.title}
+	articlePublishedTime={post.data.pubDate.toISOString()}
+	articleModifiedTime={(post.data.updatedDate || post.data.pubDate).toISOString()}
+	articleAuthor={authorNamesStr}
+	articleSection={post.data.tags?.[0] || "Engineering"}
+	articleTags={post.data.tags || []}
 	noindex={post.data.draft}
 >
 	<ReadingProgressBar />
 	<Header />
 	<main id="main-content" role="main" class="min-h-screen">
-		<div class="max-w-7xl mx-auto px-4 pt-8 flex items-start gap-10">
+		<div class="max-w-7xl mx-auto px-4 pt-6 flex items-start gap-10">
 			<article class="flex-1 min-w-0 max-w-4xl mx-auto">
 				<ScrollReveal client:load>
-					<div class="mb-4">
-					<a
-						href="/blog"
-						class="inline-flex items-center gap-2 transition-colors mb-4"
-						style="color: var(--token-color-text-muted, #374151);"
-						onmouseenter={(e) =>
-							(e.currentTarget.style.color =
-								"var(--token-color-text-primary, #111827)")}
-						onmouseleave={(e) =>
-							(e.currentTarget.style.color =
-								"var(--token-color-text-muted, #374151)")}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="w-5 h-5"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path d="m12 19-7-7 7-7"></path>
-							<path d="M19 12H5"></path>
-						</svg>
-						<span>Back to Blog</span>
-					</a>
-				</div>
-			</ScrollReveal>
+					<!-- Semantic Breadcrumbs for Navigation & SEO -->
+					<nav aria-label="Breadcrumb" class="mb-6 font-mono text-xs">
+						<ol class="inline-flex items-center gap-1.5 flex-wrap" style="color: var(--token-color-text-muted, #94a3b8);">
+							<li class="inline-flex items-center">
+								<a href="/" class="hover:text-[var(--token-color-primary)] transition-colors">Home</a>
+							</li>
+							<li class="opacity-40">/</li>
+							<li class="inline-flex items-center">
+								<a href="/blog" class="hover:text-[var(--token-color-primary)] transition-colors">Dispatches</a>
+							</li>
+							{post.data.tags && post.data.tags.length > 0 && (
+								<>
+									<li class="opacity-40">/</li>
+									<li class="inline-flex items-center">
+										<a
+											href={`/tags/${encodeURIComponent(post.data.tags[0])}`}
+											class="hover:text-[var(--token-color-primary)] transition-colors uppercase font-semibold text-[11px]"
+											style="color: var(--token-color-primary, #22EE44);"
+										>
+											#{post.data.tags[0]}
+										</a>
+									</li>
+								</>
+							)}
+							<li class="opacity-40">/</li>
+							<li class="inline-flex items-center font-medium truncate max-w-[240px] sm:max-w-md" aria-current="page" style="color: var(--token-color-text-primary, #f8fafc);">
+								{post.data.title}
+							</li>
+						</ol>
+					</nav>
+				</ScrollReveal>
 			{
 				heroImage && (
 					<div class="w-full mb-4 mt-4 px-4">
@@ -182,12 +192,13 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 							<ScrollReveal client:load delay={0.4}>
 								<div class="flex flex-wrap gap-2 mb-6">
 									{post.data.tags.map((tag) => (
-										<span
-											class="px-3 py-1 rounded-full text-sm"
-											style="background-color: var(--token-color-surface, #f9fafb); color: var(--token-color-text-primary, #111827);"
+										<a
+											href={`/tags/${encodeURIComponent(tag)}`}
+											class="px-3 py-1 rounded-full text-xs font-mono font-medium border transition-all hover:scale-105"
+											style="background-color: var(--token-color-surface, #0f172a); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);"
 										>
-											{tag}
-										</span>
+											#{tag}
+										</a>
 									))}
 								</div>
 							</ScrollReveal>
@@ -349,25 +360,98 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 				<!-- Related Field Dispatches -->
 				<RelatedPosts currentPost={post} allPosts={allPosts} />
 
-				<!-- Schema.org JSON-LD Article structured data with multiple Person authors -->
+				<!-- Schema.org JSON-LD BreadcrumbList & TechArticle structured data -->
 				<script
+					is:inline
 					type="application/ld+json"
 					set:html={JSON.stringify({
 						"@context": "https://schema.org",
-						"@type": "BlogPosting",
-						headline: post.data.title,
-						description: post.data.description,
-						datePublished: post.data.pubDate.toISOString(),
-						dateModified: (
-							post.data.updatedDate || post.data.pubDate
-						).toISOString(),
-						author: authors.map((a) => ({
-							"@type": "Person",
-							name: a.name,
-							...(a.website ? { url: a.website } : {}),
-							...(a.role ? { jobTitle: a.role } : {}),
-						})),
-						...(ogImageUrl ? { image: ogImageUrl } : {}),
+						"@graph": [
+							{
+								"@type": "BreadcrumbList",
+								"itemListElement": [
+									{
+										"@type": "ListItem",
+										"position": 1,
+										"name": "Home",
+										"item": SITE.url,
+									},
+									{
+										"@type": "ListItem",
+										"position": 2,
+										"name": "Dispatches",
+										"item": `${SITE.url}/blog`,
+									},
+									...(post.data.tags && post.data.tags.length > 0
+										? [
+												{
+													"@type": "ListItem",
+													"position": 3,
+													"name": post.data.tags[0],
+													"item": `${SITE.url}/tags/${encodeURIComponent(post.data.tags[0])}`,
+												},
+												{
+													"@type": "ListItem",
+													"position": 4,
+													"name": post.data.title,
+													"item": postUrl,
+												},
+											]
+										: [
+												{
+													"@type": "ListItem",
+													"position": 3,
+													"name": post.data.title,
+													"item": postUrl,
+												},
+											]),
+								],
+							},
+							{
+								"@type": "TechArticle",
+								"headline": post.data.title,
+								"description": post.data.description,
+								"mainEntityOfPage": {
+									"@type": "WebPage",
+									"@id": postUrl,
+								},
+								"datePublished": post.data.pubDate.toISOString(),
+								"dateModified": (
+									post.data.updatedDate || post.data.pubDate
+								).toISOString(),
+								"inLanguage": "en-US",
+								"articleSection": post.data.tags?.[0] || "Engineering",
+								"keywords": post.data.tags?.join(", ") || "",
+								"author": authors.map((a) => ({
+									"@type": "Person",
+									"name": a.name,
+									...(a.website ? { url: a.website } : {}),
+									...(a.role ? { jobTitle: a.role } : {}),
+									sameAs: [a.github, a.linkedin].filter(Boolean),
+								})),
+								"publisher": {
+									"@type": "Organization",
+									"name": SITE.title,
+									"url": SITE.url,
+									"logo": {
+										"@type": "ImageObject",
+										"url": `${SITE.url}/ads/logo-square-1200x1200.png`,
+										"width": 1200,
+										"height": 1200,
+									},
+								},
+								...(ogImageUrl
+									? {
+											image: {
+												"@type": "ImageObject",
+												"url": ogImageUrl,
+												"width": 1200,
+												"height": 630,
+											},
+										}
+									: {}),
+							},
+						],
 					})}
 				/>
 

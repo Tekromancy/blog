@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
+Disallow: /components/
+Disallow: /example/
+Disallow: /features/
+Disallow: /landing/
+Disallow: /theme/
 
+# Explicit permissions for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Canonical Sitemaps
 Sitemap: https://tekromancy.com/sitemap-index.xml

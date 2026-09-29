@@ -10,12 +10,57 @@ import BatteryRetentionCalculator from "../components/interactive/BatteryRetenti
 import TelecomTimelineMatrix from "../components/interactive/TelecomTimelineMatrix.tsx";
 
 const apps = TEKROMANCY_APPS;
+
+const appsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": SITE.url,
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Applications",
+          "item": `${SITE.url}/apps`,
+        },
+      ],
+    },
+    ...apps.map((app) => ({
+      "@type": "MobileApplication",
+      "name": app.name,
+      "operatingSystem":
+        app.specs.find((s) => s.label === "Platform")?.value || "Android 10+",
+      "applicationCategory": "UtilitiesApplication",
+      "softwareVersion": app.version,
+      "description": app.description,
+      "url": `${SITE.url}/apps#${app.id}`,
+      "author": {
+        "@type": "Organization",
+        "name": SITE.title,
+        "url": SITE.url,
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+      },
+      ...(app.playStoreUrl ? { downloadUrl: app.playStoreUrl } : {}),
+    })),
+  ],
+};
 ---
 
 <Layout
   title={`Sovereign Applications & Utilities | ${SITE.title}`}
   description="Native Android applications and sovereign utilities built by Tekromancy. Featuring SpareTank for battery longevity and Silent Mode Control for granular telecom call screening."
   canonicalURL={`${SITE.url}/apps`}
+  jsonLd={appsJsonLd}
 >
   <Header />
 

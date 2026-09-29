@@ -1,0 +1,329 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollReveal from "../../components/ScrollReveal.tsx";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { SITE } from "../../config/site.mjs";
+import { Image } from "astro:assets";
+import { getBlogImage } from "../../utils/blogImages";
+import { getPostAuthors, formatAuthorNames } from "../../data/authors";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+	const tagsMap = new Map<string, CollectionEntry<"blog">[]>();
+
+	posts.forEach((post) => {
+		(post.data.tags || []).forEach((t) => {
+			const tagSlug = t.toLowerCase().trim();
+			if (!tagsMap.has(tagSlug)) {
+				tagsMap.set(tagSlug, []);
+			}
+			tagsMap.get(tagSlug)!.push(post);
+		});
+	});
+
+	return Array.from(tagsMap.entries()).map(([tag, taggedPosts]) => ({
+		params: { tag },
+		props: {
+			tag,
+			posts: taggedPosts.sort(
+				(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+			),
+			allTags: Array.from(tagsMap.keys()).sort(),
+		},
+	}));
+}
+
+type Props = {
+	tag: string;
+	posts: CollectionEntry<"blog">[];
+	allTags: string[];
+};
+
+const { tag, posts, allTags } = Astro.props;
+
+// Human-readable titles & descriptions for high-traffic tags
+const tagMeta: Record<string, { title: string; desc: string }> = {
+	linux: {
+		title: "Linux Kernel Internals, eBPF & Systems Engineering",
+		desc: "Deep dives into Linux memory management, cgroups v2, io_uring, socket-level routing, and real-time kernel telemetry.",
+	},
+	kubernetes: {
+		title: "Bare-Metal Kubernetes, Talos Linux & Cloud-Native Infrastructure",
+		desc: "Production architectures for sovereign bare-metal Kubernetes, Talos Linux, Cilium BGP mesh, and Rook-Ceph storage.",
+	},
+	security: {
+		title: "SecOps, Linux Hardening, Red Teaming & CTF Wargames",
+		desc: "Offensive red-team post-mortems, Linux server hardening checklists, Atomic Red Team emulation, and telemetry detection.",
+	},
+	ebpf: {
+		title: "eBPF Tracing, XDP DDoS Mitigation & Kernel Observability",
+		desc: "Line-rate 100GbE packet filtering, bpftrace one-liner cheatsheets, and socket-layer observability architectures.",
+	},
+	networking: {
+		title: "Zero-Trust Mesh, WireGuard & High-Throughput Routing",
+		desc: "Private Headscale overlays, BGP EVPN peering, WireGuard encrypted meshes, and telecom protocol firewalls.",
+	},
+	"ai-ml": {
+		title: "Local AI Inference, vLLM Optimization & GPU Clusters",
+		desc: "High-throughput local LLM serving, GPUDirect Storage over NVMe-oF, Speculative Decoding benchmarks, and CUDA acceleration.",
+	},
+	llm: {
+		title: "Large Language Model Serving & Inference Benchmarks",
+		desc: "Comparative benchmarks between vLLM, SGLang, and TensorRT-LLM with RadixAttention prefix caching and memory optimization.",
+	},
+	storage: {
+		title: "Distributed NVMe Storage & GPUDirect Acceleration",
+		desc: "Rook-Ceph distributed block storage, NVMe-oF RoCEv2 fabrics, and high-throughput AI storage pipelines.",
+	},
+	android: {
+		title: "Sovereign Android Applications & Privacy Utilities",
+		desc: "Hardened, on-device mobile applications including SpareTank battery longevity coach and Silent Mode Control call screening.",
+	},
+	apps: {
+		title: "Tekromancy Native Applications & On-Device Utilities",
+		desc: "Privacy-first software engineered for zero telemetry, hardware autonomy, and complete operational independence.",
+	},
+};
+
+const currentMeta = tagMeta[tag.toLowerCase()] || {
+	title: `${tag.toUpperCase()} Engineering Dispatches & Field Notes`,
+	desc: `Explore technical articles, benchmarks, and architectural blueprints categorized under #${tag} on Tekromancy.`,
+};
+
+const canonicalUrl = `${SITE.url}/tags/${encodeURIComponent(tag)}`;
+
+const tagJsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "BreadcrumbList",
+			itemListElement: [
+				{
+					"@type": "ListItem",
+					position: 1,
+					name: "Home",
+					item: SITE.url,
+				},
+				{
+					"@type": "ListItem",
+					position: 2,
+					name: "Dispatches",
+					item: `${SITE.url}/blog`,
+				},
+				{
+					"@type": "ListItem",
+					position: 3,
+					name: `#${tag}`,
+					item: canonicalUrl,
+				},
+			],
+		},
+		{
+			"@type": "CollectionPage",
+			name: `${currentMeta.title} | ${SITE.title}`,
+			description: currentMeta.desc,
+			url: canonicalUrl,
+			about: {
+				"@type": "Thing",
+				name: tag,
+			},
+			hasPart: posts.map((p) => ({
+				"@type": "TechArticle",
+				headline: p.data.title,
+				description: p.data.description,
+				url: `${SITE.url}/blog/${p.id}`,
+				datePublished: p.data.pubDate.toISOString(),
+			})),
+		},
+	],
+};
+---
+
+<Layout
+	title={`${currentMeta.title} | ${SITE.title}`}
+	description={currentMeta.desc}
+	canonicalURL={canonicalUrl}
+	jsonLd={tagJsonLd}
+>
+	<Header />
+	<main
+		id="main-content"
+		role="main"
+		class="min-h-screen"
+		style="background-color: var(--token-color-background, #000000);"
+	>
+		<div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+			<!-- Breadcrumbs -->
+			<nav aria-label="Breadcrumb" class="mb-8 font-mono text-xs">
+				<ol class="inline-flex items-center gap-1.5 flex-wrap" style="color: var(--token-color-text-muted, #94a3b8);">
+					<li class="inline-flex items-center">
+						<a href="/" class="hover:text-[var(--token-color-primary)] transition-colors">Home</a>
+					</li>
+					<li class="opacity-40">/</li>
+					<li class="inline-flex items-center">
+						<a href="/blog" class="hover:text-[var(--token-color-primary)] transition-colors">Dispatches</a>
+					</li>
+					<li class="opacity-40">/</li>
+					<li class="inline-flex items-center font-bold uppercase" style="color: var(--token-color-primary, #22EE44);">
+						#{tag}
+					</li>
+				</ol>
+			</nav>
+
+			<!-- Header -->
+			<header class="text-center mb-16">
+				<ScrollReveal client:load>
+					<div
+						class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-5 border shadow-lg"
+						style="background-color: var(--token-color-surface, #0f172a); border-color: rgba(34, 197, 94, 0.35); color: #22c55e;"
+					>
+						<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+						<span class="font-bold tracking-wider">// TOPIC CLUSTER TELEMETRY //</span>
+					</div>
+
+					<h1
+						class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-5"
+						style="color: var(--token-color-text-primary, #f8fafc);"
+					>
+						#{tag}
+					</h1>
+				</ScrollReveal>
+
+				<ScrollReveal client:load delay={0.2}>
+					<p
+						class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
+						style="color: var(--token-color-text-muted, #94a3b8);"
+					>
+						{currentMeta.desc}
+					</p>
+				</ScrollReveal>
+
+				<!-- Jump to other popular clusters -->
+				<ScrollReveal client:load delay={0.3}>
+					<div class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono">
+						<span class="py-1 text-gray-400 mr-2 self-center">Related clusters:</span>
+						{allTags.slice(0, 10).map((t) => (
+							<a
+								href={`/tags/${encodeURIComponent(t)}`}
+								class={`px-3 py-1 rounded-lg border transition-all ${
+									t === tag
+										? "bg-[var(--token-color-primary,#22EE44)] text-black font-bold border-[var(--token-color-primary,#22EE44)]"
+										: "bg-white/5 border-white/10 text-gray-300 hover:border-[var(--token-color-primary,#22EE44)]/50 hover:text-white"
+								}`}
+							>
+								#{t}
+							</a>
+						))}
+					</div>
+				</ScrollReveal>
+			</header>
+
+			<!-- Articles Section Header -->
+			<div
+				class="flex items-center justify-between pb-4 mb-8 border-b"
+				style="border-color: var(--token-color-border, #334155);"
+			>
+				<div class="font-mono text-sm font-bold flex items-center gap-2 text-white">
+					<span style="color: var(--token-color-primary, #22EE44);">&gt;_</span>
+					<span>INDEXED TRANSMISSIONS IN #{tag.toUpperCase()}</span>
+				</div>
+				<span class="font-mono text-xs text-gray-400">
+					{posts.length} {posts.length === 1 ? "dispatch" : "dispatches"}
+				</span>
+			</div>
+
+			<!-- Grid of Articles -->
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{posts.map((post, index) => {
+					const heroImage = getBlogImage(post.data.heroImage);
+					const authors = getPostAuthors(post.data);
+					const authorNamesStr = formatAuthorNames(authors);
+					return (
+						<ScrollReveal client:load delay={0.05 * index}>
+							<article
+								class="rounded-xl border hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full group"
+								style="background-color: var(--token-color-surface, #0b1120); border-color: rgba(255, 255, 255, 0.1);"
+							>
+								<a
+									href={`/blog/${post.id}`}
+									class="block group flex-1 flex flex-col"
+								>
+									{heroImage ? (
+										<div class="w-full h-48 md:h-52 overflow-hidden relative">
+											<Image
+												src={heroImage}
+												alt={post.data.title}
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+												loading="lazy"
+												widths={[400, 800, 1200]}
+												sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+											/>
+										</div>
+									) : (
+										<div
+											class="w-full h-32 flex items-center justify-between px-6 border-b"
+											style="background-color: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.05);"
+										>
+											<span
+												class="font-mono text-xs opacity-75"
+												style="color: var(--token-color-primary, #22EE44);"
+											>
+												&gt;_ sys.dispatch
+											</span>
+											<span class="font-mono text-xs text-gray-500">
+												tekromancy.com
+											</span>
+										</div>
+									)}
+									<div class="p-6 flex flex-col flex-1">
+										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono text-gray-400">
+											<time datetime={post.data.pubDate.toISOString()}>
+												{post.data.pubDate.toLocaleDateString("en-US", {
+													year: "numeric",
+													month: "short",
+													day: "numeric",
+												})}
+											</time>
+											<span class="text-[11px] font-mono text-[#22EE44]">
+												#{tag}
+											</span>
+										</div>
+										<h2
+											class="text-lg font-bold font-mono mb-3 line-clamp-2 text-white group-hover:text-[#22EE44] transition-colors"
+										>
+											{post.data.title}
+										</h2>
+										<p class="text-sm line-clamp-3 mb-4 text-gray-400 leading-relaxed">
+											{post.data.description}
+										</p>
+										<div class="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono">
+											<span class="text-gray-400 truncate max-w-[180px]">
+												by {authorNamesStr}
+											</span>
+											<span class="text-[#22EE44] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+												Read <span>→</span>
+											</span>
+										</div>
+									</div>
+								</a>
+							</article>
+						</ScrollReveal>
+					);
+				})}
+			</div>
+
+			<!-- Bottom CTA -->
+			<div class="text-center mt-16 pt-12 border-t border-white/10">
+				<a
+					href="/blog"
+					class="inline-flex items-center gap-2 font-mono text-sm px-6 py-3 rounded-lg border border-white/20 hover:border-[#22EE44] hover:text-[#22EE44] text-white transition-all"
+				>
+					<span>← View All Dispatches &amp; Field Notes</span>
+				</a>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>

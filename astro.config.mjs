@@ -16,9 +16,36 @@ export default defineConfig({
     icon(),
     mdx(),
     sitemap({
-      changefreq: "weekly",
-      priority: 0.7,
-      lastmod: new Date(),
+      filter: (page) => {
+        const excluded = [
+          "/components",
+          "/example",
+          "/features",
+          "/landing",
+          "/theme",
+        ];
+        return !excluded.some((pattern) => page.includes(pattern));
+      },
+      serialize: (item) => {
+        const url = item.url.replace(/\/$/, "");
+        if (url === SITE.url) {
+          item.priority = 1.0;
+          item.changefreq = "daily";
+        } else if (url === `${SITE.url}/blog` || url === `${SITE.url}/apps`) {
+          item.priority = 0.9;
+          item.changefreq = "daily";
+        } else if (url.includes("/tags/")) {
+          item.priority = 0.8;
+          item.changefreq = "weekly";
+        } else if (url.includes("/blog/")) {
+          item.priority = 0.8;
+          item.changefreq = "monthly";
+        } else {
+          item.priority = 0.5;
+          item.changefreq = "monthly";
+        }
+        return item;
+      },
     }),
   ],
   vite: {

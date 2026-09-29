@@ -13,6 +13,7 @@ export interface Author {
   avatar?: string;
   initials?: string;
   github?: string;
+  linkedin?: string;
   twitter?: string;
   website?: string;
   email?: string;

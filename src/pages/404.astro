@@ -1,0 +1,155 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ScrollReveal from "../components/ScrollReveal.tsx";
+import { SITE } from "../config/site.mjs";
+---
+
+<Layout
+  title={`404: Signal Lost // Page Not Found | ${SITE.title}`}
+  description="The requested memory address or transmission packet could not be resolved on the Tekromancy network."
+  noindex={true}
+  nofollow={true}
+>
+  <Header />
+
+  <main
+    id="main-content"
+    role="main"
+    class="min-h-[75vh] flex items-center justify-center px-4 py-16"
+    style="background-color: var(--token-color-background, #000000);"
+  >
+    <div class="max-w-3xl w-full mx-auto text-center">
+      <ScrollReveal client:load>
+        <!-- Cyberpunk Error Badge -->
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-6 border shadow-xl"
+          style="background-color: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.35); color: #f87171;"
+        >
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+          <span class="font-bold tracking-wider">// SIGNAL_COLLAPSE // CODE: 0x404 //</span>
+        </div>
+
+        <h1
+          class="text-6xl sm:text-8xl font-black font-mono tracking-tighter mb-4"
+          style="color: var(--token-color-text-primary, #ffffff); text-shadow: 0 0 30px rgba(239, 68, 68, 0.4);"
+        >
+          404
+        </h1>
+
+        <h2
+          class="text-xl sm:text-2xl font-bold font-mono mb-4"
+          style="color: var(--token-color-primary, #22EE44);"
+        >
+          TRANSMISSION PACKET DROPPED
+        </h2>
+
+        <p
+          class="text-base sm:text-lg max-w-xl mx-auto mb-8 font-mono leading-relaxed"
+          style="color: var(--token-color-text-muted, #94a3b8);"
+        >
+          The memory address you queried does not exist on this cluster or was redacted during memory compaction. Reconnect to active relay points below.
+        </p>
+      </ScrollReveal>
+
+      <!-- Terminal Search Form -->
+      <ScrollReveal client:load delay={0.2}>
+        <div class="max-w-md mx-auto mb-10">
+          <form
+            action="/blog"
+            method="GET"
+            class="relative flex items-center rounded-xl border border-white/10 bg-black/80 px-4 py-2.5 shadow-2xl focus-within:border-[#22EE44] focus-within:ring-1 focus-within:ring-[#22EE44] transition-all"
+          >
+            <span class="font-mono text-xs text-[#22EE44] select-none mr-2 font-bold shrink-0">
+              grep -R:
+            </span>
+            <input
+              type="text"
+              name="q"
+              placeholder="Search kernel, ebpf, kubernetes..."
+              class="w-full bg-transparent font-mono text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none"
+              aria-label="Search dispatches"
+            />
+            <button
+              type="submit"
+              class="font-mono text-xs text-[#22EE44] hover:text-white px-2 py-0.5 rounded cursor-pointer"
+            >
+              RUN
+            </button>
+          </form>
+        </div>
+      </ScrollReveal>
+
+      <!-- Recommended High-Intent Relay Points -->
+      <ScrollReveal client:load delay={0.3}>
+        <div class="border-t border-white/10 pt-8 max-w-xl mx-auto">
+          <h3 class="font-mono text-xs uppercase tracking-wider text-gray-400 mb-4">
+            // RECOMMENDED TELEMETRY RELAYS
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+            <a
+              href="/blog/bare-metal-kubernetes-talos-cilium-rook-ceph"
+              class="p-3.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#22EE44]/50 transition-all group"
+            >
+              <div class="font-mono text-xs font-bold text-white group-hover:text-[#22EE44] transition-colors truncate">
+                Bare-Metal Kubernetes
+              </div>
+              <div class="font-mono text-[11px] text-gray-400 truncate">
+                Talos Linux, Cilium, Rook-Ceph
+              </div>
+            </a>
+
+            <a
+              href="/blog/bpftrace-linux-kernel-performance-cheatsheet"
+              class="p-3.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#22EE44]/50 transition-all group"
+            >
+              <div class="font-mono text-xs font-bold text-white group-hover:text-[#22EE44] transition-colors truncate">
+                bpftrace Cheat Sheet
+              </div>
+              <div class="font-mono text-[11px] text-gray-400 truncate">
+                Real-time Linux kernel tracing
+              </div>
+            </a>
+
+            <a
+              href="/blog/ebpf-xdp-ddos-mitigation-line-rate-packet-filtering"
+              class="p-3.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#22EE44]/50 transition-all group"
+            >
+              <div class="font-mono text-xs font-bold text-white group-hover:text-[#22EE44] transition-colors truncate">
+                eBPF XDP DDoS Defense
+              </div>
+              <div class="font-mono text-[11px] text-gray-400 truncate">
+                100GbE line-rate packet drops
+              </div>
+            </a>
+
+            <a
+              href="/apps"
+              class="p-3.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[#22EE44]/50 transition-all group"
+            >
+              <div class="font-mono text-xs font-bold text-white group-hover:text-[#22EE44] transition-colors truncate">
+                Sovereign Android Apps
+              </div>
+              <div class="font-mono text-[11px] text-gray-400 truncate">
+                SpareTank &amp; Silent Mode Control
+              </div>
+            </a>
+          </div>
+
+          <div class="mt-8">
+            <a
+              href="/"
+              class="inline-flex items-center gap-2 font-mono text-sm px-5 py-2.5 rounded-lg bg-[#22EE44] text-black font-bold hover:bg-[#1fdb3d] transition-all"
+            >
+              <span>Return to Core Mainframe</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
