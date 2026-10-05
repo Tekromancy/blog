@@ -150,6 +150,22 @@ import { Icon } from "astro-icon/components";
 					</li>
 					<li>
 						<a
+							href="/incantations"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #a855f7)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:wand" class="w-4 h-4 text-[#a855f7]" aria-hidden="true" />
+							<span>Arcane Incantations</span>
+						</a>
+					</li>
+					<li>
+						<a
 							href="/apps"
 							class="flex items-center gap-2 transition-colors"
 							style="color: var(--token-color-text-muted, #374151);"

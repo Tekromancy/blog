@@ -17,4 +17,23 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+const incantations = defineCollection({
+	loader: glob({ base: "./src/content/incantations", pattern: "**/*.{md,mdx}" }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		type: z.enum(["shell", "prompt"]),
+		gofPattern: z.string(),
+		gofCategory: z.enum(["Creational", "Structural", "Behavioral"]),
+		arcaneSchool: z.string(),
+		formula: z.string(),
+		tags: z.array(z.string()).default([]),
+		pubDate: z.coerce.date(),
+		updatedDate: z.coerce.date().optional(),
+		author: z.string().default("Joshua Edward McLaughlin Cox"),
+		difficulty: z.enum(["Apprentice", "Adept", "Archmage"]).default("Adept"),
+		draft: z.boolean().default(false),
+	}),
+});
+
+export const collections = { blog, incantations };

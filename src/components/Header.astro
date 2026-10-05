@@ -15,6 +15,8 @@ import navBgCyberSvg from "../assets/nav/nav-bg-cyber.svg";
 
 // Stylized Menu Item Words
 import menuArticlesSvg from "../assets/nav/menu-articles.svg";
+import menuIncantationsSvg from "../assets/nav/menu-incantations.svg";
+import menuSystemsSvg from "../assets/nav/menu-systems.svg";
 import menuAppsSvg from "../assets/nav/menu-apps.svg";
 import menuLinuxSvg from "../assets/nav/menu-linux.svg";
 import menuK8sSvg from "../assets/nav/menu-k8s.svg";
@@ -24,15 +26,19 @@ import menuEventsSvg from "../assets/nav/menu-events.svg";
 import menuAboutSvg from "../assets/nav/menu-about.svg";
 import menuTransmitSvg from "../assets/nav/menu-transmit.svg";
 
-const navItems = [
+const primaryNavItems = [
   { href: "/blog", label: "Articles", svg: menuArticlesSvg, desc: "Field Dispatches & Research" },
+  { href: "/incantations", label: "Incantations", svg: menuIncantationsSvg, desc: "Shell Oneliners & AI Prompts" },
   { href: "/apps", label: "Apps", svg: menuAppsSvg, desc: "Mobile & Sovereign Software" },
   { href: "/events", label: "Events", svg: menuEventsSvg, desc: "Field Operations & CTF", isLive: true },
-  { href: "/tags/linux", label: "Linux", svg: menuLinuxSvg, desc: "Kernel Internals & eBPF" },
-  { href: "/tags/kubernetes", label: "Kubernetes", svg: menuK8sSvg, desc: "Container Cloud Orchestration" },
-  { href: "/tags/ai-ml", label: "AI / ML", svg: menuAimlSvg, desc: "vLLM, CUDA & Neural Models" },
-  { href: "/tags/security", label: "SecOps", svg: menuSecSvg, desc: "Hardening & CTF Wargames" },
   { href: "/about", label: "About", svg: menuAboutSvg, desc: "Tekromancy Manifesto" },
+];
+
+const systemDropdownItems = [
+  { href: "/tags/linux", label: "Linux", svg: menuLinuxSvg, desc: "Kernel Internals & eBPF", shortDesc: "Kernel Internals" },
+  { href: "/tags/kubernetes", label: "Kubernetes", svg: menuK8sSvg, desc: "Container Cloud Orchestration", shortDesc: "Cloud Native" },
+  { href: "/tags/ai-ml", label: "AI / ML", svg: menuAimlSvg, desc: "vLLM, CUDA & Neural Models", shortDesc: "Neural Models" },
+  { href: "/tags/security", label: "SecOps", svg: menuSecSvg, desc: "Hardening & CTF Wargames", shortDesc: "Hardening & CTF" },
 ];
 ---
 
@@ -116,30 +122,139 @@ const navItems = [
 
           <!-- Middle: Menu Items (Graphic Words) -->
           <nav class="cyber-theme-element hidden lg:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0" aria-label="Main navigation">
-            {navItems.map((item) => (
-              <a
-                href={item.href}
-                class="group relative inline-block transition-transform duration-150 hover:scale-105"
-                aria-label={item.label}
+            <!-- 1. Articles -->
+            <a
+              href="/blog"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Articles"
+            >
+              <img
+                src={menuArticlesSvg.src}
+                alt="Articles"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">Articles</span>
+            </a>
+
+            <!-- 2. Incantations -->
+            <a
+              href="/incantations"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Incantations"
+            >
+              <img
+                src={menuIncantationsSvg.src}
+                alt="Incantations"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(168,85,247,0.35)] group-hover:drop-shadow-[0_0_16px_rgba(192,132,252,0.85)]"
+              />
+              <span class="sr-only">Incantations</span>
+            </a>
+
+            <!-- 3. Combined Systems Dropdown (Linux, Kubernetes, AI/ML, SecOps) -->
+            <div class="relative group/dropdown" id="desktop-systems-dropdown-container">
+              <button
+                type="button"
+                id="desktop-systems-menu-btn"
+                class="group relative inline-flex items-center transition-transform duration-150 hover:scale-105 focus:outline-none cursor-pointer"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Systems: Linux, Kubernetes, AI/ML, SecOps"
               >
                 <img
-                  src={item.svg.src}
-                  alt={item.label}
-                  class={`h-6 xl:h-7 w-auto object-contain transition-all ${
-                    item.isLive
-                      ? 'drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] group-hover:drop-shadow-[0_0_18px_rgba(251,191,36,0.95)]'
-                      : 'drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]'
-                  }`}
+                  src={menuSystemsSvg.src}
+                  alt="Systems"
+                  class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover/dropdown:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
                 />
-                {item.isLive && (
-                  <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5 pointer-events-none">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#fbbf24] shadow-[0_0_6px_#fbbf24]"></span>
-                  </span>
-                )}
-                <span class="sr-only">{item.label}</span>
-              </a>
-            ))}
+                <span class="sr-only">Systems Menu</span>
+              </button>
+
+              <!-- Systems Flyout Menu Panel -->
+              <div
+                id="desktop-systems-menu"
+                class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 invisible opacity-0 translate-y-1 group-hover/dropdown:visible group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100 group-focus-within/dropdown:translate-y-0 transition-all duration-150 z-50 pointer-events-none group-hover/dropdown:pointer-events-auto group-focus-within/dropdown:pointer-events-auto"
+                role="menu"
+                aria-label="Core Systems"
+              >
+                <div
+                  class="p-2 rounded-xl border border-[#22c55e]/45 backdrop-blur-2xl bg-[#040905]/98 shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(34,197,94,0.25)]"
+                  style={`background-image: url('${navBgCyberSvg.src}'); background-repeat: repeat; background-size: auto 100px;`}
+                >
+                  <div class="px-3 py-1.5 border-b border-[#22c55e]/25 text-[10px] font-mono tracking-wider flex justify-between items-center text-[#22c55e] mb-1">
+                    <span class="flex items-center gap-1.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+                      // CORE_SYSTEMS_DOMAINS //
+                    </span>
+                    <span class="opacity-70 text-[9px]">4 DOMAINS</span>
+                  </div>
+                  <div class="space-y-1">
+                    {systemDropdownItems.map((item) => (
+                      <a
+                        href={item.href}
+                        class="flex items-center justify-between p-2 rounded-lg border border-transparent hover:border-[#22c55e]/50 hover:bg-[#22c55e]/15 transition-all group/item"
+                        role="menuitem"
+                      >
+                        <div class="flex items-center gap-2">
+                          <img
+                            src={item.svg.src}
+                            alt={item.label}
+                            class="h-6 w-auto object-contain drop-shadow-[0_0_4px_rgba(34,197,94,0.3)] group-hover/item:drop-shadow-[0_0_10px_rgba(34,197,94,0.8)] transition-all"
+                          />
+                        </div>
+                        <span class="text-[10px] font-mono text-[var(--token-color-text-muted)] group-hover/item:text-white transition-colors">
+                          {item.shortDesc}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Apps -->
+            <a
+              href="/apps"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Apps"
+            >
+              <img
+                src={menuAppsSvg.src}
+                alt="Apps"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">Apps</span>
+            </a>
+
+            <!-- 5. Events -->
+            <a
+              href="/events"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="Events"
+            >
+              <img
+                src={menuEventsSvg.src}
+                alt="Events"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] group-hover:drop-shadow-[0_0_18px_rgba(251,191,36,0.95)]"
+              />
+              <span class="absolute -top-1 -right-1 flex h-2.5 w-2.5 pointer-events-none">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#fbbf24]"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#fbbf24] shadow-[0_0_6px_#fbbf24]"></span>
+              </span>
+              <span class="sr-only">Events</span>
+            </a>
+
+            <!-- 6. About -->
+            <a
+              href="/about"
+              class="group relative inline-block transition-transform duration-150 hover:scale-105"
+              aria-label="About"
+            >
+              <img
+                src={menuAboutSvg.src}
+                alt="About"
+                class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+              />
+              <span class="sr-only">About</span>
+            </a>
           </nav>
 
           <!-- Divider between Menu Items and Utilities -->
@@ -248,7 +363,7 @@ const navItems = [
 
     <!-- Stylized Word Badges in Mobile Grid -->
     <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-4 bg-[#000000]/70" role="list">
-      {navItems.map((item) => (
+      {primaryNavItems.map((item) => (
         <li>
           <a
             href={item.href}
@@ -284,6 +399,43 @@ const navItems = [
       ))}
     </ul>
 
+    <!-- Combined Core Systems Section in Mobile Drawer -->
+    <div class="px-4 pb-4">
+      <div class="px-2 py-1 text-[10px] font-mono tracking-wider flex justify-between items-center text-[#22c55e] mb-2 border-t border-[#22c55e]/20 pt-3">
+        <span class="flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-ping inline-block"></span>
+          // CORE_SYSTEMS_DOMAINS //
+        </span>
+        <span class="opacity-70 text-[9px]">4 DOMAINS</span>
+      </div>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2" role="list">
+        {systemDropdownItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="relative flex items-center justify-between p-2.5 rounded-xl border transition-all"
+              style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"
+              onmouseenter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.8)';
+                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
+              }}
+              onmouseleave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.25)';
+                e.currentTarget.style.backgroundColor = 'rgba(4, 9, 5, 0.9)';
+              }}
+              role="menuitem"
+            >
+              <div class="flex items-center gap-2">
+                <img src={item.svg.src} alt={item.label} class="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
+              </div>
+              <span class="text-[10px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
+              <span class="sr-only">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
     <!-- Bottom Mobile Transmit & Control Deck -->
     <div class="p-4 border-t flex flex-wrap items-center justify-between gap-3 bg-[#000000]/80" style="border-color: rgba(34, 197, 94, 0.25);">
       <a
@@ -308,22 +460,50 @@ const navItems = [
       var button = document.getElementById('mobile-menu-button');
       var menu = document.getElementById('mobile-menu');
 
-      if (!button || !menu) {
-        setTimeout(initMenu, 100);
-        return;
+      if (button && menu) {
+        button.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var isExpanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!isExpanded));
+          if (isExpanded) {
+            menu.classList.add('hidden');
+          } else {
+            menu.classList.remove('hidden');
+          }
+        };
       }
 
-      button.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var isExpanded = button.getAttribute('aria-expanded') === 'true';
-        button.setAttribute('aria-expanded', String(!isExpanded));
-        if (isExpanded) {
-          menu.classList.add('hidden');
-        } else {
-          menu.classList.remove('hidden');
-        }
-      };
+      // Desktop Systems Dropdown click/touch/keyboard handler
+      var sysBtn = document.getElementById('desktop-systems-menu-btn');
+      var sysMenu = document.getElementById('desktop-systems-menu');
+      if (sysBtn && sysMenu) {
+        sysBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var isExpanded = sysBtn.getAttribute('aria-expanded') === 'true';
+          sysBtn.setAttribute('aria-expanded', String(!isExpanded));
+          if (isExpanded) {
+            sysMenu.classList.remove('dropdown-force-open');
+          } else {
+            sysMenu.classList.add('dropdown-force-open');
+          }
+        };
+
+        document.addEventListener('click', function(e) {
+          if (!sysBtn.contains(e.target) && !sysMenu.contains(e.target)) {
+            sysBtn.setAttribute('aria-expanded', 'false');
+            sysMenu.classList.remove('dropdown-force-open');
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            sysBtn.setAttribute('aria-expanded', 'false');
+            sysMenu.classList.remove('dropdown-force-open');
+          }
+        });
+      }
     }
 
     if (document.readyState === 'loading') {
@@ -336,3 +516,12 @@ const navItems = [
     document.addEventListener('astro:after-swap', initMenu);
   })();
 </script>
+
+<style>
+  .dropdown-force-open {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+</style>

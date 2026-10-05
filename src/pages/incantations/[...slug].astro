@@ -1,0 +1,255 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollReveal from "../../components/ScrollReveal.tsx";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { SITE } from "../../config/site.mjs";
+import ShareButtons from "../../components/ShareButtons.astro";
+import ReadingProgressBar from "../../components/ReadingProgressBar.astro";
+
+export async function getStaticPaths() {
+	const incantations = await getCollection("incantations");
+	return incantations.map((spell, idx) => ({
+		params: { slug: spell.id },
+		props: {
+			spell,
+			prevSpell: idx > 0 ? incantations[idx - 1] : null,
+			nextSpell: idx < incantations.length - 1 ? incantations[idx + 1] : null,
+		},
+	}));
+}
+
+type Props = {
+	spell: CollectionEntry<"incantations">;
+	prevSpell: CollectionEntry<"incantations"> | null;
+	nextSpell: CollectionEntry<"incantations"> | null;
+};
+
+const { spell, prevSpell, nextSpell } = Astro.props;
+const { Content } = await render(spell);
+
+const isShell = spell.data.type === "shell";
+const pageUrl = `${SITE.url}/incantations/${spell.id}`;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: spell.data.title,
+	description: spell.data.description,
+	url: pageUrl,
+	datePublished: spell.data.pubDate.toISOString(),
+	author: {
+		"@type": "Person",
+		name: spell.data.author,
+	},
+	about: [
+		{ "@type": "Thing", name: spell.data.gofPattern },
+		{ "@type": "Thing", name: spell.data.arcaneSchool },
+	],
+};
+---
+
+<Layout
+	title={`${spell.data.title} | Incantations | ${SITE.title}`}
+	description={spell.data.description}
+	canonicalURL={pageUrl}
+	ogType="article"
+	articlePublishedTime={spell.data.pubDate.toISOString()}
+	articleAuthor={spell.data.author}
+	articleSection={spell.data.gofPattern}
+	articleTags={spell.data.tags}
+	jsonLd={jsonLd}
+>
+	<ReadingProgressBar />
+	<Header />
+
+	<main
+		id="main-content"
+		role="main"
+		class="min-h-screen"
+		style="background-color: var(--token-color-background, #000000);"
+	>
+		<div class="max-w-4xl mx-auto px-4 py-12 md:py-20">
+			<!-- Semantic Breadcrumbs -->
+			<nav aria-label="Breadcrumb" class="mb-8 font-mono text-xs">
+				<ol class="inline-flex items-center gap-1.5 flex-wrap text-gray-400">
+					<li>
+						<a href="/" class="hover:text-[#22EE44] transition-colors">Home</a>
+					</li>
+					<li class="opacity-40">/</li>
+					<li>
+						<a href="/incantations" class="hover:text-[#a855f7] transition-colors">Incantations</a>
+					</li>
+					<li class="opacity-40">/</li>
+					<li class="font-bold text-white uppercase truncate max-w-xs sm:max-w-md">
+						{spell.data.title}
+					</li>
+				</ol>
+			</nav>
+
+			<ScrollReveal client:load>
+				<!-- Top Status Meta Header -->
+				<header class="mb-8">
+					<div class="flex flex-wrap items-center gap-2.5 mb-4">
+						<span
+							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border ${
+								isShell
+									? "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]"
+									: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]"
+							}`}
+						>
+							{isShell ? "⚡ SHELL INCANTATION" : "🧠 AI PROMPT PATTERN"}
+						</span>
+						<span class="px-2.5 py-1 rounded text-xs font-mono border border-white/10 bg-white/5 text-gray-300">
+							DIFFICULTY: {spell.data.difficulty}
+						</span>
+						<span class="px-2.5 py-1 rounded text-xs font-mono border border-[#fbbf24]/30 bg-[#fbbf24]/10 text-[#fbbf24]">
+							{spell.data.gofCategory}
+						</span>
+					</div>
+
+					<h1 class="text-3xl sm:text-5xl font-extrabold font-mono tracking-tight text-white mb-4">
+						{spell.data.title}
+					</h1>
+
+					<p class="text-lg text-gray-300 leading-relaxed mb-6 font-mono">
+						{spell.data.description}
+					</p>
+
+					<!-- GoF Lineage & Arcane School Callout Box -->
+					<div
+						class="rounded-xl border p-4 sm:p-5 mb-8 font-mono text-xs"
+						style="background-color: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.35);"
+					>
+						<div class="flex items-center gap-2 text-[#c084fc] font-bold text-sm mb-2">
+							<span>✧ GANG OF FOUR LINEAGE &amp; ARCANUM ✧</span>
+						</div>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-300">
+							<div>
+								<span class="text-gray-400 block text-[11px]">GOF DESIGN PATTERN:</span>
+								<strong class="text-white font-semibold">{spell.data.gofPattern}</strong>
+							</div>
+							<div>
+								<span class="text-gray-400 block text-[11px]">ARCANUM SCHOOL:</span>
+								<strong class="text-[#22EE44] font-semibold">{spell.data.arcaneSchool}</strong>
+							</div>
+							<div>
+								<span class="text-gray-400 block text-[11px]">SCRIBE / ARCHON:</span>
+								<span class="text-white">{spell.data.author}</span>
+							</div>
+							<div>
+								<span class="text-gray-400 block text-[11px]">CANONICAL REGISTRATION:</span>
+								<time datetime={spell.data.pubDate.toISOString()} class="text-white">
+									{spell.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+								</time>
+							</div>
+						</div>
+					</div>
+
+					<!-- The Interactive Spell Formula Box -->
+					<div class="mb-10 rounded-2xl border border-white/20 bg-black/95 p-4 sm:p-6 shadow-2xl">
+						<div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10 font-mono text-xs">
+							<div class="flex items-center gap-2">
+								<span class="w-2.5 h-2.5 rounded-full bg-[#22EE44] animate-pulse"></span>
+								<span class="font-bold text-white tracking-wider">
+									{isShell ? "// EXECUTABLE SHELL ONELINER //" : "// NEURAL PROMPT DIRECTIVE //"}
+								</span>
+							</div>
+							<button
+								type="button"
+								id="main-copy-btn"
+								class="px-3 py-1 rounded-lg bg-[#a855f7] hover:bg-[#c084fc] text-black font-mono font-bold text-xs transition-all cursor-pointer flex items-center gap-1.5 shadow-[0_0_12px_rgba(168,85,247,0.5)]"
+								data-formula={spell.data.formula}
+							>
+								<span id="main-copy-text">Copy Incantation</span>
+							</button>
+						</div>
+						<div class="relative">
+							<pre class="overflow-x-auto text-gray-100 font-mono text-xs sm:text-sm p-3 bg-white/5 rounded-xl border border-white/5 whitespace-pre-wrap break-all leading-relaxed select-all"><code>{spell.data.formula}</code></pre>
+						</div>
+					</div>
+				</header>
+
+				<!-- Rendered Markdown Body -->
+				<div class="prose prose-invert prose-emerald max-w-none font-sans text-gray-200 leading-relaxed text-base sm:text-lg mb-16 prose-headings:font-mono prose-headings:text-white prose-a:text-[#38bdf8] prose-a:underline hover:prose-a:text-[#a855f7] prose-pre:border prose-pre:border-white/15 prose-pre:bg-black/90">
+					<Content />
+				</div>
+
+				<!-- Share & Tags Section -->
+				<div class="pt-8 border-t border-white/10 mb-12">
+					<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+						<div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+							<span class="text-gray-400 mr-1">Runic Tags:</span>
+							{spell.data.tags.map((tag) => (
+								<span class="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-gray-300">
+									#{tag}
+								</span>
+							))}
+						</div>
+						<ShareButtons url={pageUrl} title={spell.data.title} />
+					</div>
+				</div>
+
+				<!-- Next / Previous Spell Navigation -->
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12 font-mono text-xs">
+					{prevSpell ? (
+						<a
+							href={`/incantations/${prevSpell.id}`}
+							class="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#a855f7] hover:bg-white/10 transition-all flex flex-col"
+						>
+							<span class="text-gray-400 mb-1">← PREVIOUS INCANTATION</span>
+							<span class="font-bold text-white line-clamp-1">{prevSpell.data.title}</span>
+						</a>
+					) : (
+						<div class="hidden sm:block"></div>
+					)}
+
+					{nextSpell && (
+						<a
+							href={`/incantations/${nextSpell.id}`}
+							class="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-[#a855f7] hover:bg-white/10 transition-all flex flex-col text-right sm:col-start-2"
+						>
+							<span class="text-gray-400 mb-1">NEXT INCANTATION →</span>
+							<span class="font-bold text-white line-clamp-1">{nextSpell.data.title}</span>
+						</a>
+					)}
+				</div>
+
+				<!-- Back to Grimoire CTA -->
+				<div class="text-center pt-8 border-t border-white/10">
+					<a
+						href="/incantations"
+						class="inline-flex items-center gap-2 font-mono text-sm px-6 py-3 rounded-xl border border-[#a855f7]/50 bg-[#a855f7]/10 hover:bg-[#a855f7] hover:text-black text-white transition-all shadow-lg"
+					>
+						<span>← Return to Grimoire of Incantations</span>
+					</a>
+				</div>
+			</ScrollReveal>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>
+
+<script is:inline>
+	(function () {
+		var btn = document.getElementById("main-copy-btn");
+		var text = document.getElementById("main-copy-text");
+		if (btn && text) {
+			btn.onclick = function () {
+				var formula = btn.getAttribute("data-formula") || "";
+				if (navigator.clipboard && formula) {
+					navigator.clipboard.writeText(formula).then(function () {
+						text.textContent = "COPIED TO CLIPBOARD! ✓";
+						btn.style.backgroundColor = "#22EE44";
+						setTimeout(function () {
+							text.textContent = "Copy Incantation";
+							btn.style.backgroundColor = "";
+						}, 2000);
+					});
+				}
+			};
+		}
+	})();
+</script>

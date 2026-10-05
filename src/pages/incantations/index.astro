@@ -1,0 +1,409 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollReveal from "../../components/ScrollReveal.tsx";
+import { getCollection } from "astro:content";
+import { SITE } from "../../config/site.mjs";
+
+const isDev = import.meta.env.DEV;
+const allIncantations = (
+	await getCollection("incantations", ({ data }) => isDev || !data.draft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const shellCount = allIncantations.filter((i) => i.data.type === "shell").length;
+const promptCount = allIncantations.filter((i) => i.data.type === "prompt").length;
+---
+
+<Layout
+	title={`Incantations: Shell One-Liners & AI Prompt Patterns | ${SITE.title}`}
+	description="Arcane shell one-liners and AI prompt patterns rooted in the Gang of Four design patterns, forged with sovereign systems wizardry."
+	canonicalURL={`${SITE.url}/incantations`}
+>
+	<Header />
+	<main
+		id="main-content"
+		role="main"
+		class="min-h-screen"
+		style="background-color: var(--token-color-background, #000000);"
+	>
+		<div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+			<!-- Hero Header -->
+			<header class="text-center mb-12">
+				<ScrollReveal client:load>
+					<div
+						class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-4 border shadow-lg"
+						style="background-color: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.4); color: #c084fc;"
+					>
+						<span class="w-2 h-2 rounded-full bg-[#a855f7] animate-ping"></span>
+						<span class="font-bold tracking-wider">// ARCANUM PROTOCOLS // GANG OF FOUR LINEAGE //</span>
+					</div>
+					<h1
+						class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4 text-white"
+					>
+						Grimoire of <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#22EE44] via-[#38bdf8] to-[#c084fc]">Incantations</span>
+					</h1>
+				</ScrollReveal>
+				<ScrollReveal client:load delay={0.2}>
+					<p
+						class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
+						style="color: var(--token-color-text-muted, #94a3b8);"
+					>
+						Where POSIX shell philosophy meets generative latent space. Battle-tested shell one-liners 
+						and frontier AI prompt patterns, traced back to the sacred 1994 Gang of Four design patterns with an arcane magical slant.
+					</p>
+				</ScrollReveal>
+
+				<!-- Telemetry HUD Counter -->
+				<ScrollReveal client:load delay={0.25}>
+					<div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 mt-6 font-mono text-xs text-gray-400">
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#22EE44]"></span>
+							<span>TOTAL SPELLS: <strong class="text-white">{allIncantations.length}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#38bdf8]"></span>
+							<span>SHELL PIPELINES: <strong class="text-white">{shellCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#c084fc]"></span>
+							<span>AI PROMPT PATTERNS: <strong class="text-white">{promptCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#fbbf24]"></span>
+							<span>GOF LINEAGE: <strong class="text-white">100% MAPPED</strong></span>
+						</div>
+					</div>
+				</ScrollReveal>
+
+				<!-- Cyberpunk Search Bar -->
+				<ScrollReveal client:load delay={0.3}>
+					<div class="relative max-w-2xl mx-auto mt-8">
+						<div class="relative flex items-center rounded-xl border border-white/10 bg-black/80 px-4 py-2.5 shadow-2xl focus-within:border-[#a855f7] focus-within:ring-1 focus-within:ring-[#a855f7] transition-all">
+							<span class="font-mono text-xs sm:text-sm text-[#a855f7] select-none mr-2 font-bold shrink-0">
+								mage@tekromancy:~$
+							</span>
+							<input
+								id="incantation-search-input"
+								type="text"
+								placeholder="grep -i factory, grep, awk, sed, reflection, adapter, gof..."
+								class="w-full bg-transparent font-mono text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none"
+								aria-label="Search Incantations"
+							/>
+							<button
+								id="search-clear-btn"
+								class="hidden font-mono text-xs text-gray-400 hover:text-white px-2 py-0.5 rounded ml-2"
+								title="Clear search"
+							>
+								ESC
+							</button>
+							<span class="hidden sm:inline-block font-mono text-[10px] text-gray-500 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded select-none shrink-0 ml-2">
+								/
+							</span>
+						</div>
+					</div>
+				</ScrollReveal>
+
+				<!-- Category & Lineage Filter Pills -->
+				<ScrollReveal client:load delay={0.35}>
+					<div
+						class="flex flex-wrap justify-center gap-2 mt-6 text-xs font-mono"
+						id="category-filters"
+					>
+						<button
+							data-filter="all"
+							class="inc-filter-btn active px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-bold"
+							style="background-color: #a855f7; color: #ffffff; border-color: #a855f7;"
+						>
+							All Incantations
+						</button>
+						<button
+							data-filter="shell"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
+						>
+							⚡ Shell One-Liners (grep|sed|cut|awk)
+						</button>
+						<button
+							data-filter="prompt"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#c084fc]/50 hover:text-white"
+						>
+							🧠 AI Prompt Patterns
+						</button>
+						<button
+							data-filter="Creational"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#22EE44]/50 hover:text-white"
+						>
+							GoF: Creational
+						</button>
+						<button
+							data-filter="Structural"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
+						>
+							GoF: Structural
+						</button>
+						<button
+							data-filter="Behavioral"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fbbf24]/50 hover:text-white"
+						>
+							GoF: Behavioral
+						</button>
+					</div>
+				</ScrollReveal>
+			</header>
+
+			<!-- Incantations Cards Grid -->
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="incantations-grid">
+				{allIncantations.map((spell, index) => {
+					const isShell = spell.data.type === "shell";
+					return (
+						<ScrollReveal client:load delay={0.05 * (index % 4)}>
+							<article
+								class="incantation-card rounded-2xl border transition-all duration-300 overflow-hidden flex flex-col p-6 sm:p-7 relative group hover:shadow-2xl hover:border-[#a855f7]/50"
+								data-type={spell.data.type}
+								data-category={spell.data.gofCategory}
+								data-title={spell.data.title.toLowerCase()}
+								data-desc={spell.data.description.toLowerCase()}
+								data-formula={spell.data.formula.toLowerCase()}
+								data-gof={spell.data.gofPattern.toLowerCase()}
+								data-tags={spell.data.tags.join(",")}
+								style="background-color: var(--token-color-surface, #070c14); border-color: rgba(255, 255, 255, 0.1);"
+							>
+								{/* Subtle ambient back-glow */}
+								<div
+									class={`absolute -top-10 -right-10 w-48 h-48 opacity-10 pointer-events-none rounded-full blur-2xl transition-opacity group-hover:opacity-25 ${
+										isShell ? 'bg-[#38bdf8]' : 'bg-[#a855f7]'
+									}`}
+									aria-hidden="true"
+								/>
+
+								<!-- Header: Badges & Metadata -->
+								<div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5 mb-4">
+									<div class="flex items-center gap-2">
+										<span
+											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border ${
+												isShell
+													? "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]"
+													: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]"
+											}`}
+										>
+											{isShell ? "⚡ SHELL ONE-LINER" : "🧠 AI PROMPT PATTERN"}
+										</span>
+										<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
+											{spell.data.difficulty}
+										</span>
+									</div>
+									<div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+										<span class="w-1.5 h-1.5 rounded-full bg-[#22EE44]"></span>
+										<span>{spell.data.arcaneSchool.split("//")[0].trim()}</span>
+									</div>
+								</div>
+
+								<!-- Gang of Four Lineage Callout -->
+								<div class="relative z-10 mb-3 flex items-center gap-2 text-xs font-mono text-[#fbbf24] bg-[#fbbf24]/10 border border-[#fbbf24]/30 px-3 py-1.5 rounded-lg">
+									<span class="font-bold">GoF Lineage:</span>
+									<span class="text-white truncate">{spell.data.gofPattern}</span>
+								</div>
+
+								<!-- Title -->
+								<h2 class="relative z-10 text-xl sm:text-2xl font-bold font-mono text-white mb-2 group-hover:text-[#a855f7] transition-colors">
+									<a href={`/incantations/${spell.id}`} class="hover:underline">
+										{spell.data.title}
+									</a>
+								</h2>
+
+								<!-- Description -->
+								<p class="relative z-10 text-sm leading-relaxed text-gray-300 mb-5 flex-1">
+									{spell.data.description}
+								</p>
+
+								<!-- Code Formula Box with Copy Button -->
+								<div class="relative z-10 mb-5 rounded-xl border border-white/10 bg-black/90 p-3.5 font-mono text-xs overflow-hidden group/box shadow-inner">
+									<div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] text-gray-400">
+										<span class="text-[#22EE44] font-bold">
+											{isShell ? "$_ EXEC_SHELL" : ">> PROMPT_DIRECTIVE"}
+										</span>
+										<button
+											type="button"
+											class="copy-formula-btn px-2 py-0.5 rounded bg-white/10 hover:bg-[#a855f7] hover:text-white text-gray-300 transition-all font-mono text-[10px] cursor-pointer flex items-center gap-1"
+											data-formula={spell.data.formula}
+											title="Copy spell to clipboard"
+										>
+											<span class="btn-text">Copy Incantation</span>
+										</button>
+									</div>
+									<pre class="overflow-x-auto text-gray-200 select-all whitespace-pre-wrap break-all text-[11px] leading-relaxed max-h-36 scrollbar-thin"><code>{spell.data.formula}</code></pre>
+								</div>
+
+								<!-- Footer: Tags & Read Article CTA -->
+								<div class="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+									<div class="flex flex-wrap gap-1.5">
+										{spell.data.tags.slice(0, 3).map((tag) => (
+											<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/10 text-gray-400">
+												#{tag}
+											</span>
+										))}
+									</div>
+									<a
+										href={`/incantations/${spell.id}`}
+										class="text-[#38bdf8] group-hover:text-[#a855f7] font-bold flex items-center gap-1 hover:underline transition-colors shrink-0 ml-2"
+									>
+										<span>Read Full Scroll</span>
+										<span>→</span>
+									</a>
+								</div>
+							</article>
+						</ScrollReveal>
+					);
+				})}
+			</div>
+
+			<!-- No Results Fallback -->
+			<div id="no-results" class="hidden text-center py-16 font-mono text-gray-400">
+				<p class="text-lg text-white mb-2">No matching incantations found in the Grimoire.</p>
+				<p class="text-xs">Try searching for <span class="text-[#22EE44]">grep</span>, <span class="text-[#38bdf8]">awk</span>, <span class="text-[#c084fc]">factory</span>, or clear the search filter.</p>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>
+
+<script is:inline>
+	(function () {
+		function setupIncantationsFilter() {
+			var filterBtns = document.querySelectorAll(".inc-filter-btn");
+			var cards = document.querySelectorAll(".incantation-card");
+			var searchInput = document.getElementById("incantation-search-input");
+			var clearBtn = document.getElementById("search-clear-btn");
+			var noResults = document.getElementById("no-results");
+			var currentFilter = "all";
+			var currentQuery = "";
+
+			function updateVisibility() {
+				var q = currentQuery.toLowerCase().trim();
+				var visibleCount = 0;
+
+				cards.forEach(function (card) {
+					var type = card.getAttribute("data-type") || "";
+					var category = card.getAttribute("data-category") || "";
+					var title = card.getAttribute("data-title") || "";
+					var desc = card.getAttribute("data-desc") || "";
+					var formula = card.getAttribute("data-formula") || "";
+					var gof = card.getAttribute("data-gof") || "";
+					var tags = card.getAttribute("data-tags") || "";
+
+					var matchesFilter = currentFilter === "all" || 
+						type === currentFilter || 
+						category === currentFilter;
+
+					var matchesQuery = !q || 
+						title.indexOf(q) !== -1 || 
+						desc.indexOf(q) !== -1 || 
+						formula.indexOf(q) !== -1 || 
+						gof.indexOf(q) !== -1 || 
+						tags.indexOf(q) !== -1;
+
+					if (matchesFilter && matchesQuery) {
+						card.style.display = "flex";
+						visibleCount++;
+					} else {
+						card.style.display = "none";
+					}
+				});
+
+				if (noResults) {
+					if (visibleCount === 0) {
+						noResults.classList.remove("hidden");
+					} else {
+						noResults.classList.add("hidden");
+					}
+				}
+
+				if (clearBtn) {
+					if (q) {
+						clearBtn.classList.remove("hidden");
+					} else {
+						clearBtn.classList.add("hidden");
+					}
+				}
+			}
+
+			function applyFilter(filter) {
+				currentFilter = filter;
+				filterBtns.forEach(function (btn) {
+					var match = btn.getAttribute("data-filter") === filter;
+					if (match) {
+						btn.style.backgroundColor = "#a855f7";
+						btn.style.color = "#ffffff";
+						btn.style.borderColor = "#a855f7";
+					} else {
+						btn.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+						btn.style.color = "#d1d5db";
+						btn.style.borderColor = "rgba(255, 255, 255, 0.1)";
+					}
+				});
+				updateVisibility();
+			}
+
+			filterBtns.forEach(function (btn) {
+				btn.onclick = function () {
+					var filter = btn.getAttribute("data-filter");
+					applyFilter(filter);
+				};
+			});
+
+			if (searchInput) {
+				searchInput.oninput = function (e) {
+					currentQuery = e.target.value;
+					updateVisibility();
+				};
+			}
+
+			if (clearBtn) {
+				clearBtn.onclick = function () {
+					if (searchInput) searchInput.value = "";
+					currentQuery = "";
+					updateVisibility();
+				};
+			}
+
+			// Copy buttons setup
+			var copyBtns = document.querySelectorAll(".copy-formula-btn");
+			copyBtns.forEach(function (btn) {
+				btn.onclick = function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					var formula = btn.getAttribute("data-formula") || "";
+					var textEl = btn.querySelector(".btn-text");
+					if (navigator.clipboard && formula) {
+						navigator.clipboard.writeText(formula).then(function () {
+							if (textEl) textEl.textContent = "COPIED! ✓";
+							btn.style.backgroundColor = "#22EE44";
+							btn.style.color = "#000000";
+							setTimeout(function () {
+								if (textEl) textEl.textContent = "Copy Incantation";
+								btn.style.backgroundColor = "";
+								btn.style.color = "";
+							}, 2000);
+						});
+					}
+				};
+			});
+
+			// Shortcut key '/' to focus search input
+			window.addEventListener("keydown", function (e) {
+				if ((e.key === "/" && document.activeElement !== searchInput) || (e.ctrlKey && e.key === "k") || (e.metaKey && e.key === "k")) {
+					e.preventDefault();
+					searchInput && searchInput.focus();
+				}
+			});
+		}
+
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", setupIncantationsFilter);
+		} else {
+			setupIncantationsFilter();
+		}
+		document.addEventListener("astro:page-load", setupIncantationsFilter);
+		document.addEventListener("astro:after-swap", setupIncantationsFilter);
+	})();
+</script>
