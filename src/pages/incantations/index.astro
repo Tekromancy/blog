@@ -13,6 +13,7 @@ const allIncantations = (
 
 const shellCount = allIncantations.filter((i) => i.data.type === "shell").length;
 const promptCount = allIncantations.filter((i) => i.data.type === "prompt").length;
+const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
 ---
 
 <Layout
@@ -75,7 +76,7 @@ const promptCount = allIncantations.filter((i) => i.data.type === "prompt").leng
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#ec4899]"></span>
-							<span>ARCANUM TRADITIONS: <strong class="text-white">12 SCHOOLS</strong></span>
+							<span>ARCANUM TRADITIONS: <strong class="text-white">{schoolsCount} SCHOOLS</strong></span>
 						</div>
 					</div>
 				</ScrollReveal>
