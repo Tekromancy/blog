@@ -29,7 +29,60 @@ type Props = {
 const { spell, prevSpell, nextSpell } = Astro.props;
 const { Content } = await render(spell);
 
-const isShell = spell.data.type === "shell";
+function getTypeMeta(type: string) {
+	switch (type) {
+		case "shell":
+			return {
+				badge: "⚡ SHELL INCANTATION",
+				badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]",
+				fullHeader: "// EXECUTABLE SHELL ONELINER //",
+			};
+		case "script":
+			return {
+				badge: "📜 BASH SCRIPT",
+				badgeClass: "bg-[#22EE44]/15 border-[#22EE44]/50 text-[#22EE44]",
+				fullHeader: "// EXECUTABLE BASH SCRIPT //",
+			};
+		case "prompt":
+			return {
+				badge: "🧠 AI PROMPT PATTERN",
+				badgeClass: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]",
+				fullHeader: "// NEURAL PROMPT DIRECTIVE //",
+			};
+		case "python":
+			return {
+				badge: "🐍 PYTHON SCRIPT",
+				badgeClass: "bg-[#eab308]/15 border-[#eab308]/50 text-[#eab308]",
+				fullHeader: "// EXECUTABLE PYTHON PATTERN //",
+			};
+		case "rust":
+			return {
+				badge: "🦀 RUST PATTERN",
+				badgeClass: "bg-[#f97316]/15 border-[#f97316]/50 text-[#f97316]",
+				fullHeader: "// RUST IDIOMATIC PATTERN //",
+			};
+		case "perl":
+			return {
+				badge: "🐪 PERL INCANTATION",
+				badgeClass: "bg-[#818cf8]/15 border-[#818cf8]/50 text-[#818cf8]",
+				fullHeader: "// EXECUTABLE PERL INCANTATION //",
+			};
+		case "javascript":
+			return {
+				badge: "🟨 JAVASCRIPT PATTERN",
+				badgeClass: "bg-[#fde047]/15 border-[#fde047]/50 text-[#fde047]",
+				fullHeader: "// JAVASCRIPT IDIOMATIC PATTERN //",
+			};
+		default:
+			return {
+				badge: "✨ ARCANUM RUNE",
+				badgeClass: "bg-white/10 border-white/20 text-gray-300",
+				fullHeader: "// ARCANUM PROTOCOL //",
+			};
+	}
+}
+
+const meta = getTypeMeta(spell.data.type);
 const pageUrl = `${SITE.url}/incantations/${spell.id}`;
 
 const jsonLd = {
@@ -93,13 +146,9 @@ const jsonLd = {
 				<header class="mb-8">
 					<div class="flex flex-wrap items-center gap-2.5 mb-4">
 						<span
-							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border ${
-								isShell
-									? "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]"
-									: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]"
-							}`}
+							class={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase border ${meta.badgeClass}`}
 						>
-							{isShell ? "⚡ SHELL INCANTATION" : "🧠 AI PROMPT PATTERN"}
+							{meta.badge}
 						</span>
 						<span class="px-2.5 py-1 rounded text-xs font-mono border border-white/10 bg-white/5 text-gray-300">
 							DIFFICULTY: {spell.data.difficulty}
@@ -153,7 +202,7 @@ const jsonLd = {
 							<div class="flex items-center gap-2">
 								<span class="w-2.5 h-2.5 rounded-full bg-[#22EE44] animate-pulse"></span>
 								<span class="font-bold text-white tracking-wider">
-									{isShell ? "// EXECUTABLE SHELL ONELINER //" : "// NEURAL PROMPT DIRECTIVE //"}
+									{meta.fullHeader}
 								</span>
 							</div>
 							<button

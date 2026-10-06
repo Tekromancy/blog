@@ -12,13 +12,79 @@ const allIncantations = (
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const shellCount = allIncantations.filter((i) => i.data.type === "shell").length;
+const scriptCount = allIncantations.filter((i) => i.data.type === "script").length;
 const promptCount = allIncantations.filter((i) => i.data.type === "prompt").length;
+const pythonCount = allIncantations.filter((i) => i.data.type === "python").length;
+const rustCount = allIncantations.filter((i) => i.data.type === "rust").length;
+const perlCount = allIncantations.filter((i) => i.data.type === "perl").length;
+const jsCount = allIncantations.filter((i) => i.data.type === "javascript").length;
 const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
+
+function getTypeMeta(type: string) {
+	switch (type) {
+		case "shell":
+			return {
+				badge: "⚡ SHELL ONE-LINER",
+				badgeClass: "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]",
+				formulaTag: "$_ EXEC_SHELL",
+				glow: "bg-[#38bdf8]",
+			};
+		case "script":
+			return {
+				badge: "📜 BASH SCRIPT",
+				badgeClass: "bg-[#22EE44]/15 border-[#22EE44]/50 text-[#22EE44]",
+				formulaTag: "#!/usr/bin/env bash",
+				glow: "bg-[#22EE44]",
+			};
+		case "prompt":
+			return {
+				badge: "🧠 AI PROMPT PATTERN",
+				badgeClass: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]",
+				formulaTag: ">> PROMPT_DIRECTIVE",
+				glow: "bg-[#c084fc]",
+			};
+		case "python":
+			return {
+				badge: "🐍 PYTHON SCRIPT",
+				badgeClass: "bg-[#eab308]/15 border-[#eab308]/50 text-[#eab308]",
+				formulaTag: "#!/usr/bin/env python3",
+				glow: "bg-[#eab308]",
+			};
+		case "rust":
+			return {
+				badge: "🦀 RUST PATTERN",
+				badgeClass: "bg-[#f97316]/15 border-[#f97316]/50 text-[#f97316]",
+				formulaTag: "// cargo run --bin spell",
+				glow: "bg-[#f97316]",
+			};
+		case "perl":
+			return {
+				badge: "🐪 PERL INCANTATION",
+				badgeClass: "bg-[#818cf8]/15 border-[#818cf8]/50 text-[#818cf8]",
+				formulaTag: "#!/usr/bin/env perl",
+				glow: "bg-[#818cf8]",
+			};
+		case "javascript":
+			return {
+				badge: "🟨 JAVASCRIPT PATTERN",
+				badgeClass: "bg-[#fde047]/15 border-[#fde047]/50 text-[#fde047]",
+				formulaTag: "// node --harmony",
+				glow: "bg-[#fde047]",
+			};
+		default:
+			return {
+				badge: "✨ ARCANUM RUNE",
+				badgeClass: "bg-white/10 border-white/20 text-gray-300",
+				formulaTag: "$_ EXEC",
+				glow: "bg-[#a855f7]",
+			};
+	}
+}
 ---
 
 <Layout
-	title={`Incantations: Shell One-Liners & AI Prompt Patterns | ${SITE.title}`}
-	description="Arcane shell one-liners and AI prompt patterns rooted in the Gang of Four design patterns, forged with sovereign systems wizardry."
+	title={`Incantations: Shell Scripts, Programming Patterns & AI Prompts | ${SITE.title}`}
+	description="Arcane shell scripts, multi-language design patterns (Python, Rust, Perl, JS), and AI prompts rooted in the Gang of Four design patterns."
 	canonicalURL={`${SITE.url}/incantations`}
 >
 	<Header />
@@ -50,29 +116,29 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 						class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
 						style="color: var(--token-color-text-muted, #94a3b8);"
 					>
-						Where POSIX shell philosophy meets generative latent space. Battle-tested shell one-liners 
-						and frontier AI prompt patterns, traced back to the sacred 1994 Gang of Four design patterns with an arcane magical slant.
+						Where POSIX shell philosophy, multi-language systems code (Bash, Python, Rust, Perl, JavaScript),
+						and generative latent space converge. Battle-tested scripts and frontier AI prompt patterns, traced back to the sacred 1994 Gang of Four design patterns with an arcane magical slant.
 					</p>
 				</ScrollReveal>
 
 				<!-- Telemetry HUD Counter -->
 				<ScrollReveal client:load delay={0.25}>
-					<div class="flex flex-wrap justify-center items-center gap-3 sm:gap-5 mt-6 font-mono text-xs text-gray-400">
+					<div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mt-6 font-mono text-xs text-gray-400">
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#22EE44]"></span>
 							<span>TOTAL SPELLS: <strong class="text-white">{allIncantations.length}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#38bdf8]"></span>
-							<span>SHELL PIPELINES: <strong class="text-white">{shellCount}</strong></span>
+							<span>SHELL PIPELINES: <strong class="text-white">{shellCount + scriptCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
+							<span>POLYGLOT CODE: <strong class="text-white">{pythonCount + rustCount + perlCount + jsCount}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#c084fc]"></span>
 							<span>AI PROMPT PATTERNS: <strong class="text-white">{promptCount}</strong></span>
-						</div>
-						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
-							<span class="w-2 h-2 rounded-full bg-[#fbbf24]"></span>
-							<span>GOF DUAL MATRIX: <strong class="text-white">23/23 BOTH</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#ec4899]"></span>
@@ -91,7 +157,7 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 							<input
 								id="incantation-search-input"
 								type="text"
-								placeholder="grep -i factory, grep, awk, sed, reflection, adapter, gof..."
+								placeholder="grep -i factory, python, rust, perl, bash, adapter, gof..."
 								class="w-full bg-transparent font-mono text-xs sm:text-sm text-white placeholder-gray-500 focus:outline-none"
 								aria-label="Search Incantations"
 							/>
@@ -117,50 +183,81 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 					>
 						<button
 							data-filter="all"
-							class="inc-filter-btn active px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-bold"
+							class="inc-filter-btn active px-3 py-1 rounded-lg border transition-all cursor-pointer font-bold"
 							style="background-color: #a855f7; color: #ffffff; border-color: #a855f7;"
 						>
-							All Incantations ({allIncantations.length})
+							All ({allIncantations.length})
 						</button>
 						<button
 							data-filter="shell"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
 						>
 							⚡ Shell One-Liners ({shellCount})
 						</button>
 						<button
-							data-filter="prompt"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#c084fc]/50 hover:text-white"
+							data-filter="script"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#22EE44]/50 hover:text-white"
 						>
-							🧠 AI Prompt Patterns ({promptCount})
+							📜 Bash Scripts ({scriptCount})
 						</button>
 						<button
+							data-filter="prompt"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#c084fc]/50 hover:text-white"
+						>
+							🧠 AI Prompts ({promptCount})
+						</button>
+						<button
+							data-filter="python"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#eab308]/50 hover:text-white"
+						>
+							🐍 Python ({pythonCount})
+						</button>
+						<button
+							data-filter="rust"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#f97316]/50 hover:text-white"
+						>
+							🦀 Rust ({rustCount})
+						</button>
+						<button
+							data-filter="perl"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#818cf8]/50 hover:text-white"
+						>
+							🐪 Perl ({perlCount})
+						</button>
+						<button
+							data-filter="javascript"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fde047]/50 hover:text-white"
+						>
+							🟨 JavaScript ({jsCount})
+						</button>
+						<span class="hidden md:inline-block w-px h-6 bg-white/10 self-center mx-1"></span>
+						<button
 							data-filter="Creational"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#22EE44]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#22EE44]/50 hover:text-white"
 						>
 							GoF: Creational
 						</button>
 						<button
 							data-filter="Structural"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
 						>
 							GoF: Structural
 						</button>
 						<button
 							data-filter="Behavioral"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fbbf24]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fbbf24]/50 hover:text-white"
 						>
 							GoF: Behavioral
 						</button>
 						<button
 							data-filter="Resilience"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#ec4899]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#ec4899]/50 hover:text-white"
 						>
 							🛡️ Resilience
 						</button>
 						<button
 							data-filter="Architectural"
-							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#10b981]/50 hover:text-white"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#10b981]/50 hover:text-white"
 						>
 							🏛️ Architectural
 						</button>
@@ -171,7 +268,7 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 			<!-- Incantations Cards Grid -->
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="incantations-grid">
 				{allIncantations.map((spell, index) => {
-					const isShell = spell.data.type === "shell";
+					const meta = getTypeMeta(spell.data.type);
 					return (
 						<ScrollReveal client:load delay={0.05 * (index % 4)}>
 							<article
@@ -187,9 +284,7 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 							>
 								{/* Subtle ambient back-glow */}
 								<div
-									class={`absolute -top-10 -right-10 w-48 h-48 opacity-10 pointer-events-none rounded-full blur-2xl transition-opacity group-hover:opacity-25 ${
-										isShell ? 'bg-[#38bdf8]' : 'bg-[#a855f7]'
-									}`}
+									class={`absolute -top-10 -right-10 w-48 h-48 opacity-10 pointer-events-none rounded-full blur-2xl transition-opacity group-hover:opacity-25 ${meta.glow}`}
 									aria-hidden="true"
 								/>
 
@@ -197,13 +292,9 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 								<div class="relative z-10 flex flex-wrap items-center justify-between gap-2.5 mb-4">
 									<div class="flex items-center gap-2">
 										<span
-											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border ${
-												isShell
-													? "bg-[#38bdf8]/15 border-[#38bdf8]/50 text-[#38bdf8]"
-													: "bg-[#c084fc]/15 border-[#c084fc]/50 text-[#c084fc]"
-											}`}
+											class={`px-2.5 py-1 rounded text-xs font-mono font-bold uppercase tracking-wider border ${meta.badgeClass}`}
 										>
-											{isShell ? "⚡ SHELL ONE-LINER" : "🧠 AI PROMPT PATTERN"}
+											{meta.badge}
 										</span>
 										<span class="px-2 py-0.5 rounded text-[10px] font-mono border border-white/10 bg-white/5 text-gray-300">
 											{spell.data.difficulty}
@@ -237,7 +328,7 @@ const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.spli
 								<div class="relative z-10 mb-5 rounded-xl border border-white/10 bg-black/90 p-3.5 font-mono text-xs overflow-hidden group/box shadow-inner">
 									<div class="flex items-center justify-between pb-2 mb-2 border-b border-white/10 text-[10px] text-gray-400">
 										<span class="text-[#22EE44] font-bold">
-											{isShell ? "$_ EXEC_SHELL" : ">> PROMPT_DIRECTIVE"}
+											{meta.formulaTag}
 										</span>
 										<button
 											type="button"
