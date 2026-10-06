@@ -2,7 +2,7 @@
 title: "The Stream Cleaver: In-Place Batch Config Transmutation"
 description: "Atomically find, backup, and regex-substitute configuration tokens across thousands of files using find, xargs, and sed."
 type: "shell"
-gofPattern: "Decorator & Template Method (Structural & Behavioral)"
+gofPattern: "Decorator (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Transmutation // Multi-file Atomic Regex Rewriting"
 formula: "find /etc -type f -name \"*.conf\" -exec grep -l \"DEPRECATED_CIPHER_SUITE\" {} + | xargs -I{} sed -i.tekromancy_bak -E 's/DEPRECATED_CIPHER_SUITE/TLS_AES_256_GCM_SHA384/g' {}"

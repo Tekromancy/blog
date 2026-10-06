@@ -2,7 +2,7 @@
 title: "The Chain-of-Thought Oracle: Distributed State Proof Rite"
 description: "Unwind the probability waves of generative latent space into formal step-by-step proofs of distributed consensus, CAP edge-cases, and linearizability."
 type: "prompt"
-gofPattern: "Template Method & Command (Behavioral)"
+gofPattern: "Template Method (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Step-by-Step Unwinding of Probability Waves"
 formula: "You are a formal verification theorem prover and distributed systems auditor. Prove or disprove whether the following protocol guarantees Linearizability and Fault Tolerance under an asynchronous network with crash-recovery failures: [DESCRIBE PROTOCOL & STATE TRANSITIONS]. Execute the four sacred rites of the Template Method: RITE 1: FORMAL STATE INVARIANTS - Explicitly declare all state invariants that must be upheld across every epoch. RITE 2: ADVERSARIAL TRACE RECONSTRUCTION - Construct an execution sequence with message delays, leader partitions, and concurrent writes designed to break the invariant. RITE 3: COUNTER-EXAMPLE OR FORMAL INDUCTION - Either produce the minimal violating trace or provide an inductive proof of safety. RITE 4: REMEDIATION SIGIL - If vulnerable, provide the exact state machine transition patch required to preserve linearizability."

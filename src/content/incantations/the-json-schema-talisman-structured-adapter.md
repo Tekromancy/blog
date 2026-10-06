@@ -2,7 +2,7 @@
 title: "The JSON Schema Talisman: Deterministic Structured Output Adapter"
 description: "Transform probabilistic neural hallucinations into strictly typed, schema-validated JSON payloads that backend microservices can ingest without crashing."
 type: "prompt"
-gofPattern: "Adapter & Facade (Structural)"
+gofPattern: "Adapter (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Transmutation // Binding Probability Waves to Rigid Geometry"
 formula: "Analyze the following telemetry incident payload and extract structured vulnerability indicators: <<<INCIDENT_STREAM: [PASTE RAW LOGS/INCIDENT TEXT]>>> STRICT CONTRACT: You are an automated API Gateway Adapter. You MUST output a single, raw, valid JSON object strictly conforming to the following JSON Schema. Do NOT include markdown code blocks, backticks, comments, or conversational greetings: { \"$schema\": \"http://json-schema.org/draft-07/schema#\", \"type\": \"object\", \"properties\": { \"threat_severity\": { \"type\": \"string\", \"enum\": [\"LOW\", \"ELEVATED\", \"CRITICAL\", \"CATASTROPHIC\"] }, \"affected_assets\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }, \"mitre_attack_tactics\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } }, \"root_cause_summary\": { \"type\": \"string\" }, \"containment_actions\": { \"type\": \"array\", \"items\": { \"type\": \"object\", \"properties\": { \"priority\": { \"type\": \"integer\" }, \"command_oneliner\": { \"type\": \"string\" }, \"description\": { \"type\": \"string\" } }, \"required\": [\"priority\", \"command_oneliner\", \"description\"] } } }, \"required\": [\"threat_severity\", \"affected_assets\", \"mitre_attack_tactics\", \"root_cause_summary\", \"containment_actions\"] }"

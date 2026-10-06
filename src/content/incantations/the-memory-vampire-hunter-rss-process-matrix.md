@@ -2,7 +2,7 @@
 title: "The Memory Vampire Hunter: Real-Time RSS Diagnostic Matrix"
 description: "Interrogate the Linux kernel process table with awk and sort to locate, calculate, and format Resident Set Size memory hogs in human-readable megabytes."
 type: "shell"
-gofPattern: "Interpreter & Visitor (Behavioral)"
+gofPattern: "Interpreter (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Scrying the Running Souls in the Kernel Process Table"
 formula: "ps -eo pid,user,%mem,rss,comm --sort=-rss | awk 'NR==1 {printf \"%-8s %-12s %-8s %-12s %s\\n\", $1, $2, $3, \"RSS_MB\", $5; next} {printf \"%-8s %-12s %-8s %10.2f MB  %s\\n\", $1, $2, $3, $4/1024, $5}' | head -n 15"

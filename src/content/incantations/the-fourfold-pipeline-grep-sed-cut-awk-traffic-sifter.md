@@ -2,8 +2,8 @@
 title: "The Fourfold Pipeline: High-Throughput Stream Sifter (grep | sed | cut | awk)"
 description: "Harness the Four Elemental Tools of UNIX to transmute millions of chaotic log lines into real-time frequency distributions and intrusion telemetry."
 type: "shell"
-gofPattern: "Chain of Responsibility & Pipe-and-Filter (Behavioral & Structural)"
-gofCategory: "Structural"
+gofPattern: "Chain of Responsibility (Behavioral)"
+gofCategory: "Behavioral"
 arcaneSchool: "Transmutation // The Four Elemental Tools"
 formula: "grep 'POST /api/v1/auth' /var/log/nginx/access.log | sed -E 's/ - - \\[([^]]+)\\] / /' | cut -d' ' -f1,4,7 | awk '{ip[$1]++; total++} END {for (i in ip) printf \"%6d (%5.1f%%) | %s\\n\", ip[i], (ip[i]/total)*100, i}' | sort -rn | head -n 10"
 tags: ["shell", "oneliners", "grep", "sed", "cut", "awk", "gof-patterns", "sysadmin"]

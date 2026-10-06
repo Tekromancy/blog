@@ -2,7 +2,7 @@
 title: "The Name Factory: Sovereign Nomenclature Conjuration"
 description: "Conjure 300 domain, trademark, and registry-verified names from the latent void using parameterized generative factories and cross-registry clearance oracles."
 type: "prompt"
-gofPattern: "Factory Method & Abstract Factory (Creational)"
+gofPattern: "Factory Method (Creational)"
 gofCategory: "Creational"
 arcaneSchool: "Conjuration // Evocation of True Names"
 formula: "What are some good names for an [DESCRIBE YOUR APP HERE AND GIVE SOME EXAMPLE NAMES]? Come up with an exhaustive list of 300 candidate names across 5 distinct lexical archetypes (Arcane/Cyberpunk, Classical Etymology, Punchy Portmanteaus, Functional Minimalist, and Sovereign Neologisms). Once generated, act as an automated registrar and namespace oracle: systematically verify and cross-filter the candidate pool against: 1. DNS TLD availability (.com, .io, .dev, .org), 2. WHOIS registry collision likelihood, 3. USPTO and WIPO trademark conflicts in Class 9 (Software) and Class 42 (SaaS), 4. GitHub organization and repository namespace availability, 5. Package registry claims across NPM, PyPI, and Crates.io. Synthesize the final survival cohort into a markdown matrix containing: Rank, Name, Lexical Archetype, Syllable Count, Pronunciation Sigil, Trademark Clearance Probability, and Sovereign GitHub/DNS Recommendation."

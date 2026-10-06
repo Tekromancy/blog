@@ -2,7 +2,7 @@
 title: "The Kubernetes Crashloop Necromancer: Real-Time Pod Triage"
 description: "Scry the graveyard of dying, OOM-killed, and restart-looped Kubernetes containers across all namespaces in a single aligned terminal matrix."
 type: "shell"
-gofPattern: "Observer & Strategy (Behavioral)"
+gofPattern: "Observer (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Scrying the Graveyard of Dead Pods"
 formula: "kubectl get pods -A -o custom-columns='NS:.metadata.namespace,POD:.metadata.name,STATUS:.status.phase,RESTARTS:.status.containerStatuses[0].restartCount,REASON:.status.containerStatuses[0].state.waiting.reason,MESSAGE:.status.containerStatuses[0].state.waiting.message' --sort-by='.status.containerStatuses[0].restartCount' | grep -vE '<none>|Running|Completed' | tail -n 15"

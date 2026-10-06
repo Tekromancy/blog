@@ -2,7 +2,7 @@
 title: "The Self-Refining Reflection Ward: Tri-Phase Code Cleanser"
 description: "Compel neural models to audit their own hallucinated code through an adversarial inquisitor persona and an introspective closed-loop verification ritual."
 type: "prompt"
-gofPattern: "Observer, Memento & Strategy (Behavioral)"
+gofPattern: "Strategy (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Abjuration // Wards of Purification & Invariant Defense"
 formula: "[TARGET IMPLEMENTATION OBJECTIVE: DESCRIBE TASK] Execute the Tri-Phase Purification Ritual: PHASE 1: THE DRAFT CONJURATION - Write the initial solution fulfilling all functional requirements. Focus on algorithmic clarity. PHASE 2: THE INQUISITOR'S AUDIT - Step outside the author persona. Adopt the role of an adversarial Senior Security & Performance Auditor reviewing Phase 1. Interrogate the code against these five sacred invariants: 1. Memory Safety & Concurrency, 2. Asymptotic Complexity, 3. Edge Case Extremes, 4. Cryptographic & Injection Flaws, 5. Production Observability. PHASE 3: THE TRANSMUTED VESSEL - Rewrite the code incorporating all Phase 2 audit discoveries. Output the finalized, production-hardened artifact followed by a bulleted ledger of every vulnerability eradicated."

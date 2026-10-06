@@ -2,7 +2,7 @@
 title: "The Socket Ward: Ephemeral Port & Established Connection Auditor"
 description: "Inspect the kernel TCP socket table with ss, awk, and sed to detect outbound reverse shells, beaconing C2 implants, and database connection pool exhaustion."
 type: "shell"
-gofPattern: "Facade & Adapter (Structural)"
+gofPattern: "Facade (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Abjuration // Interrogating Kernel Socket Gateways"
 formula: "ss -tunap state established | awk 'NR>1 {print $5}' | sed -E 's/.*:([0-9]+)$/\\1/' | sort -n | uniq -c | sort -nr | awk '{printf \"[%5d sockets] -> Port %-6s\\n\", $1, $2}' | head -n 12"
