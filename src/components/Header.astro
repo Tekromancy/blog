@@ -151,11 +151,12 @@ const systemDropdownItems = [
             </a>
 
             <!-- 3. Combined Systems Dropdown (Linux, Kubernetes, AI/ML, SecOps) -->
-            <div class="relative group/dropdown" id="desktop-systems-dropdown-container">
+            <div class="relative group/dropdown flex items-center self-center" id="desktop-systems-dropdown-container">
               <button
                 type="button"
                 id="desktop-systems-menu-btn"
-                class="group relative inline-flex items-center transition-transform duration-150 hover:scale-105 focus:outline-none cursor-pointer"
+                class="group relative flex items-center justify-center p-0 m-0 border-0 bg-transparent transition-transform duration-150 hover:scale-105 focus:outline-none cursor-pointer leading-none"
+                style="margin: 0; padding: 0; border: none; background: transparent; line-height: 0;"
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Systems: Linux, Kubernetes, AI/ML, SecOps"
@@ -163,7 +164,7 @@ const systemDropdownItems = [
                 <img
                   src={menuSystemsSvg.src}
                   alt="Systems"
-                  class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover/dropdown:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)]"
+                  class="h-6 xl:h-7 w-auto object-contain transition-all drop-shadow-[0_0_4px_rgba(34,197,94,0.25)] group-hover/dropdown:drop-shadow-[0_0_14px_rgba(34,197,94,0.75)] block"
                 />
                 <span class="sr-only">Systems Menu</span>
               </button>
