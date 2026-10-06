@@ -56,7 +56,7 @@ const promptCount = allIncantations.filter((i) => i.data.type === "prompt").leng
 
 				<!-- Telemetry HUD Counter -->
 				<ScrollReveal client:load delay={0.25}>
-					<div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 mt-6 font-mono text-xs text-gray-400">
+					<div class="flex flex-wrap justify-center items-center gap-3 sm:gap-5 mt-6 font-mono text-xs text-gray-400">
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#22EE44]"></span>
 							<span>TOTAL SPELLS: <strong class="text-white">{allIncantations.length}</strong></span>
@@ -71,7 +71,11 @@ const promptCount = allIncantations.filter((i) => i.data.type === "prompt").leng
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#fbbf24]"></span>
-							<span>GOF LINEAGE: <strong class="text-white">100% MAPPED</strong></span>
+							<span>GOF DUAL MATRIX: <strong class="text-white">23/23 BOTH</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#ec4899]"></span>
+							<span>ARCANUM TRADITIONS: <strong class="text-white">12 SCHOOLS</strong></span>
 						</div>
 					</div>
 				</ScrollReveal>
@@ -115,19 +119,19 @@ const promptCount = allIncantations.filter((i) => i.data.type === "prompt").leng
 							class="inc-filter-btn active px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-bold"
 							style="background-color: #a855f7; color: #ffffff; border-color: #a855f7;"
 						>
-							All Incantations
+							All Incantations ({allIncantations.length})
 						</button>
 						<button
 							data-filter="shell"
 							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#38bdf8]/50 hover:text-white"
 						>
-							⚡ Shell One-Liners (grep|sed|cut|awk)
+							⚡ Shell One-Liners ({shellCount})
 						</button>
 						<button
 							data-filter="prompt"
 							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#c084fc]/50 hover:text-white"
 						>
-							🧠 AI Prompt Patterns
+							🧠 AI Prompt Patterns ({promptCount})
 						</button>
 						<button
 							data-filter="Creational"
@@ -146,6 +150,18 @@ const promptCount = allIncantations.filter((i) => i.data.type === "prompt").leng
 							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fbbf24]/50 hover:text-white"
 						>
 							GoF: Behavioral
+						</button>
+						<button
+							data-filter="Resilience"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#ec4899]/50 hover:text-white"
+						>
+							🛡️ Resilience
+						</button>
+						<button
+							data-filter="Architectural"
+							class="inc-filter-btn px-3.5 py-1.5 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#10b981]/50 hover:text-white"
+						>
+							🏛️ Architectural
 						</button>
 					</div>
 				</ScrollReveal>

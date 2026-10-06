@@ -24,7 +24,7 @@ const incantations = defineCollection({
 		description: z.string(),
 		type: z.enum(["shell", "prompt"]),
 		gofPattern: z.string(),
-		gofCategory: z.enum(["Creational", "Structural", "Behavioral"]),
+		gofCategory: z.enum(["Creational", "Structural", "Behavioral", "Architectural", "Resilience"]),
 		arcaneSchool: z.string(),
 		formula: z.string(),
 		tags: z.array(z.string()).default([]),
