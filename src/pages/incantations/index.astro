@@ -11,6 +11,29 @@ const allIncantations = (
 	await getCollection("incantations", ({ data }) => isDev || !data.draft)
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const cCount = allIncantations.filter((i) => i.data.type === "c").length;
+const powershellCount = allIncantations.filter((i) => i.data.type === "powershell").length;
+const vbaCount = allIncantations.filter((i) => i.data.type === "vba").length;
+const hackCount = allIncantations.filter((i) => i.data.type === "hack").length;
+const rakuCount = allIncantations.filter((i) => i.data.type === "raku").length;
+const mirandaCount = allIncantations.filter((i) => i.data.type === "miranda").length;
+const purescriptCount = allIncantations.filter((i) => i.data.type === "purescript").length;
+const twineCount = allIncantations.filter((i) => i.data.type === "twine").length;
+const leanCount = allIncantations.filter((i) => i.data.type === "lean").length;
+const isabelleCount = allIncantations.filter((i) => i.data.type === "isabelle").length;
+const alloyCount = allIncantations.filter((i) => i.data.type === "alloy").length;
+const cairoCount = allIncantations.filter((i) => i.data.type === "cairo").length;
+const motokoCount = allIncantations.filter((i) => i.data.type === "motoko").length;
+const plutusCount = allIncantations.filter((i) => i.data.type === "plutus").length;
+const michelsonCount = allIncantations.filter((i) => i.data.type === "michelson").length;
+const inform7Count = allIncantations.filter((i) => i.data.type === "inform7").length;
+const dhallCount = allIncantations.filter((i) => i.data.type === "dhall").length;
+const cueCount = allIncantations.filter((i) => i.data.type === "cue").length;
+const starlarkCount = allIncantations.filter((i) => i.data.type === "starlark").length;
+const jsonnetCount = allIncantations.filter((i) => i.data.type === "jsonnet").length;
+const chefCount = allIncantations.filter((i) => i.data.type === "chef").length;
+const chickenCount = allIncantations.filter((i) => i.data.type === "chicken").length;
+const trefungeCount = allIncantations.filter((i) => i.data.type === "trefunge").length;
 const shellCount = allIncantations.filter((i) => i.data.type === "shell").length;
 const scriptCount = allIncantations.filter((i) => i.data.type === "script").length;
 const promptCount = allIncantations.filter((i) => i.data.type === "prompt").length;
@@ -600,6 +623,167 @@ function getTypeMeta(type: string) {
 				formulaTag: "; scratch",
 				glow: "bg-[#4d97ff]",
 			};
+				case "c":
+			return {
+				badge: "⚙️ C RUNE",
+				badgeClass: "bg-[#555555]/15 border-[#555555]/50 text-[#555555]",
+				formulaTag: "$ C_EXEC",
+				glow: "bg-[#555555]",
+			};
+		case "powershell":
+			return {
+				badge: "⚙️ POWERSHELL RUNE",
+				badgeClass: "bg-[#012456]/15 border-[#012456]/50 text-[#012456]",
+				formulaTag: "$ POWERSHELL_EXEC",
+				glow: "bg-[#012456]",
+			};
+		case "vba":
+			return {
+				badge: "⚙️ VBA RUNE",
+				badgeClass: "bg-[#861D54]/15 border-[#861D54]/50 text-[#861D54]",
+				formulaTag: "$ VBA_EXEC",
+				glow: "bg-[#861D54]",
+			};
+		case "hack":
+			return {
+				badge: "⚙️ HACK RUNE",
+				badgeClass: "bg-[#875A7B]/15 border-[#875A7B]/50 text-[#875A7B]",
+				formulaTag: "$ HACK_EXEC",
+				glow: "bg-[#875A7B]",
+			};
+		case "raku":
+			return {
+				badge: "⚙️ RAKU RUNE",
+				badgeClass: "bg-[#0000FB]/15 border-[#0000FB]/50 text-[#0000FB]",
+				formulaTag: "$ RAKU_EXEC",
+				glow: "bg-[#0000FB]",
+			};
+		case "miranda":
+			return {
+				badge: "⚙️ MIRANDA RUNE",
+				badgeClass: "bg-[#005500]/15 border-[#005500]/50 text-[#005500]",
+				formulaTag: "$ MIRANDA_EXEC",
+				glow: "bg-[#005500]",
+			};
+		case "purescript":
+			return {
+				badge: "⚙️ PURESCRIPT RUNE",
+				badgeClass: "bg-[#1D222D]/15 border-[#1D222D]/50 text-[#1D222D]",
+				formulaTag: "$ PURESCRIPT_EXEC",
+				glow: "bg-[#1D222D]",
+			};
+		case "twine":
+			return {
+				badge: "⚙️ TWINE RUNE",
+				badgeClass: "bg-[#005E5E]/15 border-[#005E5E]/50 text-[#005E5E]",
+				formulaTag: "$ TWINE_EXEC",
+				glow: "bg-[#005E5E]",
+			};
+		case "lean":
+			return {
+				badge: "⚙️ LEAN RUNE",
+				badgeClass: "bg-[#555555]/15 border-[#555555]/50 text-[#555555]",
+				formulaTag: "$ LEAN_EXEC",
+				glow: "bg-[#555555]",
+			};
+		case "isabelle":
+			return {
+				badge: "⚙️ ISABELLE RUNE",
+				badgeClass: "bg-[#336699]/15 border-[#336699]/50 text-[#336699]",
+				formulaTag: "$ ISABELLE_EXEC",
+				glow: "bg-[#336699]",
+			};
+		case "alloy":
+			return {
+				badge: "⚙️ ALLOY RUNE",
+				badgeClass: "bg-[#B0B0B0]/15 border-[#B0B0B0]/50 text-[#B0B0B0]",
+				formulaTag: "$ ALLOY_EXEC",
+				glow: "bg-[#B0B0B0]",
+			};
+		case "cairo":
+			return {
+				badge: "⚙️ CAIRO RUNE",
+				badgeClass: "bg-[#FF4C29]/15 border-[#FF4C29]/50 text-[#FF4C29]",
+				formulaTag: "$ CAIRO_EXEC",
+				glow: "bg-[#FF4C29]",
+			};
+		case "motoko":
+			return {
+				badge: "⚙️ MOTOKO RUNE",
+				badgeClass: "bg-[#0088CC]/15 border-[#0088CC]/50 text-[#0088CC]",
+				formulaTag: "$ MOTOKO_EXEC",
+				glow: "bg-[#0088CC]",
+			};
+		case "plutus":
+			return {
+				badge: "⚙️ PLUTUS RUNE",
+				badgeClass: "bg-[#0033AD]/15 border-[#0033AD]/50 text-[#0033AD]",
+				formulaTag: "$ PLUTUS_EXEC",
+				glow: "bg-[#0033AD]",
+			};
+		case "michelson":
+			return {
+				badge: "⚙️ MICHELSON RUNE",
+				badgeClass: "bg-[#2B2B2B]/15 border-[#2B2B2B]/50 text-[#2B2B2B]",
+				formulaTag: "$ MICHELSON_EXEC",
+				glow: "bg-[#2B2B2B]",
+			};
+		case "inform7":
+			return {
+				badge: "⚙️ INFORM7 RUNE",
+				badgeClass: "bg-[#A52A2A]/15 border-[#A52A2A]/50 text-[#A52A2A]",
+				formulaTag: "$ INFORM7_EXEC",
+				glow: "bg-[#A52A2A]",
+			};
+		case "dhall":
+			return {
+				badge: "⚙️ DHALL RUNE",
+				badgeClass: "bg-[#A0A0A0]/15 border-[#A0A0A0]/50 text-[#A0A0A0]",
+				formulaTag: "$ DHALL_EXEC",
+				glow: "bg-[#A0A0A0]",
+			};
+		case "cue":
+			return {
+				badge: "⚙️ CUE RUNE",
+				badgeClass: "bg-[#5886E1]/15 border-[#5886E1]/50 text-[#5886E1]",
+				formulaTag: "$ CUE_EXEC",
+				glow: "bg-[#5886E1]",
+			};
+		case "starlark":
+			return {
+				badge: "⚙️ STARLARK RUNE",
+				badgeClass: "bg-[#4B8BBE]/15 border-[#4B8BBE]/50 text-[#4B8BBE]",
+				formulaTag: "$ STARLARK_EXEC",
+				glow: "bg-[#4B8BBE]",
+			};
+		case "jsonnet":
+			return {
+				badge: "⚙️ JSONNET RUNE",
+				badgeClass: "bg-[#006400]/15 border-[#006400]/50 text-[#006400]",
+				formulaTag: "$ JSONNET_EXEC",
+				glow: "bg-[#006400]",
+			};
+		case "chef":
+			return {
+				badge: "⚙️ CHEF RUNE",
+				badgeClass: "bg-[#F38C00]/15 border-[#F38C00]/50 text-[#F38C00]",
+				formulaTag: "$ CHEF_EXEC",
+				glow: "bg-[#F38C00]",
+			};
+		case "chicken":
+			return {
+				badge: "⚙️ CHICKEN RUNE",
+				badgeClass: "bg-[#FFCC00]/15 border-[#FFCC00]/50 text-[#FFCC00]",
+				formulaTag: "$ CHICKEN_EXEC",
+				glow: "bg-[#FFCC00]",
+			};
+		case "trefunge":
+			return {
+				badge: "⚙️ TREFUNGE RUNE",
+				badgeClass: "bg-[#7B68EE]/15 border-[#7B68EE]/50 text-[#7B68EE]",
+				formulaTag: "$ TREFUNGE_EXEC",
+				glow: "bg-[#7B68EE]",
+			};
 		default:
 			return {
 				badge: "✨ ARCANUM RUNE",
@@ -858,6 +1042,144 @@ function getTypeMeta(type: string) {
 							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#10b981]/50 hover:text-white"
 						>
 							🏛️ Architectural
+						</button>
+						<button
+							data-filter="c"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#555555]/50 hover:text-white"
+						>
+							C ({cCount})
+						</button>
+						<button
+							data-filter="powershell"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#012456]/50 hover:text-white"
+						>
+							POWERSHELL ({powershellCount})
+						</button>
+						<button
+							data-filter="vba"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#861D54]/50 hover:text-white"
+						>
+							VBA ({vbaCount})
+						</button>
+						<button
+							data-filter="hack"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#875A7B]/50 hover:text-white"
+						>
+							HACK ({hackCount})
+						</button>
+						<button
+							data-filter="raku"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#0000FB]/50 hover:text-white"
+						>
+							RAKU ({rakuCount})
+						</button>
+						<button
+							data-filter="miranda"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#005500]/50 hover:text-white"
+						>
+							MIRANDA ({mirandaCount})
+						</button>
+						<button
+							data-filter="purescript"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#1D222D]/50 hover:text-white"
+						>
+							PURESCRIPT ({purescriptCount})
+						</button>
+						<button
+							data-filter="twine"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#005E5E]/50 hover:text-white"
+						>
+							TWINE ({twineCount})
+						</button>
+						<button
+							data-filter="lean"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#555555]/50 hover:text-white"
+						>
+							LEAN ({leanCount})
+						</button>
+						<button
+							data-filter="isabelle"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#336699]/50 hover:text-white"
+						>
+							ISABELLE ({isabelleCount})
+						</button>
+						<button
+							data-filter="alloy"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#B0B0B0]/50 hover:text-white"
+						>
+							ALLOY ({alloyCount})
+						</button>
+						<button
+							data-filter="cairo"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#FF4C29]/50 hover:text-white"
+						>
+							CAIRO ({cairoCount})
+						</button>
+						<button
+							data-filter="motoko"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#0088CC]/50 hover:text-white"
+						>
+							MOTOKO ({motokoCount})
+						</button>
+						<button
+							data-filter="plutus"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#0033AD]/50 hover:text-white"
+						>
+							PLUTUS ({plutusCount})
+						</button>
+						<button
+							data-filter="michelson"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#2B2B2B]/50 hover:text-white"
+						>
+							MICHELSON ({michelsonCount})
+						</button>
+						<button
+							data-filter="inform7"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#A52A2A]/50 hover:text-white"
+						>
+							INFORM7 ({inform7Count})
+						</button>
+						<button
+							data-filter="dhall"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#A0A0A0]/50 hover:text-white"
+						>
+							DHALL ({dhallCount})
+						</button>
+						<button
+							data-filter="cue"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#5886E1]/50 hover:text-white"
+						>
+							CUE ({cueCount})
+						</button>
+						<button
+							data-filter="starlark"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#4B8BBE]/50 hover:text-white"
+						>
+							STARLARK ({starlarkCount})
+						</button>
+						<button
+							data-filter="jsonnet"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#006400]/50 hover:text-white"
+						>
+							JSONNET ({jsonnetCount})
+						</button>
+						<button
+							data-filter="chef"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#F38C00]/50 hover:text-white"
+						>
+							CHEF ({chefCount})
+						</button>
+						<button
+							data-filter="chicken"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#FFCC00]/50 hover:text-white"
+						>
+							CHICKEN ({chickenCount})
+						</button>
+						<button
+							data-filter="trefunge"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#7B68EE]/50 hover:text-white"
+						>
+							TREFUNGE ({trefungeCount})
 						</button>
 					</div>
 				</ScrollReveal>
