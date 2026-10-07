@@ -18,6 +18,8 @@ const pythonCount = allIncantations.filter((i) => i.data.type === "python").leng
 const rustCount = allIncantations.filter((i) => i.data.type === "rust").length;
 const perlCount = allIncantations.filter((i) => i.data.type === "perl").length;
 const jsCount = allIncantations.filter((i) => i.data.type === "javascript").length;
+const cppCount = allIncantations.filter((i) => i.data.type === "cpp").length;
+const goCount = allIncantations.filter((i) => i.data.type === "go").length;
 const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
 
 function getTypeMeta(type: string) {
@@ -70,6 +72,20 @@ function getTypeMeta(type: string) {
 				badgeClass: "bg-[#fde047]/15 border-[#fde047]/50 text-[#fde047]",
 				formulaTag: "// node --harmony",
 				glow: "bg-[#fde047]",
+			};
+		case "cpp":
+			return {
+				badge: "⚙️ C++ SPELL",
+				badgeClass: "bg-[#f43f5e]/15 border-[#f43f5e]/50 text-[#f43f5e]",
+				formulaTag: "// g++ -std=c++20 spell.cpp",
+				glow: "bg-[#f43f5e]",
+			};
+		case "go":
+			return {
+				badge: "🐹 GO RUNE",
+				badgeClass: "bg-[#06b6d4]/15 border-[#06b6d4]/50 text-[#06b6d4]",
+				formulaTag: "// go run main.go",
+				glow: "bg-[#06b6d4]",
 			};
 		default:
 			return {
@@ -134,7 +150,7 @@ function getTypeMeta(type: string) {
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#eab308]"></span>
-							<span>POLYGLOT CODE: <strong class="text-white">{pythonCount + rustCount + perlCount + jsCount}</strong></span>
+							<span>POLYGLOT CODE: <strong class="text-white">{pythonCount + rustCount + perlCount + jsCount + cppCount + goCount}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#c084fc]"></span>
@@ -229,6 +245,18 @@ function getTypeMeta(type: string) {
 							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fde047]/50 hover:text-white"
 						>
 							🟨 JavaScript ({jsCount})
+						</button>
+						<button
+							data-filter="cpp"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#f43f5e]/50 hover:text-white"
+						>
+							⚙️ C++ ({cppCount})
+						</button>
+						<button
+							data-filter="go"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#06b6d4]/50 hover:text-white"
+						>
+							🐹 Go ({goCount})
 						</button>
 						<span class="hidden md:inline-block w-px h-6 bg-white/10 self-center mx-1"></span>
 						<button
