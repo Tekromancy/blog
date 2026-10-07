@@ -22,7 +22,7 @@ const incantations = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		type: z.enum(["shell", "prompt", "script", "python", "rust", "perl", "javascript", "cpp", "go"]),
+		type: z.enum(["shell", "prompt", "script", "python", "rust", "perl", "javascript", "cpp", "go", "lisp", "haskell", "ruby", "assembly", "elixir", "solidity", "zig"]),
 		gofPattern: z.string(),
 		gofCategory: z.enum(["Creational", "Structural", "Behavioral", "Architectural", "Resilience"]),
 		arcaneSchool: z.string(),

@@ -20,6 +20,13 @@ const perlCount = allIncantations.filter((i) => i.data.type === "perl").length;
 const jsCount = allIncantations.filter((i) => i.data.type === "javascript").length;
 const cppCount = allIncantations.filter((i) => i.data.type === "cpp").length;
 const goCount = allIncantations.filter((i) => i.data.type === "go").length;
+const lispCount = allIncantations.filter((i) => i.data.type === "lisp").length;
+const haskellCount = allIncantations.filter((i) => i.data.type === "haskell").length;
+const rubyCount = allIncantations.filter((i) => i.data.type === "ruby").length;
+const asmCount = allIncantations.filter((i) => i.data.type === "assembly").length;
+const elixirCount = allIncantations.filter((i) => i.data.type === "elixir").length;
+const solCount = allIncantations.filter((i) => i.data.type === "solidity").length;
+const zigCount = allIncantations.filter((i) => i.data.type === "zig").length;
 const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
 
 function getTypeMeta(type: string) {
@@ -86,6 +93,55 @@ function getTypeMeta(type: string) {
 				badgeClass: "bg-[#06b6d4]/15 border-[#06b6d4]/50 text-[#06b6d4]",
 				formulaTag: "// go run main.go",
 				glow: "bg-[#06b6d4]",
+			};
+		case "lisp":
+			return {
+				badge: "((🔮)) LISP RUNES",
+				badgeClass: "bg-[#8b5cf6]/15 border-[#8b5cf6]/50 text-[#8b5cf6]",
+				formulaTag: ";; sbcl --script",
+				glow: "bg-[#8b5cf6]",
+			};
+		case "haskell":
+			return {
+				badge: "λ HASKELL SIGILS",
+				badgeClass: "bg-[#67e8f9]/15 border-[#67e8f9]/50 text-[#67e8f9]",
+				formulaTag: "-- runhaskell",
+				glow: "bg-[#67e8f9]",
+			};
+		case "ruby":
+			return {
+				badge: "♦️ RUBY ENCHANTMENTS",
+				badgeClass: "bg-[#ef4444]/15 border-[#ef4444]/50 text-[#ef4444]",
+				formulaTag: "# ruby -W0",
+				glow: "bg-[#ef4444]",
+			};
+		case "assembly":
+			return {
+				badge: "⚙️ BARE METAL RUNES",
+				badgeClass: "bg-[#94a3b8]/15 border-[#94a3b8]/50 text-[#94a3b8]",
+				formulaTag: "; nasm -f elf64",
+				glow: "bg-[#94a3b8]",
+			};
+		case "elixir":
+			return {
+				badge: "💧 ELIXIR ALCHEMY",
+				badgeClass: "bg-[#60a5fa]/15 border-[#60a5fa]/50 text-[#60a5fa]",
+				formulaTag: "# elixir",
+				glow: "bg-[#60a5fa]",
+			};
+		case "solidity":
+			return {
+				badge: "⛓️ SOLIDITY PACTS",
+				badgeClass: "bg-[#64748b]/15 border-[#64748b]/50 text-[#64748b]",
+				formulaTag: "// solc --bin",
+				glow: "bg-[#64748b]",
+			};
+		case "zig":
+			return {
+				badge: "⚡ ZIG ALCHEMY",
+				badgeClass: "bg-[#fde047]/15 border-[#fde047]/50 text-[#fde047]",
+				formulaTag: "// zig run",
+				glow: "bg-[#fde047]",
 			};
 		default:
 			return {
@@ -155,6 +211,10 @@ function getTypeMeta(type: string) {
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#c084fc]"></span>
 							<span>AI PROMPT PATTERNS: <strong class="text-white">{promptCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#fde047]"></span>
+							<span>ESOTERIC RUNES: <strong class="text-white">{lispCount + haskellCount + rubyCount + asmCount + elixirCount + solCount + zigCount}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#ec4899]"></span>
@@ -257,6 +317,48 @@ function getTypeMeta(type: string) {
 							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#06b6d4]/50 hover:text-white"
 						>
 							🐹 Go ({goCount})
+						</button>
+						<button
+							data-filter="lisp"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#8b5cf6]/50 hover:text-white"
+						>
+							((🔮)) Lisp ({lispCount})
+						</button>
+						<button
+							data-filter="haskell"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#67e8f9]/50 hover:text-white"
+						>
+							λ Haskell ({haskellCount})
+						</button>
+						<button
+							data-filter="ruby"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#ef4444]/50 hover:text-white"
+						>
+							♦️ Ruby ({rubyCount})
+						</button>
+						<button
+							data-filter="assembly"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#94a3b8]/50 hover:text-white"
+						>
+							⚙️ Assembly ({asmCount})
+						</button>
+						<button
+							data-filter="elixir"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#60a5fa]/50 hover:text-white"
+						>
+							💧 Elixir ({elixirCount})
+						</button>
+						<button
+							data-filter="solidity"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#64748b]/50 hover:text-white"
+						>
+							⛓️ Solidity ({solCount})
+						</button>
+						<button
+							data-filter="zig"
+							class="inc-filter-btn px-3 py-1 rounded-lg border transition-all cursor-pointer font-medium bg-white/5 border-white/10 text-gray-300 hover:border-[#fde047]/50 hover:text-white"
+						>
+							⚡ Zig ({zigCount})
 						</button>
 						<span class="hidden md:inline-block w-px h-6 bg-white/10 self-center mx-1"></span>
 						<button
