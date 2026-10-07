@@ -12,6 +12,14 @@ import { SITE } from "../config/site.mjs";
   noindex={true}
   nofollow={true}
 >
+  <script is:inline>
+    var path = window.location.pathname;
+    if (path.startsWith('/incantations/')) {
+      window.location.replace('https://incantations.tekromancy.com' + path.replace(/^\/incantations/, ''));
+    } else if (path === '/incantations' || path === '/incantations/') {
+      window.location.replace('https://incantations.tekromancy.com/');
+    }
+  </script>
   <Header />
 
   <main
