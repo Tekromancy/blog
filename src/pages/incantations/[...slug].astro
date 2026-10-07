@@ -196,6 +196,76 @@ function getTypeMeta(type: string) {
 			return { badge: "🐙 ABYSSAL RUNES", badgeClass: "bg-[#ef4444]/15 border-[#ef4444]/50 text-[#ef4444]", formulaTag: "[>+<-]", glow: "bg-[#ef4444]" };
 		case "erlang":
 			return { badge: "☎️ ERLANG HIVE", badgeClass: "bg-[#a855f7]/15 border-[#a855f7]/50 text-[#a855f7]", formulaTag: "% erl -noshell", glow: "bg-[#a855f7]" };
+		case "clojure":
+			return {
+				badge: "🟢 CLOJURE GLYPHS",
+				badgeClass: "bg-[#84cc16]/15 border-[#84cc16]/50 text-[#84cc16]",
+				formulaTag: ";; clj -M",
+				glow: "bg-[#84cc16]",
+			};
+		case "scala":
+			return {
+				badge: "🔴 SCALA ALCHEMY",
+				badgeClass: "bg-[#dc2626]/15 border-[#dc2626]/50 text-[#dc2626]",
+				formulaTag: "// scala",
+				glow: "bg-[#dc2626]",
+			};
+		case "swift":
+			return {
+				badge: "🕊️ SWIFT ENCHANTMENTS",
+				badgeClass: "bg-[#f97316]/15 border-[#f97316]/50 text-[#f97316]",
+				formulaTag: "// swift run",
+				glow: "bg-[#f97316]",
+			};
+		case "kotlin":
+			return {
+				badge: "🟣 KOTLIN HEXES",
+				badgeClass: "bg-[#a855f7]/15 border-[#a855f7]/50 text-[#a855f7]",
+				formulaTag: "// kotlinc -script",
+				glow: "bg-[#a855f7]",
+			};
+		case "algol":
+			return {
+				badge: "📜 ALGOL SCROLLS",
+				badgeClass: "bg-[#d97706]/15 border-[#d97706]/50 text-[#d97706]",
+				formulaTag: "COMMENT Algol 68",
+				glow: "bg-[#d97706]",
+			};
+		case "b":
+			return {
+				badge: "🧱 B PRECURSOR",
+				badgeClass: "bg-[#475569]/15 border-[#475569]/50 text-[#475569]",
+				formulaTag: "/* b compile */",
+				glow: "bg-[#475569]",
+			};
+		case "pascal":
+			return {
+				badge: "📐 PASCAL WARDS",
+				badgeClass: "bg-[#0ea5e9]/15 border-[#0ea5e9]/50 text-[#0ea5e9]",
+				formulaTag: "{ fpc }",
+				glow: "bg-[#0ea5e9]",
+			};
+		case "ocaml":
+			return {
+				badge: "🐪 OCAML METAMAGIC",
+				badgeClass: "bg-[#f59e0b]/15 border-[#f59e0b]/50 text-[#f59e0b]",
+				formulaTag: "(* ocamlopt *)",
+				glow: "bg-[#f59e0b]",
+			};
+		case "fsharp":
+			return {
+				badge: "💠 F# SIGILS",
+				badgeClass: "bg-[#3b82f6]/15 border-[#3b82f6]/50 text-[#3b82f6]",
+				formulaTag: "// dotnet fsi",
+				glow: "bg-[#3b82f6]",
+			};
+		case "dart":
+			return {
+				badge: "🎯 DART SPELLS",
+				badgeClass: "bg-[#06b6d4]/15 border-[#06b6d4]/50 text-[#06b6d4]",
+				formulaTag: "// dart run",
+				glow: "bg-[#06b6d4]",
+			};
 		default:
 			return {
 				badge: "✨ ARCANUM RUNE",
