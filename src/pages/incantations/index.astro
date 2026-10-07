@@ -26,6 +26,13 @@ const rubyCount = allIncantations.filter((i) => i.data.type === "ruby").length;
 const asmCount = allIncantations.filter((i) => i.data.type === "assembly").length;
 const elixirCount = allIncantations.filter((i) => i.data.type === "elixir").length;
 const solCount = allIncantations.filter((i) => i.data.type === "solidity").length;
+const juliaCount = allIncantations.filter((i) => i.data.type === "julia").length;
+const wasmCount = allIncantations.filter((i) => i.data.type === "wasm").length;
+const javaCount = allIncantations.filter((i) => i.data.type === "java").length;
+const cobolCount = allIncantations.filter((i) => i.data.type === "cobol").length;
+const fortranCount = allIncantations.filter((i) => i.data.type === "fortran").length;
+const aplCount = allIncantations.filter((i) => i.data.type === "apl").length;
+const prologCount = allIncantations.filter((i) => i.data.type === "prolog").length;
 const zigCount = allIncantations.filter((i) => i.data.type === "zig").length;
 const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
 
@@ -136,6 +143,55 @@ function getTypeMeta(type: string) {
 				formulaTag: "// solc --bin",
 				glow: "bg-[#64748b]",
 			};
+		case "prolog":
+			return {
+				badge: "🦉 PROLOG ORACLE",
+				badgeClass: "bg-[#14b8a6]/15 border-[#14b8a6]/50 text-[#14b8a6]",
+				formulaTag: "% swipl -q -s",
+				glow: "bg-[#14b8a6]",
+			};
+		case "apl":
+			return {
+				badge: "👽 APL GLYPHS",
+				badgeClass: "bg-[#a3e635]/15 border-[#a3e635]/50 text-[#a3e635]",
+				formulaTag: "⍝ Dyalog APL",
+				glow: "bg-[#a3e635]",
+			};
+		case "fortran":
+			return {
+				badge: "🧮 FORTRAN MONOLITH",
+				badgeClass: "bg-[#8b5cf6]/15 border-[#8b5cf6]/50 text-[#8b5cf6]",
+				formulaTag: "! gfortran",
+				glow: "bg-[#8b5cf6]",
+			};
+		case "cobol":
+			return {
+				badge: "💀 COBOL NECROMANCY",
+				badgeClass: "bg-[#475569]/15 border-[#475569]/50 text-[#475569]",
+				formulaTag: "*> cobc -x",
+				glow: "bg-[#475569]",
+			};
+		case "java":
+			return {
+				badge: "☕ JAVA CATHEDRAL",
+				badgeClass: "bg-[#f43f5e]/15 border-[#f43f5e]/50 text-[#f43f5e]",
+				formulaTag: "// javac & java",
+				glow: "bg-[#f43f5e]",
+			};
+		case "wasm":
+			return {
+				badge: "🕸️ WASM HOMUNCULUS",
+				badgeClass: "bg-[#6366f1]/15 border-[#6366f1]/50 text-[#6366f1]",
+				formulaTag: ";; wat2wasm",
+				glow: "bg-[#6366f1]",
+			};
+		case "julia":
+			return {
+				badge: "🔮 JULIA ASTROMANCY",
+				badgeClass: "bg-[#d946ef]/15 border-[#d946ef]/50 text-[#d946ef]",
+				formulaTag: "# julia",
+				glow: "bg-[#d946ef]",
+			};
 		case "zig":
 			return {
 				badge: "⚡ ZIG ALCHEMY",
@@ -211,6 +267,9 @@ function getTypeMeta(type: string) {
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#c084fc]"></span>
 							<span>AI PROMPT PATTERNS: <strong class="text-white">{promptCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span>PRIMORDIAL CODEX: <strong class="text-white">{prologCount + aplCount + fortranCount + cobolCount + javaCount + wasmCount + juliaCount}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#fde047]"></span>
