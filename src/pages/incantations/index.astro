@@ -1330,10 +1330,15 @@ function getTypeMeta(type: string) {
 						gof.indexOf(q) !== -1 || 
 						tags.indexOf(q) !== -1;
 
+					var wrapper = card.closest('astro-island');
+					if (!wrapper) wrapper = card.parentElement;
+
 					if (matchesFilter && matchesQuery) {
+						if (wrapper) wrapper.style.display = "";
 						card.style.display = "flex";
 						visibleCount++;
 					} else {
+						if (wrapper) wrapper.style.display = "none";
 						card.style.display = "none";
 					}
 				});
