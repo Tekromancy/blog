@@ -4,8 +4,8 @@ description: Defining a family of combat spells, encapsulating each, and making 
 type: cpp
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   #include <memory>
   class CombatSpell {
   public: virtual ~CombatSpell() = default; virtual void Cast() = 0;

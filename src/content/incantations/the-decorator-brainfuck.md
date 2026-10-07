@@ -4,8 +4,8 @@ description: Grafting new appendages onto the base entity.
 type: brainfuck
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Biomancy
-formula: |
+arcaneSchool: "Transmutation // Biomancy"
+formula: |2
   ++++        [Base Entity]
   >++<        [Grafting an extra arm]
   [->+<]      [Merging the graft]

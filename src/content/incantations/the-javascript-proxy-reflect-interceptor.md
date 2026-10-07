@@ -5,7 +5,7 @@ type: "javascript"
 gofPattern: "Proxy Pattern (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Illusion // The Mirage Reflection Mirror"
-formula: |
+formula: |2
   const withTelemetry = (target) => new Proxy(target, {
     get(obj, prop, receiver) {
       console.log(`[MIRAGE: READ] Accessed property: ${String(prop)}`);

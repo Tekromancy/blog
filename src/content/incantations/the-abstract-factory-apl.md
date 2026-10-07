@@ -4,8 +4,8 @@ description: Conjure arrays of alien artifacts using interchangeable glyph matri
 type: apl
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Matrix-Weaving
-formula: |
+arcaneSchool: "Conjuration // Matrix-Weaving"
+formula: |2
   :Namespace AlienTech
       :Class AbstractFactory
           ∇ R←CreateWeapon
@@ -17,7 +17,7 @@ formula: |
             R←'?'
           ∇
       :EndClass
-      
+
       :Class ZetaRetculiFactory : AbstractFactory
           ∇ R←CreateWeapon
             :Access Public Shared
@@ -28,7 +28,7 @@ formula: |
             R←'Saucer ⍟'
           ∇
       :EndClass
-      
+
       :Class PleiadianFactory : AbstractFactory
           ∇ R←CreateWeapon
             :Access Public Shared

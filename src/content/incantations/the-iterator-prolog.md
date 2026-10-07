@@ -4,13 +4,13 @@ description: Traverse collections of planar entities using Prolog's built-in bac
 type: prolog
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Planarmancy
-formula: |
+arcaneSchool: "Divination // Planarmancy"
+formula: |2
   % A collection of knowledge
   astral_entity(spirit_of_wisdom).
   astral_entity(echo_of_time).
   astral_entity(void_walker).
-  
+
   % Iteration in Prolog is inherently handled by backtracking
   % To iterate over all entities and perform an action:
   commune_with_all :-
@@ -18,7 +18,7 @@ formula: |
       format('Communing with ~w...', [Entity]), nl,
       fail. % Force backtrack to find the next
   commune_with_all. % Succeed when no more entities exist
-  
+
   % ?- commune_with_all.
   % Communing with spirit_of_wisdom...
   % Communing with echo_of_time...

@@ -4,8 +4,8 @@ description: "Traversing the hidden nodes of a magical network without exposing 
 type: lua
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   local function leylineIterator(nodes)
     local index = 0
     local count = #nodes

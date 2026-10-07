@@ -4,20 +4,20 @@ description: Sending an ethereal auditor to extract logic from a hierarchy of bo
 type: assembly
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ethereal Auditing
-formula: |
+arcaneSchool: "Necromancy // Ethereal Auditing"
+formula: |2
   section .text
       global visit_skeleton
       global visit_zombie
-  
+
   visit_skeleton:
       ; Extract bone density metrics
       ret
-      
+
   visit_zombie:
       ; Extract decay rate metrics
       ret
-  
+
   ; The structure accepts the visitor and dispatches to the right method
   accept_visitor:
       ; Assume structure type in RDI
@@ -26,10 +26,10 @@ formula: |
       cmp rdi, 2 ; Type Zombie
       je .call_zombie
       ret
-      
+
   .call_skeleton:
       jmp visit_skeleton
-      
+
   .call_zombie:
       jmp visit_zombie
 tags: [visitor, assembly, behavioral, necromancy]

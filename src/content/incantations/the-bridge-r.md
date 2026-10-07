@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Bridge"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Dimension Splitting"
-formula: |
+formula: |2
   library(R6)
 
   # Implementor

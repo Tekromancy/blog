@@ -4,42 +4,42 @@ description: Deploy interchangeable algorithms for orbital bombardment.
 type: apl
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics-Matrix
-formula: |
+arcaneSchool: "Evocation // Tactics-Matrix"
+formula: |2
   :Class BombardmentStrategy
       ∇ Execute Target
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class PrecisionStrike : BombardmentStrategy
       ∇ Execute Target
         :Access Public
         ⎕ ← 'Piercing shield of ', Target, ' with plasma beam ⍋'
       ∇
   :EndClass
-  
+
   :Class CarpetBombing : BombardmentStrategy
       ∇ Execute Target
         :Access Public
         ⎕ ← 'Glassing the surface of ', Target, ' with dark matter ⍒'
       ∇
   :EndClass
-  
+
   :Class Dreadnought
       :Field Private Tactic
-      
+
       ∇ Make Strat
         :Access Public
         :Implements Constructor
         Tactic ← Strat
       ∇
-      
+
       ∇ SetStrategy Strat
         :Access Public
         Tactic ← Strat
       ∇
-      
+
       ∇ Assault Target
         :Access Public
         Tactic.Execute Target

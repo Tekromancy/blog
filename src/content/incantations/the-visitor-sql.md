@@ -4,8 +4,8 @@ description: Injecting operations that traverse a collection of entities via agg
 type: sql
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Global Accumulation
-formula: |
+arcaneSchool: "Divination // Global Accumulation"
+formula: |2
   CREATE TABLE arcane_nodes (
       node_id SERIAL PRIMARY KEY,
       energy_type VARCHAR(50),

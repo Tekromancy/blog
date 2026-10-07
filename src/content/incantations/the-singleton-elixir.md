@@ -4,35 +4,35 @@ description: Maintain a singular, omniscient presence within the telepathic netw
 type: elixir
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Enchantment // Presence
-formula: |
+arcaneSchool: "Enchantment // Presence"
+formula: |2
   defmodule Tekromancy.OmniMind do
     use GenServer
-  
+
     # Client API
     def start_link(opts \\ []) do
       GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
     end
-  
+
     def whisper(thought) do
       GenServer.cast(__MODULE__, {:whisper, thought})
     end
-  
+
     def scry_thoughts do
       GenServer.call(__MODULE__, :scry)
     end
-  
+
     # Server Callbacks
     @impl true
     def init(:ok) do
       {:ok, []}
     end
-  
+
     @impl true
     def handle_cast({:whisper, thought}, state) do
       {:noreply, [thought | state]}
     end
-  
+
     @impl true
     def handle_call(:scry, _from, state) do
       {:reply, state, state}

@@ -4,10 +4,10 @@ description: "Decouple an arcane abstraction from its dimensional implementation
 type: zig
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Dimensional Tether
-formula: |
+arcaneSchool: "Conjuration // Dimensional Tether"
+formula: |2
   const std = @import("std");
-  
+
   pub const SpellEngine = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -15,10 +15,10 @@ formula: |
       };
       pub fn ignite(self: *SpellEngine) void { self.vtable.ignite(self); }
   };
-  
+
   pub const Spell = struct {
       engine: *SpellEngine,
-      
+
       pub fn cast(self: *Spell) void {
           self.engine.ignite();
       }

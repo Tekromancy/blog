@@ -4,37 +4,37 @@ description: Decouple the alien propulsion abstract interface from its arcane ph
 type: apl
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Dimensional-Bridging
-formula: |
+arcaneSchool: "Conjuration // Dimensional-Bridging"
+formula: |2
   :Class PropulsionImp
       ∇ Engage
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class WarpDrive : PropulsionImp
       ∇ Engage
         :Access Public
         ⎕ ← 'Folding space... ⌿⍀'
       ∇
   :EndClass
-  
+
   :Class HyperDrive : PropulsionImp
       ∇ Engage
         :Access Public
         ⎕ ← 'Piercing dimensions... ⍝⍨'
       ∇
   :EndClass
-  
+
   :Class AlienVessel
       :Field Public Engine ← ⍬
-      
+
       ∇ Make Prop
         :Access Public
         :Implements Constructor
         Engine ← Prop
       ∇
-      
+
       ∇ Fly
         :Access Public
         Engine.Engage

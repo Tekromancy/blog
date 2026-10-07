@@ -4,8 +4,8 @@ description: Provide a surrogate or placeholder for another object to control ac
 type: rust
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Access-control
-formula: |
+arcaneSchool: "Abjuration // Access-control"
+formula: |2
   pub trait Vault { fn withdraw(&self, amount: u32); }
 
   pub struct RealVault;

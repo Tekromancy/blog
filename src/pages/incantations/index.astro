@@ -54,6 +54,37 @@ const pascalCount = allIncantations.filter((i) => i.data.type === "pascal").leng
 const ocamlCount = allIncantations.filter((i) => i.data.type === "ocaml").length;
 const fsharpCount = allIncantations.filter((i) => i.data.type === "fsharp").length;
 const dartCount = allIncantations.filter((i) => i.data.type === "dart").length;
+const actionscriptCount = allIncantations.filter((i) => i.data.type === "actionscript").length;
+const coldfusionCount = allIncantations.filter((i) => i.data.type === "coldfusion").length;
+const delphiCount = allIncantations.filter((i) => i.data.type === "delphi").length;
+const vbCount = allIncantations.filter((i) => i.data.type === "vb").length;
+const logoCount = allIncantations.filter((i) => i.data.type === "logo").length;
+const foxproCount = allIncantations.filter((i) => i.data.type === "foxpro").length;
+const pliCount = allIncantations.filter((i) => i.data.type === "pli").length;
+const snobolCount = allIncantations.filter((i) => i.data.type === "snobol").length;
+const simulaCount = allIncantations.filter((i) => i.data.type === "simula").length;
+const tclCount = allIncantations.filter((i) => i.data.type === "tcl").length;
+const nimCount = allIncantations.filter((i) => i.data.type === "nim").length;
+const crystalCount = allIncantations.filter((i) => i.data.type === "crystal").length;
+const vCount = allIncantations.filter((i) => i.data.type === "v").length;
+const dCount = allIncantations.filter((i) => i.data.type === "d").length;
+const racketCount = allIncantations.filter((i) => i.data.type === "racket").length;
+const schemeCount = allIncantations.filter((i) => i.data.type === "scheme").length;
+const gleamCount = allIncantations.filter((i) => i.data.type === "gleam").length;
+const ponyCount = allIncantations.filter((i) => i.data.type === "pony").length;
+const reasonCount = allIncantations.filter((i) => i.data.type === "reason").length;
+const haxeCount = allIncantations.filter((i) => i.data.type === "haxe").length;
+const csharpCount = allIncantations.filter((i) => i.data.type === "csharp").length;
+const objcCount = allIncantations.filter((i) => i.data.type === "objc").length;
+const matlabCount = allIncantations.filter((i) => i.data.type === "matlab").length;
+const mathematicaCount = allIncantations.filter((i) => i.data.type === "mathematica").length;
+const groovyCount = allIncantations.filter((i) => i.data.type === "groovy").length;
+const eiffelCount = allIncantations.filter((i) => i.data.type === "eiffel").length;
+const abapCount = allIncantations.filter((i) => i.data.type === "abap").length;
+const rpgCount = allIncantations.filter((i) => i.data.type === "rpg").length;
+const labviewCount = allIncantations.filter((i) => i.data.type === "labview").length;
+const scratchCount = allIncantations.filter((i) => i.data.type === "scratch").length;
+
 const schoolsCount = new Set(allIncantations.map((i) => i.data.arcaneSchool.split("//")[0].trim())).size;
 
 function getTypeMeta(type: string) {
@@ -308,6 +339,216 @@ function getTypeMeta(type: string) {
 				badgeClass: "bg-[#06b6d4]/15 border-[#06b6d4]/50 text-[#06b6d4]",
 				formulaTag: "// dart run",
 				glow: "bg-[#06b6d4]",
+			};
+		case "actionscript":
+			return {
+				badge: "🎞️ ACTIONSCRIPT WARD",
+				badgeClass: "bg-[#f50f22]/15 border-[#f50f22]/50 text-[#f50f22]",
+				formulaTag: "// asc",
+				glow: "bg-[#f50f22]",
+			};
+		case "coldfusion":
+			return {
+				badge: "❄️ COLDFUSION TAG",
+				badgeClass: "bg-[#2c99d4]/15 border-[#2c99d4]/50 text-[#2c99d4]",
+				formulaTag: "<!-- cf -->",
+				glow: "bg-[#2c99d4]",
+			};
+		case "delphi":
+			return {
+				badge: "🏛️ DELPHI ORACLE",
+				badgeClass: "bg-[#ee1f35]/15 border-[#ee1f35]/50 text-[#ee1f35]",
+				formulaTag: "{ dcc32 }",
+				glow: "bg-[#ee1f35]",
+			};
+		case "vb":
+			return {
+				badge: "🖥️ VB CURSE",
+				badgeClass: "bg-[#00539c]/15 border-[#00539c]/50 text-[#00539c]",
+				formulaTag: "' vbc",
+				glow: "bg-[#00539c]",
+			};
+		case "logo":
+			return {
+				badge: "🐢 LOGO DIVINATION",
+				badgeClass: "bg-[#ff9900]/15 border-[#ff9900]/50 text-[#ff9900]",
+				formulaTag: "; ucblogo",
+				glow: "bg-[#ff9900]",
+			};
+		case "foxpro":
+			return {
+				badge: "🦊 FOXPRO APPARITION",
+				badgeClass: "bg-[#808080]/15 border-[#808080]/50 text-[#808080]",
+				formulaTag: "* vfp",
+				glow: "bg-[#808080]",
+			};
+		case "pli":
+			return {
+				badge: "🏢 PL/I MONOLITH",
+				badgeClass: "bg-[#0f3d54]/15 border-[#0f3d54]/50 text-[#0f3d54]",
+				formulaTag: "/* pl/i */",
+				glow: "bg-[#0f3d54]",
+			};
+		case "snobol":
+			return {
+				badge: "❄️ SNOBOL HEX",
+				badgeClass: "bg-[#5e5e5e]/15 border-[#5e5e5e]/50 text-[#5e5e5e]",
+				formulaTag: "* snobol4",
+				glow: "bg-[#5e5e5e]",
+			};
+		case "simula":
+			return {
+				badge: "🕰️ SIMULA GENESIS",
+				badgeClass: "bg-[#0088cc]/15 border-[#0088cc]/50 text-[#0088cc]",
+				formulaTag: "!- simula",
+				glow: "bg-[#0088cc]",
+			};
+		case "tcl":
+			return {
+				badge: "🔧 TCL GLYPH",
+				badgeClass: "bg-[#226a8d]/15 border-[#226a8d]/50 text-[#226a8d]",
+				formulaTag: "# tclsh",
+				glow: "bg-[#226a8d]",
+			};
+		case "nim":
+			return {
+				badge: "🐍 NIM SERPENT",
+				badgeClass: "bg-[#ffc200]/15 border-[#ffc200]/50 text-[#ffc200]",
+				formulaTag: "# nim c",
+				glow: "bg-[#ffc200]",
+			};
+		case "crystal":
+			return {
+				badge: "💎 CRYSTAL GEM",
+				badgeClass: "bg-[#e8e8e8]/15 border-[#e8e8e8]/50 text-[#e8e8e8]",
+				formulaTag: "# crystal run",
+				glow: "bg-[#e8e8e8]",
+			};
+		case "v":
+			return {
+				badge: "⚡ V SIGIL",
+				badgeClass: "bg-[#4f87c4]/15 border-[#4f87c4]/50 text-[#4f87c4]",
+				formulaTag: "// v run",
+				glow: "bg-[#4f87c4]",
+			};
+		case "d":
+			return {
+				badge: "🅓 D SORCERY",
+				badgeClass: "bg-[#ba595e]/15 border-[#ba595e]/50 text-[#ba595e]",
+				formulaTag: "// dmd",
+				glow: "bg-[#ba595e]",
+			};
+		case "racket":
+			return {
+				badge: "🚀 RACKET METAMAGIC",
+				badgeClass: "bg-[#9f1d20]/15 border-[#9f1d20]/50 text-[#9f1d20]",
+				formulaTag: "; racket",
+				glow: "bg-[#9f1d20]",
+			};
+		case "scheme":
+			return {
+				badge: "λ SCHEME RUNE",
+				badgeClass: "bg-[#d3d3d3]/15 border-[#d3d3d3]/50 text-[#d3d3d3]",
+				formulaTag: "; scheme",
+				glow: "bg-[#d3d3d3]",
+			};
+		case "gleam":
+			return {
+				badge: "✨ GLEAM ALCHEMY",
+				badgeClass: "bg-[#ffaff3]/15 border-[#ffaff3]/50 text-[#ffaff3]",
+				formulaTag: "// gleam run",
+				glow: "bg-[#ffaff3]",
+			};
+		case "pony":
+			return {
+				badge: "🐎 PONY WARD",
+				badgeClass: "bg-[#d6d3d1]/15 border-[#d6d3d1]/50 text-[#d6d3d1]",
+				formulaTag: "// ponyc",
+				glow: "bg-[#d6d3d1]",
+			};
+		case "reason":
+			return {
+				badge: "🌐 REASONML PACT",
+				badgeClass: "bg-[#dd4b39]/15 border-[#dd4b39]/50 text-[#dd4b39]",
+				formulaTag: "/* reason */",
+				glow: "bg-[#dd4b39]",
+			};
+		case "haxe":
+			return {
+				badge: "❌ HAXE TRANSMUTATION",
+				badgeClass: "bg-[#df7900]/15 border-[#df7900]/50 text-[#df7900]",
+				formulaTag: "// haxe",
+				glow: "bg-[#df7900]",
+			};
+		case "csharp":
+			return {
+				badge: "♯ C# EVOCATION",
+				badgeClass: "bg-[#178600]/15 border-[#178600]/50 text-[#178600]",
+				formulaTag: "// dotnet run",
+				glow: "bg-[#178600]",
+			};
+		case "objc":
+			return {
+				badge: "🍏 OBJ-C RUNES",
+				badgeClass: "bg-[#438eff]/15 border-[#438eff]/50 text-[#438eff]",
+				formulaTag: "// clang -lobjc",
+				glow: "bg-[#438eff]",
+			};
+		case "matlab":
+			return {
+				badge: "🧮 MATLAB THAUMATURGY",
+				badgeClass: "bg-[#e16737]/15 border-[#e16737]/50 text-[#e16737]",
+				formulaTag: "% matlab",
+				glow: "bg-[#e16737]",
+			};
+		case "mathematica":
+			return {
+				badge: "🐺 WOLFRAM ALCHEMY",
+				badgeClass: "bg-[#dd1100]/15 border-[#dd1100]/50 text-[#dd1100]",
+				formulaTag: "(* wolfram *)",
+				glow: "bg-[#dd1100]",
+			};
+		case "groovy":
+			return {
+				badge: "🎸 GROOVY HEX",
+				badgeClass: "bg-[#4298b8]/15 border-[#4298b8]/50 text-[#4298b8]",
+				formulaTag: "// groovy",
+				glow: "bg-[#4298b8]",
+			};
+		case "eiffel":
+			return {
+				badge: "🗼 EIFFEL CONTRACT",
+				badgeClass: "bg-[#0099cc]/15 border-[#0099cc]/50 text-[#0099cc]",
+				formulaTag: "-- eiffel",
+				glow: "bg-[#0099cc]",
+			};
+		case "abap":
+			return {
+				badge: "💼 ABAP PACT",
+				badgeClass: "bg-[#e8274b]/15 border-[#e8274b]/50 text-[#e8274b]",
+				formulaTag: "* abap",
+				glow: "bg-[#e8274b]",
+			};
+		case "rpg":
+			return {
+				badge: "⚔️ RPG WARD",
+				badgeClass: "bg-[#0066cc]/15 border-[#0066cc]/50 text-[#0066cc]",
+				formulaTag: "// rpgle",
+				glow: "bg-[#0066cc]",
+			};
+		case "labview":
+			return {
+				badge: "🔌 LABVIEW WIRING",
+				badgeClass: "bg-[#fcd91e]/15 border-[#fcd91e]/50 text-[#fcd91e]",
+				formulaTag: "/* labview */",
+				glow: "bg-[#fcd91e]",
+			};
+		case "scratch":
+			return {
+				badge: "🐱 SCRATCH MAGIC",
+				badgeClass: "bg-[#4d97ff]/15 border-[#4d97ff]/50 text-[#4d97ff]",
+				formulaTag: "; scratch",
+				glow: "bg-[#4d97ff]",
 			};
 		default:
 			return {

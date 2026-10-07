@@ -4,22 +4,22 @@ description: Separate complex diagnostic operations from the data structures the
 type: elixir
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Deep-Scan
-formula: |
+arcaneSchool: "Divination // Deep-Scan"
+formula: |2
   defmodule Tekromancy.AstNode do
     defstruct [:type, :value, :children]
   end
-  
+
   defmodule Tekromancy.ScannerVisitor do
     def visit(%Tekromancy.AstNode{type: :corrupted} = node) do
       IO.puts("Purging corruption at node: #{node.value}")
       %{node | value: :purged}
     end
-    
+
     def visit(%Tekromancy.AstNode{type: :clean} = node) do
       node
     end
-    
+
     def traverse(nodes, visitor_fn) when is_list(nodes) do
       Enum.map(nodes, fn node ->
         node

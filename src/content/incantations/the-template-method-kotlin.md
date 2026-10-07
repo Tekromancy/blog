@@ -4,20 +4,20 @@ description: Defining the skeleton of a ritual while deferring the specifics.
 type: kotlin
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Ritual
-formula: |
+arcaneSchool: "Evocation // Ritual"
+formula: |2
   abstract class Ritual {
       fun performRitual() {
           prepareAltar()
           chant()
           ignite()
       }
-      
+
       private fun prepareAltar() = println("Cleaning altar.")
       abstract fun chant()
       private fun ignite() = println("Lighting candles.")
   }
-  
+
   class FireRitual : Ritual() {
       override fun chant() = println("Chanting words of flame.")
   }

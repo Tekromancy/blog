@@ -4,8 +4,8 @@ description: A guardian sentinel controlling access to the forbidden sectors of 
 type: wasm
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   (module
     (memory 1)
     (func $secure_read (param $addr i32) (result i32)

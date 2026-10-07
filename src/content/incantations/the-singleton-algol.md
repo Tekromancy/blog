@@ -4,8 +4,8 @@ description: "Structured antiquity and the Singleton pattern."
 type: algol
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Singularity
-formula: |
+arcaneSchool: "Abjuration // Singularity"
+formula: |2
   CO Singleton in ALGOL 68 CO
   BEGIN
     MODE SINGLETON = STRUCT (STRING instance);

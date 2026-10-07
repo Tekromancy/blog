@@ -4,8 +4,8 @@ description: Passing a chaotic curse through a hierarchy of purifiers.
 type: pascal
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Purifying
-formula: |
+arcaneSchool: "Abjuration // Purifying"
+formula: |2
   unit ChainPattern;
   interface
   type

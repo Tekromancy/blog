@@ -4,20 +4,20 @@ description: Compose arcane entities into tree structures to represent part-whol
 type: javascript
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Necromancy // Swarm Control
-formula: |
+arcaneSchool: "Necromancy // Swarm Control"
+formula: |2
   class UndeadEntity {
     command() { throw new Error('Not implemented'); }
   }
-  
+
   class Skeleton extends UndeadEntity {
     command() { console.log('Skeleton marches forward.'); }
   }
-  
+
   class Zombie extends UndeadEntity {
     command() { console.log('Zombie groans and shambles.'); }
   }
-  
+
   class UndeadLegion extends UndeadEntity {
     constructor() {
       super();
@@ -29,15 +29,15 @@ formula: |
       this.units.forEach(unit => unit.command());
     }
   }
-  
+
   const squad = new UndeadLegion();
   squad.add(new Skeleton());
   squad.add(new Zombie());
-  
+
   const army = new UndeadLegion();
   army.add(squad);
   army.add(new Skeleton());
-  
+
   army.command();
 tags: [hierarchy, swarms, composition]
 pubDate: 2026-10-07

@@ -4,8 +4,8 @@ description: Duplicating complex spell matrices without invoking the original we
 type: fsharp
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Biomancy
-formula: |
+arcaneSchool: "Illusion // Biomancy"
+formula: |2
   open System
 
   type SpellMatrix = 

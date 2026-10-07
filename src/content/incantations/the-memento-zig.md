@@ -4,19 +4,19 @@ description: "Without violating encapsulation, capture and externalize an object
 type: zig
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Temporal Anchoring
-formula: |
+arcaneSchool: "Chronomancy // Temporal Anchoring"
+formula: |2
   const std = @import("std");
-  
+
   pub const SoulState = struct { hp: u32, mana: u32 };
-  
+
   pub const TimeWeaver = struct {
       state: SoulState,
-      
+
       pub fn save(self: *TimeWeaver) SoulState {
           return self.state;
       }
-      
+
       pub fn restore(self: *TimeWeaver, memento: SoulState) void {
           self.state = memento;
       }

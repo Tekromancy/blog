@@ -4,8 +4,8 @@ description: Bridging incompatible magical interfaces to channel foreign energy.
 type: cpp
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Alteration
-formula: |
+arcaneSchool: "Transmutation // Alteration"
+formula: |2
   class OldSpell {
   public: virtual void CastOldWay() {}
   };

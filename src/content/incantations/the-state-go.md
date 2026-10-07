@@ -4,8 +4,8 @@ description: Allow an object to alter its behavior when its internal state chang
 type: go
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Form-shifting
-formula: |
+arcaneSchool: "Transmutation // Form-shifting"
+formula: |2
   package state
 
   import "fmt"

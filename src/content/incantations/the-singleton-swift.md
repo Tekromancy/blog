@@ -4,8 +4,8 @@ description: A unique, solitary source of arcane power.
 type: swift
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leyline
-formula: |
+arcaneSchool: "Abjuration // Leyline"
+formula: |2
   class LeylineNexus {
       static let shared = LeylineNexus()
       private init() {}

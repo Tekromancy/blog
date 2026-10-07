@@ -4,8 +4,8 @@ description: Providing a unified incantation for a complex magical subsystem.
 type: cpp
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   class ManaFlow { public: void Channel() {} };
   class RuneGrid { public: void Activate() {} };
   class SpellMatrix {

@@ -4,20 +4,20 @@ description: Altering behavior dynamically based on inner alignment.
 type: kotlin
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shifting
-formula: |
+arcaneSchool: "Transmutation // Shifting"
+formula: |2
   interface FamiliarState {
       fun interact()
   }
-  
+
   class CalmState : FamiliarState {
       override fun interact() = println("Familiar purrs.")
   }
-  
+
   class EnragedState : FamiliarState {
       override fun interact() = println("Familiar spits fire!")
   }
-  
+
   class Familiar {
       var state: FamiliarState = CalmState()
       fun poke() = state.interact()

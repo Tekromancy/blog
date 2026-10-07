@@ -4,37 +4,37 @@ description: Wrapping spells in recursive layers of holy bureaucratic validation
 type: java
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   public interface Liturgy {
       void execute();
   }
-  
+
   public class BaseLiturgy implements Liturgy {
       @Override
       public void execute() {
           System.out.println("Executing the core liturgy.");
       }
   }
-  
+
   public abstract class LiturgyDecorator implements Liturgy {
       protected final Liturgy wrappedLiturgy;
-      
+
       public LiturgyDecorator(Liturgy wrappedLiturgy) {
           this.wrappedLiturgy = wrappedLiturgy;
       }
-      
+
       @Override
       public void execute() {
           wrappedLiturgy.execute();
       }
   }
-  
+
   public class AuditingDecorator extends LiturgyDecorator {
       public AuditingDecorator(Liturgy wrappedLiturgy) {
           super(wrappedLiturgy);
       }
-      
+
       @Override
       public void execute() {
           System.out.println("[Audit Log] Liturgy execution initiated.");

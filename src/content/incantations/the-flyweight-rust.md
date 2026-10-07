@@ -4,8 +4,8 @@ description: Use sharing to support large numbers of fine-grained objects effici
 type: rust
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Optimization
-formula: |
+arcaneSchool: "Conjuration // Optimization"
+formula: |2
   use std::collections::HashMap;
   use std::rc::Rc;
 

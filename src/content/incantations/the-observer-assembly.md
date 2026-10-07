@@ -4,31 +4,31 @@ description: Subscribing fiends to broadcasted ripples in the ethereal plane.
 type: assembly
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ethereal Whispers
-formula: |
+arcaneSchool: "Necromancy // Ethereal Whispers"
+formula: |2
   section .data
       observers dq obs_one, obs_two, 0
-  
+
   section .text
       global notify_all
-  
+
   notify_all:
       mov rsi, observers
   .loop:
       mov rax, [rsi]
       test rax, rax
       jz .done
-      
+
       push rsi
       call rax
       pop rsi
-      
+
       add rsi, 8
       jmp .loop
-      
+
   .done:
       ret
-      
+
   obs_one:
       ret
   obs_two:

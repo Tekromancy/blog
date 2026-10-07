@@ -4,8 +4,8 @@ description: "Parsing the ancient runic language of the Abyss into actionable Ru
 type: ruby
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   class Expression
     def interpret(context)
       raise NotImplementedError

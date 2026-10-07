@@ -4,8 +4,8 @@ description: A central hub coordinating complex interactions between volatile el
 type: pascal
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Evocation // Coordination
-formula: |
+arcaneSchool: "Evocation // Coordination"
+formula: |2
   unit MediatorPattern;
   interface
   type

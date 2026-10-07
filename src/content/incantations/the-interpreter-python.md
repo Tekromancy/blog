@@ -4,8 +4,8 @@ description: Evaluate a grammar of ancient celestial logic.
 type: python
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Expression(ABC):
@@ -15,7 +15,7 @@ formula: |
   class RuneExpression(Expression):
       def __init__(self, rune: str):
           self.rune = rune
-          
+
       def interpret(self, context: dict) -> bool:
           return context.get(self.rune, False)
 
@@ -23,7 +23,7 @@ formula: |
       def __init__(self, expr1: Expression, expr2: Expression):
           self.expr1 = expr1
           self.expr2 = expr2
-          
+
       def interpret(self, context: dict) -> bool:
           return self.expr1.interpret(context) and self.expr2.interpret(context)
 
@@ -31,7 +31,7 @@ formula: |
       def __init__(self, expr1: Expression, expr2: Expression):
           self.expr1 = expr1
           self.expr2 = expr2
-          
+
       def interpret(self, context: dict) -> bool:
           return self.expr1.interpret(context) or self.expr2.interpret(context)
 

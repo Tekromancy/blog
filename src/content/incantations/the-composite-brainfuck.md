@@ -4,8 +4,8 @@ description: The swarm acts as one.
 type: brainfuck
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Necromancy // Swarm
-formula: |
+arcaneSchool: "Necromancy // Swarm"
+formula: |2
   +>++>+++    [The Swarm]
   <<[->>+<<]  [Collapse them into a single hive-entity]
 tags: [composite, swarm, legion]

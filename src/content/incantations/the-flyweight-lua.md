@@ -4,8 +4,8 @@ description: "Sharing the magical essence across thousands of tiny, glowing mote
 type: lua
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarms
-formula: |
+arcaneSchool: "Conjuration // Swarms"
+formula: |2
   local MoteEssenceFactory = { essences = {} }
   function MoteEssenceFactory:getEssence(color)
     if not self.essences[color] then

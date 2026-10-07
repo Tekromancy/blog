@@ -4,8 +4,8 @@ description: Sharing the burden of existence.
 type: brainfuck
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Necromancy // Soulbinding
-formula: |
+arcaneSchool: "Necromancy // Soulbinding"
+formula: |2
   +++++       [The shared essence]
   >[-<+>]     [Borrowing the essence]
   <[->+<]     [Returning the essence]

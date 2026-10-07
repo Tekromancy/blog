@@ -4,8 +4,8 @@ description: Reifying spells into data structures to be evaluated later.
 type: haskell
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Storage
-formula: |
+arcaneSchool: "Evocation // Storage"
+formula: |2
   module Command where
   data Command = Print String | Beep
   execute :: Command -> IO ()

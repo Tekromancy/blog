@@ -4,8 +4,8 @@ description: Severing the bond between the ethereal planes and the physical ledg
 type: solidity
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Dimensional
-formula: |
+arcaneSchool: "Conjuration // Dimensional"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

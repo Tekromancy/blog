@@ -4,20 +4,20 @@ description: "Pass a chaotic request along a chain of handlers until one capture
 type: php
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Channeling
-formula: |
+arcaneSchool: "Evocation // Channeling"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   abstract class MiddlewareHandler {
       private ?MiddlewareHandler $next = null;
-  
+
       public function setNext(MiddlewareHandler $handler): MiddlewareHandler {
           $this->next = $handler;
           return $handler;
       }
-  
+
       public function handle(array $request): ?string {
           if ($this->next) {
               return $this->next->handle($request);
@@ -25,7 +25,7 @@ formula: |
           return null;
       }
   }
-  
+
   class FirewallHandler extends MiddlewareHandler {
       public function handle(array $request): ?string {
           if (isset($request['malicious'])) {
@@ -34,7 +34,7 @@ formula: |
           return parent::handle($request);
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

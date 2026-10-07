@@ -4,8 +4,8 @@ description: "Capturing a snapshot of a dying hemomancer's soul, preserving thei
 type: ruby
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Chronomancy
-formula: |
+arcaneSchool: "Necromancy // Chronomancy"
+formula: |2
   class SoulMemento
     attr_reader :state
 

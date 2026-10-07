@@ -4,8 +4,8 @@ description: "Delegates the manifestation of fae spirits to specific lunar sub-t
 type: lua
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Spawning
-formula: |
+arcaneSchool: "Conjuration // Spawning"
+formula: |2
   local SpiritSpawner = {}
   SpiritSpawner.__index = SpiritSpawner
 

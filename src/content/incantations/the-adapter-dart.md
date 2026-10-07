@@ -4,35 +4,35 @@ description: Bridge incompatible magical APIs through a unified ritual.
 type: dart
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Symbology
-formula: |
+arcaneSchool: "Transmutation // Symbology"
+formula: |2
   // The expected interface
   abstract class ModernSpell {
     void castSpell();
   }
-  
+
   // The incompatible legacy system
   class AncientScroll {
     void chantAncientWords() => print('Ph\'nglui mglw\'nafh Cthulhu...');
   }
-  
+
   // The adapter
   class ScrollAdapter implements ModernSpell {
     final AncientScroll scroll;
-    
+
     ScrollAdapter(this.scroll);
-    
+
     @override
     void castSpell() {
       print('Adapting ancient scroll to modern spell matrix...');
       scroll.chantAncientWords();
     }
   }
-  
+
   void main() {
     final scroll = AncientScroll();
     final spell = ScrollAdapter(scroll);
-    
+
     spell.castSpell();
   }
 tags: [dart, adapter, legacy-code, transmutation]

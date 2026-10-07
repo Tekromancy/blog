@@ -5,7 +5,7 @@ type: "javascript"
 gofPattern: "Iterator Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Chronomancy // The Infinite Event River"
-formula: |
+formula: |2
   async function* paginateApi(endpoint, pageSize = 50) {
     let cursor = null;
     do {

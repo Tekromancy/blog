@@ -4,8 +4,8 @@ description: Compose objects into tree structures to represent part-whole hierar
 type: rust
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Enchantment // Hive-link
-formula: |
+arcaneSchool: "Enchantment // Hive-link"
+formula: |2
   pub trait GridEntity {
       fn get_power_draw(&self) -> u32;
   }

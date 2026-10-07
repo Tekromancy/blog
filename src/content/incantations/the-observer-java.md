@@ -4,23 +4,23 @@ description: Broadcasting holy decrees from a central subject to a multitude of 
 type: java
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Broadcasting
-formula: |
+arcaneSchool: "Divination // Broadcasting"
+formula: |2
   import java.util.ArrayList;
   import java.util.List;
-  
+
   public interface Acolyte {
       void update(String decree);
   }
-  
+
   public class HighAltar {
       private final List<Acolyte> congregation = new ArrayList<>();
       private String latestDecree;
-      
+
       public void subscribe(Acolyte acolyte) {
           congregation.add(acolyte);
       }
-      
+
       public void issueDecree(String decree) {
           this.latestDecree = decree;
           System.out.println("High Altar issues decree: " + decree);
@@ -29,14 +29,14 @@ formula: |
           }
       }
   }
-  
+
   public class ScribeAcolyte implements Acolyte {
       private final String name;
-      
+
       public ScribeAcolyte(String name) {
           this.name = name;
       }
-      
+
       @Override
       public void update(String decree) {
           System.out.println("Acolyte " + name + " meticulously records: " + decree);

@@ -4,8 +4,8 @@ description: "Structured antiquity and the Proxy pattern."
 type: algol
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Simulacrum
-formula: |
+arcaneSchool: "Illusion // Simulacrum"
+formula: |2
   CO Proxy in ALGOL 68 CO
   BEGIN
     MODE PROXY = STRUCT (PROC VOID request);

@@ -4,8 +4,8 @@ description: Provide a way to access the elements of an aggregate object sequent
 type: go
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   package iterator
 
   // Iterator interface

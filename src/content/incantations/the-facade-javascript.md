@@ -4,19 +4,19 @@ description: Provide a unified interface to a set of complex subsystems within t
 type: javascript
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Divination // Meta-Magic
-formula: |
+arcaneSchool: "Divination // Meta-Magic"
+formula: |2
   class LeylineGrid { checkAlignment() { return true; } }
   class ManaPool { draw(amount) { return amount; } }
   class IncantationEngine { vocalize(words) { console.log(`Chanting: ${words}`); } }
-  
+
   class RitualFacade {
     constructor() {
       this.grid = new LeylineGrid();
       this.pool = new ManaPool();
       this.engine = new IncantationEngine();
     }
-    
+
     performGrandRitual() {
       if (this.grid.checkAlignment()) {
         const mana = this.pool.draw(500);
@@ -27,7 +27,7 @@ formula: |
       }
     }
   }
-  
+
   const ritual = new RitualFacade();
   ritual.performGrandRitual();
 tags: [simplification, rituals, interfaces]

@@ -4,8 +4,8 @@ description: A dark prophecy network notifying cultists of ledger mutations.
 type: solidity
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Prophecy
-formula: |
+arcaneSchool: "Divination // Prophecy"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

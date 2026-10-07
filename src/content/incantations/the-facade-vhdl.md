@@ -4,19 +4,19 @@ description: A simplified top-level interface to a complex subsystem.
 type: vhdl
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Silicon Golemancy // System Monolith
-formula: |
+arcaneSchool: "Silicon Golemancy // System Monolith"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity facade_top is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end facade_top;
-  
+
   architecture Physical of facade_top is
   begin
       process(clk, rst)

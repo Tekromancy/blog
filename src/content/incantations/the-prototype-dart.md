@@ -4,34 +4,34 @@ description: Clone complex magical state instead of reconstructing it from scrat
 type: dart
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Shadow Duplication
-formula: |
+arcaneSchool: "Illusion // Shadow Duplication"
+formula: |2
   abstract class Cloneable<T> {
     T clone();
   }
-  
+
   class ShadowClone implements Cloneable<ShadowClone> {
     String weapon;
     int chakraLevel;
-    
+
     ShadowClone(this.weapon, this.chakraLevel);
-    
+
     ShadowClone._copy(ShadowClone original)
         : weapon = original.weapon,
             chakraLevel = original.chakraLevel;
-            
+
     @override
     ShadowClone clone() => ShadowClone._copy(this);
-    
+
     void display() => print('Clone armed with $weapon, Chakra: $chakraLevel');
   }
-  
+
   void main() {
     final original = ShadowClone('Kunai', 100);
     final army = List.generate(5, (_) => original.clone());
-    
+
     army[0].weapon = 'Shuriken'; // Modify one clone independently
-    
+
     for (var clone in army) {
       clone.display();
     }

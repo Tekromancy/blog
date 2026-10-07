@@ -4,14 +4,14 @@ description: Morph the behavior of a xenomorph based on its metamorphic phase.
 type: apl
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Metamorphic-Phases
-formula: |
+arcaneSchool: "Transmutation // Metamorphic-Phases"
+formula: |2
   :Class Phase
       ∇ React Context
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class LarvalPhase : Phase
       ∇ React Context
         :Access Public
@@ -19,28 +19,28 @@ formula: |
         Context.SetPhase ⎕NEW DronePhase
       ∇
   :EndClass
-  
+
   :Class DronePhase : Phase
       ∇ React Context
         :Access Public
         ⎕ ← 'Building hive structures... ⍙'
       ∇
   :EndClass
-  
+
   :Class Xenomorph
       :Field Private CurrentPhase
-      
+
       ∇ Make
         :Access Public
         :Implements Constructor
         CurrentPhase ← ⎕NEW LarvalPhase
       ∇
-      
+
       ∇ SetPhase P
         :Access Public
         CurrentPhase ← P
       ∇
-      
+
       ∇ Act
         :Access Public
         CurrentPhase.React ⎕THIS

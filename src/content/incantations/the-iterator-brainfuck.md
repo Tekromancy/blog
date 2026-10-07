@@ -4,8 +4,8 @@ description: Walking the endless tape.
 type: brainfuck
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Seekers
-formula: |
+arcaneSchool: "Divination // Seekers"
+formula: |2
   >+[>+]      [Walk until the abyss stares back]
   <[<]        [Return before you lose yourself]
 tags: [iterator, infinite, walking]

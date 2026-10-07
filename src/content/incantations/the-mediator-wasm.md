@@ -4,8 +4,8 @@ description: A centralized nexus channeling communications between chaotic synth
 type: wasm
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Telepathy
-formula: |
+arcaneSchool: "Enchantment // Telepathy"
+formula: |2
   (module
     (func $notify_nexus (param $sender_id i32) (param $event i32)
       (if (i32.eq (local.get $event) (i32.const 0x01)) ;; Hunger

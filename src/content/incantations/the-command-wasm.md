@@ -4,8 +4,8 @@ description: Encapsulating arcane rituals as executable stack closures for delay
 type: wasm
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Domination
-formula: |
+arcaneSchool: "Enchantment // Domination"
+formula: |2
   (module
     (type $command (func))
     (table 1 funcref)

@@ -4,36 +4,36 @@ description: Define a one-to-many dependency so that when a magical source shift
 type: dart
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   import 'dart:async';
-  
+
   class Oracle {
     // Dart's StreamController is the ultimate Observer pattern implementation
     final _prophecyController = StreamController<String>.broadcast();
-    
+
     Stream<String> get prophecies => _prophecyController.stream;
-    
+
     void seeFuture(String vision) {
       print('Oracle sees: $vision');
       _prophecyController.add(vision);
     }
-    
+
     void close() => _prophecyController.close();
   }
-  
+
   void main() {
     final oracle = Oracle();
-    
+
     // Observers subscribe to the stream
     oracle.prophecies.listen((vision) {
       print('Cultist A interprets: $vision means doom!');
     });
-    
+
     oracle.prophecies.listen((vision) {
       print('Cultist B prepares for: $vision');
     });
-    
+
     oracle.seeFuture('A blood-red moon rises.');
   }
 tags: [dart, observer, streams, reactive, divination]

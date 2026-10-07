@@ -4,23 +4,23 @@ description: Encapsulating operations into delayed execution arrays.
 type: script
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Delaymancy
-formula: |
+arcaneSchool: "Conjuration // Delaymancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Receiver
   firewall_block() { echo "Blocking IP: $1"; }
   firewall_allow() { echo "Allowing IP: $1"; }
-  
+
   # Command Queue
   declare -a COMMAND_QUEUE
-  
+
   # Create Commands
   add_command() {
     # Store the exact command string to evaluate later
     COMMAND_QUEUE+=("$*")
   }
-  
+
   # Invoker
   execute_commands() {
     echo "Executing queued commands..."
@@ -30,11 +30,11 @@ formula: |
     # Clear queue
     COMMAND_QUEUE=()
   }
-  
+
   # Client
   add_command "firewall_block 192.168.1.50"
   add_command "firewall_allow 10.0.0.5"
-  
+
   echo "Commands queued. Sleeping..."
   sleep 1
   execute_commands

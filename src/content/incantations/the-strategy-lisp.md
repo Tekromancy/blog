@@ -4,32 +4,32 @@ description: "Swapping algorithms for dark offerings at runtime depending on the
 type: lisp
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Algorithmic Sacrifice
-formula: |
+arcaneSchool: "Necromancy // Algorithmic Sacrifice"
+formula: |2
   (defpackage :sacrificial-strategy
     (:use :cl))
   (in-package :sacrificial-strategy)
-  
+
   ;; The Strategy Interface
   (defgeneric execute-sacrifice (strategy victim))
-  
+
   ;; Concrete Strategies
   (defclass blood-letting-strategy () ())
   (defmethod execute-sacrifice ((s blood-letting-strategy) victim)
     (format t "Draining the vital fluids from ~a for the vampiric lords.~%" victim))
-  
+
   (defclass pyre-strategy () ())
   (defmethod execute-sacrifice ((s pyre-strategy) victim)
     (format t "Consuming ~a in eldritch green flames for the Fire Vampires.~%" victim))
-  
+
   (defclass void-banishment-strategy () ())
   (defmethod execute-sacrifice ((s void-banishment-strategy) victim)
     (format t "Shattering ~a across parallel dimensions.~%" victim))
-  
+
   ;; The Context
   (defclass high-altar ()
     ((active-strategy :initarg :strategy :accessor altar-strategy)))
-  
+
   (defmethod perform-ritual ((altar high-altar) victim)
     (format t "The chanting begins...~%")
     (execute-sacrifice (altar-strategy altar) victim)

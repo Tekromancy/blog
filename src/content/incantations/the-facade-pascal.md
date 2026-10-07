@@ -4,8 +4,8 @@ description: A simplified glyph providing access to a deeply complex library of 
 type: pascal
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Divination // Lexicon
-formula: |
+arcaneSchool: "Divination // Lexicon"
+formula: |2
   unit FacadePattern;
   interface
   type

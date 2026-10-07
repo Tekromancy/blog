@@ -4,8 +4,8 @@ description: "Defining the skeletal structure of a potion recipe while letting s
 type: lua
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Alchemy
-formula: |
+arcaneSchool: "Transmutation // Alchemy"
+formula: |2
   local PotionRecipe = {}
   PotionRecipe.__index = PotionRecipe
 

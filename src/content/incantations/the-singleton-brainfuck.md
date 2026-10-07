@@ -4,8 +4,8 @@ description: The inevitable convergence of all pointers.
 type: brainfuck
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Enchantment // Domination
-formula: |
+arcaneSchool: "Enchantment // Domination"
+formula: |2
   [<]         [Seek the beginning]
   +           [Instantiate the Old One]
   [>]         [Flee to the end, but the Old One remains at cell 0]

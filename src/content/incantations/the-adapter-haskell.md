@@ -4,8 +4,8 @@ description: Typeclass instances adapting ancient planar energies into modern fu
 type: haskell
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Geomancy
-formula: |
+arcaneSchool: "Transmutation // Geomancy"
+formula: |2
   module Adapter where
   class ModernSpell s where invoke :: s -> String
   data AncientScroll = AncientScroll

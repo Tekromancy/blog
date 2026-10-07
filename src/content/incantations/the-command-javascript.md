@@ -4,19 +4,19 @@ description: Encapsulate a magical request as an object, allowing for parameteri
 type: javascript
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Runecrafting
-formula: |
+arcaneSchool: "Enchantment // Runecrafting"
+formula: |2
   class LeylineReceiver {
     surge() { console.log("Leyline surges with power!"); }
     drain() { console.log("Leyline drained of magic."); }
   }
-  
+
   class SurgeCommand {
     constructor(receiver) { this.receiver = receiver; }
     execute() { this.receiver.surge(); }
     undo() { this.receiver.drain(); }
   }
-  
+
   class Invoker {
     constructor() { this.history = []; }
     invoke(command) {
@@ -28,11 +28,11 @@ formula: |
       if (command) command.undo();
     }
   }
-  
+
   const leyline = new LeylineReceiver();
   const surgeSpell = new SurgeCommand(leyline);
   const caster = new Invoker();
-  
+
   caster.invoke(surgeSpell);
   caster.revert();
 tags: [encapsulation, undo, runes]

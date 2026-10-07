@@ -4,25 +4,25 @@ description: Defining a grammarian matrix to parse and execute domain-specific a
 type: clojure
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   (ns tekromancy.interpreter)
-  
+
   ;; Clojure's macros and `eval` are the ultimate interpreters, but 
   ;; for a simple abstract syntax tree:
-  
+
   (defmulti evaluate-ast :type)
-  
+
   (defmethod evaluate-ast :literal [node]
     (:value node))
-  
+
   (defmethod evaluate-ast :add [node]
     (+ (evaluate-ast (:left node))
        (evaluate-ast (:right node))))
-  
+
   (defmethod evaluate-ast :spell [node]
     (str "Casting " (:name node) " at power " (evaluate-ast (:power node))))
-  
+
   ;; Usage:
   ;; (def my-ast {:type :spell 
   ;;              :name "Nova" 

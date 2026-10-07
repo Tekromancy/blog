@@ -5,7 +5,7 @@ type: "python"
 gofPattern: "Iterator Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Chronomancy // The Temporal Stream Weft"
-formula: |
+formula: |2
   def stream_lines(filepath):
       with open(filepath, "r") as f:
           for line in f: yield line.strip()

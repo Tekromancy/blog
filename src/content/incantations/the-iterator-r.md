@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Iterator"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Temporal Stepping"
-formula: |
+formula: |2
   library(R6)
 
   # Iterator Interface

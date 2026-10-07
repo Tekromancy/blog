@@ -4,8 +4,8 @@ description: A singular locus of magical power, strictly guarded against multipl
 type: pascal
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Locus
-formula: |
+arcaneSchool: "Abjuration // Locus"
+formula: |2
   unit SingletonPattern;
   interface
   type

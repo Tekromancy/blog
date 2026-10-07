@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Observer"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Event Scrying"
-formula: |
+formula: |2
   library(R6)
 
   # Subject

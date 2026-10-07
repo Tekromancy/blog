@@ -4,12 +4,12 @@ description: Ensuring absolute uniqueness in the daemon realm using Singleton vi
 type: script
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Mutexmancy
-formula: |
+arcaneSchool: "Abjuration // Mutexmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   LOCK_FILE="/tmp/cyber_singleton.lock"
-  
+
   acquire_singleton() {
     # Using 'noclobber' to ensure atomic file creation
     if ( set -o noclobber; echo "$$" > "$LOCK_FILE" ) 2> /dev/null; then
@@ -20,10 +20,10 @@ formula: |
       exit 1
     fi
   }
-  
+
   # Main
   acquire_singleton
-  
+
   echo "Executing high-risk unique operation..."
   sleep 2
   echo "Operation complete."

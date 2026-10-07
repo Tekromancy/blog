@@ -4,8 +4,8 @@ description: Encapsulate a request as an object, thereby letting you parameteriz
 type: go
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Divination // Time-weaving
-formula: |
+arcaneSchool: "Divination // Time-weaving"
+formula: |2
   package command
 
   // Command interface

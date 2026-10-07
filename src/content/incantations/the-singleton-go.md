@@ -4,8 +4,8 @@ description: Ensure a class has only one instance, and provide a global point of
 type: go
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leyline-anchoring
-formula: |
+arcaneSchool: "Abjuration // Leyline-anchoring"
+formula: |2
   package singleton
 
   import "sync"

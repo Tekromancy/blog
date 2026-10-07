@@ -4,22 +4,22 @@ description: Defer the exact nature of summoned entities to universal rules and 
 type: prolog
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Entitymancy
-formula: |
+arcaneSchool: "Conjuration // Entitymancy"
+formula: |2
   % The Creator (Biome / Element)
   element(fire).
   element(water).
-  
+
   % The Factory Method: Summoning based on element
   summon_familiar(fire, fire_salamander).
   summon_familiar(water, water_nymph).
-  
+
   % An operation that uses the factory method
   manifest_presence(Element, Message) :-
       element(Element),
       summon_familiar(Element, Familiar),
       format('You have manifested a ~w from the element of ~w.', [Familiar, Element]).
-  
+
   % ?- manifest_presence(fire, _).
   % "You have manifested a fire_salamander from the element of fire."
 tags: [factory-method, creational, prolog, summoning]

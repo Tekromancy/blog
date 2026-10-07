@@ -4,8 +4,8 @@ description: Speaking to the shadow instead of the beast.
 type: brainfuck
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Phantasm
-formula: |
+arcaneSchool: "Illusion // Phantasm"
+formula: |2
   >+<         [The Proxy stands before the true tape index]
   [->>+<<]    [Pass the message to the deep one]
 tags: [proxy, shadow, unseen]

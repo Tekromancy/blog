@@ -4,38 +4,38 @@ description: Bind cosmic sensors to a central singularity.
 type: apl
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Resonance-Binding
-formula: |
+arcaneSchool: "Divination // Resonance-Binding"
+formula: |2
   :Class Singularity
       :Field Private Observers ← ⍬
       :Field Private Mass ← 0
-      
+
       ∇ Attach Obs
         :Access Public
         Observers ← Observers , Obs
       ∇
-      
+
       ∇ SetMass M
         :Access Public
         Mass ← M
         Notify
       ∇
-      
+
       ∇ Notify
         :Access Private
         {⍵.Update Mass} ¨ Observers
       ∇
   :EndClass
-  
+
   :Class CosmicSensor
       :Field Private Designation
-      
+
       ∇ Make D
         :Access Public
         :Implements Constructor
         Designation ← D
       ∇
-      
+
       ∇ Update Mass
         :Access Public
         ⎕ ← Designation, ' detects Singularity mass shift to ', ⍕Mass, ' ⍟'

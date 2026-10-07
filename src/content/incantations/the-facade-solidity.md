@@ -4,8 +4,8 @@ description: A monolithic obsidian gate hiding a labyrinth of infernal sub-contr
 type: solidity
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Obfuscation
-formula: |
+arcaneSchool: "Illusion // Obfuscation"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

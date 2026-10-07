@@ -4,15 +4,15 @@ description: "Ensure that only one instance of an ancient power source exists wi
 type: zig
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Monolith Binding
-formula: |
+arcaneSchool: "Abjuration // Monolith Binding"
+formula: |2
   const std = @import("std");
-  
+
   pub const Monolith = struct {
       energy: u32,
-      
+
       var instance: ?*Monolith = null;
-      
+
       pub fn getInstance(alloc: std.mem.Allocator) !*Monolith {
           if (instance == null) {
               const new_instance = try alloc.create(Monolith);

@@ -4,22 +4,22 @@ description: Dynamically weaving additional wards onto a base spell.
 type: kotlin
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Enhancement
-formula: |
+arcaneSchool: "Transmutation // Enhancement"
+formula: |2
   interface Spell {
       val manaCost: Int
       fun cast(): String
   }
-  
+
   class BasicSpell : Spell {
       override val manaCost = 10
       override fun cast() = "Casting spell"
   }
-  
+
   class EmpoweredSpell(private val spell: Spell) : Spell by spell {
       override val manaCost: Int
           get() = spell.manaCost + 15
-          
+
       override fun cast() = spell.cast() + " with immense power"
   }
 tags: [kotlin, structural, decorator]

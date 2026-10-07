@@ -4,37 +4,37 @@ description: Layer esoteric shields over an alien biological core dynamically.
 type: apl
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Shield-Layering
-formula: |
+arcaneSchool: "Abjuration // Shield-Layering"
+formula: |2
   :Class Entity
       ∇ R←Defenses
         :Access Public Shared
         R←''
       ∇
   :EndClass
-  
+
   :Class BioCore : Entity
       ∇ R←Defenses
         :Access Public
         R←'Chitinous Hull ⍓'
       ∇
   :EndClass
-  
+
   :Class ShieldDecorator : Entity
       :Field Protected WrappedEntity
-      
+
       ∇ Make Ent
         :Access Public
         :Implements Constructor
         WrappedEntity ← Ent
       ∇
-      
+
       ∇ R←Defenses
         :Access Public
         R←WrappedEntity.Defenses
       ∇
   :EndClass
-  
+
   :Class PlasmaShield : ShieldDecorator
       ∇ R←Defenses
         :Access Public

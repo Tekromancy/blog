@@ -4,8 +4,8 @@ description: Passing the agony down the line.
 type: brainfuck
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Agony
-formula: |
+arcaneSchool: "Enchantment // Agony"
+formula: |2
   +>+>+>      [The handlers of pain]
   <<<         [The source of pain]
   [->-[->-[-]]][Pass it until it is consumed]

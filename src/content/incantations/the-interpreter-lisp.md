@@ -4,40 +4,40 @@ description: "Parsing and evaluating the non-euclidean syntax of the Old Ones."
 type: lisp
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   (defpackage :rlyehian-interpreter
     (:use :cl))
   (in-package :rlyehian-interpreter)
-  
+
   ;; Abstract Expression
   (defgeneric interpret-glyph (expression context))
-  
+
   ;; Context
   (defclass occult-context ()
     ((madness-level :initform 0 :accessor madness-level)))
-  
+
   ;; Terminal Expression
   (defclass phnglui-glyph () ()) ; "In his house at R'lyeh"
   (defmethod interpret-glyph ((g phnglui-glyph) context)
     (incf (madness-level context) 10)
     "Subject dreams. ")
-  
+
   (defclass fhtagn-glyph () ()) ; "Waits dreaming"
   (defmethod interpret-glyph ((g fhtagn-glyph) context)
     (incf (madness-level context) 20)
     "Subject waits. ")
-  
+
   ;; Non-Terminal Expression
   (defclass sequence-expression ()
     ((expressions :initarg :exprs :reader get-exprs)))
-  
+
   (defmethod interpret-glyph ((seq sequence-expression) context)
     (let ((result ""))
       (dolist (expr (get-exprs seq))
         (setf result (concatenate 'string result (interpret-glyph expr context))))
       result))
-  
+
   ;; Example execution:
   ;; (let ((ctx (make-instance 'occult-context))
   ;;       (chant (make-instance 'sequence-expression 

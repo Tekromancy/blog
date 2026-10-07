@@ -4,13 +4,13 @@ description: Traverse the infinite nodes of a dimensional labyrinth without expo
 type: scala
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   // Scala's native Iterator is already highly magical.
   class Leyline(nodes: List[String]) extends Iterable[String] {
     def iterator: Iterator[String] = new Iterator[String] {
       private var current = nodes
-      
+
       def hasNext: Boolean = current.nonEmpty
       def next(): String = {
         val head = current.head

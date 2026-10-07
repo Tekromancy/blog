@@ -4,8 +4,8 @@ description: Bridging incompatible magical interfaces through arcane translation
 type: fsharp
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Linguistics
-formula: |
+arcaneSchool: "Transmutation // Linguistics"
+formula: |2
   // The ancient, incompatible system
   type AncientRuneReader() =
       member _.ReadRune(runeId: int) =

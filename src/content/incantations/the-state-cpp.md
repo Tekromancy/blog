@@ -4,8 +4,8 @@ description: Altering an entity's behavior when its internal elemental alignment
 type: cpp
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Polymorph
-formula: |
+arcaneSchool: "Transmutation // Polymorph"
+formula: |2
   #include <memory>
   class Entity;
   class Alignment {

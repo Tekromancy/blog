@@ -4,17 +4,17 @@ description: Allow a legion of scrying orbs to automatically react when a distan
 type: scala
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   trait ScryingOrb {
     def onLeylineSurge(power: Int): Unit
   }
 
   class Leyline {
     private var orbs = List.empty[ScryingOrb]
-    
+
     def bind(orb: ScryingOrb): Unit = orbs = orb :: orbs
-    
+
     def surge(power: Int): Unit = {
       println(s"Leyline surges with power $power!")
       orbs.foreach(_.onLeylineSurge(power))

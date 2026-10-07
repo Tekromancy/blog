@@ -4,24 +4,24 @@ description: Lay the skeletal framework and let the subclasses flesh it out.
 type: forth
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Skeleton-Weaving
-formula: |
+arcaneSchool: "Necromancy // Skeleton-Weaving"
+formula: |2
   \ Skeleton-Weaving: The Template Method
   \ A rigid skeleton word calling deferred implementation steps.
-  
+
   DEFER PREPARE-INGREDIENTS
   DEFER BREW-POTION
-  
+
   \ The Template Word
   : CRAFT-ELIXIR ( -- )
     ." Heating cauldron..." CR
     PREPARE-INGREDIENTS
     BREW-POTION
     ." Elixir bottled." CR ;
-    
+
   : PREP-HEAL ( -- ) ." Grinding root." CR ;
   : BREW-HEAL ( -- ) ." Simmering until red." CR ;
-  
+
   \ Usage:
   \ ' PREP-HEAL IS PREPARE-INGREDIENTS
   \ ' BREW-HEAL IS BREW-POTION

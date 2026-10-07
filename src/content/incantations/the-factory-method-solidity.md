@@ -4,8 +4,8 @@ description: Delegating the instantiation of soul contracts to specialized demon
 type: solidity
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 
@@ -27,7 +27,7 @@ formula: |
 
   abstract contract DemonPrince {
       function summonContract() public virtual returns (ISoulContract);
-      
+
       function executeTithe() public returns (string memory) {
           ISoulContract soulContract = summonContract();
           return soulContract.extract();

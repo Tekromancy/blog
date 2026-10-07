@@ -4,22 +4,22 @@ description: The solitary High Monolith whose existence permeates the entire gri
 type: fortran
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Sealing
-formula: |
+arcaneSchool: "Abjuration // Sealing"
+formula: |2
   module singleton_m
     implicit none
     private
     public :: get_high_monolith
-    
+
     type :: HighMonolith
       integer :: grid_frequency = 432
     contains
       procedure, pass :: set_frequency
     end type HighMonolith
-    
+
     type(HighMonolith), save, target :: the_instance
     logical, save :: is_initialized = .false.
-    
+
   contains
     function get_high_monolith() result(ptr)
       type(HighMonolith), pointer :: ptr
@@ -29,7 +29,7 @@ formula: |
       end if
       ptr => the_instance
     end function get_high_monolith
-    
+
     subroutine set_frequency(this, freq)
       class(HighMonolith), intent(inout) :: this
       integer, intent(in) :: freq

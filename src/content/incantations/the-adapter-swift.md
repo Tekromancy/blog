@@ -4,8 +4,8 @@ description: Translating ancient runic spells into modern protocol-oriented magi
 type: swift
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Linguistics
-formula: |
+arcaneSchool: "Transmutation // Linguistics"
+formula: |2
   protocol ModernSpell {
       func executeSpell()
   }

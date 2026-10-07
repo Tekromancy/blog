@@ -4,20 +4,20 @@ description: Externalizing logic from the component hierarchy using a Visitor fu
 type: script
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Visitmancy
-formula: |
+arcaneSchool: "Divination // Visitmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Elements
   file_node() { echo "FILE:$1:$2"; }  # name:size
   dir_node() { echo "DIR:$1:$2"; }    # name:child_count
-  
+
   # The Visitor
   audit_visitor() {
     local type=$1
     local name=$2
     local meta=$3
-    
+
     if [[ "$type" == "FILE" ]]; then
       if (( meta > 1000 )); then
         echo "Audit: $name is unusually large ($meta bytes)."
@@ -28,7 +28,7 @@ formula: |
       echo "Audit: $name contains $meta children. Inspecting..."
     fi
   }
-  
+
   # The Accept Method (Iterator)
   accept_visitor() {
     local visitor_func=$1
@@ -38,7 +38,7 @@ formula: |
       $visitor_func "$type" "$name" "$meta"
     done
   }
-  
+
   # Usage
   {
     file_node "passwd" 1500

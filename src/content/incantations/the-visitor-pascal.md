@@ -4,8 +4,8 @@ description: An external inspector navigating complex magical constructs to perf
 type: pascal
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Inspection
-formula: |
+arcaneSchool: "Divination // Inspection"
+formula: |2
   unit VisitorPattern;
   interface
   type

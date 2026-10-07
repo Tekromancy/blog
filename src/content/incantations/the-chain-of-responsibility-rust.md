@@ -4,8 +4,8 @@ description: Avoid coupling the sender of a request to its receiver by giving mo
 type: rust
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Divination // Routing
-formula: |
+arcaneSchool: "Divination // Routing"
+formula: |2
   pub trait Handler {
       fn set_next(&mut self, next: Box<dyn Handler>);
       fn handle(&self, request: &str);

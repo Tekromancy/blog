@@ -4,8 +4,8 @@ description: A guardian entity controlling access to a sacred relic.
 type: pascal
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Conjuration // Guardianship
-formula: |
+arcaneSchool: "Conjuration // Guardianship"
+formula: |2
   unit ProxyPattern;
   interface
   type

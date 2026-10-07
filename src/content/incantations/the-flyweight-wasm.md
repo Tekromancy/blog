@@ -4,8 +4,8 @@ description: Sharing intrinsic ethereal blueprints in linear memory to spawn tho
 type: wasm
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm
-formula: |
+arcaneSchool: "Conjuration // Swarm"
+formula: |2
   (module
     (memory 1)
     ;; Intrinsic data stored once at 0x0

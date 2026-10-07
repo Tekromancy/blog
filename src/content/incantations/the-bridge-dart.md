@@ -4,42 +4,42 @@ description: Decouple an abstraction from its implementation so both can evolve 
 type: dart
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Enchantment // Artifice
-formula: |
+arcaneSchool: "Enchantment // Artifice"
+formula: |2
   abstract class Enchantment {
     void applyMagic();
   }
-  
+
   class FireEnchantment implements Enchantment {
     @override
     void applyMagic() => print('Wreathed in blazing hellfire!');
   }
-  
+
   class FrostEnchantment implements Enchantment {
     @override
     void applyMagic() => print('Coated in absolute zero frost!');
   }
-  
+
   abstract class Weapon {
     final Enchantment enchantment;
     Weapon(this.enchantment);
     void strike();
   }
-  
+
   class CyberKatana extends Weapon {
     CyberKatana(super.enchantment);
-    
+
     @override
     void strike() {
       print('Striking with Cyber Katana...');
       enchantment.applyMagic();
     }
   }
-  
+
   void main() {
     final fireKatana = CyberKatana(FireEnchantment());
     fireKatana.strike();
-    
+
     final frostKatana = CyberKatana(FrostEnchantment());
     frostKatana.strike();
   }

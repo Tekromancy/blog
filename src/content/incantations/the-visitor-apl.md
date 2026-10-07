@@ -4,8 +4,8 @@ description: Project psychic probes across a heterogeneous alien fleet.
 type: apl
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Psychic-Probing
-formula: |
+arcaneSchool: "Divination // Psychic-Probing"
+formula: |2
   :Class ProbeVisitor
       ∇ ScanScout S
         :Access Public Shared
@@ -14,7 +14,7 @@ formula: |
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class DiagnosticProbe : ProbeVisitor
       ∇ ScanScout S
         :Access Public
@@ -25,20 +25,20 @@ formula: |
         ⎕ ← 'Cruiser plasma conduits stable ⍋'
       ∇
   :EndClass
-  
+
   :Class Ship
       ∇ Accept Visitor
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class Scout : Ship
       ∇ Accept Visitor
         :Access Public
         Visitor.ScanScout ⎕THIS
       ∇
   :EndClass
-  
+
   :Class Cruiser : Ship
       ∇ Accept Visitor
         :Access Public

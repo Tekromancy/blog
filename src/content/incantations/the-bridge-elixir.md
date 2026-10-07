@@ -4,25 +4,25 @@ description: Decouple the arcane abstraction from its underlying cybernetic impl
 type: elixir
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Nexus-Weaving
-formula: |
+arcaneSchool: "Conjuration // Nexus-Weaving"
+formula: |2
   defmodule Tekromancy.CastingFocus do
     @callback channel(power :: integer) :: binary
   end
-  
+
   defmodule Tekromancy.WandFocus do
     @behaviour Tekromancy.CastingFocus
     def channel(power), do: "Wand shoots a bolt of #{power} terawatts!"
   end
-  
+
   defmodule Tekromancy.CyberJackFocus do
     @behaviour Tekromancy.CastingFocus
     def channel(power), do: "Neural jack injects #{power} exabytes of chaos."
   end
-  
+
   defmodule Tekromancy.Spell do
     defstruct [:focus, :power]
-    
+
     def cast(%__MODULE__{focus: focus, power: power}) do
       focus.channel(power)
     end

@@ -4,8 +4,8 @@ description: "A dark cipher that morphs incompatible ancient incantations into m
 type: ruby
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Linguistics
-formula: |
+arcaneSchool: "Transmutation // Linguistics"
+formula: |2
   class ModernRitual
     def cast_blood_spell(liters_of_blood)
       "Casting spell with #{liters_of_blood} liters of vitae."

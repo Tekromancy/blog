@@ -4,8 +4,8 @@ description: A simplified pure interface over a complex monadic planar system.
 type: haskell
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Simplification
-formula: |
+arcaneSchool: "Illusion // Simplification"
+formula: |2
   module Facade where
   complexSubsystemA = "Subsystem A"
   complexSubsystemB = "Subsystem B"

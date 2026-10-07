@@ -4,8 +4,8 @@ description: Summoning families of related functional wards without specifying t
 type: fsharp
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Sigilcraft
-formula: |
+arcaneSchool: "Conjuration // Sigilcraft"
+formula: |2
   type Ward = { Power: int; Name: string }
   type Shield = { Capacity: int; Element: string }
 

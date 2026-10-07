@@ -5,7 +5,7 @@ type: "python"
 gofPattern: "Proxy Pattern (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Illusion // The Phantasmal Mirror Proxy"
-formula: |
+formula: |2
   import time, functools
 
   class TelemetryProxy:

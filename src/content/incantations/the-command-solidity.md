@@ -4,8 +4,8 @@ description: Encapsulating a sinister decree into an executable, stoppable token
 type: solidity
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

@@ -4,8 +4,8 @@ description: Decoupling a magical abstraction from its elemental implementation.
 type: swift
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Elementalism
-formula: |
+arcaneSchool: "Transmutation // Elementalism"
+formula: |2
   protocol Element {
       func manifest() -> String
   }

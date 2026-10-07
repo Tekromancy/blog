@@ -4,29 +4,29 @@ description: Encapsulating a sinister order into a discrete executable token.
 type: assembly
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Imperative Runes
-formula: |
+arcaneSchool: "Necromancy // Imperative Runes"
+formula: |2
   section .data
       ; Command struct: [func_ptr, arg1]
       cmd_raise dq raise_dead, 0x100
-  
+
   section .text
       global _start
-  
+
   _start:
       ; Queue and execute the command
       mov rsi, cmd_raise
       call execute_command
-      
+
       mov rax, 60
       syscall
-  
+
   execute_command:
       mov rax, [rsi]
       mov rdi, [rsi+8]
       call rax
       ret
-  
+
   raise_dead:
       ; RDI contains the number of dead to raise
       ret

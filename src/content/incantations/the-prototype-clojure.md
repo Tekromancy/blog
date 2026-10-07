@@ -4,19 +4,19 @@ description: Cloning immutable essences to spawn new manifestations.
 type: clojure
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   (ns tekromancy.prototype)
-  
+
   ;; In Clojure, prototypes are just immutable maps.
   ;; Cloning is merely merging or associating new values into an existing map.
-  
+
   (def base-phantom
     {:health 100 :mana 50 :type :phantom})
-  
+
   (defn spawn-mutated-phantom [prototype mutation]
     (merge prototype mutation))
-  
+
   ;; Usage:
   ;; (def fire-phantom (spawn-mutated-phantom base-phantom {:type :fire-phantom :mana 100}))
 tags: [creational, prototype, clojure, immutable-data]

@@ -4,8 +4,8 @@ description: Sequentially uncovering the secrets hidden within an arcane collect
 type: fsharp
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   open System.Collections.Generic
 
   type Artifact = { Name: string }

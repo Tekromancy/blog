@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Decorator"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Augmentation"
-formula: |
+formula: |2
   library(R6)
 
   # Component

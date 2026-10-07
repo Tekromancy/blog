@@ -4,8 +4,8 @@ description: Convert the interface of a class into another interface clients exp
 type: go
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Interface-warping
-formula: |
+arcaneSchool: "Transmutation // Interface-warping"
+formula: |2
   package adapter
 
   import "fmt"

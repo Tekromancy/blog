@@ -4,8 +4,8 @@ description: Centralizing complex communications between disparate magical entit
 type: fsharp
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Telepathy
-formula: |
+arcaneSchool: "Enchantment // Telepathy"
+formula: |2
   type IMediator =
       abstract member Broadcast: string * Magus -> unit
 
@@ -19,9 +19,9 @@ formula: |
 
   type TelepathicNexus() =
       let mutable members : Magus list = []
-      
+
       member _.Join(magus) = members <- magus :: members
-      
+
       interface IMediator with
           member _.Broadcast(msg, sender) =
               members 

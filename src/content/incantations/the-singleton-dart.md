@@ -4,21 +4,21 @@ description: Ensure only a single instance of a magical conduit exists across th
 type: dart
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Soul Binding
-formula: |
+arcaneSchool: "Abjuration // Soul Binding"
+formula: |2
   class ManaLeyline {
     static final ManaLeyline _instance = ManaLeyline._internal();
-    
+
     int manaPool = 1000;
-    
+
     // Factory constructor returns the same instance
     factory ManaLeyline() {
       return _instance;
     }
-    
+
     // Private named constructor
     ManaLeyline._internal();
-    
+
     void drawMana(int amount) {
       if (manaPool >= amount) {
         manaPool -= amount;
@@ -28,14 +28,14 @@ formula: |
       }
     }
   }
-  
+
   void main() {
     final nexus1 = ManaLeyline();
     final nexus2 = ManaLeyline();
-    
+
     nexus1.drawMana(200);
     nexus2.drawMana(300); // Draws from the same shared pool
-    
+
     print(identical(nexus1, nexus2)); // true
   }
 tags: [dart, singleton, state-management, abjuration]

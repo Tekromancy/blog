@@ -4,23 +4,23 @@ description: Treating individual sigils and sprawling rune clusters uniformly.
 type: clojure
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Fractal
-formula: |
+arcaneSchool: "Illusion // Fractal"
+formula: |2
   (ns tekromancy.composite)
-  
+
   ;; Clojure's tree data structures are composites by nature.
   (defprotocol EvalRune
     (evaluate [_]))
-  
+
   (defrecord LeafRune [power]
     EvalRune
     (evaluate [_] power))
-  
+
   (defrecord ClusterRune [runes]
     EvalRune
     (evaluate [_]
       (reduce + (map evaluate runes))))
-  
+
   ;; Usage:
   ;; (evaluate (->ClusterRune [(->LeafRune 10)
   ;;                           (->ClusterRune [(->LeafRune 20) (->LeafRune 5)])]))

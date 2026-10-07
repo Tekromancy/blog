@@ -4,55 +4,55 @@ description: Conjure entire families of related mystical UI artifacts without bi
 type: dart
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   abstract class PortalFactory {
     Rune createRune();
     Sigil createSigil();
   }
-  
+
   class NetherPortalFactory implements PortalFactory {
     @override
     Rune createRune() => NetherRune();
     @override
     Sigil createSigil() => NetherSigil();
   }
-  
+
   class AetherPortalFactory implements PortalFactory {
     @override
     Rune createRune() => AetherRune();
     @override
     Sigil createSigil() => AetherSigil();
   }
-  
+
   abstract class Rune {
     void glow();
   }
-  
+
   abstract class Sigil {
     void resonate();
   }
-  
+
   class NetherRune implements Rune {
     @override
     void glow() => print('Eerie purple glow.');
   }
-  
+
   class NetherSigil implements Sigil {
     @override
     void resonate() => print('Deep bass hum.');
   }
-  
+
   class AetherRune implements Rune {
     @override
     void glow() => print('Blinding white light.');
   }
-  
+
   class AetherSigil implements Sigil {
     @override
     void resonate() => print('High-pitched chime.');
   }
-  
+
   void main() {
     PortalFactory factory = AetherPortalFactory();
     final rune = factory.createRune();

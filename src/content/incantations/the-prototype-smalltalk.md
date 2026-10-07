@@ -4,13 +4,13 @@ description: "Clone existing phantom objects rather than summoning new ones from
 type: smalltalk
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Phantom Cloning
-formula: |
+arcaneSchool: "Illusion // Phantom Cloning"
+formula: |2
   Object subclass: #Phantom
     instanceVariableNames: 'ectoplasm signature'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   Phantom >> clone [
       | copy |
       copy := super copy.

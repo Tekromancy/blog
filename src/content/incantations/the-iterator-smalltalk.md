@@ -4,13 +4,13 @@ description: "Traverse the myriad planes of the ethereal void without exposing i
 type: smalltalk
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Spirit Scrying
-formula: |
+arcaneSchool: "Divination // Spirit Scrying"
+formula: |2
   Object subclass: #EtherealIterator
     instanceVariableNames: 'planes currentIndex'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   EtherealIterator >> hasNext [ ^ currentIndex <= planes size ]
   EtherealIterator >> next [
       | plane |

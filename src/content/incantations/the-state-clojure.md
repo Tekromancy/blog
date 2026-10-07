@@ -4,24 +4,24 @@ description: Altering an entity's behavior as its internal energy matrix changes
 type: clojure
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shifting
-formula: |
+arcaneSchool: "Transmutation // Shifting"
+formula: |2
   (ns tekromancy.state)
-  
+
   (defmulti attack :stance)
-  
+
   (defmethod attack :offensive [_]
     "Swings wildly with reckless abandon!")
-  
+
   (defmethod attack :defensive [_]
     "Strikes carefully from behind a shield.")
-  
+
   (defmethod attack :berserk [_]
     "Roars and cleaves everything in sight!")
-  
+
   (defn change-stance [entity new-stance]
     (assoc entity :stance new-stance))
-  
+
   ;; Usage:
   ;; (def warrior {:stance :defensive})
   ;; (attack warrior)

@@ -4,15 +4,15 @@ description: "Provide a way to access the elements of an aggregate object sequen
 type: zig
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Dowsing
-formula: |
+arcaneSchool: "Divination // Dowsing"
+formula: |2
   const std = @import("std");
-  
+
   pub const Node = struct { value: u32, next: ?*Node };
-  
+
   pub const LeylineIterator = struct {
       current: ?*Node,
-      
+
       pub fn next(self: *LeylineIterator) ?u32 {
           if (self.current) |node| {
               self.current = node.next;

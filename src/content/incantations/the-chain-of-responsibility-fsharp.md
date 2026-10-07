@@ -4,8 +4,8 @@ description: Passing a magical anomaly through a gauntlet of warding sigils unti
 type: fsharp
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Defense
-formula: |
+arcaneSchool: "Abjuration // Defense"
+formula: |2
   type ThreatLevel = Low | Medium | High
 
   type IWard =

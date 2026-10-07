@@ -4,8 +4,8 @@ description: Defining the skeleton of a ritual, deferring some steps to specific
 type: cpp
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ritualism
-formula: |
+arcaneSchool: "Necromancy // Ritualism"
+formula: |2
   class Ritual {
   protected:
       virtual void Prepare() = 0;

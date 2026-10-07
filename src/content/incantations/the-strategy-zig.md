@@ -4,10 +4,10 @@ description: "Define a family of algorithms, encapsulate each one, and make them
 type: zig
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactical Casting
-formula: |
+arcaneSchool: "Evocation // Tactical Casting"
+formula: |2
   const std = @import("std");
-  
+
   pub const CastStrategy = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -17,10 +17,10 @@ formula: |
           return self.vtable.execute(self, power);
       }
   };
-  
+
   pub const Mage = struct {
       strategy: *CastStrategy,
-      
+
       pub fn attack(self: *Mage, base_power: u32) u32 {
           return self.strategy.execute(base_power);
       }

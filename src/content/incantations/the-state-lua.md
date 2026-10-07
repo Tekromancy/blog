@@ -4,8 +4,8 @@ description: "Altering an entity's behavior entirely by swapping its internal ma
 type: lua
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Polymorph
-formula: |
+arcaneSchool: "Transmutation // Polymorph"
+formula: |2
   local BearState = { attack = function() return "Maul!" end }
   local EagleState = { attack = function() return "Dive!" end }
 

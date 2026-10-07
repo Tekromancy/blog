@@ -4,8 +4,8 @@ description: "A cursed lycanthrope whose behavior fundamentally shifts depending
 type: ruby
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shapeshifting
-formula: |
+arcaneSchool: "Transmutation // Shapeshifting"
+formula: |2
   class HumanState
     def attack
       "Punches weakly."

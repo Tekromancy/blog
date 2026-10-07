@@ -4,16 +4,16 @@ description: Projecting an astral entity into the synthetic organ structures to 
 type: wasm
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Astral Projection
-formula: |
+arcaneSchool: "Divination // Astral Projection"
+formula: |2
   (module
     (type $visitor (func (param i32)))
     (table 1 funcref)
-    
+
     (func $visit_heart (param $visitor_idx i32)
       (call_indirect (type $visitor) (i32.const 0xHEART) (local.get $visitor_idx))
     )
-    
+
     (func $telemetry_visitor (param $element i32)
       ;; Extract data based on element type
     )

@@ -4,8 +4,8 @@ description: "Providing a simple, unified rune to trigger a massive cascade of c
 type: lua
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Evocation // Invocation
-formula: |
+arcaneSchool: "Evocation // Invocation"
+formula: |2
   local Leyline = { draw = function() print("Drawing leyline power...") end }
   local Elementals = { summon = function() print("Summoning elements...") end }
   local MoonPhase = { align = function() print("Aligning with the moon...") end }

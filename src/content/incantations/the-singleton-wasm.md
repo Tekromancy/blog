@@ -4,8 +4,8 @@ description: Ensuring only one Master Control Program rules the WebAssembly line
 type: wasm
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Sealing
-formula: |
+arcaneSchool: "Abjuration // Sealing"
+formula: |2
   (module
     (global $instance_ptr (mut i32) (i32.const 0))
     (func $get_instance (result i32)

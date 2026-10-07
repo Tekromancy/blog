@@ -4,8 +4,8 @@ description: Cloning magical artifacts directly from a prime template.
 type: cpp
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Mirroring
-formula: |
+arcaneSchool: "Illusion // Mirroring"
+formula: |2
   #include <memory>
   class Artifact {
   public:

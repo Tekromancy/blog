@@ -4,27 +4,27 @@ description: Represent an operation to be performed on the elements of an object
 type: javascript
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Aura Reading
-formula: |
+arcaneSchool: "Divination // Aura Reading"
+formula: |2
   class Artifact { accept(visitor) {} }
-  
+
   class Sword extends Artifact {
     accept(visitor) { visitor.visitSword(this); }
   }
-  
+
   class Shield extends Artifact {
     accept(visitor) { visitor.visitShield(this); }
   }
-  
+
   class EnchantmentChecker {
     visitSword(sword) { console.log("Sword aura: Sharpness +2"); }
     visitShield(shield) { console.log("Shield aura: Magic Resistance"); }
   }
-  
+
   const sword = new Sword();
   const shield = new Shield();
   const checker = new EnchantmentChecker();
-  
+
   sword.accept(checker);
   shield.accept(checker);
 tags: [operations, structures, scanning]

@@ -4,8 +4,8 @@ description: Representing an operation to be performed on the elements of an obj
 type: fsharp
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Projection
-formula: |
+arcaneSchool: "Divination // Projection"
+formula: |2
   // In F#, the Visitor pattern is usually replaced by Discriminated Unions and Pattern Matching
 
   type ArcaneStructure =

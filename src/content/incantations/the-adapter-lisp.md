@@ -4,34 +4,34 @@ description: "Bridging the gap between 3D Euclidian interfaces and multi-dimensi
 type: lisp
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Spatial Distortion
-formula: |
+arcaneSchool: "Transmutation // Spatial Distortion"
+formula: |2
   (defpackage :eldritch-adapter
     (:use :cl))
   (in-package :eldritch-adapter)
-  
+
   ;; The Interface expected by human, Euclidian physics
   (defgeneric calculate-volume (shape))
-  
+
   (defclass euclidian-cube ()
     ((side :initarg :side :reader side-length)))
-  
+
   (defmethod calculate-volume ((c euclidian-cube))
     (expt (side-length c) 3))
-  
+
   ;; The incompatible, ancient interface
   (defclass hound-of-tindalos ()
     ((temporal-angle :initarg :angle :reader temporal-angle)))
-  
+
   (defgeneric manifest-hyper-volume (hound time-distortion))
-  
+
   (defmethod manifest-hyper-volume ((h hound-of-tindalos) distortion)
     (* (temporal-angle h) (exp distortion)))
-  
+
   ;; The Adapter Class
   (defclass tindalos-adapter ()
     ((hound :initarg :hound :reader adapted-hound)))
-  
+
   ;; We make the hound conform to the euclidian physics expectation
   (defmethod calculate-volume ((adapter tindalos-adapter))
     ;; We use a constant time-distortion of 1.0 for the adaptation

@@ -4,11 +4,11 @@ description: A unified grimimoire interface masking a complex web of dark subsys
 type: assembly
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Necromancy // Ritual Simplification
-formula: |
+arcaneSchool: "Necromancy // Ritual Simplification"
+formula: |2
   section .text
       global raise_undead_army
-  
+
   ; Subsystem routines
   prepare_graveyard:
       ret
@@ -16,16 +16,16 @@ formula: |
       ret
   animate_corpses:
       ret
-  
+
   ; The Facade
   raise_undead_army:
       push rbp
       mov rbp, rsp
-      
+
       call prepare_graveyard
       call channel_void_energy
       call animate_corpses
-      
+
       pop rbp
       ret
 tags: [facade, assembly, structural, necromancy]

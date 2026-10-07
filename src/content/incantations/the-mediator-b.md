@@ -4,12 +4,12 @@ description: "Centralizing the dark communication between precursor components."
 type: b
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Domination
-formula: |
+arcaneSchool: "Enchantment // Domination"
+formula: |2
   /* Components speak only to the nexus */
-  
+
   ext component_a_val, component_b_val;
-  
+
   mediator_notify(sender, event) {
       if (sender == 'A') {
           if (event == 'SYNC') component_b_val = component_a_val;
@@ -18,12 +18,12 @@ formula: |
           if (event == 'WAKE') component_a_val = 1;
       }
   }
-  
+
   comp_a_act() {
       component_a_val = 99;
       mediator_notify('A', 'SYNC');
   }
-  
+
   comp_b_act() {
       mediator_notify('B', 'WAKE');
   }

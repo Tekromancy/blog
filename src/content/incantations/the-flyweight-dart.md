@@ -4,17 +4,17 @@ description: Share mystical essence efficiently across massive swarms of objects
 type: dart
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Enchantment // Essence Duplication
-formula: |
+arcaneSchool: "Enchantment // Essence Duplication"
+formula: |2
   class ParticleEssence {
     final String color;
     final String texture;
     ParticleEssence(this.color, this.texture);
   }
-  
+
   class EssenceFactory {
     static final Map<String, ParticleEssence> _cache = {};
-    
+
     static ParticleEssence getEssence(String color, String texture) {
       final key = '$color-$texture';
       if (!_cache.containsKey(key)) {
@@ -23,20 +23,20 @@ formula: |
       return _cache[key]!;
     }
   }
-  
+
   class SpellParticle {
     final ParticleEssence essence;
     final double x, y;
-    
+
     SpellParticle(this.essence, this.x, this.y);
-    
+
     void render() => print('Rendering ${essence.color} particle at $x, $y');
   }
-  
+
   void main() {
     final p1 = SpellParticle(EssenceFactory.getEssence('Red', 'Spark'), 10, 20);
     final p2 = SpellParticle(EssenceFactory.getEssence('Red', 'Spark'), 15, 25);
-    
+
     print('Sharing same essence memory: ${identical(p1.essence, p2.essence)}');
   }
 tags: [dart, flyweight, optimization, memory-magic]

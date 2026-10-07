@@ -4,8 +4,8 @@ description: Conjure families of related arcane artifacts without specifying the
 type: python
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Spellbook(ABC):
@@ -31,7 +31,7 @@ formula: |
   class ArcaneFactory(ABC):
       @abstractmethod
       def create_spellbook(self) -> Spellbook: pass
-      
+
       @abstractmethod
       def create_wand(self) -> Wand: pass
 

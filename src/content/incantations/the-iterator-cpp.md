@@ -4,8 +4,8 @@ description: Traversing a mystical collection of artifacts sequentially.
 type: cpp
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   #include <vector>
   #include <string>
   class VaultIterator {

@@ -4,8 +4,8 @@ description: "Structured antiquity and the Facade pattern."
 type: algol
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Veiling
-formula: |
+arcaneSchool: "Illusion // Veiling"
+formula: |2
   CO Facade in ALGOL 68 CO
   BEGIN
     MODE FACADE = STRUCT (PROC VOID operation);

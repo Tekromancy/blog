@@ -4,28 +4,28 @@ description: Clone complex hyper-dimensional entities through deep matrix copyin
 type: apl
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning-Matrices
-formula: |
+arcaneSchool: "Illusion // Cloning-Matrices"
+formula: |2
   :Class Xenomorph
       :Field Public DNA ← ⍬
-      
+
       ∇ Make D
         :Access Public
         :Implements Constructor
         DNA ← D
       ∇
-      
+
       ∇ R←Clone
         :Access Public
         R ← ⎕NEW Xenomorph (DNA)
       ∇
-      
+
       ∇ Mutate M
         :Access Public
         DNA ← DNA , M
       ∇
   :EndClass
-  
+
   ⍝ Usage:
   ⍝ X1 ← ⎕NEW Xenomorph ('⍉⍟')
   ⍝ X2 ← X1.Clone

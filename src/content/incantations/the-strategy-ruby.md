@@ -4,8 +4,8 @@ description: "Selecting the optimal method of ritual execution at runtime, swapp
 type: ruby
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   class ExsanguinationStrategy
     def execute_ritual(victim)
       "Explosively violently draining all blood from #{victim}."

@@ -4,8 +4,8 @@ description: Define a one-to-many dependency between objects so that when one ob
 type: go
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Leyline-monitoring
-formula: |
+arcaneSchool: "Divination // Leyline-monitoring"
+formula: |2
   package observer
 
   import "fmt"

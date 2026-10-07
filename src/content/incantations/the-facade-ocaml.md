@@ -4,12 +4,12 @@ description: Concealing complex esoteric rituals behind a simplified grimoire in
 type: ocaml
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Interface Masking
-formula: |
+arcaneSchool: "Illusion // Interface Masking"
+formula: |2
   module SubsystemA = struct let init () = () end
   module SubsystemB = struct let charge () = () end
   module SubsystemC = struct let fire () = print_endline "Boom!" end
-  
+
   module ArchmageFacade = struct
     let unleash_devastation () =
       SubsystemA.init ();

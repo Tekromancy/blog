@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Interpreter"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Grammar"
-formula: |
+formula: |2
   library(R6)
 
   # Abstract Expression

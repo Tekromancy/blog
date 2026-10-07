@@ -4,17 +4,17 @@ description: Guard the deep invocations with conditional gateways.
 type: forth
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Gatekeeping
-formula: |
+arcaneSchool: "Abjuration // Gatekeeping"
+formula: |2
   \ Gatekeeping: The Proxy
   \ Protecting or deferring expensive/dangerous operations.
-  
+
   VARIABLE MANA-POOL
   10 MANA-POOL !
-  
+
   : REAL-DOOMSDAY ( -- )
     ." THE HEAVENS TEAR APART!" CR ;
-    
+
   \ The Proxy
   : CAST-DOOMSDAY ( -- )
     MANA-POOL @ 100 < IF
@@ -22,7 +22,7 @@ formula: |
     ELSE
       REAL-DOOMSDAY
     THEN ;
-    
+
   \ Usage:
   \ CAST-DOOMSDAY
 tags: [structural, proxy, forth, gatekeeping]

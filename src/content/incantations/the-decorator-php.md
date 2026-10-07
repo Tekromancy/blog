@@ -4,36 +4,36 @@ description: "Dynamically wrap objects with new layers of chaos magic."
 type: php
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Layering
-formula: |
+arcaneSchool: "Abjuration // Layering"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   interface WebRequest {
       public function getPayload(): string;
   }
-  
+
   class BaseRequest implements WebRequest {
       public function getPayload(): string { return "Basic Payload"; }
   }
-  
+
   abstract class RequestDecorator implements WebRequest {
       public function __construct(protected WebRequest $request) {}
   }
-  
+
   class EncryptionLayer extends RequestDecorator {
       public function getPayload(): string {
           return base64_encode($this->request->getPayload() . " [ENCRYPTED]");
       }
   }
-  
+
   class ChaosLayer extends RequestDecorator {
       public function getPayload(): string {
           return str_shuffle($this->request->getPayload());
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

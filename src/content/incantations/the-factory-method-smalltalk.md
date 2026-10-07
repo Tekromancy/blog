@@ -4,19 +4,19 @@ description: "Let subclasses decide which spectral entity to instantiate during 
 type: smalltalk
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Entity Invocation
-formula: |
+arcaneSchool: "Conjuration // Entity Invocation"
+formula: |2
   Object subclass: #Medium
     instanceVariableNames: ''
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   Medium >> commune [
       | spirit |
       spirit := self summonSpirit.
       spirit receiveMessage: #speak.
   ]
-  
+
   Medium >> summonSpirit [
       self subclassResponsibility
   ]

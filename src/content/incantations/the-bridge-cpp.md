@@ -4,8 +4,8 @@ description: Decoupling a magical abstraction from its elemental implementation.
 type: cpp
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Evocation // Channeling
-formula: |
+arcaneSchool: "Evocation // Channeling"
+formula: |2
   class Element {
   public: virtual ~Element() = default; virtual void Ignite() = 0;
   };

@@ -4,14 +4,14 @@ description: Defining the skeleton of a ritual in an operation, deferring specif
 type: fsharp
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Rituals
-formula: |
+arcaneSchool: "Conjuration // Rituals"
+formula: |2
   [<AbstractClass>]
   type BaseRitual() =
       abstract member PrepareComponents: unit -> unit
       abstract member Chant: unit -> unit
       abstract member Ignite: unit -> unit
-      
+
       // The Template Method
       member this.PerformRitual() =
           this.PrepareComponents()

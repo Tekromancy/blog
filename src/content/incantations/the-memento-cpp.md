@@ -4,8 +4,8 @@ description: Capturing and restoring the internal state of a spell without viola
 type: cpp
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // TimeWeaving
-formula: |
+arcaneSchool: "Chronomancy // TimeWeaving"
+formula: |2
   #include <string>
   class SpellState {
       std::string state;

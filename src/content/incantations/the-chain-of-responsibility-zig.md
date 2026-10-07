@@ -4,18 +4,18 @@ description: "Pass a request along a chain of mystical handlers until one resolv
 type: zig
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Tribunal
-formula: |
+arcaneSchool: "Enchantment // Tribunal"
+formula: |2
   const std = @import("std");
-  
+
   pub const TribunalNode = struct {
       next: ?*TribunalNode = null,
       vtable: *const VTable,
-      
+
       pub const VTable = struct {
           handle: *const fn (self: *TribunalNode, power_level: u32) bool,
       };
-      
+
       pub fn handle(self: *TribunalNode, power_level: u32) bool {
           if (self.vtable.handle(self, power_level)) return true;
           if (self.next) |n| return n.handle(power_level);

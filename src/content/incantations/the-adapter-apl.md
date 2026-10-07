@@ -4,15 +4,15 @@ description: Translate human standard telemetry into ancient alien geometries.
 type: apl
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Geometry-Translation
-formula: |
+arcaneSchool: "Transmutation // Geometry-Translation"
+formula: |2
   :Class HumanTelemetry
       ∇ R←GetData
         :Access Public
         R ← 1 2 3 4 5
       ∇
   :EndClass
-  
+
   :Class AlienMatrix
       ∇ Inscribe Matrix
         :Access Public
@@ -20,16 +20,16 @@ formula: |
         ⎕ ← 'Inscribed: ' , ⍕⍴Matrix
       ∇
   :EndClass
-  
+
   :Class TelemetryAdapter
       :Field Private HumanSensor
-      
+
       ∇ Make Sensor
         :Access Public
         :Implements Constructor
         HumanSensor ← Sensor
       ∇
-      
+
       ∇ Inscribe
         :Access Public
         ⍝ Convert 1D vector to 2D alien matrix ⍉⍴

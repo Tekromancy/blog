@@ -4,19 +4,19 @@ description: Extract or analyzes data from a structure without modifying it.
 type: vhdl
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Diagnostic Probe
-formula: |
+arcaneSchool: "Silicon Golemancy // Diagnostic Probe"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity visitor_probe is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end visitor_probe;
-  
+
   architecture Physical of visitor_probe is
   begin
       process(clk, rst)

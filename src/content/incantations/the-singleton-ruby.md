@@ -4,8 +4,8 @@ description: "The singular, omnipotent Blood Pact Registry that governs all soul
 type: ruby
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   require 'singleton'
 
   class PactRegistry

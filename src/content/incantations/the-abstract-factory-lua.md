@@ -4,8 +4,8 @@ description: "A creational pattern that summons families of related magical obje
 type: lua
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Symbiosis
-formula: |
+arcaneSchool: "Conjuration // Symbiosis"
+formula: |2
   local FaeFactory = {}
   function FaeFactory:new(moonPhase)
     local obj = { phase = moonPhase }

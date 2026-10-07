@@ -4,22 +4,22 @@ description: Swapping out the combat algorithms of an undead warlord on the fly.
 type: assembly
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Combat Tactics
-formula: |
+arcaneSchool: "Necromancy // Combat Tactics"
+formula: |2
   section .data
       combat_strategy dq strat_defend
-  
+
   section .text
       global execute_combat
-  
+
   execute_combat:
       mov rax, [combat_strategy]
       jmp rax
-  
+
   strat_defend:
       ; Shield wall logic
       ret
-      
+
   strat_attack:
       ; Charge logic
       ret

@@ -4,8 +4,8 @@ description: Dynamically binding new cybernetic enhancements to the WASM stack f
 type: wasm
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Augmentation
-formula: |
+arcaneSchool: "Transmutation // Augmentation"
+formula: |2
   (module
     (func $base_attack (result i32)
       (i32.const 10)

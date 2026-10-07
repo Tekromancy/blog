@@ -4,13 +4,13 @@ description: "Control access to a dangerous demon using a warded proxy spirit."
 type: smalltalk
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Spirit Ward
-formula: |
+arcaneSchool: "Abjuration // Spirit Ward"
+formula: |2
   Object subclass: #WardedProxy
     instanceVariableNames: 'trueDemon isWarded'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   WardedProxy >> commune: aMessage [
       isWarded ifFalse: [ ^ self error: 'Ward broken! The demon attacks!' ].
       ^ trueDemon commune: aMessage

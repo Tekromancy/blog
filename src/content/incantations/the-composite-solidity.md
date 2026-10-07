@@ -4,8 +4,8 @@ description: Assembling fractured souls into a singular demonic hive-mind.
 type: solidity
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Necromancy // Amalgamation
-formula: |
+arcaneSchool: "Necromancy // Amalgamation"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 
@@ -16,7 +16,7 @@ formula: |
   contract FracturedSoul is ISoulEntity {
       uint256 public torment;
       constructor(uint256 _torment) { torment = _torment; }
-      
+
       function getTormentLevel() external view override returns (uint256) {
           return torment;
       }

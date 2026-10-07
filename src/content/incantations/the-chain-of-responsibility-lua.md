@@ -4,8 +4,8 @@ description: "Passing a magical petition up through the hierarchy of fae nobilit
 type: lua
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Court
-formula: |
+arcaneSchool: "Enchantment // Court"
+formula: |2
   local Courtier = {}
   Courtier.__index = Courtier
 

@@ -4,8 +4,8 @@ description: "Structured antiquity and the Template Method pattern."
 type: algol
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Blueprints
-formula: |
+arcaneSchool: "Evocation // Blueprints"
+formula: |2
   CO Template Method in ALGOL 68 CO
   BEGIN
     MODE TEMPLATE = STRUCT (PROC VOID execute);

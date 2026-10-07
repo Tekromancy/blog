@@ -4,8 +4,8 @@ description: First-class functions passed as combat tactics.
 type: haskell
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   module Strategy where
   type Strategy = Int -> Int -> Int
   addStrategy :: Strategy

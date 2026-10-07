@@ -4,13 +4,13 @@ description: "Centralize the chaotic interactions of multiple chaotic spirits th
 type: smalltalk
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Mediumship
-formula: |
+arcaneSchool: "Enchantment // Mediumship"
+formula: |2
   Object subclass: #SeanceTableMediator
     instanceVariableNames: 'spirits'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   SeanceTableMediator >> notify: aSpirit event: anEvent [
       anEvent = #Angry ifTrue: [ self calmAllOthers ].
       anEvent = #Departing ifTrue: [ self closePortal ].

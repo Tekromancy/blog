@@ -4,13 +4,13 @@ description: A mathematically unbreakable global ward, enforced by the type syst
 type: haskell
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Type-Theory
-formula: |
+arcaneSchool: "Abjuration // Type-Theory"
+formula: |2
   {-# LANGUAGE DataKinds, GADTs #-}
   module Singleton where
   data WorldState = Active | Dormant
   data SWorldState (s :: WorldState) where SActive :: SWorldState 'Active
-  
+
   invokeActiveWard :: SWorldState 'Active -> String
   invokeActiveWard SActive = "The Active Ward is invoked."
 tags: [singleton, types, abjuration]

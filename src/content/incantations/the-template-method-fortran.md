@@ -4,13 +4,13 @@ description: Standardizing the lifecycle of a numerical simulation spell.
 type: fortran
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Formalism
-formula: |
+arcaneSchool: "Abjuration // Formalism"
+formula: |2
   module template_method_m
     implicit none
     private
     public :: SimulationTemplate, GeoSimulation
-  
+
     type, abstract :: SimulationTemplate
     contains
       procedure, pass :: run_simulation
@@ -18,21 +18,21 @@ formula: |
       procedure(step_if), deferred, pass :: crunch_numbers
       procedure(step_if), deferred, pass :: vent_heat
     end type SimulationTemplate
-  
+
     abstract interface
       subroutine step_if(this)
         import :: SimulationTemplate
         class(SimulationTemplate), intent(inout) :: this
       end subroutine step_if
     end interface
-  
+
     type, extends(SimulationTemplate) :: GeoSimulation
     contains
       procedure, pass :: initialize_core => geo_init
       procedure, pass :: crunch_numbers => geo_crunch
       procedure, pass :: vent_heat => geo_vent
     end type GeoSimulation
-  
+
   contains
     subroutine run_simulation(this)
       class(SimulationTemplate), intent(inout) :: this
@@ -41,15 +41,15 @@ formula: |
       call this%crunch_numbers()
       call this%vent_heat()
     end subroutine run_simulation
-    
+
     subroutine geo_init(this)
       class(GeoSimulation), intent(inout) :: this
     end subroutine geo_init
-    
+
     subroutine geo_crunch(this)
       class(GeoSimulation), intent(inout) :: this
     end subroutine geo_crunch
-    
+
     subroutine geo_vent(this)
       class(GeoSimulation), intent(inout) :: this
     end subroutine geo_vent

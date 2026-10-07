@@ -4,8 +4,8 @@ description: Forcing Euclidean logic onto non-Euclidean horrors.
 type: brainfuck
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Geometry
-formula: |
+arcaneSchool: "Transmutation // Geometry"
+formula: |2
   +++         [Non-Euclidean value]
   [->++<]     [Adapt by doubling the agony]
 tags: [adapter, geometry, pain]

@@ -4,8 +4,8 @@ description: A higher-order loom weaving synthetic flesh for the WASM Homunculus
 type: wasm
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Fleshcraft
-formula: |
+arcaneSchool: "Conjuration // Fleshcraft"
+formula: |2
   (module
     (type $flesh_factory (func (result i32)))
     (table 2 funcref)

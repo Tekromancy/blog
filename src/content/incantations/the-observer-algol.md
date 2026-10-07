@@ -4,8 +4,8 @@ description: "Structured antiquity and the Observer pattern."
 type: algol
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Vigilance
-formula: |
+arcaneSchool: "Divination // Vigilance"
+formula: |2
   CO Observer in ALGOL 68 CO
   BEGIN
     MODE OBSERVER = STRUCT (PROC VOID update);

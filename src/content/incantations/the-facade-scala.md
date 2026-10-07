@@ -4,8 +4,8 @@ description: Obscure a chaotic cluster of micro-spells behind a single, elegant 
 type: scala
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Masking
-formula: |
+arcaneSchool: "Illusion // Masking"
+formula: |2
   class LeylineRouter { def connect(): Unit = println("Connecting leylines...") }
   class ManaCondenser { def condense(): Unit = println("Condensing mana...") }
   class AetherValve { def open(): Unit = println("Opening valve...") }

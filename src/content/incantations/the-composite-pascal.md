@@ -4,8 +4,8 @@ description: Treating individual runes and grand sigils with identical respect.
 type: pascal
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Gestalt
-formula: |
+arcaneSchool: "Illusion // Gestalt"
+formula: |2
   unit CompositePattern;
   interface
   type

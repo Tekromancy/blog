@@ -4,8 +4,8 @@ description: Represent an operation to be performed on the elements of an object
 type: go
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Audit-sweeping
-formula: |
+arcaneSchool: "Abjuration // Audit-sweeping"
+formula: |2
   package visitor
 
   import "fmt"

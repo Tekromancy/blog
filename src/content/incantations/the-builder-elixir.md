@@ -4,34 +4,34 @@ description: Forge complex mental constructs step-by-step through ritualistic st
 type: elixir
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct-Weaving
-formula: |
+arcaneSchool: "Transmutation // Construct-Weaving"
+formula: |2
   defmodule Tekromancy.Golem do
     defstruct head: nil, core: nil, limbs: []
   end
-  
+
   defmodule Tekromancy.GolemBuilder do
     alias Tekromancy.Golem
-  
+
     def new, do: %Golem{}
-  
+
     def bind_core(golem, core_type) do
       %{golem | core: core_type}
     end
-  
+
     def attach_head(golem, head_type) do
       %{golem | head: head_type}
     end
-  
+
     def augment_limb(golem, limb) do
       %{golem | limbs: [limb | golem.limbs]}
     end
-    
+
     def awaken(golem) do
       # Initiate actor process for the Golem
       Task.start(fn -> loop(golem) end)
     end
-    
+
     defp loop(state) do
       receive do
         :pulse -> IO.puts("Golem core #{state.core} pulses with arcane energy.")

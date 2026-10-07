@@ -4,8 +4,8 @@ description: Step-by-step construction of complex ritual circles.
 type: pascal
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Conjuration // Ritualism
-formula: |
+arcaneSchool: "Conjuration // Ritualism"
+formula: |2
   unit BuilderPattern;
   interface
   type

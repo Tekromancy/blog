@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Strategy"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Interchangeable Scrying"
-formula: |
+formula: |2
   library(R6)
 
   # Strategy Interface

@@ -4,8 +4,8 @@ description: FRP and reactive conduits to react to the changing void.
 type: haskell
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Reactive
-formula: |
+arcaneSchool: "Divination // Reactive"
+formula: |2
   module Observer where
   type Observer = String -> IO ()
   notify :: [Observer] -> String -> IO ()

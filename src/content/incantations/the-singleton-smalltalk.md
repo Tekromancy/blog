@@ -4,18 +4,18 @@ description: "Ensure only one absolute Void exists from which all spirits are dr
 type: smalltalk
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Conjuration // Unique Familiar
-formula: |
+arcaneSchool: "Conjuration // Unique Familiar"
+formula: |2
   Object subclass: #TheVoid
     instanceVariableNames: ''
     classVariableNames: 'UniqueInstance'
     package: 'Tekromancy-Seance'.
-  
+
   TheVoid class >> uniqueInstance [
       UniqueInstance ifNil: [ UniqueInstance := self basicNew initialize ].
       ^ UniqueInstance
   ]
-  
+
   TheVoid class >> new [
       self error: 'You cannot create another Void. Use #uniqueInstance'
   ]

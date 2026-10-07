@@ -4,8 +4,8 @@ description: "Structured antiquity and the Iterator pattern."
 type: algol
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Sequencing
-formula: |
+arcaneSchool: "Divination // Sequencing"
+formula: |2
   CO Iterator in ALGOL 68 CO
   BEGIN
     MODE ITERATOR = STRUCT (PROC VOID next);

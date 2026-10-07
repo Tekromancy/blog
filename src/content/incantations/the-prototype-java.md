@@ -4,17 +4,17 @@ description: Bypassing the heavy toll of orthodox creation through sanctioned ce
 type: java
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Necromancy // Replication
-formula: |
+arcaneSchool: "Necromancy // Replication"
+formula: |2
   public abstract class Homunculus implements Cloneable {
       protected String designation;
-      
+
       public Homunculus(String designation) {
           this.designation = designation;
       }
-      
+
       public abstract void performDuty();
-      
+
       @Override
       public Homunculus clone() {
           try {
@@ -24,12 +24,12 @@ formula: |
           }
       }
   }
-  
+
   public class ScribeHomunculus extends Homunculus {
       public ScribeHomunculus(String designation) {
           super(designation);
       }
-      
+
       @Override
       public void performDuty() {
           System.out.println(designation + " meticulously transcribes the enterprise logs.");

@@ -4,8 +4,8 @@ description: An astral projection traversing and analyzing heterogeneous soul st
 type: solidity
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Astral
-formula: |
+arcaneSchool: "Divination // Astral"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

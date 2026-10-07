@@ -4,40 +4,40 @@ description: Parse and execute xenolinguistic scripts dynamically.
 type: apl
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Xeno-Linguistics
-formula: |
+arcaneSchool: "Divination // Xeno-Linguistics"
+formula: |2
   :Class Expression
       ∇ R←Interpret Context
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class TerminalGlyph : Expression
       :Field Private Glyph
-      
+
       ∇ Make G
         :Access Public
         :Implements Constructor
         Glyph ← G
       ∇
-      
+
       ∇ R←Interpret Context
         :Access Public
         R ← Glyph ∊ Context
       ∇
   :EndClass
-  
+
   :Class OrExpression : Expression
       :Field Private Expr1
       :Field Private Expr2
-      
+
       ∇ Make (E1 E2)
         :Access Public
         :Implements Constructor
         Expr1 ← E1
         Expr2 ← E2
       ∇
-      
+
       ∇ R←Interpret Context
         :Access Public
         R ← (Expr1.Interpret Context) ∨ (Expr2.Interpret Context)

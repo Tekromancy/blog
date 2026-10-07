@@ -4,8 +4,8 @@ description: "Capturing and restoring the internal state of a spellbook through 
 type: lua
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Chronomancy
-formula: |
+arcaneSchool: "Transmutation // Chronomancy"
+formula: |2
   local Spellbook = { activeSpell = "None" }
 
   function Spellbook:save()

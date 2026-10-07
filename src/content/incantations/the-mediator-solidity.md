@@ -4,8 +4,8 @@ description: A central monolithic altar coordinating chaotic demonic factions.
 type: solidity
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Orchestration
-formula: |
+arcaneSchool: "Enchantment // Orchestration"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

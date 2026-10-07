@@ -4,8 +4,8 @@ description: Conjure complete sets of related ethereal artifacts without specify
 type: javascript
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   class AetherForge {
     createWeapon() { throw new Error('Method not implemented.'); }
     createArmor() { throw new Error('Method not implemented.'); }
@@ -22,7 +22,7 @@ formula: |
   class ShadowCloak { defend() { console.log("Absorbs into shadows"); } }
   class SunSpear { strike() { console.log("Pierces with blinding light"); } }
   class RadiantPlate { defend() { console.log("Deflects with pure photons"); } }
-  
+
   function equipHero(forge) {
     const weapon = forge.createWeapon();
     const armor = forge.createArmor();

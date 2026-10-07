@@ -4,8 +4,8 @@ description: Sharing immutable state via lazy evaluation and pure references.
 type: haskell
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Optimization
-formula: |
+arcaneSchool: "Conjuration // Optimization"
+formula: |2
   module Flyweight where
   data Particle = Particle { color :: String, texture :: String }
   sharedFireParticle = Particle "Red" "Fire"

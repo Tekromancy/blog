@@ -4,25 +4,25 @@ description: Constructing complex immutable constructs step by step using thread
 type: clojure
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Constructmancy
-formula: |
+arcaneSchool: "Transmutation // Constructmancy"
+formula: |2
   (ns tekromancy.builder)
-  
+
   ;; In Clojure, the Builder pattern is often replaced by immutable maps
   ;; and the thread-first macro (->) to accumulate state naturally.
-  
+
   (defn create-golem []
     {:type :clay, :power 10, :runes []})
-  
+
   (defn bind-rune [golem rune]
     (update golem :runes conj rune))
-  
+
   (defn empower [golem power-boost]
     (update golem :power + power-boost))
-  
+
   (defn animate [golem]
     (assoc golem :status :animated))
-  
+
   ;; Usage:
   ;; (-> (create-golem)
   ;;     (bind-rune :fire)

@@ -4,8 +4,8 @@ description: Cloning an existing homunculus from linear memory to avoid the cost
 type: wasm
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Conjuration // Biomancy
-formula: |
+arcaneSchool: "Conjuration // Biomancy"
+formula: |2
   (module
     (memory 1)
     (func $clone_entity (param $src i32) (param $dst i32) (param $len i32)

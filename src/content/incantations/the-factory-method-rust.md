@@ -4,8 +4,8 @@ description: Define an interface for creating a cyber-magical entity, but let su
 type: rust
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   pub trait Daemon {
       fn execute_payload(&self);
   }

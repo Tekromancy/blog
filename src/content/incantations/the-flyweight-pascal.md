@@ -4,8 +4,8 @@ description: Conserving magical essence by sharing immutable spell fragments.
 type: pascal
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Abjuration // Efficiency
-formula: |
+arcaneSchool: "Abjuration // Efficiency"
+formula: |2
   unit FlyweightPattern;
   interface
   type

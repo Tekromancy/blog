@@ -4,10 +4,10 @@ description: Passing signals down a chain of hierarchical fault handlers.
 type: script
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Signalmancy
-formula: |
+arcaneSchool: "Enchantment // Signalmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Handler 1
   handle_low_disk() {
     local error_code=$1
@@ -17,7 +17,7 @@ formula: |
     fi
     return 1 # Pass to next
   }
-  
+
   # Handler 2
   handle_network_drop() {
     local error_code=$1
@@ -27,7 +27,7 @@ formula: |
     fi
     return 1
   }
-  
+
   # Handler 3
   handle_kernel_panic() {
     local error_code=$1
@@ -37,18 +37,18 @@ formula: |
     fi
     return 1
   }
-  
+
   # The Chain
   process_error() {
     local code=$1
     echo "Processing error: $code"
-    
+
     handle_low_disk "$code" || \
     handle_network_drop "$code" || \
     handle_kernel_panic "$code" || \
     echo "[Fallback]: Unhandled anomaly detected."
   }
-  
+
   process_error "202"
   process_error "999"
 tags: [bash, chain-of-responsibility, behavioral, pipeline]

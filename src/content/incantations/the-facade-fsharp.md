@@ -4,11 +4,11 @@ description: Presenting a unified, simplified invocation interface to a complex 
 type: fsharp
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Divination // Archives
-formula: |
+arcaneSchool: "Divination // Archives"
+formula: |2
   type Diviner() =
       member _.Scry() = "Scrying the aether..."
-  
+
   type Summoner() =
       member _.OpenRift() = "Opening a dimensional rift..."
 

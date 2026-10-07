@@ -4,8 +4,8 @@ description: Define the unalterable ritual of bio-mechanical assimilation.
 type: apl
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Assimilation-Ritual
-formula: |
+arcaneSchool: "Necromancy // Assimilation-Ritual"
+formula: |2
   :Class AssimilationRitual
       ∇ Begin Target
         :Access Public
@@ -13,27 +13,27 @@ formula: |
         InjectNanites Target
         Awaken Target
       ∇
-      
+
       ∇ ExtractBiomass Target
         :Access Protected Shared
       ∇
-      
+
       ∇ InjectNanites Target
         :Access Protected Shared
       ∇
-      
+
       ∇ Awaken Target
         :Access Protected
         ⎕ ← Target, ' joins the Collective ⍟'
       ∇
   :EndClass
-  
+
   :Class HumanoidAssimilation : AssimilationRitual
       ∇ ExtractBiomass Target
         :Access Protected
         ⎕ ← 'Harvesting neural tissue from ', Target, ' ⍎'
       ∇
-      
+
       ∇ InjectNanites Target
         :Access Protected
         ⎕ ← 'Injecting silicate virus into ', Target, ' ⍕'

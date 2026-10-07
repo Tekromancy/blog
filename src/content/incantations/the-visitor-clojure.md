@@ -4,28 +4,28 @@ description: Traversing a complex structure of glyphs to execute external logic 
 type: clojure
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Examination
-formula: |
+arcaneSchool: "Divination // Examination"
+formula: |2
   (ns tekromancy.visitor
     (:require [clojure.walk :as walk]))
-  
+
   ;; The visitor pattern is easily solved by data-walking mechanisms.
-  
+
   (def spell-tree
     {:type :root
      :nodes [{:type :fire :power 10}
              {:type :ice :power 5}
              {:type :cluster
               :nodes [{:type :fire :power 20}]}]})
-  
+
   (defn power-boosting-visitor [node]
     (if (and (map? node) (:power node))
       (update node :power * 2)
       node))
-  
+
   (defn apply-visitor [tree visitor-fn]
     (walk/postwalk visitor-fn tree))
-  
+
   ;; Usage:
   ;; (apply-visitor spell-tree power-boosting-visitor)
 tags: [behavioral, visitor, clojure, clojure-walk]

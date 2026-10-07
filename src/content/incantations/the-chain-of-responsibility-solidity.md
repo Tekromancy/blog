@@ -4,8 +4,8 @@ description: Passing the sacrificial offering through a hierarchy of demonic ove
 type: solidity
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Hierarchy
-formula: |
+arcaneSchool: "Enchantment // Hierarchy"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

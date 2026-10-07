@@ -4,8 +4,8 @@ description: Notifying multiple magical wards of a significant event.
 type: swift
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Telepathy
-formula: |
+arcaneSchool: "Divination // Telepathy"
+formula: |2
   protocol Observer: AnyObject {
       func update(threat: String)
   }

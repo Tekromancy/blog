@@ -4,8 +4,8 @@ description: Provide a unified interface to a set of interfaces in a subsystem.
 type: rust
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Obfuscation
-formula: |
+arcaneSchool: "Illusion // Obfuscation"
+formula: |2
   struct SubsystemA;
   impl SubsystemA { fn init() { println!("Initializing mana coils..."); } }
 

@@ -4,8 +4,8 @@ description: Step-by-step assembly of complex magical constructs safely.
 type: swift
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Constructmancy
-formula: |
+arcaneSchool: "Transmutation // Constructmancy"
+formula: |2
   class Golem {
       var head: String = ""
       var body: String = ""

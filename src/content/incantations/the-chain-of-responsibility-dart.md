@@ -4,13 +4,13 @@ description: Pass a magical request along a chain of wards until one resolves it
 type: dart
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   abstract class Ward {
     Ward? _next;
-    
+
     void setNext(Ward ward) => _next = ward;
-    
+
     void handleAttack(int power) {
       if (canDeflect(power)) {
         print('${runtimeType} deflected the attack of power $power!');
@@ -21,30 +21,30 @@ formula: |
         print('All wards breached. You take $power damage!');
       }
     }
-    
+
     bool canDeflect(int power);
   }
-  
+
   class ShieldCharm extends Ward {
     @override
     bool canDeflect(int power) => power <= 10;
   }
-  
+
   class AegisField extends Ward {
     @override
     bool canDeflect(int power) => power <= 50;
   }
-  
+
   class VoidBarrier extends Ward {
     @override
     bool canDeflect(int power) => power <= 100;
   }
-  
+
   void main() {
     final chain = ShieldCharm()
       ..setNext(AegisField()
         ..setNext(VoidBarrier()));
-        
+
     chain.handleAttack(45);
     chain.handleAttack(150);
   }

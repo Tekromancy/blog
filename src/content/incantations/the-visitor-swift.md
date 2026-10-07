@@ -4,8 +4,8 @@ description: Representing an operation to be performed on the elements of an obj
 type: swift
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Inspection
-formula: |
+arcaneSchool: "Divination // Inspection"
+formula: |2
   protocol MagicalElement {
       func accept(visitor: MagicInspector)
   }

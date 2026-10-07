@@ -4,8 +4,8 @@ description: Passing a spell request along a chain of warding nodes.
 type: cpp
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   #include <memory>
   class Ward {
   protected: std::shared_ptr<Ward> next;

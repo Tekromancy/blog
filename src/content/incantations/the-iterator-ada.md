@@ -4,17 +4,17 @@ description: Traversing complex ward structures without exposing their underlyin
 type: ada
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Matrix Traversal
-formula: |
+arcaneSchool: "Abjuration // Matrix Traversal"
+formula: |2
   package Ward_Iterators is
-  
+
      type Iterator is abstract tagged null record;
      function Has_Next (I : Iterator) return Boolean is abstract;
      procedure Next (I : in out Iterator) is abstract;
-     
+
      type Aggregate is abstract tagged null record;
      function Create_Iterator (A : Aggregate) return Iterator'Class is abstract;
-     
+
   end Ward_Iterators;
 tags: [ada, abjuration, iterator]
 pubDate: 2026-10-07

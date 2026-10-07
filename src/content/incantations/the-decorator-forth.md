@@ -4,22 +4,22 @@ description: Wrap a base spell in layers of chaotic metamagic.
 type: forth
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Ward-Layering
-formula: |
+arcaneSchool: "Abjuration // Ward-Layering"
+formula: |2
   \ Ward-Layering: The Decorator
   \ Extending behavior by chaining XTs.
-  
+
   DEFER BASE-SPELL
-  
+
   : FLAME-STRIKE ( -- ) ." Dealing 10 fire damage." CR ;
   ' FLAME-STRIKE IS BASE-SPELL
-  
+
   \ The Decorator
   : WITH-ECHO ( xt -- )
     DUP EXECUTE
     ." (Echoing the spell...)" CR
     EXECUTE ;
-    
+
   \ Usage:
   \ ' BASE-SPELL WITH-ECHO
 tags: [structural, decorator, forth, metamagic]

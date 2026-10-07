@@ -4,10 +4,10 @@ description: Defining the skeleton of an algorithm while deferring steps to hook
 type: script
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Skeletonmancy
-formula: |
+arcaneSchool: "Conjuration // Skeletonmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Template Method
   deploy_cyber_artifact() {
     echo "--- Initiating Deployment ---"
@@ -18,22 +18,22 @@ formula: |
     hook_post_flight
     echo "--- Deployment Complete ---"
   }
-  
+
   # Default hook implementations (can be overridden)
   hook_pre_flight() { :; }
   hook_install() { echo "Default install..."; }
   hook_post_flight() { :; }
-  
+
   # Concrete Implementation (Overrides)
   deploy_stealth_implant() {
     hook_pre_flight() { echo "[Stealth] Disabling logs..."; }
     hook_install() { echo "[Stealth] Injecting into kernel space..."; }
     hook_post_flight() { echo "[Stealth] Wiping tracks..."; }
-    
+
     # Run the template
     deploy_cyber_artifact
   }
-  
+
   # Usage
   deploy_stealth_implant
 tags: [bash, template-method, behavioral, hooks]

@@ -4,8 +4,8 @@ description: Conjure families of cyber-magical constructs without binding to the
 type: rust
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Matter-weaving
-formula: |
+arcaneSchool: "Conjuration // Matter-weaving"
+formula: |2
   pub trait ArcaneFocusFactory {
       fn forge_wand(&self) -> Box<dyn Wand>;
       fn scribe_scroll(&self) -> Box<dyn Scroll>;

@@ -4,8 +4,8 @@ description: "Traversing the infinite crypts of fallen thralls without exposing 
 type: ruby
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Traversal
-formula: |
+arcaneSchool: "Necromancy // Traversal"
+formula: |2
   class ThrallCrypt
     include Enumerable
 

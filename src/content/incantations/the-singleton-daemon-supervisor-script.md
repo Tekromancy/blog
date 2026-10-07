@@ -5,7 +5,7 @@ type: "script"
 gofPattern: "Singleton Pattern (Creational)"
 gofCategory: "Creational"
 arcaneSchool: "Abjuration // The Monadic Ward"
-formula: |
+formula: |2
   #!/usr/bin/env bash
   set -Eeuo pipefail
   readonly LOCKFILE="/var/run/monadic-ward.lock"

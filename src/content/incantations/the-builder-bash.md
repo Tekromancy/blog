@@ -4,30 +4,30 @@ description: Incrementally assembling complex Bash parameters through the Builde
 type: script
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Structmancy
-formula: |
+arcaneSchool: "Transmutation // Structmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Builder State
   declare -A PAYLOAD_BUILDER
-  
+
   reset_builder() {
     PAYLOAD_BUILDER=()
     PAYLOAD_BUILDER[status]="uninitialized"
   }
-  
+
   add_target() {
     PAYLOAD_BUILDER[target]="$1"
   }
-  
+
   add_encryption() {
     PAYLOAD_BUILDER[encryption]="$1"
   }
-  
+
   add_payload() {
     PAYLOAD_BUILDER[payload]="$1"
   }
-  
+
   build_construct() {
     echo "Constructing Cyber-Spell..."
     echo "Target: ${PAYLOAD_BUILDER[target]:-NONE}"
@@ -35,7 +35,7 @@ formula: |
     echo "Payload: ${PAYLOAD_BUILDER[payload]:-NONE}"
     echo "Cyber-Spell ready for deployment."
   }
-  
+
   # Director
   construct_stealth_virus() {
     reset_builder
@@ -44,7 +44,7 @@ formula: |
     add_payload "drop_tables.sh"
     build_construct
   }
-  
+
   construct_stealth_virus
 tags: [bash, builder, creational, structmancy]
 pubDate: 2026-10-07

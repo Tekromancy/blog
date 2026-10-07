@@ -4,36 +4,36 @@ description: "Centralizing communication between paranoid and hostile cult facti
 type: lisp
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Telepathy
-formula: |
+arcaneSchool: "Enchantment // Telepathy"
+formula: |2
   (defpackage :cabal-mediator
     (:use :cl))
   (in-package :cabal-mediator)
-  
+
   (defgeneric receive-message (cabal message))
   (defgeneric send-message-to-network (cabal message))
-  
+
   ;; The Mediator
   (defclass grand-hierophant ()
     ((cabals :initform nil :accessor managed-cabals)))
-  
+
   (defmethod register-cabal ((hierophant grand-hierophant) cabal)
     (push cabal (managed-cabals hierophant))
     (setf (slot-value cabal 'mediator) hierophant))
-  
+
   (defmethod broadcast ((hierophant grand-hierophant) sender message)
     (dolist (c (managed-cabals hierophant))
       (unless (eq c sender)
         (receive-message c message))))
-  
+
   ;; The Colleague
   (defclass cult-faction ()
     ((name :initarg :name :reader faction-name)
      (mediator :initform nil)))
-  
+
   (defmethod receive-message ((f cult-faction) message)
     (format t "[~a] receives telepathic whisper: ~a~%" (faction-name f) message))
-  
+
   (defmethod send-message-to-network ((f cult-faction) message)
     (format t "[~a] transmits to the Hierophant: ~a~%" (faction-name f) message)
     (broadcast (slot-value f 'mediator) f message))

@@ -4,8 +4,8 @@ description: A grimoire for forging interrelated ethereal constructs without spe
 type: cpp
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Voidforging
-formula: |
+arcaneSchool: "Conjuration // Voidforging"
+formula: |2
   #include <memory>
   class EtherealWeapon { public: virtual ~EtherealWeapon() = default; virtual void Strike() = 0; };
   class EtherealArmor { public: virtual ~EtherealArmor() = default; virtual void Defend() = 0; };

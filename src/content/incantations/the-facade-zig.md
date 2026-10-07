@@ -4,14 +4,14 @@ description: "Provide a unified, high-level interface to a complex subsystem of 
 type: zig
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Abjuration // Simplification
-formula: |
+arcaneSchool: "Abjuration // Simplification"
+formula: |2
   const std = @import("std");
-  
+
   const LeylineScanner = struct { fn scan() void {} };
   const ManaPool = struct { fn drain() void {} };
   const SpellMatrix = struct { fn compile() void {} };
-  
+
   pub const GrimoireFacade = struct {
       pub fn castUltimateSpell() void {
           LeylineScanner.scan();

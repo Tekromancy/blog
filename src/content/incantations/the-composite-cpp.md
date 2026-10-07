@@ -4,8 +4,8 @@ description: Treating individual runes and woven sigils uniformly.
 type: cpp
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Enchantment // Weaving
-formula: |
+arcaneSchool: "Enchantment // Weaving"
+formula: |2
   #include <vector>
   #include <memory>
   class Glyph {

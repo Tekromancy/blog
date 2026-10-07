@@ -4,8 +4,8 @@ description: A stand-in entity controlling access to a more powerful, resource-i
 type: fsharp
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Constructs
-formula: |
+arcaneSchool: "Illusion // Constructs"
+formula: |2
   type IGrimoire =
       abstract member ReadSecret: unit -> string
 

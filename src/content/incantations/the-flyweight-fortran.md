@@ -4,13 +4,13 @@ description: Sharing intrinsic properties across vast swarms of numerical partic
 type: fortran
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Density
-formula: |
+arcaneSchool: "Transmutation // Density"
+formula: |2
   module flyweight_m
     implicit none
     private
     public :: ParticleIntrinsic, ParticleFactory, ParticleContext
-  
+
     ! Intrinsic, shared state
     type :: ParticleIntrinsic
       character(len=32) :: arcane_signature
@@ -18,27 +18,27 @@ formula: |
     contains
       procedure, pass :: display_with_extrinsic
     end type ParticleIntrinsic
-  
+
     type :: ParticleFactory
       type(ParticleIntrinsic), allocatable :: pool(:)
       integer :: pool_size = 0
     contains
       procedure, pass :: get_flyweight
     end type ParticleFactory
-    
+
     ! Extrinsic, unique state
     type :: ParticleContext
       type(ParticleIntrinsic), pointer :: shared_data
       real :: x, y, z
     end type ParticleContext
-  
+
   contains
     subroutine display_with_extrinsic(this, x, y, z)
       class(ParticleIntrinsic), intent(in) :: this
       real, intent(in) :: x, y, z
       ! Emits visual resonance at x, y, z based on base_mass and signature
     end subroutine display_with_extrinsic
-    
+
     function get_flyweight(this, signature) result(ptr)
       class(ParticleFactory), intent(inout), target :: this
       character(len=*), intent(in) :: signature

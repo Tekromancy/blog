@@ -4,27 +4,27 @@ description: Sharing massive amounts of fine-grained arcane states efficiently.
 type: ada
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Abjuration // Micro-Wards
-formula: |
+arcaneSchool: "Abjuration // Micro-Wards"
+formula: |2
   package Micro_Ward_Flyweights is
-  
+
      type Arcane_State is private;
-     
+
      type Flyweight_Ward is tagged private;
      procedure Render (W : in Flyweight_Ward; Extrinsic_Coords : String);
-     
+
      type Flyweight_Factory is tagged private;
      function Get_Ward (F : in out Flyweight_Factory; Key : String) return Flyweight_Ward;
-     
+
   private
      type Arcane_State is record
         Signature : Integer;
      end record;
-     
+
      type Flyweight_Ward is tagged record
         Intrinsic_State : Arcane_State;
      end record;
-     
+
      type Flyweight_Factory is tagged record
         Cache_Size : Integer := 0;
      end record;

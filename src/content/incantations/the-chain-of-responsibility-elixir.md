@@ -4,8 +4,8 @@ description: Pass telepathic decrees through a lineage of guardians until one ha
 type: elixir
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Command-Routing
-formula: |
+arcaneSchool: "Enchantment // Command-Routing"
+formula: |2
   defmodule Tekromancy.RequestHandler do
     def handle_request(request, [handler | rest]) do
       case handler.(request) do
@@ -15,7 +15,7 @@ formula: |
     end
     def handle_request(_request, []), do: "Request lost in the void."
   end
-  
+
   # Usage
   # handlers = [
   #   fn req -> if req == :low, do: {:handled, "Acolyte handled it"}, else: :pass end,

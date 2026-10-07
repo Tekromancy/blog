@@ -4,8 +4,8 @@ description: Treat individual runes and complex sigils uniformly.
 type: python
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Enchantment // Sigil Crafting
-formula: |
+arcaneSchool: "Enchantment // Sigil Crafting"
+formula: |2
   from abc import ABC, abstractmethod
 
   class MagicalComponent(ABC):

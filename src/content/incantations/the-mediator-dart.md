@@ -4,16 +4,16 @@ description: Centralize chaotic communication between magical entities to preven
 type: dart
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Mind Link
-formula: |
+arcaneSchool: "Enchantment // Mind Link"
+formula: |2
   abstract class Mediator {
     void notify(Object sender, String event);
   }
-  
+
   class CovenNexus implements Mediator {
     late Warlock warlock;
     late Witch witch;
-    
+
     @override
     void notify(Object sender, String event) {
       if (event == 'Ritual Started') {
@@ -22,29 +22,29 @@ formula: |
       }
     }
   }
-  
+
   class Warlock {
     final Mediator mediator;
     Warlock(this.mediator);
-    
+
     void startRitual() {
       print('Warlock bleeds into the circle.');
       mediator.notify(this, 'Ritual Started');
     }
   }
-  
+
   class Witch {
     void channel() => print('Witch completes the summoning!');
   }
-  
+
   void main() {
     final nexus = CovenNexus();
     final warlock = Warlock(nexus);
     final witch = Witch();
-    
+
     nexus.warlock = warlock;
     nexus.witch = witch;
-    
+
     warlock.startRitual();
   }
 tags: [dart, mediator, communication, nexus]

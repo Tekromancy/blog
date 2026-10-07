@@ -4,8 +4,8 @@ description: Stored procedures that abstract the creation pacts of underlying da
 type: sql
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Procedural Forging
-formula: |
+arcaneSchool: "Conjuration // Procedural Forging"
+formula: |2
   CREATE TYPE construct_class AS ENUM ('GOLEM', 'WISP', 'PHANTOM');
 
   CREATE TABLE ethereal_constructs (

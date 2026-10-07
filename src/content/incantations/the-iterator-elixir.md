@@ -4,16 +4,16 @@ description: Traverse the vastness of the Hive mind's memory banks without expos
 type: elixir
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   defmodule Tekromancy.MemoryBank do
     def new(memories), do: memories
-    
+
     def walk(bank) do
       Stream.map(bank, fn mem -> "[DECRYPTED]: #{mem}" end)
     end
   end
-  
+
   # Usage
   # bank = Tekromancy.MemoryBank.new(["Cyber-War 2099", "First Contact"])
   # Tekromancy.MemoryBank.walk(bank) |> Enum.each(&IO.puts/1)

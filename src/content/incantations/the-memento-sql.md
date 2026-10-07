@@ -4,8 +4,8 @@ description: Capturing and preserving internal state for historical restoration.
 type: sql
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State Preservation
-formula: |
+arcaneSchool: "Chronomancy // State Preservation"
+formula: |2
   CREATE TABLE artifact_inventory (
       artifact_id INT PRIMARY KEY,
       power_level INT,

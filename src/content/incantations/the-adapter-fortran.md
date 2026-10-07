@@ -4,18 +4,18 @@ description: Translating arcane punch cards into modern hyper-thread arrays.
 type: fortran
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Translation
-formula: |
+arcaneSchool: "Transmutation // Translation"
+formula: |2
   module adapter_m
     implicit none
     private
     public :: ModernInterface, PunchCardReader, CardAdapter
-  
+
     type, abstract :: ModernInterface
     contains
       procedure(process_stream), deferred, pass :: ingest_data
     end type ModernInterface
-  
+
     abstract interface
       subroutine process_stream(this, data_stream)
         import :: ModernInterface
@@ -23,18 +23,18 @@ formula: |
         integer, intent(in) :: data_stream(:)
       end subroutine process_stream
     end interface
-  
+
     type :: PunchCardReader
     contains
       procedure, pass :: read_card_hole
     end type PunchCardReader
-  
+
     type, extends(ModernInterface) :: CardAdapter
       type(PunchCardReader) :: ancient_reader
     contains
       procedure, pass :: ingest_data => adapter_ingest
     end type CardAdapter
-  
+
   contains
     subroutine read_card_hole(this, row, col, val)
       class(PunchCardReader), intent(inout) :: this
@@ -42,7 +42,7 @@ formula: |
       integer, intent(out) :: val
       val = row * col ! Mocked ancient reading
     end subroutine read_card_hole
-  
+
     subroutine adapter_ingest(this, data_stream)
       class(CardAdapter), intent(inout) :: this
       integer, intent(in) :: data_stream(:)

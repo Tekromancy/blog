@@ -4,31 +4,31 @@ description: Sealing monolithic state arrays into immutable crystals for safe ro
 type: fortran
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Sealing
-formula: |
+arcaneSchool: "Abjuration // Sealing"
+formula: |2
   module memento_m
     implicit none
     private
     public :: Memento, Originator, Caretaker
-  
+
     type :: Memento
       private
       real, allocatable :: state_matrix(:,:)
     contains
       procedure, pass :: get_state
     end type Memento
-  
+
     type :: Originator
       real, allocatable :: current_state(:,:)
     contains
       procedure, pass :: save_to_memento
       procedure, pass :: restore_from_memento
     end type Originator
-  
+
     type :: Caretaker
       type(Memento), allocatable :: history(:)
     end type Caretaker
-  
+
   contains
     function get_state(this) result(st)
       class(Memento), intent(in) :: this
@@ -38,7 +38,7 @@ formula: |
         st = this%state_matrix
       end if
     end function get_state
-    
+
     function save_to_memento(this) result(mem)
       class(Originator), intent(in) :: this
       type(Memento) :: mem
@@ -47,7 +47,7 @@ formula: |
         mem%state_matrix = this%current_state
       end if
     end function save_to_memento
-    
+
     subroutine restore_from_memento(this, mem)
       class(Originator), intent(inout) :: this
       class(Memento), intent(in) :: mem

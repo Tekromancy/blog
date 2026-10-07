@@ -4,16 +4,16 @@ description: Defining a one-to-many dependency so that when a core arcane node c
 type: fsharp
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Leylines
-formula: |
+arcaneSchool: "Divination // Leylines"
+formula: |2
   open System
 
   // Idiomatic F# uses the built-in IObservable / IObserver or Events.
   type Leyline() =
       let surgeEvent = Event<int>()
-      
+
       member _.OnSurge = surgeEvent.Publish
-      
+
       member _.TriggerSurge(power) =
           printfn "Leyline pulsing with %d power!" power
           surgeEvent.Trigger(power)

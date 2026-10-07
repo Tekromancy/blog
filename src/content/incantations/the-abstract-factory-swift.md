@@ -4,8 +4,8 @@ description: A protocol-oriented conjuration for orchestrating families of relat
 type: swift
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Orchardmancy
-formula: |
+arcaneSchool: "Conjuration // Orchardmancy"
+formula: |2
   protocol AppleEnchantment {
       func cast() -> String
   }
@@ -16,7 +16,7 @@ formula: |
       func createAppleEnchantment() -> AppleEnchantment
       func createTreeEnchantment() -> TreeEnchantment
   }
-  
+
   class PoisonAppleEnchantment: AppleEnchantment {
       func cast() -> String { return "Casting poison on the apple..." }
   }

@@ -4,21 +4,21 @@ description: "Delegate the exact aetheric composition of your spawn to subclasse
 type: zig
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Transmutation // Homunculus Generation
-formula: |
+arcaneSchool: "Transmutation // Homunculus Generation"
+formula: |2
   const std = @import("std");
-  
+
   pub const Familiar = struct {
       speak: *const fn () void,
   };
-  
+
   pub const FamiliarChamber = struct {
       vtable: *const VTable,
-      
+
       pub const VTable = struct {
           spawn: *const fn (self: *FamiliarChamber, alloc: std.mem.Allocator) !*Familiar,
       };
-      
+
       pub fn spawn(self: *FamiliarChamber, alloc: std.mem.Allocator) !*Familiar {
           return self.vtable.spawn(self, alloc);
       }

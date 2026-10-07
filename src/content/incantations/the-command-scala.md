@@ -4,8 +4,8 @@ description: Encapsulate a complete magical evocation as a first-class object th
 type: scala
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Invocation
-formula: |
+arcaneSchool: "Evocation // Invocation"
+formula: |2
   trait Command { def execute(): Unit }
 
   class Golem {
@@ -23,7 +23,7 @@ formula: |
 
   class RitualSequence {
     private var history = List.empty[Command]
-    
+
     def invoke(command: Command): Unit = {
       command.execute()
       history = history :+ command

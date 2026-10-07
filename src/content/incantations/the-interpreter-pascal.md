@@ -4,8 +4,8 @@ description: Parsing ancient dialects of power into actionable constructs.
 type: pascal
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   unit InterpreterPattern;
   interface
   type

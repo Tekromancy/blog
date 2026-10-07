@@ -4,8 +4,8 @@ description: "Structured antiquity and the Composite pattern."
 type: algol
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Fractals
-formula: |
+arcaneSchool: "Illusion // Fractals"
+formula: |2
   CO Composite in ALGOL 68 CO
   BEGIN
     MODE COMPOSITE = STRUCT (PROC VOID operation);

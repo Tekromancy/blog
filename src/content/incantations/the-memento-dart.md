@@ -4,40 +4,40 @@ description: Capture and restore the internal state of a magical entity without 
 type: dart
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Divination // Chronomancy
-formula: |
+arcaneSchool: "Divination // Chronomancy"
+formula: |2
   class ChronoCrystal {
     final String _state;
     ChronoCrystal(this._state);
     String get savedState => _state;
   }
-  
+
   class TimeWizard {
     String state = 'Healthy';
-    
+
     ChronoCrystal saveToCrystal() => ChronoCrystal(state);
-    
+
     void restoreFromCrystal(ChronoCrystal crystal) {
       state = crystal.savedState;
       print('Time rewound. State: $state');
     }
   }
-  
+
   class TimelineVault {
     final List<ChronoCrystal> _history = [];
-    
+
     void save(ChronoCrystal crystal) => _history.add(crystal);
     ChronoCrystal undo() => _history.removeLast();
   }
-  
+
   void main() {
     final wizard = TimeWizard();
     final vault = TimelineVault();
-    
+
     vault.save(wizard.saveToCrystal());
     wizard.state = 'Poisoned by Basilisk';
     print('Current: ${wizard.state}');
-    
+
     wizard.restoreFromCrystal(vault.undo());
   }
 tags: [dart, memento, state-restoration, chronomancy]

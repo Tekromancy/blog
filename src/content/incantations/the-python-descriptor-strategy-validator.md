@@ -5,7 +5,7 @@ type: "python"
 gofPattern: "Strategy Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Enchantment // The Runic Validation Talisman"
-formula: |
+formula: |2
   class ValidatedField:
       def __init__(self, strategy):
           self.strategy = strategy

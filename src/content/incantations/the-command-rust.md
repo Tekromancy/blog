@@ -4,8 +4,8 @@ description: Encapsulate a request as an object, thereby letting you parameteriz
 type: rust
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Delayed-casting
-formula: |
+arcaneSchool: "Evocation // Delayed-casting"
+formula: |2
   pub trait Command {
       fn execute(&self);
   }

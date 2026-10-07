@@ -4,8 +4,8 @@ description: Allow an object to alter its behavior when its internal state chang
 type: rust
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase-shifting
-formula: |
+arcaneSchool: "Transmutation // Phase-shifting"
+formula: |2
   pub trait State { fn handle(&self, context: &mut Context); }
 
   pub struct PhaseSolid;

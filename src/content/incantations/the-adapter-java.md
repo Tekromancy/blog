@@ -4,25 +4,25 @@ description: Forcing heretical third-party constructs to speak the orthodox lang
 type: java
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Assimilation
-formula: |
+arcaneSchool: "Transmutation // Assimilation"
+formula: |2
   public interface OrthodoxChant {
       void intone();
   }
-  
+
   public class PaganHex {
       public void mutterDarkWords() {
           System.out.println("Mutters an unsanctioned, chaotic hex.");
       }
   }
-  
+
   public class HexAdapter implements OrthodoxChant {
       private final PaganHex hex;
-      
+
       public HexAdapter(PaganHex hex) {
           this.hex = hex;
       }
-      
+
       @Override
       public void intone() {
           System.out.print("Sanctifying input... ");

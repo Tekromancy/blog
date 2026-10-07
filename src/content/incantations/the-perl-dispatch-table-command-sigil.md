@@ -5,7 +5,7 @@ type: "perl"
 gofPattern: "Command Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Chaos Magic // The Eldritch Sigil Dispatch Table"
-formula: |
+formula: |2
   #!/usr/bin/env perl
   use strict; use warnings;
 

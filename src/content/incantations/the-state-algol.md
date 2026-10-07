@@ -4,8 +4,8 @@ description: "Structured antiquity and the State pattern."
 type: algol
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Flux
-formula: |
+arcaneSchool: "Transmutation // Flux"
+formula: |2
   CO State in ALGOL 68 CO
   BEGIN
     MODE STATE = STRUCT (PROC VOID handle);

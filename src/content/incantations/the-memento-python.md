@@ -4,8 +4,8 @@ description: Capture and restore the fragile state of an alchemy experiment.
 type: python
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State Preservation
-formula: |
+arcaneSchool: "Chronomancy // State Preservation"
+formula: |2
   class CauldronMemento:
       def __init__(self, color: str, heat: int):
           self.color = color
@@ -15,14 +15,14 @@ formula: |
       def __init__(self):
           self.color = "Clear"
           self.heat = 0
-          
+
       def brew(self, ingredient: str):
           self.color = "Green" if ingredient == "Eye of Newt" else "Black"
           self.heat += 50
-          
+
       def save_state(self) -> CauldronMemento:
           return CauldronMemento(self.color, self.heat)
-          
+
       def restore_state(self, memento: CauldronMemento):
           self.color = memento.color
           self.heat = memento.heat

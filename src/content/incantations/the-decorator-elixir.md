@@ -4,22 +4,22 @@ description: Dynamically augment cyber-constructs with new enchantments without 
 type: elixir
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Enhancement
-formula: |
+arcaneSchool: "Transmutation // Enhancement"
+formula: |2
   defmodule Tekromancy.Spellcaster do
     def cast(base_damage), do: base_damage
   end
-  
+
   defmodule Tekromancy.Decorators do
     def add_fire_damage(fun) do
       fn damage -> fun.(damage) + 50 end
     end
-    
+
     def add_void_echo(fun) do
       fn damage -> fun.(damage) * 2 end
     end
   end
-  
+
   # Usage
   # spell = &Tekromancy.Spellcaster.cast/1
   # augmented_spell = spell 

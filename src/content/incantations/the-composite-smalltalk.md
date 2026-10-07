@@ -4,13 +4,13 @@ description: "Treat a singular poltergeist and a legion of spirits uniformly."
 type: smalltalk
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Legion of Spirits
-formula: |
+arcaneSchool: "Illusion // Legion of Spirits"
+formula: |2
   Object subclass: #SpiritLegion
     instanceVariableNames: 'entities'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   SpiritLegion >> initialize [ entities := OrderedCollection new ]
   SpiritLegion >> add: aSpirit [ entities add: aSpirit ]
   SpiritLegion >> manifest [

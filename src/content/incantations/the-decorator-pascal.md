@@ -4,8 +4,8 @@ description: Dynamically weaving additional wards onto a base enchantment.
 type: pascal
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Weaving
-formula: |
+arcaneSchool: "Transmutation // Weaving"
+formula: |2
   unit DecoratorPattern;
   interface
   type

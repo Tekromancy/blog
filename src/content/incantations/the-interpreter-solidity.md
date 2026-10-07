@@ -4,8 +4,8 @@ description: Deciphering the ancient runes of power directly on the blockchain.
 type: solidity
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Decoding
-formula: |
+arcaneSchool: "Divination // Decoding"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

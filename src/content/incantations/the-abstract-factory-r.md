@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Abstract Factory"
 gofCategory: "Creational"
 arcaneSchool: "Divination // Matrix Haruspex"
-formula: |
+formula: |2
   library(R6)
 
   # Abstract Products

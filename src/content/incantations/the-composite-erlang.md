@@ -4,11 +4,11 @@ description: Process supervision trees acting as one hive mind.
 type: erlang
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Necromancy // Legion
-formula: |
+arcaneSchool: "Necromancy // Legion"
+formula: |2
   -module(the_composite).
   -export([broadcast/2]).
-  
+
   broadcast([], _Msg) -> ok;
   broadcast([Pid|Rest], Msg) when is_pid(Pid) -> 
       Pid ! Msg,

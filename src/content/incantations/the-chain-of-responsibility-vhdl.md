@@ -4,19 +4,19 @@ description: Passes a command down a pipeline of handlers.
 type: vhdl
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Pipeline Cascade
-formula: |
+arcaneSchool: "Silicon Golemancy // Pipeline Cascade"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity chain_pipeline is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end chain_pipeline;
-  
+
   architecture Physical of chain_pipeline is
   begin
       process(clk, rst)

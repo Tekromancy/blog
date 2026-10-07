@@ -4,30 +4,30 @@ description: Swappable algorithmic behavior through function pointers.
 type: script
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Illusion // Morphmancy
-formula: |
+arcaneSchool: "Illusion // Morphmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Strategies
   sort_quick() { echo "Sorting data via Cyber-QuickSort..."; }
   sort_bubble() { echo "Sorting data via Archaic-BubbleSort..."; }
   sort_bogo() { echo "Sorting data via Chaos-BogoSort... Good luck."; }
-  
+
   # The Context
   declare CURRENT_STRATEGY="sort_quick"
-  
+
   set_strategy() {
     CURRENT_STRATEGY=$1
   }
-  
+
   execute_sort() {
     # Dynamically invoke the chosen strategy
     $CURRENT_STRATEGY
   }
-  
+
   # Usage
   execute_sort
-  
+
   set_strategy "sort_bubble"
   execute_sort
 tags: [bash, strategy, behavioral, dynamic]

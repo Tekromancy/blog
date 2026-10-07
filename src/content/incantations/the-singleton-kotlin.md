@@ -4,11 +4,11 @@ description: The singular focal point of a magical realm.
 type: kotlin
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leyline
-formula: |
+arcaneSchool: "Abjuration // Leyline"
+formula: |2
   object LeylineNexus {
       var activeMana: Int = 1000
-      
+
       fun tap() {
           if (activeMana > 0) activeMana -= 10
       }

@@ -4,25 +4,25 @@ description: Intercepting and controlling access to a powerful elemental entity.
 type: clojure
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   (ns tekromancy.proxy)
-  
+
   (defprotocol Grimoire
     (read-secret [_ user]))
-  
+
   (defrecord ForbiddenGrimoire []
     Grimoire
     (read-secret [_ _]
       "The forbidden true name of the void..."))
-  
+
   (defrecord GrimoireProxy [real-grimoire]
     Grimoire
     (read-secret [_ user]
       (if (= user :archmage)
         (read-secret real-grimoire user)
         "Access Denied. You lack the clearance.")))
-  
+
   ;; Usage:
   ;; (def protected-grimoire (->GrimoireProxy (->ForbiddenGrimoire)))
   ;; (read-secret protected-grimoire :apprentice)

@@ -4,17 +4,17 @@ description: The absolute, indisputable, solitary instance of authority within t
 type: java
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Monolith
-formula: |
+arcaneSchool: "Abjuration // Monolith"
+formula: |2
   public class HighPontiff {
       private static volatile HighPontiff instance;
-      
+
       private HighPontiff() {
           if (instance != null) {
               throw new IllegalStateException("Heresy! The High Pontiff already exists.");
           }
       }
-      
+
       public static HighPontiff getInstance() {
           if (instance == null) {
               synchronized (HighPontiff.class) {
@@ -25,7 +25,7 @@ formula: |
           }
           return instance;
       }
-      
+
       public void issueDecree(String decree) {
           System.out.println("The High Pontiff decrees: " + decree);
       }

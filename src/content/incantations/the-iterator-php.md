@@ -4,32 +4,32 @@ description: "Navigate chaotic collections without exposing their underlying dar
 type: php
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   class ChaosCollection implements \IteratorAggregate {
       private array $items = [];
-  
+
       public function addItem(string $item): void {
           $this->items[] = $item;
       }
-  
+
       public function getIterator(): \Traversable {
           return new \ArrayIterator($this->items);
       }
   }
-  
+
   $collection = new ChaosCollection();
   $collection->addItem("Void Fragment");
   $collection->addItem("Glitch Remnant");
-  
+
   foreach ($collection as $item) {
       echo "Traversing: $item\n";
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

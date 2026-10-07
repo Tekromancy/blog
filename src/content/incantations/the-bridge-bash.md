@@ -4,39 +4,39 @@ description: Decoupling the command logic from the execution environment.
 type: script
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Evocation // Contextmancy
-formula: |
+arcaneSchool: "Evocation // Contextmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Implementation interface
   exec_local() {
     eval "$1"
   }
-  
+
   exec_remote() {
     local target=$1
     local cmd=$2
     echo "ssh $target \"$cmd\""
     # mock ssh execution
   }
-  
+
   # Abstraction
   run_diagnostic() {
     local execution_method=$1
     local target=$2
     local command="df -h && free -m"
-    
+
     if [[ "$execution_method" == "local" ]]; then
       exec_local "$command"
     elif [[ "$execution_method" == "remote" ]]; then
       exec_remote "$target" "$command"
     fi
   }
-  
+
   # Client
   echo "--- Local Diagnostic ---"
   run_diagnostic "local" ""
-  
+
   echo "--- Remote Diagnostic ---"
   run_diagnostic "remote" "cyber-server-01"
 tags: [bash, bridge, structural, execution]

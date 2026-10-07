@@ -4,17 +4,17 @@ description: "Use sharing to support large numbers of fine-grained mystical enti
 type: zig
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Necromancy // Soul Sharding
-formula: |
+arcaneSchool: "Necromancy // Soul Sharding"
+formula: |2
   const std = @import("std");
-  
+
   pub const ParticleSprite = struct {
       texture_id: u32, // Shared intrinsic state
   };
-  
+
   pub const ParticleFactory = struct {
       sprites: std.AutoHashMap(u32, *ParticleSprite),
-      
+
       pub fn getSprite(self: *ParticleFactory, alloc: std.mem.Allocator, tex_id: u32) !*ParticleSprite {
           if (self.sprites.get(tex_id)) |sprite| {
               return sprite;

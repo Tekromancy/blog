@@ -4,17 +4,17 @@ description: Assembling complex wards through pure composable state transformati
 type: haskell
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Abjuration
-formula: |
+arcaneSchool: "Transmutation // Abjuration"
+formula: |2
   module Builder where
   import Control.Monad.State
-  
+
   data Golem = Golem { headType :: String, bodyType :: String } deriving Show
   type GolemBuilder = State Golem ()
-  
+
   buildHead :: String -> GolemBuilder
   buildHead h = modify (\g -> g { headType = h })
-  
+
   buildBody :: String -> GolemBuilder
   buildBody b = modify (\g -> g { bodyType = b })
 tags: [state-monad, builder, transmutation]

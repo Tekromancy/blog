@@ -4,25 +4,25 @@ description: Executing volatile operations on heterogeneous mystical artifacts.
 type: kotlin
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Analysis
-formula: |
+arcaneSchool: "Divination // Analysis"
+formula: |2
   interface ArtifactVisitor {
       fun visit(wand: Wand)
       fun visit(staff: Staff)
   }
-  
+
   interface Artifact {
       fun accept(visitor: ArtifactVisitor)
   }
-  
+
   class Wand : Artifact {
       override fun accept(visitor: ArtifactVisitor) = visitor.visit(this)
   }
-  
+
   class Staff : Artifact {
       override fun accept(visitor: ArtifactVisitor) = visitor.visit(this)
   }
-  
+
   class PowerAnalyzer : ArtifactVisitor {
       override fun visit(wand: Wand) = println("Analyzing wand power.")
       override fun visit(staff: Staff) = println("Analyzing staff power.")

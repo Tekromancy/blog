@@ -5,7 +5,7 @@ type: "rust"
 gofPattern: "Builder Pattern (Creational)"
 gofCategory: "Creational"
 arcaneSchool: "Conjuration // The Compile-Time Typestate Golem"
-formula: |
+formula: |2
   struct NoHost; struct WithHost(String);
   struct NoPort; struct WithPort(u16);
 

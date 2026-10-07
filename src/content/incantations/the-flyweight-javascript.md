@@ -4,8 +4,8 @@ description: Use sharing to support large numbers of fine-grained entities effic
 type: javascript
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm Logistics
-formula: |
+arcaneSchool: "Conjuration // Swarm Logistics"
+formula: |2
   class ParticleEssence {
     constructor(color, sprite) {
       this.color = color;
@@ -15,7 +15,7 @@ formula: |
       console.log(`Rendering ${this.color} spark at (${x}, ${y}) with ${this.sprite}`);
     }
   }
-  
+
   class ParticleFactory {
     constructor() { this.essences = {}; }
     getEssence(color, sprite) {
@@ -26,14 +26,14 @@ formula: |
       return this.essences[key];
     }
   }
-  
+
   class SwarmParticle {
     constructor(x, y, essence) {
       this.x = x; this.y = y; this.essence = essence;
     }
     draw() { this.essence.render(this.x, this.y); }
   }
-  
+
   const factory = new ParticleFactory();
   const swarm = [];
   for(let i=0; i<1000; i++) {

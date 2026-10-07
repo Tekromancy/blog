@@ -4,8 +4,8 @@ description: Constructing complex demonic geases step-by-step through a decentra
 type: solidity
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Ritualism
-formula: |
+arcaneSchool: "Transmutation // Ritualism"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

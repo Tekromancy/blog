@@ -4,41 +4,41 @@ description: "Passing a cursed request along a hierarchy of cosmic entities unti
 type: lisp
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tribunals
-formula: |
+arcaneSchool: "Evocation // Tribunals"
+formula: |2
   (defpackage :eldritch-chain
     (:use :cl))
   (in-package :eldritch-chain)
-  
+
   (defclass handler ()
     ((next-handler :initarg :next :initform nil :accessor next-handler)))
-  
+
   (defgeneric handle-plea (handler plea-power))
-  
+
   (defmethod handle-plea ((h handler) plea-power)
     (if (next-handler h)
         (handle-plea (next-handler h) plea-power)
         (format t "The plea fades into the void, unheard.~%")))
-  
+
   ;; Concrete Handlers
   (defclass deep-one-handler (handler) ())
   (defmethod handle-plea ((h deep-one-handler) plea-power)
     (if (< plea-power 10)
         (format t "A Deep One accepts your pathetic plea.~%")
         (call-next-method)))
-  
+
   (defclass dagon-handler (handler) ())
   (defmethod handle-plea ((h dagon-handler) plea-power)
     (if (< plea-power 100)
         (format t "Father Dagon answers your call, making the seas boil.~%")
         (call-next-method)))
-  
+
   (defclass cthulhu-handler (handler) ())
   (defmethod handle-plea ((h cthulhu-handler) plea-power)
     (if (>= plea-power 100)
         (format t "Cthulhu stirs. Your mind is shattered as he answers.~%")
         (call-next-method)))
-  
+
   ;; Tribunal Construction
   (defun build-tribunal ()
     (make-instance 'deep-one-handler

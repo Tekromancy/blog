@@ -4,18 +4,18 @@ description: A rigid skeletal invocation that allows derived spirits to flesh ou
 type: wasm
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Invocation
-formula: |
+arcaneSchool: "Evocation // Invocation"
+formula: |2
   (module
     (type $step (func))
     (table 2 funcref)
-    
+
     (func $ritual_template (param $custom_step_idx i32)
       (call $prepare_circle)
       (call_indirect (type $step) (local.get $custom_step_idx))
       (call $seal_circle)
     )
-    
+
     (func $prepare_circle)
     (func $seal_circle)
   )

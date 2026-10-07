@@ -4,8 +4,8 @@ description: Sharing magical essence to support vast numbers of summoned swarms.
 type: cpp
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarming
-formula: |
+arcaneSchool: "Conjuration // Swarming"
+formula: |2
   #include <unordered_map>
   #include <string>
   #include <memory>

@@ -4,8 +4,8 @@ description: The central hub of madness.
 type: brainfuck
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Nexus
-formula: |
+arcaneSchool: "Conjuration // Nexus"
+formula: |2
   >+>++>+++   [The warring factions]
   <<<         [The Mediator cell]
   [->>>+<<<]  [All must pass through the Nexus]

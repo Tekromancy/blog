@@ -4,33 +4,33 @@ description: Translating ancient text formats into modern cyber-structures.
 type: script
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Streammancy
-formula: |
+arcaneSchool: "Transmutation // Streammancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Target Interface (Modern JSON Processor)
   process_json() {
     echo "Processing JSON data: $1"
   }
-  
+
   # The Adaptee (Legacy CSV output)
   legacy_get_user() {
     echo "id,name,role"
     echo "101,Neo,Hacker"
   }
-  
+
   # The Adapter
   csv_to_json_adapter() {
     local csv_data
     csv_data=$(legacy_get_user | tail -n +2)
-    
+
     # Primitive parsing via IFS
     IFS=',' read -r id name role <<< "$csv_data"
-    
+
     local json_data="{\"id\":\"$id\", \"name\":\"$name\", \"role\":\"$role\"}"
     process_json "$json_data"
   }
-  
+
   csv_to_json_adapter
 tags: [bash, adapter, structural, text-processing]
 pubDate: 2026-10-07

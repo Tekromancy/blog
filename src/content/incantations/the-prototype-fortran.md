@@ -4,18 +4,18 @@ description: Cloning ancient runic state arrays to avoid expensive geological re
 type: fortran
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   module prototype_m
     implicit none
     private
     public :: CloneableRune
-  
+
     type, abstract :: CloneableRune
     contains
       procedure(clone_interface), deferred, pass :: clone
     end type CloneableRune
-  
+
     abstract interface
       function clone_interface(this) result(copy)
         import :: CloneableRune
@@ -23,25 +23,25 @@ formula: |
         class(CloneableRune), allocatable :: copy
       end function clone_interface
     end interface
-  
+
     type, extends(CloneableRune), public :: DeepEarthRune
       real, allocatable :: state_matrix(:,:)
     contains
       procedure, pass :: clone => clone_deep_earth
     end type DeepEarthRune
-  
+
   contains
     function clone_deep_earth(this) result(copy)
       class(DeepEarthRune), intent(in) :: this
       class(CloneableRune), allocatable :: copy
       type(DeepEarthRune), allocatable :: actual_copy
-      
+
       allocate(actual_copy)
       if (allocated(this%state_matrix)) then
         allocate(actual_copy%state_matrix(size(this%state_matrix, 1), size(this%state_matrix, 2)))
         actual_copy%state_matrix = this%state_matrix
       end if
-      
+
       call move_alloc(actual_copy, copy)
     end function clone_deep_earth
   end module prototype_m

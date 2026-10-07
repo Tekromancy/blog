@@ -4,13 +4,13 @@ description: "Evaluate the esoteric grammar of Enochian script into actionable i
 type: smalltalk
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Tongues
-formula: |
+arcaneSchool: "Divination // Tongues"
+formula: |2
   Object subclass: #EnochianExpression
     instanceVariableNames: ''
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   EnochianExpression >> interpret: aContext [
       self subclassResponsibility
   ]

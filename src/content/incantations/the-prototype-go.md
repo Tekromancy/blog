@@ -4,8 +4,8 @@ description: Specify the kinds of objects to create using a prototypical instanc
 type: go
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   package prototype
 
   // Prototype interface

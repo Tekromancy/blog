@@ -4,8 +4,8 @@ description: Avoid coupling the sender of a request to its receiver by giving mo
 type: go
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Barrier-layering
-formula: |
+arcaneSchool: "Abjuration // Barrier-layering"
+formula: |2
   package chain
 
   // Handler

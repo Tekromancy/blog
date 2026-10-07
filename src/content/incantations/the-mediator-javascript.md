@@ -4,8 +4,8 @@ description: Define an object that encapsulates how a set of magical objects int
 type: javascript
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Coven Bonding
-formula: |
+arcaneSchool: "Enchantment // Coven Bonding"
+formula: |2
   class CovenCircle {
     constructor() { this.witches = []; }
     join(witch) {
@@ -20,7 +20,7 @@ formula: |
       });
     }
   }
-  
+
   class Witch {
     constructor(name) { this.name = name; this.power = 0; this.coven = null; }
     cast(amount) {
@@ -32,14 +32,14 @@ formula: |
       console.log(`${this.name} received power. Current power: ${this.power}`);
     }
   }
-  
+
   const circle = new CovenCircle();
   const w1 = new Witch("Morgana");
   const w2 = new Witch("Circe");
-  
+
   circle.join(w1);
   circle.join(w2);
-  
+
   w1.cast(50);
 tags: [communication, decoupling, circles]
 pubDate: 2026-10-07

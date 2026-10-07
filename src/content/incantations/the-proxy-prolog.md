@@ -4,12 +4,12 @@ description: Control access to ancient secrets through a protective logical guar
 type: prolog
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Guardianmancy
-formula: |
+arcaneSchool: "Abjuration // Guardianmancy"
+formula: |2
   % The Real Subject: The hidden knowledge
   read_forbidden_tome(Knowledge) :-
       Knowledge = 'The true name of the stars is...'.
-  
+
   % The Proxy: Checks credentials before allowing access
   proxy_read_tome(User, Knowledge) :-
       has_clearance(User),
@@ -18,15 +18,15 @@ formula: |
       \+ has_clearance(User),
       format('Access denied for ~w. The guardian wards you away.', [User]),
       fail.
-      
+
   % Access Rules
   has_clearance(archmage_aelin).
   has_clearance(grand_seer).
-  
+
   % ?- proxy_read_tome(apprentice_bob, K).
   % "Access denied for apprentice_bob. The guardian wards you away."
   % false.
-  
+
   % ?- proxy_read_tome(archmage_aelin, K).
   % K = 'The true name of the stars is...'.
 tags: [proxy, structural, prolog, access-control, wards]

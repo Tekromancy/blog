@@ -4,31 +4,31 @@ description: "Define a family of chaotic algorithms, encapsulate each, and make 
 type: php
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   interface HashingStrategy {
       public function hash(string $data): string;
   }
-  
+
   class Md5Chaos implements HashingStrategy {
       public function hash(string $data): string { return md5($data); } // Ancient, cursed
   }
-  
+
   class Argon2Ward implements HashingStrategy {
       public function hash(string $data): string { return password_hash($data, PASSWORD_ARGON2ID); }
   }
-  
+
   class Authenticator {
       public function __construct(private HashingStrategy $strategy) {}
       public function secure(string $password): string {
           return $this->strategy->hash($password);
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

@@ -4,8 +4,8 @@ description: Conserve arcane memory by sharing intrinsic state among millions of
 type: python
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Illusion // Swarm Mechanics
-formula: |
+arcaneSchool: "Illusion // Swarm Mechanics"
+formula: |2
   class SpiritEssence:
       # Intrinsic state: shared, immutable
       def __init__(self, color: str, glow_intensity: int):
@@ -14,7 +14,7 @@ formula: |
 
   class EssenceFactory:
       _essences = {}
-      
+
       @classmethod
       def get_essence(cls, color: str, glow_intensity: int) -> SpiritEssence:
           key = (color, glow_intensity)

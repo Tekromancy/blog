@@ -4,34 +4,34 @@ description: Severing the monolithic ties between Abstraction and Implementation
 type: java
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Decoupling
-formula: |
+arcaneSchool: "Transmutation // Decoupling"
+formula: |2
   public interface CathedralEngine {
       void processPrayers();
   }
-  
+
   public class LegacyEngine implements CathedralEngine {
       @Override
       public void processPrayers() {
           System.out.println("Processing prayers via synchronous batch jobs.");
       }
   }
-  
+
   public abstract class Diocese {
       protected final CathedralEngine engine;
-      
+
       protected Diocese(CathedralEngine engine) {
           this.engine = engine;
       }
-      
+
       public abstract void administer();
   }
-  
+
   public class CyberDiocese extends Diocese {
       public CyberDiocese(CathedralEngine engine) {
           super(engine);
       }
-      
+
       @Override
       public void administer() {
           System.out.println("Cyber Diocese initiates routine.");

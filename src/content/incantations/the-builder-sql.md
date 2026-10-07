@@ -4,8 +4,8 @@ description: Step-by-step assembly of complex ethereal data sets using Common Ta
 type: sql
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Sequential Binding
-formula: |
+arcaneSchool: "Transmutation // Sequential Binding"
+formula: |2
   -- The Astral Construct built via layered CTEs
   WITH 
   raw_essence AS (

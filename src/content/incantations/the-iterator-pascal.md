@@ -4,8 +4,8 @@ description: Sequentially parsing a multi-dimensional array of souls.
 type: pascal
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Traversal
-formula: |
+arcaneSchool: "Necromancy // Traversal"
+formula: |2
   unit IteratorPattern;
   interface
   type

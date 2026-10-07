@@ -4,8 +4,8 @@ description: "Encapsulating a spell as an object to be stored, passed, and execu
 type: lua
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Scrolls
-formula: |
+arcaneSchool: "Evocation // Scrolls"
+formula: |2
   local function CommandScroll(action, target)
     return {
       execute = function()

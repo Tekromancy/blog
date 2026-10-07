@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Memento"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Time Reversal"
-formula: |
+formula: |2
   library(R6)
 
   # Memento

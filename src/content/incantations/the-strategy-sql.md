@@ -4,8 +4,8 @@ description: Swapping out the underlying computation behavior transparently via 
 type: sql
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Path Shifting
-formula: |
+arcaneSchool: "Conjuration // Path Shifting"
+formula: |2
   CREATE TABLE trade_transactions (
       trade_id SERIAL PRIMARY KEY,
       base_amount NUMERIC

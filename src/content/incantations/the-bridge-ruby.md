@@ -4,8 +4,8 @@ description: "Decoupling the magical vessel from the corrupted essence it contai
 type: ruby
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Vesselcraft
-formula: |
+arcaneSchool: "Transmutation // Vesselcraft"
+formula: |2
   # The Implementation
   class MagicEssence
     def manifest_power

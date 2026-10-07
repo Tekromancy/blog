@@ -4,8 +4,8 @@ description: Centralizing complex communications between covens.
 type: cpp
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Illusion // Telepathy
-formula: |
+arcaneSchool: "Illusion // Telepathy"
+formula: |2
   #include <string>
   class Coven;
   class Mediator {

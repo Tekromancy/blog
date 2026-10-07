@@ -4,62 +4,62 @@ description: Encapsulating runic instructions for deferred execution on the main
 type: fortran
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Divination // Invocation
-formula: |
+arcaneSchool: "Divination // Invocation"
+formula: |2
   module command_m
     implicit none
     private
     public :: Command, MainframeReceiver, IgniteCommand, Invoker
-  
+
     type :: MainframeReceiver
     contains
       procedure, pass :: apply_ignition
     end type MainframeReceiver
-  
+
     type, abstract :: Command
     contains
       procedure(exec_cmd), deferred, pass :: execute
     end type Command
-  
+
     abstract interface
       subroutine exec_cmd(this)
         import :: Command
         class(Command), intent(inout) :: this
       end subroutine exec_cmd
     end interface
-  
+
     type, extends(Command) :: IgniteCommand
       type(MainframeReceiver), pointer :: receiver
     contains
       procedure, pass :: execute => execute_ignite
     end type IgniteCommand
-    
+
     type :: Invoker
       class(Command), allocatable :: stored_command
     contains
       procedure, pass :: set_command
       procedure, pass :: trigger
     end type Invoker
-  
+
   contains
     subroutine apply_ignition(this)
       class(MainframeReceiver), intent(inout) :: this
       ! The core receives the spark
     end subroutine apply_ignition
-    
+
     subroutine execute_ignite(this)
       class(IgniteCommand), intent(inout) :: this
       if (associated(this%receiver)) then
         call this%receiver%apply_ignition()
       end if
     end subroutine execute_ignite
-    
+
     subroutine set_command(this, cmd)
       class(Invoker), intent(inout) :: this
       class(Command), intent(in) :: cmd
       allocate(this%stored_command, source=cmd)
     end subroutine set_command
-    
+
     subroutine trigger(this)
       class(Invoker), intent(inout) :: this
       if (allocated(this%stored_command)) then

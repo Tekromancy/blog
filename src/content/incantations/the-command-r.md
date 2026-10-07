@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Command"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Incantation Storage"
-formula: |
+formula: |2
   library(R6)
 
   # Command Interface

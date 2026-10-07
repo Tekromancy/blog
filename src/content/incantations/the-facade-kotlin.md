@@ -4,17 +4,17 @@ description: A simplified glyph hiding the chaotic inner workings of an arcane s
 type: kotlin
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Masking
-formula: |
+arcaneSchool: "Illusion // Masking"
+formula: |2
   class ManaExtractor { fun extract() = println("Extracting mana...") }
   class SpellCompiler { fun compile() = println("Compiling matrix...") }
   class AetherRouter { fun route() = println("Routing to aether...") }
-  
+
   class CastingFacade {
       private val extractor = ManaExtractor()
       private val compiler = SpellCompiler()
       private val router = AetherRouter()
-      
+
       fun performCasting() {
           extractor.extract()
           compiler.compile()

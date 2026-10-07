@@ -4,13 +4,13 @@ description: Without violating encapsulation, capture and externalize an object'
 type: javascript
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Time Reversal
-formula: |
+arcaneSchool: "Chronomancy // Time Reversal"
+formula: |2
   class Memento {
     constructor(state) { this.state = state; }
     getState() { return this.state; }
   }
-  
+
   class TimeWeaver {
     constructor() { this.mana = 100; this.location = "Tower"; }
     saveState() { return new Memento({ mana: this.mana, location: this.location }); }
@@ -21,13 +21,13 @@ formula: |
     }
     cast() { this.mana -= 30; this.location = "Battlefield"; }
   }
-  
+
   const weaver = new TimeWeaver();
   const timeline = weaver.saveState(); // Saved at Tower with 100 mana
-  
+
   weaver.cast();
   console.log(`Mana: ${weaver.mana}, Location: ${weaver.location}`);
-  
+
   weaver.restoreState(timeline);
   console.log(`Restored - Mana: ${weaver.mana}, Location: ${weaver.location}`);
 tags: [state, history, chronomancy]

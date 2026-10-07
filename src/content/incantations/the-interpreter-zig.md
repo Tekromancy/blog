@@ -4,14 +4,14 @@ description: "Given a language, define a representation for its grammar along wi
 type: zig
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Lexicography
-formula: |
+arcaneSchool: "Divination // Lexicography"
+formula: |2
   const std = @import("std");
-  
+
   pub const Context = struct {
       vars: std.StringHashMap(u32),
   };
-  
+
   pub const Expression = struct {
       vtable: *const VTable,
       pub const VTable = struct {

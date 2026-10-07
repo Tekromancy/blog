@@ -4,23 +4,23 @@ description: "Provide a surrogate or placeholder for another artifact to control
 type: zig
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   const std = @import("std");
-  
+
   pub const ForbiddenTome = struct {
       pub fn readSecrets() void {
           std.debug.print("Secrets revealed.\n", .{});
       }
   };
-  
+
   pub const TomeProxy = struct {
       real_tome: ?*ForbiddenTome = null,
       clearance_level: u8,
-      
+
       pub fn readSecrets(self: *TomeProxy, alloc: std.mem.Allocator) !void {
           if (self.clearance_level < 5) return error.AccessDenied;
-          
+
           if (self.real_tome == null) {
               self.real_tome = try alloc.create(ForbiddenTome);
           }

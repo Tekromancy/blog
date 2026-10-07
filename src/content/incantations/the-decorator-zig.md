@@ -4,10 +4,10 @@ description: "Attach additional responsibilities to an artifact dynamically with
 type: zig
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Augmentation
-formula: |
+arcaneSchool: "Transmutation // Augmentation"
+formula: |2
   const std = @import("std");
-  
+
   pub const Weapon = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -15,18 +15,18 @@ formula: |
       };
       pub fn strike(self: *Weapon) u32 { return self.vtable.strike(self); }
   };
-  
+
   pub const FlamingWeapon = struct {
       base_weapon: *Weapon,
       weapon_interface: Weapon,
-      
+
       pub fn init(base: *Weapon) FlamingWeapon {
           return .{
               .base_weapon = base,
               .weapon_interface = .{ .vtable = &.{ .strike = strikeImpl } },
           };
       }
-      
+
       fn strikeImpl(base: *Weapon) u32 {
           const self = @fieldParentPtr(FlamingWeapon, "weapon_interface", base);
           // Base damage + fire aether

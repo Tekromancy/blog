@@ -4,8 +4,8 @@ description: Represent an operation to be performed on the elements of an object
 type: rust
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Auditing
-formula: |
+arcaneSchool: "Divination // Auditing"
+formula: |2
   pub trait Visitor {
       fn visit_server(&self, server: &ServerNode);
       fn visit_terminal(&self, terminal: &TerminalNode);

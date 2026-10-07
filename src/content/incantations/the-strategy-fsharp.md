@@ -4,8 +4,8 @@ description: Defining a family of algorithms, encapsulating each, and making the
 type: fsharp
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   // In F#, strategies are often just first-class functions
   type DuelingTactic = int -> int -> string
 
@@ -20,7 +20,7 @@ formula: |
           printfn "%s" (tactic power armor)
 
   let archmage = Duelist(50, 20)
-  
+
   printfn "Phase 1:"
   archmage.Execute(aggressiveTactic)
 

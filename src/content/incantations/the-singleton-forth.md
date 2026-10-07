@@ -4,13 +4,13 @@ description: The One True Artifact, residing in absolute memory.
 type: forth
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Enchantment // Relic-Binding
-formula: |
+arcaneSchool: "Enchantment // Relic-Binding"
+formula: |2
   \ Relic-Binding: The Singleton
   \ Variables are inherent singletons in Forth.
-  
+
   VARIABLE THE-MONOLITH
-  
+
   : INITIATE-MONOLITH ( -- )
     THE-MONOLITH @ 0= IF
       999 THE-MONOLITH !
@@ -18,10 +18,10 @@ formula: |
     ELSE
       ." The Monolith already exists!" CR
     THEN ;
-    
+
   : READ-MONOLITH ( -- val )
     THE-MONOLITH @ ;
-    
+
   \ Usage:
   \ INITIATE-MONOLITH
   \ INITIATE-MONOLITH

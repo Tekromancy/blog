@@ -4,33 +4,33 @@ description: Attach additional responsibilities to an artifact dynamically witho
 type: javascript
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Augmentation
-formula: |
+arcaneSchool: "Enchantment // Augmentation"
+formula: |2
   class BaseStaff {
     cast() { return 10; } // Base damage
     describe() { return "Wooden Staff"; }
   }
-  
+
   class StaffDecorator {
     constructor(staff) { this.staff = staff; }
     cast() { return this.staff.cast(); }
     describe() { return this.staff.describe(); }
   }
-  
+
   class FlamingStaff extends StaffDecorator {
     cast() { return this.staff.cast() + 15; }
     describe() { return this.staff.describe() + " of Fire"; }
   }
-  
+
   class VenomousStaff extends StaffDecorator {
     cast() { return this.staff.cast() + 5; }
     describe() { return "Venomous " + this.staff.describe(); }
   }
-  
+
   let myStaff = new BaseStaff();
   myStaff = new FlamingStaff(myStaff);
   myStaff = new VenomousStaff(myStaff);
-  
+
   console.log(`${myStaff.describe()} deals ${myStaff.cast()} damage.`);
 tags: [enchantment, augmentation, wrappers]
 pubDate: 2026-10-07

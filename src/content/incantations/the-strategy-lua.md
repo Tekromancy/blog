@@ -4,8 +4,8 @@ description: "Choosing the method of attack dynamically at runtime from an arsen
 type: lua
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   local Strategies = {
     Fire = function() return "Casting a blistering fireball!" end,
     Ice = function() return "Unleashing a cone of frost!" end

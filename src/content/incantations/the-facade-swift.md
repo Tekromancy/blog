@@ -4,8 +4,8 @@ description: A simplified incantation for complex magical subsystems.
 type: swift
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Simplification
-formula: |
+arcaneSchool: "Illusion // Simplification"
+formula: |2
   class ManaPool { func gather() {} }
   class SpellMatrix { func align() {} }
   class RitualFacade {

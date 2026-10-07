@@ -4,8 +4,8 @@ description: Attach additional responsibilities to an object dynamically.
 type: go
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Augmentation
-formula: |
+arcaneSchool: "Enchantment // Augmentation"
+formula: |2
   package decorator
 
   // Component

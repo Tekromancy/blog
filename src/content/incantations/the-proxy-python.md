@@ -4,8 +4,8 @@ description: Control access to a dangerous demonic entity.
 type: python
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Binding
-formula: |
+arcaneSchool: "Abjuration // Binding"
+formula: |2
   from abc import ABC, abstractmethod
 
   class DemonContract(ABC):

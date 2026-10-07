@@ -4,19 +4,19 @@ description: Modules that react to a common status signal.
 type: vhdl
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Broadcast Listener
-formula: |
+arcaneSchool: "Silicon Golemancy // Broadcast Listener"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity observer_bus is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end observer_bus;
-  
+
   architecture Physical of observer_bus is
   begin
       process(clk, rst)

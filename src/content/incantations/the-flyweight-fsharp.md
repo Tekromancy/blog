@@ -4,8 +4,8 @@ description: Sharing intrinsic magical properties across thousands of manifest r
 type: fsharp
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Efficiency
-formula: |
+arcaneSchool: "Conjuration // Efficiency"
+formula: |2
   open System.Collections.Generic
 
   type RuneType = { Name: string; Color: string; AetherCost: int }
@@ -22,7 +22,7 @@ formula: |
 
   let forge = RuneFactory()
   let fireRune = forge.GetRuneType("Fire", "Red", 10)
-  
+
   let drawRune x y t = { X = x; Y = y; Type = t }
 
   let array1 = drawRune 10 20 fireRune

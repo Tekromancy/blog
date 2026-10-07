@@ -4,8 +4,8 @@ description: Decouple the spell's abstraction from its elemental implementation.
 type: python
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Evocation // Metamagic
-formula: |
+arcaneSchool: "Evocation // Metamagic"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Element(ABC):
@@ -21,7 +21,7 @@ formula: |
   class Spell(ABC):
       def __init__(self, element: Element):
           self.element = element
-      
+
       @abstractmethod
       def cast(self) -> str: pass
 

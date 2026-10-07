@@ -4,8 +4,8 @@ description: Centralizing communication between decoupled tables via triggers an
 type: sql
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Divination // Hub Routing
-formula: |
+arcaneSchool: "Divination // Hub Routing"
+formula: |2
   CREATE TABLE system_event_bus (
       event_id SERIAL PRIMARY KEY,
       source_table VARCHAR(50),

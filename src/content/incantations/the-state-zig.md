@@ -4,18 +4,18 @@ description: "Allow an object to alter its behavior when its internal state chan
 type: zig
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Evolution
-formula: |
+arcaneSchool: "Transmutation // Evolution"
+formula: |2
   const std = @import("std");
-  
+
   pub const Familiar = struct {
       state: *const StateVTable,
-      
+
       pub fn interact(self: *Familiar) void {
           self.state.interact(self);
       }
   };
-  
+
   pub const StateVTable = struct {
       interact: *const fn (self: *Familiar) void,
   };

@@ -4,12 +4,12 @@ description: "Define the skeleton of an algorithm in the superclass but let subc
 type: php
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Frameworks
-formula: |
+arcaneSchool: "Conjuration // Frameworks"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   abstract class DataMiner {
       // The template method
       public final function mine(string $path): void {
@@ -18,18 +18,18 @@ formula: |
           $this->analyze($data);
           $this->closeFile($file);
       }
-  
+
       abstract protected function extractData(string $file): string;
-  
+
       protected function openFile(string $path): string { return "Opened $path"; }
       protected function analyze(string $data): void { echo "Analyzing $data\n"; }
       protected function closeFile(string $file): void { echo "Closed $file\n"; }
   }
-  
+
   class CsvMiner extends DataMiner {
       protected function extractData(string $file): string { return "CSV Data from $file"; }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

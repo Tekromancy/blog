@@ -22,7 +22,7 @@ const incantations = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
-		type: z.enum(["shell", "prompt", "script", "python", "rust", "perl", "javascript", "cpp", "go", "lisp", "haskell", "ruby", "assembly", "elixir", "solidity", "zig", "prolog", "apl", "fortran", "cobol", "java", "wasm", "julia", "forth", "smalltalk", "ada", "sql", "lua", "r", "php", "vhdl", "brainfuck", "erlang", "clojure", "scala", "swift", "kotlin", "algol", "b", "pascal", "ocaml", "fsharp", "dart"]),
+		type: z.enum(["shell", "prompt", "script", "python", "rust", "perl", "javascript", "cpp", "go", "lisp", "haskell", "ruby", "assembly", "elixir", "solidity", "zig", "prolog", "apl", "fortran", "cobol", "java", "wasm", "julia", "forth", "smalltalk", "ada", "sql", "lua", "r", "php", "vhdl", "brainfuck", "erlang", "clojure", "scala", "swift", "kotlin", "algol", "b", "pascal", "ocaml", "fsharp", "dart", "actionscript", "coldfusion", "delphi", "vb", "logo", "foxpro", "pli", "snobol", "simula", "tcl", "nim", "crystal", "v", "d", "racket", "scheme", "gleam", "pony", "reason", "haxe", "csharp", "objc", "matlab", "mathematica", "groovy", "eiffel", "abap", "rpg", "labview", "scratch"]),
 		gofPattern: z.string(),
 		gofCategory: z.enum(["Creational", "Structural", "Behavioral", "Architectural", "Resilience"]),
 		arcaneSchool: z.string(),

@@ -4,8 +4,8 @@ description: A planar sigil for manifesting coherent families of elementals with
 type: scala
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Planar Binding
-formula: |
+arcaneSchool: "Conjuration // Planar Binding"
+formula: |2
   sealed trait Elemental
   case class FireElemental(power: Int) extends Elemental
   case class WaterElemental(power: Int) extends Elemental

@@ -4,8 +4,8 @@ description: "Structured antiquity and the Prototype pattern."
 type: algol
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   CO Prototype in ALGOL 68 CO
   BEGIN
     MODE PROTOTYPE = STRUCT (PROC VOID clone);

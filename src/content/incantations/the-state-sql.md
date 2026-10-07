@@ -4,8 +4,8 @@ description: Managing entity behavior based on explicit state machines within th
 type: sql
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase Shifting
-formula: |
+arcaneSchool: "Transmutation // Phase Shifting"
+formula: |2
   CREATE TYPE quest_state AS ENUM ('DRAFT', 'ACTIVE', 'COMPLETED', 'FAILED');
 
   CREATE TABLE cyber_quests (
@@ -22,7 +22,7 @@ formula: |
       IF OLD.current_state = 'COMPLETED' THEN
           RAISE EXCEPTION 'A completed quest cannot shift state.';
       END IF;
-      
+
       -- Draft can only go to Active
       IF OLD.current_state = 'DRAFT' AND NEW.current_state NOT IN ('DRAFT', 'ACTIVE') THEN
           RAISE EXCEPTION 'Invalid transition from DRAFT.';

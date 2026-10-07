@@ -4,8 +4,8 @@ description: Decoupling abstraction from implementation via higher-kinded types.
 type: haskell
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Evocation // Bridgemancy
-formula: |
+arcaneSchool: "Evocation // Bridgemancy"
+formula: |2
   module Bridge where
   class Renderer r where renderSquare :: r -> String
   data VectorR = VectorR

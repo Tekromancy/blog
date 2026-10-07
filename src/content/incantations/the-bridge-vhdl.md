@@ -4,19 +4,19 @@ description: Separates interface definitions from their implementations.
 type: vhdl
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Silicon Golemancy // Decoupled Conduit
-formula: |
+arcaneSchool: "Silicon Golemancy // Decoupled Conduit"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity bridge_interface is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end bridge_interface;
-  
+
   architecture Physical of bridge_interface is
   begin
       process(clk, rst)

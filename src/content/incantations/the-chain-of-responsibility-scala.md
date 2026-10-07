@@ -4,8 +4,8 @@ description: Pass an unshaped arcane query through a hierarchy of wards until on
 type: scala
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   type Handler = PartialFunction[String, String]
 
   val fireWard: Handler = {

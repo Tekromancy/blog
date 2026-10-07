@@ -4,8 +4,8 @@ description: Designing an abstract syntax tree to parse and execute forgotten ru
 type: fsharp
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   type Context() =
       let mutable knowledge = Map.empty<string, int>
       member _.Set(k, v) = knowledge <- knowledge.Add(k, v)

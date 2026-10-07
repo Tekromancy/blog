@@ -4,33 +4,33 @@ description: Traverse hyper-dimensional organic arrays safely.
 type: apl
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Array-Traversal
-formula: |
+arcaneSchool: "Divination // Array-Traversal"
+formula: |2
   :Class BiomassIterator
       :Field Private Collection
       :Field Private Index ← 1
-      
+
       ∇ Make Coll
         :Access Public
         :Implements Constructor
         Collection ← Coll
       ∇
-      
+
       ∇ R←HasNext
         :Access Public
         R ← Index ≤ ≢Collection
       ∇
-      
+
       ∇ R←Next
         :Access Public
         R ← Collection[Index]
         Index ← Index + 1
       ∇
   :EndClass
-  
+
   :Class AlienBiomass
       :Field Private Cells ← '⍋' '⍒' '⍟' '⌾'
-      
+
       ∇ R←GetIterator
         :Access Public
         R ← ⎕NEW BiomassIterator (Cells)

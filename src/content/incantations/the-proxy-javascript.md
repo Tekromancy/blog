@@ -4,18 +4,18 @@ description: Provide a surrogate or placeholder for another object to control ac
 type: javascript
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   class VaultOfSecrets {
     open() { console.log("Vault opens, revealing arcane texts."); }
   }
-  
+
   class WardedVaultProxy {
     constructor(password) {
       this.vault = new VaultOfSecrets();
       this.password = password;
     }
-    
+
     open(attempt) {
       if (attempt === this.password) {
         this.vault.open();
@@ -24,7 +24,7 @@ formula: |
       }
     }
   }
-  
+
   const protectedVault = new WardedVaultProxy("Elbereth");
   protectedVault.open("Mellon"); // Fails
   protectedVault.open("Elbereth"); // Succeeds

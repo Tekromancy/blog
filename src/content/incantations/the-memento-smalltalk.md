@@ -4,18 +4,18 @@ description: "Capture the exact soul state of an entity to restore it after a di
 type: smalltalk
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Memory Echo
-formula: |
+arcaneSchool: "Chronomancy // Memory Echo"
+formula: |2
   Object subclass: #PastLifeMemento
     instanceVariableNames: 'memories alignment'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   Object subclass: #PossessedHost
     instanceVariableNames: 'memories alignment'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-    
+
   PossessedHost >> saveState [ ^ PastLifeMemento newWith: memories align: alignment ]
   PossessedHost >> restore: aMemento [
       memories := aMemento memories.

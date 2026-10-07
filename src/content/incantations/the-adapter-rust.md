@@ -4,8 +4,8 @@ description: Convert the interface of a class into another interface clients exp
 type: rust
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Interface-warping
-formula: |
+arcaneSchool: "Transmutation // Interface-warping"
+formula: |2
   pub trait StandardGridNode {
       fn connect(&self) -> String;
   }

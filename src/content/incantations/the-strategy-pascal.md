@@ -4,8 +4,8 @@ description: Interchanging combat algorithms on the fly against adapting horrors
 type: pascal
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   unit StrategyPattern;
   interface
   type

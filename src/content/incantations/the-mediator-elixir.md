@@ -4,22 +4,22 @@ description: Centralize complex communication among actors to prevent a chaotic 
 type: elixir
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Illusion // Nexus-Control
-formula: |
+arcaneSchool: "Illusion // Nexus-Control"
+formula: |2
   defmodule Tekromancy.HiveNexus do
     use GenServer
-    
+
     def start_link(_), do: GenServer.start_link(__MODULE__, %{}, name: :nexus)
-    
+
     def register(name, pid), do: GenServer.cast(:nexus, {:register, name, pid})
-    
+
     def route_message(to_name, msg), do: GenServer.cast(:nexus, {:route, to_name, msg})
-    
+
     @impl true
     def handle_cast({:register, name, pid}, state) do
       {:noreply, Map.put(state, name, pid)}
     end
-    
+
     def handle_cast({:route, to_name, msg}, state) do
       if pid = state[to_name] do
         send(pid, {:nexus_msg, msg})

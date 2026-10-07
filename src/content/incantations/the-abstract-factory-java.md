@@ -4,21 +4,21 @@ description: Construct grand interlinked domains of enterprise entities through 
 type: java
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Architecture
-formula: |
+arcaneSchool: "Conjuration // Architecture"
+formula: |2
   public interface CathedralFactory {
       Gargoyle summonGargoyle();
       StainedGlass forgeGlass();
   }
-  
+
   public interface Gargoyle {
       void ward();
   }
-  
+
   public interface StainedGlass {
       void illuminate();
   }
-  
+
   public class ObsidianCathedralFactory implements CathedralFactory {
       @Override
       public Gargoyle summonGargoyle() {
@@ -29,30 +29,30 @@ formula: |
           return new CrimsonStainedGlass();
       }
   }
-  
+
   public class ObsidianGargoyle implements Gargoyle {
       @Override
       public void ward() {
           System.out.println("Obsidian Gargoyle casts a heavy shadow of protection.");
       }
   }
-  
+
   public class CrimsonStainedGlass implements StainedGlass {
       @Override
       public void illuminate() {
           System.out.println("Crimson glass filters the harsh neon lights of the sprawl.");
       }
   }
-  
+
   public class CathedralDirector {
       private final Gargoyle gargoyle;
       private final StainedGlass glass;
-  
+
       public CathedralDirector(CathedralFactory factory) {
           this.gargoyle = factory.summonGargoyle();
           this.glass = factory.forgeGlass();
       }
-  
+
       public void consecrate() {
           glass.illuminate();
           gargoyle.ward();

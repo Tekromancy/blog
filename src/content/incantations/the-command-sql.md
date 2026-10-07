@@ -4,8 +4,8 @@ description: Encapsulating operations as structured row data for later or asynch
 type: sql
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Delayed Casting
-formula: |
+arcaneSchool: "Conjuration // Delayed Casting"
+formula: |2
   CREATE TYPE command_status AS ENUM ('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED');
 
   -- The Command Queue

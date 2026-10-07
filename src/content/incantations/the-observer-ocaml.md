@@ -4,17 +4,17 @@ description: Subscribing scrying orbs to ethereal shockwaves.
 type: ocaml
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying Network
-formula: |
+arcaneSchool: "Divination // Scrying Network"
+formula: |2
   type event = ManaSurge | VoidCollapse
   type observer = event -> unit
-  
+
   let create_subject () =
     let observers = ref [] in
     let attach obs = observers := obs :: !observers in
     let notify ev = List.iter (fun f -> f ev) !observers in
     (attach, notify)
-    
+
   let attach, notify = create_subject ()
   let () = attach (fun ev -> print_endline "Orb 1 detected event!")
 tags: [Caml Metamagic, Callbacks, Mutability, OCaml]

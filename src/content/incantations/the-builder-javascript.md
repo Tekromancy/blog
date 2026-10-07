@@ -4,14 +4,14 @@ description: Incrementally assemble complex constructs, allowing the same proces
 type: javascript
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct Assembly
-formula: |
+arcaneSchool: "Transmutation // Construct Assembly"
+formula: |2
   class Golem {
     constructor() { this.parts = []; }
     add(part) { this.parts.push(part); }
     awaken() { console.log(`Awakened Golem with: ${this.parts.join(', ')}`); }
   }
-  
+
   class GolemBuilder {
     constructor() { this.golem = new Golem(); }
     infuseCore() { return this; }
@@ -19,13 +19,13 @@ formula: |
     inscribeRunes() { return this; }
     getGolem() { return this.golem; }
   }
-  
+
   class IronGolemBuilder extends GolemBuilder {
     infuseCore() { this.golem.add('Molten Iron Core'); return this; }
     attachLimbs() { this.golem.add('Heavy Iron Plating'); return this; }
     inscribeRunes() { this.golem.add('Runes of Fortitude'); return this; }
   }
-  
+
   class Director {
     constructBasic(builder) {
       builder.infuseCore().attachLimbs();
@@ -34,7 +34,7 @@ formula: |
       builder.infuseCore().attachLimbs().inscribeRunes();
     }
   }
-  
+
   const director = new Director();
   const builder = new IronGolemBuilder();
   director.constructRunic(builder);

@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Chain of Responsibility"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Sequential Filtering"
-formula: |
+formula: |2
   library(R6)
 
   # Handler Interface

@@ -4,22 +4,22 @@ description: Defining the skeleton of a ritual while allowing sub-casters to fil
 type: clojure
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Rituals
-formula: |
+arcaneSchool: "Conjuration // Rituals"
+formula: |2
   (ns tekromancy.template-method)
-  
+
   (defn perform-summoning-ritual [{:keys [draw-circle-fn chant-fn ignite-fn]}]
     (println "Beginning the ritual...")
     (draw-circle-fn)
     (chant-fn)
     (ignite-fn)
     (println "The entity has arrived!"))
-  
+
   (def demon-ritual
     {:draw-circle-fn #(println "Drawing circle of blood.")
      :chant-fn       #(println "Chanting in abyssal.")
      :ignite-fn      #(println "Igniting hellfire.")})
-  
+
   ;; Usage:
   ;; (perform-summoning-ritual demon-ritual)
 tags: [behavioral, template-method, clojure, higher-order-functions]

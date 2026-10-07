@@ -4,8 +4,8 @@ description: Dynamically attaching new magical properties to objects.
 type: swift
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Enhancement
-formula: |
+arcaneSchool: "Transmutation // Enhancement"
+formula: |2
   protocol Wand {
       func power() -> Int
   }

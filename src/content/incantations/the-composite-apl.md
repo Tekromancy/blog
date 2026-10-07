@@ -4,30 +4,30 @@ description: Form a hierarchy of interstellar fleets acting as a single monolith
 type: apl
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Transmutation // Swarm-Weaving
-formula: |
+arcaneSchool: "Transmutation // Swarm-Weaving"
+formula: |2
   :Class FleetComponent
       ∇ R←PowerLevel
         :Access Public Shared
         R←0
       ∇
   :EndClass
-  
+
   :Class Drone : FleetComponent
       ∇ R←PowerLevel
         :Access Public
         R←10 ⍝ Individual drone power ⍫
       ∇
   :EndClass
-  
+
   :Class Squadron : FleetComponent
       :Field Private Units ← ⍬
-      
+
       ∇ Add Unit
         :Access Public
         Units ← Units , Unit
       ∇
-      
+
       ∇ R←PowerLevel
         :Access Public
         R ← +/ {⍵.PowerLevel} ¨ Units

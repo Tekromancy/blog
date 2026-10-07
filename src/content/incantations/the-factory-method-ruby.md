@@ -4,8 +4,8 @@ description: "A foundational blood pact that defers the exact manifestation of s
 type: ruby
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Bloodmancy
-formula: |
+arcaneSchool: "Conjuration // Bloodmancy"
+formula: |2
   class SummoningCircle
     def invoke_entity
       raise NotImplementedError, "Subclasses must implement the invocation ritual"

@@ -4,13 +4,13 @@ description: Parse and evaluate ancient runes and domain-specific incantations.
 type: elixir
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Rune-Reading
-formula: |
+arcaneSchool: "Divination // Rune-Reading"
+formula: |2
   defmodule Tekromancy.RuneInterpreter do
     def eval({:add, left, right}), do: eval(left) + eval(right)
     def eval({:mult, left, right}), do: eval(left) * eval(right)
     def eval(number) when is_number(number), do: number
-    
+
     # Evaluating a rune sequence: {:add, 10, {:mult, 2, 5}} => 20
   end
 tags: [elixir, behavioral, interpreter, ast, parsing]

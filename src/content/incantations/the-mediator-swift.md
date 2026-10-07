@@ -4,8 +4,8 @@ description: Centralizing complex communication between magical entities.
 type: swift
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Orchestration
-formula: |
+arcaneSchool: "Enchantment // Orchestration"
+formula: |2
   protocol Mediator {
       func notify(sender: Colleague, event: String)
   }

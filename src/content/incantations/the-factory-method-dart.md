@@ -4,42 +4,42 @@ description: Defer the instantiation of magical familiars to specialized subclas
 type: dart
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   abstract class Familiar {
     void speak();
   }
-  
+
   class CyberRaven implements Familiar {
     @override
     void speak() => print('Caw! 01100011');
   }
-  
+
   class NeonCat implements Familiar {
     @override
     void speak() => print('Meow... *glitch*');
   }
-  
+
   abstract class Summoner {
     Familiar summon(); // The Factory Method
-    
+
     void commandFamiliar() {
       final familiar = summon();
       print('Commanding familiar:');
       familiar.speak();
     }
   }
-  
+
   class HackerSummoner extends Summoner {
     @override
     Familiar summon() => CyberRaven();
   }
-  
+
   class StreetMage extends Summoner {
     @override
     Familiar summon() => NeonCat();
   }
-  
+
   void main() {
     Summoner mage = StreetMage();
     mage.commandFamiliar();

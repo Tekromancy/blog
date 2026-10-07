@@ -4,15 +4,15 @@ description: "Decouple the spiritual manifestation from the physical medium conv
 type: smalltalk
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Abjuration // Planar Bridging
-formula: |
+arcaneSchool: "Abjuration // Planar Bridging"
+formula: |2
   Object subclass: #PlanarManifestation
     instanceVariableNames: 'medium'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   PlanarManifestation >> medium: aMedium [ medium := aMedium ]
-  
+
   PlanarManifestation >> expressAnger [
       medium shakeTable.
       medium dropTemperature.

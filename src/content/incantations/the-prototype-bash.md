@@ -4,33 +4,33 @@ description: Duplicating stateful shell configurations via the Prototype pattern
 type: script
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Prototype base config
   declare -A PROTOTYPE_CONFIG=(
     [timeout]="30"
     [retries]="3"
     [verbosity]="low"
   )
-  
+
   # Clone method
   clone_config() {
     local new_config_name=$1
     # We use declare -n (nameref) to create a copy in a new array
     declare -gA "$new_config_name"
-    
+
     for key in "${!PROTOTYPE_CONFIG[@]}"; do
       eval "$new_config_name[$key]=\"\${PROTOTYPE_CONFIG[$key]}\""
     done
   }
-  
+
   # Usage
   clone_config "HACK_CONFIG"
   HACK_CONFIG[timeout]="10"
   HACK_CONFIG[verbosity]="high"
-  
+
   echo "Prototype Verbosity: ${PROTOTYPE_CONFIG[verbosity]}"
   echo "Cloned Hack Verbosity: ${HACK_CONFIG[verbosity]}"
 tags: [bash, prototype, creational, cloning]

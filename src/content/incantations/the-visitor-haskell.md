@@ -4,8 +4,8 @@ description: Pattern matching over algebraic data types, cleanly separating oper
 type: haskell
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Examination
-formula: |
+arcaneSchool: "Divination // Examination"
+formula: |2
   module Visitor where
   data AST = Lit Int | Add AST AST
   visitEval :: AST -> Int

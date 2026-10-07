@@ -4,8 +4,8 @@ description: Without violating encapsulation, capture and externalize an object'
 type: go
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Soul-anchoring
-formula: |
+arcaneSchool: "Necromancy // Soul-anchoring"
+formula: |2
   package memento
 
   import "fmt"

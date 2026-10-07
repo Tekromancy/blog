@@ -4,8 +4,8 @@ description: "Structured antiquity and the Decorator pattern."
 type: algol
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Layering
-formula: |
+arcaneSchool: "Enchantment // Layering"
+formula: |2
   CO Decorator in ALGOL 68 CO
   BEGIN
     MODE DECORATOR = STRUCT (PROC VOID operation);

@@ -4,23 +4,23 @@ description: Passing anomaly detection through a mathematical sequence of DoD wa
 type: ada
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Event Handling
-formula: |
+arcaneSchool: "Abjuration // Event Handling"
+formula: |2
   package Ward_Chains is
-  
+
      type Anomaly_Level is (Low, Medium, Critical, Omega);
-     
+
      type Handler is abstract tagged record
         Next_Handler : access Handler'Class;
      end record;
-     
+
      procedure Handle_Anomaly (H : in Handler; Level : Anomaly_Level) is abstract;
-     
+
      type Kinetic_Handler is new Handler with null record;
      overriding procedure Handle_Anomaly (H : in Kinetic_Handler; Level : Anomaly_Level);
-     
+
   end Ward_Chains;
-  
+
   package body Ward_Chains is
      procedure Handle_Anomaly (H : in Kinetic_Handler; Level : Anomaly_Level) is
      begin

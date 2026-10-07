@@ -4,16 +4,16 @@ description: A central switchboard process that routes all telepathy.
 type: erlang
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Networking
-formula: |
+arcaneSchool: "Enchantment // Networking"
+formula: |2
   -module(the_mediator).
   -export([start_link/0, register_node/2, broadcast/2]).
-  
+
   start_link() -> spawn(fun() -> loop([]) end).
-  
+
   register_node(Broker, Pid) -> Broker ! {register, Pid}.
   broadcast(Broker, Msg) -> Broker ! {broadcast, Msg}.
-  
+
   loop(Nodes) ->
       receive
           {register, Pid} -> loop([Pid | Nodes]);

@@ -4,14 +4,14 @@ description: Conjuring entire lineages of fault-tolerant spirits from the aether
 type: erlang
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Threadmancy
-formula: |
+arcaneSchool: "Conjuration // Threadmancy"
+formula: |2
   -module(the_abstract_factory).
   -export([spawn_spirit/1, spawn_demon/1]).
-  
+
   spawn_spirit(Factory) -> Factory:create_spirit().
   spawn_demon(Factory) -> Factory:create_demon().
-  
+
   -module(light_factory).
   -export([create_spirit/0, create_demon/0]).
   create_spirit() -> spawn(fun() -> io:format("Light spirit awakened.~n") end).

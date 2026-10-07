@@ -4,8 +4,8 @@ description: Treating individual magi and entire covens uniformly.
 type: fsharp
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Enchantment // Unity
-formula: |
+arcaneSchool: "Enchantment // Unity"
+formula: |2
   type IMagicEntity =
       abstract member CastPower: unit -> int
 
@@ -15,7 +15,7 @@ formula: |
 
   type Coven() =
       let mutable members : IMagicEntity list = []
-      
+
       member _.Add(entity: IMagicEntity) =
           members <- entity :: members
 
@@ -25,7 +25,7 @@ formula: |
 
   let adept1 = Magus(10)
   let adept2 = Magus(15)
-  
+
   let innerCircle = Coven()
   innerCircle.Add(adept1)
   innerCircle.Add(adept2)

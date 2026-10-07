@@ -4,10 +4,10 @@ description: A grimoire on summoning cross-platform shell artifacts using the Ab
 type: script
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Scriptmancy
-formula: |
+arcaneSchool: "Conjuration // Scriptmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Abstract Forge
   bind_artifact_forge() {
     local realm=$1
@@ -22,15 +22,15 @@ formula: |
       return 1
     fi
   }
-  
+
   # Neon Realm Conjurations
   neon_blade() { echo "[Neon Blade]: Emits a humming pink plasma arc."; }
   neon_shield() { echo "[Neon Shield]: Deflects kinetic and thermal damage."; }
-  
+
   # Void Realm Conjurations
   void_scythe() { echo "[Void Scythe]: Cuts through reality itself."; }
   void_cloak() { echo "[Void Cloak]: Absorbs all ambient light."; }
-  
+
   # Client code
   summon_gear() {
     local realm=$1
@@ -39,7 +39,7 @@ formula: |
     $forge_weapon
     $forge_armor
   }
-  
+
   summon_gear "neon"
   summon_gear "void"
 tags: [bash, abstract-factory, creational, scriptmancy]

@@ -4,25 +4,25 @@ description: Orchestrating complex component communication through a central Med
 type: script
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Orchestramancy
-formula: |
+arcaneSchool: "Enchantment // Orchestramancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Components
   sensor_detect() {
     echo "Sensor: Intruder detected!"
     # Pass message to Mediator instead of directly calling defenses
     mediator_notify "Intruder"
   }
-  
+
   defense_activate() {
     echo "Defense: Activating laser grid."
   }
-  
+
   alarm_sound() {
     echo "Alarm: WEE-WOO-WEE-WOO!"
   }
-  
+
   # The Mediator
   mediator_notify() {
     local event=$1
@@ -32,7 +32,7 @@ formula: |
       defense_activate
     fi
   }
-  
+
   # Usage
   sensor_detect
 tags: [bash, mediator, behavioral, orchestration]

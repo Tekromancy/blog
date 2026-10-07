@@ -4,8 +4,8 @@ description: Cloning primordial curses without invoking the original summoning r
 type: solidity
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Necromancy // Cloning
-formula: |
+arcaneSchool: "Necromancy // Cloning"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

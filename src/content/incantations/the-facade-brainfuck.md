@@ -4,8 +4,8 @@ description: Hiding the true horror behind a simple interface.
 type: brainfuck
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Glamour
-formula: |
+arcaneSchool: "Illusion // Glamour"
+formula: |2
   >>+++++<<   [The horrific complexity hidden far away]
   +           [The simple interface]
   .           [Ignorance is bliss]

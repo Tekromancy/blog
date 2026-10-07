@@ -4,32 +4,32 @@ description: Capturing and restoring a shield's internal state without violating
 type: ada
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Temporal Anchors
-formula: |
+arcaneSchool: "Abjuration // Temporal Anchors"
+formula: |2
   package Ward_Mementos is
-  
+
      type Memento is private;
-     
+
      type Originator is tagged private;
      function Save_State (O : Originator) return Memento;
      procedure Restore_State (O : in out Originator; M : Memento);
-     
+
   private
      type Memento is record
         Harmonic_Value : Integer;
      end record;
-     
+
      type Originator is tagged record
         Harmonic_Value : Integer := 100;
      end record;
   end Ward_Mementos;
-  
+
   package body Ward_Mementos is
      function Save_State (O : Originator) return Memento is
      begin
         return Memento'(Harmonic_Value => O.Harmonic_Value);
      end Save_State;
-     
+
      procedure Restore_State (O : in out Originator; M : Memento) is
      begin
         O.Harmonic_Value := M.Harmonic_Value;

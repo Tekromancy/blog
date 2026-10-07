@@ -4,14 +4,14 @@ description: An ethereal surrogate intercepting calls to the true demonic core.
 type: solidity
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Surrogate
-formula: |
+arcaneSchool: "Illusion // Surrogate"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 
   contract TrueDemonicCore {
       uint256 public soulCount;
-      
+
       function sacrifice() external {
           soulCount += 1;
       }
@@ -34,7 +34,7 @@ formula: |
       fallback() external payable {
           address impl = implementation;
           require(impl != address(0));
-          
+
           assembly {
               let ptr := mload(0x40)
               calldatacopy(ptr, 0, calldatasize())

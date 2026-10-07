@@ -4,17 +4,17 @@ description: Define a family of interchangeable algorithms, encapsulating each o
 type: dart
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactical Casting
-formula: |
+arcaneSchool: "Evocation // Tactical Casting"
+formula: |2
   abstract class DamageStrategy {
     int calculateDamage(int baseDamage);
   }
-  
+
   class CriticalStrike implements DamageStrategy {
     @override
     int calculateDamage(int baseDamage) => baseDamage * 2;
   }
-  
+
   class PoisonVampirism implements DamageStrategy {
     @override
     int calculateDamage(int baseDamage) {
@@ -22,21 +22,21 @@ formula: |
       return baseDamage + 5;
     }
   }
-  
+
   class Mage {
     DamageStrategy strategy;
     Mage(this.strategy);
-    
+
     void castSpell() {
       final damage = strategy.calculateDamage(10);
       print('Dealt $damage damage.');
     }
   }
-  
+
   void main() {
     final mage = Mage(CriticalStrike());
     mage.castSpell();
-    
+
     mage.strategy = PoisonVampirism(); // Hot-swap the algorithmic strategy
     mage.castSpell();
   }

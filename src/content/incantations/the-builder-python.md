@@ -4,33 +4,33 @@ description: Step-by-step assembly of complex magical constructs.
 type: python
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct-Weaving
-formula: |
+arcaneSchool: "Transmutation // Construct-Weaving"
+formula: |2
   class Golem:
       def __init__(self):
           self.material = None
           self.core = None
           self.runes = []
-      
+
       def __str__(self):
           return f"Golem(Material: {self.material}, Core: {self.core}, Runes: {self.runes})"
 
   class GolemBuilder:
       def __init__(self):
           self.golem = Golem()
-          
+
       def set_material(self, material: str):
           self.golem.material = material
           return self
-          
+
       def set_core(self, core: str):
           self.golem.core = core
           return self
-          
+
       def add_rune(self, rune: str):
           self.golem.runes.append(rune)
           return self
-          
+
       def build(self) -> Golem:
           return self.golem
 

@@ -4,8 +4,8 @@ description: An entity that alters its behavior entirely when its internal align
 type: pascal
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shifting
-formula: |
+arcaneSchool: "Transmutation // Shifting"
+formula: |2
   unit StatePattern;
   interface
   type

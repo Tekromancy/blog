@@ -4,13 +4,13 @@ description: "Conjure families of related spirits without specifying their concr
 type: smalltalk
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Ectoplasmic Forms
-formula: |
+arcaneSchool: "Conjuration // Ectoplasmic Forms"
+formula: |2
   Object subclass: #SpiritFactory
     instanceVariableNames: ''
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   SpiritFactory class >> currentRealm: aSymbol [
       aSymbol = #Underworld ifTrue: [ ^ UnderworldFactory new ].
       aSymbol = #Ethereal ifTrue: [ ^ EtherealFactory new ].

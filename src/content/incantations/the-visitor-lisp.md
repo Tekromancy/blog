@@ -4,41 +4,41 @@ description: "Projecting an external celestial consciousness into a heterogeneou
 type: lisp
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Astral Projection
-formula: |
+arcaneSchool: "Divination // Astral Projection"
+formula: |2
   (defpackage :astral-visitor
     (:use :cl))
   (in-package :astral-visitor)
-  
+
   ;; The Elements
   (defclass acolyte ()
     ((zeal :initform 10 :accessor zeal)))
-  
+
   (defclass high-priest ()
     ((secrets :initform '("R'lyeh coordinates") :accessor secrets)))
-  
+
   (defgeneric accept-visitor (element visitor))
-  
+
   (defmethod accept-visitor ((e acolyte) visitor)
     (visit-acolyte visitor e))
-  
+
   (defmethod accept-visitor ((e high-priest) visitor)
     (visit-high-priest visitor e))
-  
+
   ;; The Visitor Base
   (defgeneric visit-acolyte (visitor acolyte))
   (defgeneric visit-high-priest (visitor priest))
-  
+
   ;; Concrete Visitor: The Inspecting Outer God
   (defclass nyarlathotep-inspector () ())
-  
+
   (defmethod visit-acolyte ((v nyarlathotep-inspector) a)
     (format t "Nyarlathotep whispers to the acolyte. Zeal increases by 50!~%")
     (incf (zeal a) 50))
-  
+
   (defmethod visit-high-priest ((v nyarlathotep-inspector) p)
     (format t "Nyarlathotep probes the priest's mind, extracting secrets: ~a~%" (secrets p)))
-  
+
   ;; The Object Structure
   (defun evaluate-cult ()
     (let ((cult (list (make-instance 'acolyte)

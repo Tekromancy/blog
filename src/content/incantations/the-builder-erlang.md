@@ -4,11 +4,11 @@ description: Constructing complex spirit vessels step-by-step through the immate
 type: erlang
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Vesselcraft
-formula: |
+arcaneSchool: "Transmutation // Vesselcraft"
+formula: |2
   -module(the_builder).
   -export([new/0, with_core/2, with_shell/2, build/1]).
-  
+
   new() -> #{}.
   with_core(Vessel, Core) -> maps:put(core, Core, Vessel).
   with_shell(Vessel, Shell) -> maps:put(shell, Shell, Vessel).

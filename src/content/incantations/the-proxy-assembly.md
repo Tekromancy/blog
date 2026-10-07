@@ -4,26 +4,26 @@ description: A spectral ward that intercepts access to a forbidden artifact.
 type: assembly
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Necromancy // Ward Enforcement
-formula: |
+arcaneSchool: "Necromancy // Ward Enforcement"
+formula: |2
   section .data
       access_granted db 0
-  
+
   section .text
       global access_artifact
-  
+
   real_artifact_access:
       ; The true dark artifact operation
       ret
-  
+
   access_artifact:
       ; The Proxy check
       cmp byte [access_granted], 1
       jne .denied
-      
+
       call real_artifact_access
       ret
-      
+
   .denied:
       ; Trigger a curse or trap
       ret

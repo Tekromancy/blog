@@ -4,21 +4,21 @@ description: Centralizing complex communications between disparate magical artif
 type: clojure
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Illusion // Networking
-formula: |
+arcaneSchool: "Illusion // Networking"
+formula: |2
   (ns tekromancy.mediator
     (:require [clojure.core.async :as async]))
-  
+
   ;; Core.async channels act as perfect Mediators.
-  
+
   (def central-nexus (async/chan))
-  
+
   (defn artifact-node [name]
     (async/go-loop []
       (when-let [msg (async/<! central-nexus)]
         (println name "received via Nexus:" msg)
         (recur))))
-  
+
   ;; Usage:
   ;; (artifact-node "Eye of Truth")
   ;; (artifact-node "Amulet of Time")

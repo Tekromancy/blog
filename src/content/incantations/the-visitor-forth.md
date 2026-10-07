@@ -4,26 +4,26 @@ description: Dispatch an ethereal form to inspect the internal structures.
 type: forth
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Ethereal-Projection
-formula: |
+arcaneSchool: "Divination // Ethereal-Projection"
+formula: |2
   \ Ethereal-Projection: The Visitor
   \ Applying a dispatched XT over a typed entity.
-  
+
   \ Data structure: [TYPE] [VALUE]
   CREATE ENTITY-1 1 , 100 ,
   CREATE ENTITY-2 2 , 50 ,
-  
+
   : BUFF-VISITOR ( type val -- )
     SWAP 1 = IF
       ." Buffing Warrior. Str +10." CR DROP
     ELSE
       ." Buffing Mage. Int +10." CR DROP
     THEN ;
-    
+
   : ACCEPT-VISITOR ( entity-addr visitor-xt -- )
     SWAP DUP @ SWAP CELL+ @  ( xt type val )
     ROT EXECUTE ;
-    
+
   \ Usage:
   \ ENTITY-1 ' BUFF-VISITOR ACCEPT-VISITOR
   \ ENTITY-2 ' BUFF-VISITOR ACCEPT-VISITOR

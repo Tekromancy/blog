@@ -4,27 +4,27 @@ description: Manifesting families of arcane glyphs without specifying their conc
 type: clojure
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Glyphmancy
-formula: |
+arcaneSchool: "Conjuration // Glyphmancy"
+formula: |2
   (ns tekromancy.abstract-factory)
-  
+
   (defprotocol SpellForge
     (cast-fire [_])
     (cast-ice [_]))
-  
+
   (defrecord InfernalForge []
     SpellForge
     (cast-fire [_] "Infernal Fireball")
     (cast-ice [_] "Soul Frost"))
-  
+
   (defrecord CelestialForge []
     SpellForge
     (cast-fire [_] "Holy Flame")
     (cast-ice [_] "Crystal Glacier"))
-  
+
   (defn invoke-elements [forge]
     [(cast-fire forge) (cast-ice forge)])
-  
+
   ;; Usage:
   ;; (invoke-elements (->InfernalForge))
 tags: [creational, abstract-factory, clojure, jvm-transmutation]

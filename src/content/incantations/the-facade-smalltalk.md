@@ -4,13 +4,13 @@ description: "Provide a simple Ouija interface to the complex spiritual subsyste
 type: smalltalk
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Ouija Board
-formula: |
+arcaneSchool: "Illusion // Ouija Board"
+formula: |2
   Object subclass: #OuijaBoard
     instanceVariableNames: 'ritual portal protection'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   OuijaBoard >> ask: aQuestion [
       protection wardArea.
       portal open.

@@ -4,10 +4,10 @@ description: "Cloning the untyped memory spaces, a precursor to modern deep copy
 type: b
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Shadow
-formula: |
+arcaneSchool: "Illusion // Shadow"
+formula: |2
   /* In the primordial void, all memory is just contiguous words */
-  
+
   clone_ritual(src, dest, len) {
       auto i;
       i = 0;
@@ -16,13 +16,13 @@ formula: |
           i = i + 1;
       }
   }
-  
+
   create_doppelganger() {
       auto original[3], clone[3];
       original[0] = 'MIND';
       original[1] = 'BODY';
       original[2] = 'SOUL';
-      
+
       /* The Prototype is invoked */
       clone_ritual(original, clone, 3);
   }

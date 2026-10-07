@@ -4,8 +4,8 @@ description: "Structured antiquity and the Adapter pattern."
 type: algol
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Morphing
-formula: |
+arcaneSchool: "Transmutation // Morphing"
+formula: |2
   CO Adapter in ALGOL 68 CO
   BEGIN
     MODE TARGET = STRUCT (PROC VOID request);

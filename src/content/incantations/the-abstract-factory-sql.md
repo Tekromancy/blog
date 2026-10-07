@@ -4,8 +4,8 @@ description: Summoning diverse elemental tables through a unified mystical schem
 type: sql
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Schema Weaving
-formula: |
+arcaneSchool: "Conjuration // Schema Weaving"
+formula: |2
   -- Abstract Schema Definition Strategy
   CREATE SCHEMA IF NOT EXISTS abstract_realm;
 
@@ -24,7 +24,7 @@ formula: |
       INSERT INTO abstract_realm.elemental_nexus (realm_type, essence_level)
       VALUES ('PYRO', power_level)
       RETURNING nexus_id INTO new_entity_id;
-      
+
       RETURN new_entity_id;
   END;
   $$ LANGUAGE plpgsql;
@@ -38,7 +38,7 @@ formula: |
       INSERT INTO abstract_realm.elemental_nexus (realm_type, essence_level)
       VALUES ('HYDRO', power_level)
       RETURNING nexus_id INTO new_entity_id;
-      
+
       RETURN new_entity_id;
   END;
   $$ LANGUAGE plpgsql;

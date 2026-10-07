@@ -4,8 +4,8 @@ description: "A unified hive mind of parasitic blood-thralls, where the master c
 type: ruby
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Necromancy // Swarm
-formula: |
+arcaneSchool: "Necromancy // Swarm"
+formula: |2
   class HiveEntity
     def drain_life
       raise NotImplementedError

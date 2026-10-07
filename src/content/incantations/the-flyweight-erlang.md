@@ -4,14 +4,14 @@ description: Sharing immutable state via ETS tables.
 type: erlang
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   -module(the_flyweight).
   -export([init/0, get_shared_lore/1]).
-  
+
   init() ->
       ets:new(lore_table, [named_table, public, read_concurrency]).
-      
+
   get_shared_lore(Key) ->
       case ets:lookup(lore_table, Key) of
           [{Key, Value}] -> Value;

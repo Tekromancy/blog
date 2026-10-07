@@ -4,8 +4,8 @@ description: A centralized pure hub that routes mystical energies to avoid tight
 type: haskell
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Networking
-formula: |
+arcaneSchool: "Enchantment // Networking"
+formula: |2
   module Mediator where
   data Component = Component String
   mediator :: Component -> Component -> String

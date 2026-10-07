@@ -4,13 +4,13 @@ description: "Translate the alien whispers of ancient spirits into a protocol th
 type: smalltalk
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Spirit Channeling
-formula: |
+arcaneSchool: "Transmutation // Spirit Channeling"
+formula: |2
   Object subclass: #OuijaAdapter
     instanceVariableNames: 'ancientSpirit'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   OuijaAdapter >> answerQuestion: aString [
       | alienResponse |
       alienResponse := ancientSpirit kharGath: aString.

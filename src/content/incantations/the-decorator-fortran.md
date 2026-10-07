@@ -4,55 +4,55 @@ description: Layering resonant shielding on core monolith procedures dynamically
 type: fortran
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Shielding
-formula: |
+arcaneSchool: "Transmutation // Shielding"
+formula: |2
   module decorator_m
     implicit none
     private
     public :: CoreComponent, MonolithCore, Decorator, ShieldedMonolith
-  
+
     type, abstract :: CoreComponent
     contains
       procedure(comp_op), deferred, pass :: execute
     end type CoreComponent
-  
+
     abstract interface
       subroutine comp_op(this)
         import :: CoreComponent
         class(CoreComponent), intent(inout) :: this
       end subroutine comp_op
     end interface
-  
+
     type, extends(CoreComponent) :: MonolithCore
     contains
       procedure, pass :: execute => core_exec
     end type MonolithCore
-  
+
     type, abstract, extends(CoreComponent) :: Decorator
       class(CoreComponent), allocatable :: wrapped
     contains
       procedure, pass :: execute => decorator_exec
     end type Decorator
-  
+
     type, extends(Decorator) :: ShieldedMonolith
       real :: shield_resonance = 1.0
     contains
       procedure, pass :: execute => shielded_exec
     end type ShieldedMonolith
-  
+
   contains
     subroutine core_exec(this)
       class(MonolithCore), intent(inout) :: this
       ! Raw numerical combustion
     end subroutine core_exec
-    
+
     subroutine decorator_exec(this)
       class(Decorator), intent(inout) :: this
       if (allocated(this%wrapped)) then
         call this%wrapped%execute()
       end if
     end subroutine decorator_exec
-    
+
     subroutine shielded_exec(this)
       class(ShieldedMonolith), intent(inout) :: this
       ! Spin up resonance before passing to core

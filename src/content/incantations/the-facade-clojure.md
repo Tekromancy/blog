@@ -4,21 +4,21 @@ description: Providing a unified, simple portal into a sprawling chaotic labyrin
 type: clojure
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Abjuration // Shielding
-formula: |
+arcaneSchool: "Abjuration // Shielding"
+formula: |2
   (ns tekromancy.facade)
-  
+
   ;; Subsystems
   (defn fetch-mana-crystals [] (println "Fetching crystals...") :crystals)
   (defn align-ley-lines [crystals] (println "Aligning lines with" crystals) :aligned)
   (defn trigger-eruption [aligned] (println "Eruption triggered via" aligned) :eruption)
-  
+
   ;; Facade
   (defn cast-cataclysm []
     (-> (fetch-mana-crystals)
         (align-ley-lines)
         (trigger-eruption)))
-  
+
   ;; Usage:
   ;; (cast-cataclysm)
 tags: [structural, facade, clojure, decoupling]

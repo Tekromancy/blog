@@ -5,7 +5,7 @@ type: "rust"
 gofPattern: "Adapter Pattern (Structural)"
 gofCategory: "Structural"
 arcaneSchool: "Transmutation // The Alchemical Polymorphic Adapter"
-formula: |
+formula: |2
   struct LegacyRawBuffer { data: *const u8, len: usize, cursor: usize }
 
   // Target Interface

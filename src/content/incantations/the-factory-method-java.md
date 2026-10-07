@@ -4,28 +4,28 @@ description: Delegating the dark art of instantiation to the holy subclasses of 
 type: java
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Delegation
-formula: |
+arcaneSchool: "Conjuration // Delegation"
+formula: |2
   public abstract class SpellCaster {
       public void cast() {
           Spell spell = createSpell();
           spell.ignite();
       }
-      
+
       protected abstract Spell createSpell();
   }
-  
+
   public interface Spell {
       void ignite();
   }
-  
+
   public class HellfireSpell implements Spell {
       @Override
       public void ignite() {
           System.out.println("Sanctioned Hellfire deployed.");
       }
   }
-  
+
   public class Inquisitor extends SpellCaster {
       @Override
       protected Spell createSpell() {

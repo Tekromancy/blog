@@ -4,13 +4,13 @@ description: "Encapsulate a ritual command as an object to be executed, undone, 
 type: smalltalk
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Compulsion
-formula: |
+arcaneSchool: "Enchantment // Compulsion"
+formula: |2
   Object subclass: #BanishCommand
     instanceVariableNames: 'targetSpirit'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   BanishCommand >> execute [ targetSpirit forceReturnToVoid ]
   BanishCommand >> undo [ targetSpirit resummon ]
 tags: [smalltalk, behavioral, seance]

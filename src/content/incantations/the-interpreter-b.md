@@ -4,12 +4,12 @@ description: "Parsing the precursor grammar of the deep Bell Labs archives."
 type: b
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Comprehension
-formula: |
+arcaneSchool: "Divination // Comprehension"
+formula: |2
   /* The simplest recursive descent over untyped arrays */
-  
+
   ext expression_ptr;
-  
+
   match(c) {
       if (*expression_ptr == c) {
           expression_ptr = expression_ptr + 1;
@@ -17,16 +17,16 @@ formula: |
       }
       return 0;
   }
-  
+
   interpret_rune() {
       if (match('A')) { putchar('1'); return; }
       if (match('B')) { putchar('2'); return; }
   }
-  
+
   decipher() {
       auto script[3];
       script[0] = 'A'; script[1] = 'B'; script[2] = 0;
-      
+
       expression_ptr = script;
       interpret_rune();
       interpret_rune();

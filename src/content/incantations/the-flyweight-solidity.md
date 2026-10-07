@@ -4,8 +4,8 @@ description: Conserving gas by sharing the intrinsic essence of a thousand lesse
 type: solidity
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Efficiency
-formula: |
+arcaneSchool: "Transmutation // Efficiency"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

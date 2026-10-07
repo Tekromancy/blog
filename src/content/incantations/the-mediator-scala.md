@@ -4,8 +4,8 @@ description: Prevent elemental factions from destroying each other by routing th
 type: scala
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   trait Council {
     def broadcast(message: String, sender: Archmage): Unit
   }
@@ -17,9 +17,9 @@ formula: |
 
   class HighCouncil extends Council {
     private var mages = List.empty[Archmage]
-    
+
     def register(mage: Archmage): Unit = mages = mages :+ mage
-    
+
     def broadcast(message: String, sender: Archmage): Unit = {
       mages.filterNot(_ == sender).foreach(_.hear(message))
     }

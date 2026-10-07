@@ -4,8 +4,8 @@ description: Cloning entities and table structures through exact magical replica
 type: sql
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   -- Structural Cloning (Table Prototype)
   CREATE TABLE shadow_grimoire (
       LIKE ancient_grimoire INCLUDING ALL
@@ -21,7 +21,7 @@ formula: |
       SELECT new_pact_id, demon_name, soul_cost, terms
       FROM demon_pacts
       WHERE id = pact_id;
-      
+
       RETURN new_pact_id;
   END;
   $$ LANGUAGE plpgsql;

@@ -4,8 +4,8 @@ description: "A cascade of demonic wards, where each ward either absorbs the int
 type: ruby
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   class DemonicWard
     attr_accessor :next_ward
 

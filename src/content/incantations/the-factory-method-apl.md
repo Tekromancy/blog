@@ -4,28 +4,28 @@ description: Defer the instantiation of extraterrestrial probes to crystalline s
 type: apl
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Probe-Spawning
-formula: |
+arcaneSchool: "Conjuration // Probe-Spawning"
+formula: |2
   :Class AlienProbeSpawner
       ∇ R←SpawnProbe
         :Access Public Shared
         ⍝ Override in subclasses
         R←'Generic Probe ⍰'
       ∇
-      
+
       ∇ R←Deploy
         :Access Public
         R←'Deploying: ', SpawnProbe
       ∇
   :EndClass
-  
+
   :Class AlphaCentauriSpawner : AlienProbeSpawner
       ∇ R←SpawnProbe
         :Access Public Shared
         R←'Silicate Probe ⌹'
       ∇
   :EndClass
-  
+
   :Class SiriusSpawner : AlienProbeSpawner
       ∇ R←SpawnProbe
         :Access Public Shared

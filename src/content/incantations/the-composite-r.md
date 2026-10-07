@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Composite"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Structure Weaving"
-formula: |
+formula: |2
   library(R6)
 
   # Component

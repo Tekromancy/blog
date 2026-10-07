@@ -4,8 +4,8 @@ description: Capturing and restoring the snapshot of a corrupted soul.
 type: solidity
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Restoration
-formula: |
+arcaneSchool: "Chronomancy // Restoration"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

@@ -4,8 +4,8 @@ description: Attach additional responsibilities to an object dynamically.
 type: rust
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   pub trait CommLink {
       fn transmit(&self, data: &str) -> String;
   }

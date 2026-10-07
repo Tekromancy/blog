@@ -4,17 +4,17 @@ description: Hot-swap your combat algorithms on the execution stack.
 type: forth
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Battle-Calculation
-formula: |
+arcaneSchool: "Divination // Battle-Calculation"
+formula: |2
   \ Battle-Calculation: The Strategy
   \ Passing the algorithm (XT) as a parameter.
-  
+
   : SLASH ( -- ) ." Slashing with void-blade!" CR ;
   : PIERCE ( -- ) ." Piercing with aether-lance!" CR ;
-  
+
   : EXECUTE-ATTACK ( xt -- )
     ." Preparing strike... " EXECUTE ;
-    
+
   \ Usage:
   \ ' SLASH EXECUTE-ATTACK
   \ ' PIERCE EXECUTE-ATTACK

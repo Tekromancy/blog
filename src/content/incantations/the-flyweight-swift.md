@@ -4,8 +4,8 @@ description: Minimizing mana consumption by sharing magical aspects.
 type: swift
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Efficiency
-formula: |
+arcaneSchool: "Transmutation // Efficiency"
+formula: |2
   class AppleTexture {
       let color: String
       init(color: String) { self.color = color }

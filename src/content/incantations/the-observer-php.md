@@ -4,16 +4,16 @@ description: "Define a one-to-many dependency so when one object changes state, 
 type: php
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Broadcasting
-formula: |
+arcaneSchool: "Divination // Broadcasting"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   class EventNexus implements \SplSubject {
       private \SplObjectStorage $observers;
       public string $state = '';
-  
+
       public function __construct() { $this->observers = new \SplObjectStorage(); }
       public function attach(\SplObserver $observer): void { $this->observers->attach($observer); }
       public function detach(\SplObserver $observer): void { $this->observers->detach($observer); }
@@ -25,7 +25,7 @@ formula: |
           $this->notify();
       }
   }
-  
+
   class ChaosWatcher implements \SplObserver {
       public function update(\SplSubject $subject): void {
           if ($subject instanceof EventNexus) {
@@ -33,7 +33,7 @@ formula: |
           }
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

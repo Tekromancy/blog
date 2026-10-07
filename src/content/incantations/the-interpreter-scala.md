@@ -4,8 +4,8 @@ description: Parse and evaluate raw, ancient runic text into executable syntax t
 type: scala
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   sealed trait Expression {
     def interpret(context: Map[String, Int]): Int
   }

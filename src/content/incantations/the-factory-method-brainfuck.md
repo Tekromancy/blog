@@ -4,8 +4,8 @@ description: Deferring summoning to subclasses of the void.
 type: brainfuck
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Demonology
-formula: |
+arcaneSchool: "Conjuration // Demonology"
+formula: |2
   ++>+++>++++ [Setup the summoning circles]
   <           [Select the circle]
   [->+<]      [Delegate creation to the chosen circle]

@@ -4,8 +4,8 @@ description: "A dark scrying pool that notifies bound familiars the instant thei
 type: ruby
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Sympathy
-formula: |
+arcaneSchool: "Divination // Sympathy"
+formula: |2
   require 'observer'
 
   class MasterHemomancer

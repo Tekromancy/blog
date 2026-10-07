@@ -4,8 +4,8 @@ description: The skeleton of a sacrifice.
 type: brainfuck
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Rituals
-formula: |
+arcaneSchool: "Necromancy // Rituals"
+formula: |2
   +           [Step 1: Draw blood]
   >           [Step 2: Subclass fills in the name]
   +           [Step 3: Summoning]

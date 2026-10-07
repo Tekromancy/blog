@@ -4,23 +4,23 @@ description: Decoupling the undead chassis from its behavioral spirit.
 type: assembly
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Necromancy // Ethereal Links
-formula: |
+arcaneSchool: "Necromancy // Ethereal Links"
+formula: |2
   section .data
       behavior_ptr dq wail_behavior
-  
+
   section .text
       global _start
-  
+
   _start:
       ; Chassis invokes whatever spirit is bound
       mov rax, [behavior_ptr]
       call rax
-      
+
       mov rax, 60
       xor rdi, rdi
       syscall
-  
+
   wail_behavior:
       ; Emit a spectral wail
       ret

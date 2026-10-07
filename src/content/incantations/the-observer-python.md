@@ -4,15 +4,15 @@ description: Notify a network of scrying orbs when an astral event occurs.
 type: python
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Prophecy Broadcasting
-formula: |
+arcaneSchool: "Divination // Prophecy Broadcasting"
+formula: |2
   class AstralEventPublisher:
       def __init__(self):
           self._observers = []
-          
+
       def attach(self, observer):
           self._observers.append(observer)
-          
+
       def notify(self, event_data: str):
           for obs in self._observers:
               obs.update(event_data)
@@ -20,7 +20,7 @@ formula: |
   class ScryingOrb:
       def __init__(self, location: str):
           self.location = location
-          
+
       def update(self, event_data: str):
           print(f"Orb at {self.location} glowing: {event_data}")
 

@@ -4,27 +4,27 @@ description: Alter an entity's behavior dynamically as its internal resonance sh
 type: elixir
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase-Shifting
-formula: |
+arcaneSchool: "Transmutation // Phase-Shifting"
+formula: |2
   defmodule Tekromancy.PhaseEngine do
     @moduledoc "Implements a Finite State Machine using GenServer."
     use GenServer
-    
+
     def start_link, do: GenServer.start_link(__MODULE__, :dormant)
-    
+
     def trigger(pid), do: GenServer.cast(pid, :trigger)
-    
+
     @impl true
     def handle_cast(:trigger, :dormant) do
       IO.puts("Awakening the core...")
       {:noreply, :active}
     end
-    
+
     def handle_cast(:trigger, :active) do
       IO.puts("Core is overheating! Initiating lockdown...")
       {:noreply, :locked}
     end
-    
+
     def handle_cast(:trigger, :locked) do
       IO.puts("Core locked. Requires manual override.")
       {:noreply, :locked}

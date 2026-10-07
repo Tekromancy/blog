@@ -4,8 +4,8 @@ description: "Structured antiquity and the Chain of Responsibility pattern."
 type: algol
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Cascades
-formula: |
+arcaneSchool: "Evocation // Cascades"
+formula: |2
   CO Chain of Responsibility in ALGOL 68 CO
   BEGIN
     MODE HANDLER = STRUCT (PROC VOID handleRequest);

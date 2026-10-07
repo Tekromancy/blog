@@ -4,8 +4,8 @@ description: "Centralizing the communication between chaotic elemental forces."
 type: lua
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Balancing
-formula: |
+arcaneSchool: "Abjuration // Balancing"
+formula: |2
   local Council = {}
   function Council:notify(sender, event)
     if event == "Tempest" then

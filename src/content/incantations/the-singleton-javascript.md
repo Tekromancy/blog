@@ -4,8 +4,8 @@ description: Ensure a magical construct has only one instance, and provide a glo
 type: javascript
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leyline Anchoring
-formula: |
+arcaneSchool: "Abjuration // Leyline Anchoring"
+formula: |2
   class LeylineNexus {
     constructor() {
       if (LeylineNexus.instance) {
@@ -14,7 +14,7 @@ formula: |
       this.mana = 1000;
       LeylineNexus.instance = this;
     }
-    
+
     drawMana(amount) {
       if (this.mana >= amount) {
         this.mana -= amount;
@@ -23,10 +23,10 @@ formula: |
       return 0;
     }
   }
-  
+
   const nexus1 = new LeylineNexus();
   const nexus2 = new LeylineNexus();
-  
+
   nexus1.drawMana(200);
   console.log(nexus2.mana); // 800 - they share the same essence!
 tags: [unique, singular, leylines]

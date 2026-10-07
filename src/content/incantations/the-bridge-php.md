@@ -4,31 +4,31 @@ description: "Decouple an abstraction from its chaotic implementation so both ca
 type: php
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Divination // Structuring
-formula: |
+arcaneSchool: "Divination // Structuring"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   interface ChaosChannel {
       public function transmit(string $essence): void;
   }
-  
+
   class HttpChannel implements ChaosChannel {
       public function transmit(string $essence): void { echo "HTTP POST: $essence\n"; }
   }
-  
+
   abstract class ArcaneConstruct {
       public function __construct(protected ChaosChannel $channel) {}
       abstract public function manifest(): void;
   }
-  
+
   class ChaosOrb extends ArcaneConstruct {
       public function manifest(): void {
           $this->channel->transmit("Orb Essence");
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

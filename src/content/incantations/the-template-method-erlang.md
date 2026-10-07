@@ -4,15 +4,15 @@ description: Defining behavioral skeletons via behaviours.
 type: erlang
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Skeletons
-formula: |
+arcaneSchool: "Necromancy // Skeletons"
+formula: |2
   -module(the_template).
   -export([run_ritual/1]).
-  
+
   -callback initialize() -> ok.
   -callback execute_core() -> any().
   -callback cleanup() -> ok.
-  
+
   run_ritual(Mod) ->
       Mod:initialize(),
       Res = Mod:execute_core(),

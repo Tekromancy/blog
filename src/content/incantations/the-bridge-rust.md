@@ -4,8 +4,8 @@ description: Decouple an abstraction from its implementation so that the two can
 type: rust
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Planar-binding
-formula: |
+arcaneSchool: "Conjuration // Planar-binding"
+formula: |2
   pub trait RenderingEngine {
       fn render_hologram(&self, shape: &str);
   }

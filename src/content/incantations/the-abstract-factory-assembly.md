@@ -4,33 +4,33 @@ description: A dark ritual to conjure families of related entities from the sili
 type: assembly
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Necromancy // Entity Conjuration
-formula: |
+arcaneSchool: "Necromancy // Entity Conjuration"
+formula: |2
   section .data
       msg_ghoul db "Ghoul arisen", 0
       msg_wraith db "Wraith materialized", 0
-  
+
   section .text
       global _start
-  
+
   ; Abstract factory interface in RAX
   _start:
       ; Call factory method for Ghoul
       mov rax, spawn_ghoul
       call rax
-      
+
       ; Call factory method for Wraith
       mov rax, spawn_wraith
       call rax
-      
+
       mov rax, 60
       xor rdi, rdi
       syscall
-  
+
   spawn_ghoul:
       ; Implementation for spawning a ghoul
       ret
-  
+
   spawn_wraith:
       ; Implementation for spawning a wraith
       ret

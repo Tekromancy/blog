@@ -4,8 +4,8 @@ description: Remembering what should not be remembered.
 type: brainfuck
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Divination // Chronomancy
-formula: |
+arcaneSchool: "Divination // Chronomancy"
+formula: |2
   +++++       [Current state of the mind]
   [->+>+<<]   [Save to the Memento cell]
   >>[-<<+>>]  [Restore the mind from the Memento]

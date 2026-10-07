@@ -4,8 +4,8 @@ description: Ensure the existence of only one Nexus in the entire realm.
 type: python
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leyline Binding
-formula: |
+arcaneSchool: "Abjuration // Leyline Binding"
+formula: |2
   class LeylineNexus:
       _instance = None
 

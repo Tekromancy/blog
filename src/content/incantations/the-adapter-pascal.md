@@ -4,8 +4,8 @@ description: Bridging incompatible arcane frequencies and strict types.
 type: pascal
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Frequency
-formula: |
+arcaneSchool: "Transmutation // Frequency"
+formula: |2
   unit AdapterPattern;
   interface
   type

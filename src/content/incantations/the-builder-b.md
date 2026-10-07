@@ -4,24 +4,24 @@ description: "Constructing monolithic memory slabs word by word in the primordia
 type: b
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Architecture
-formula: |
+arcaneSchool: "Transmutation // Architecture"
+formula: |2
   /* A raw slab of memory waiting to be carved */
   ext golem_slab[10];
-  
+
   set_head(val) {
       golem_slab[0] = val;
   }
-  
+
   set_arms(left, right) {
       golem_slab[1] = left;
       golem_slab[2] = right;
   }
-  
+
   set_core(energy) {
       golem_slab[3] = energy;
   }
-  
+
   /* The Director sequence */
   build_war_golem() {
       set_head('IRON');

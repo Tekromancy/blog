@@ -4,14 +4,14 @@ description: A simplified grimoire interface hiding a labyrinthine ritual.
 type: python
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   class AstralProjector:
       def align_chakras(self): print("Aligning chakras...")
-      
+
   class LeylineTapper:
       def siphon_energy(self): print("Siphoning leyline energy...")
-      
+
   class DimensionalRift:
       def open_portal(self): print("Tearing open a dimensional portal...")
 
@@ -20,7 +20,7 @@ formula: |
           self.projector = AstralProjector()
           self.tapper = LeylineTapper()
           self.rift = DimensionalRift()
-          
+
       def cast_greater_scrying(self):
           print("Initiating Greater Scrying...")
           self.projector.align_chakras()

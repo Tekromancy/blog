@@ -4,8 +4,8 @@ description: "Wrapping a core spell with layers of protective and luminous encha
 type: lua
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Illusion // Glamour
-formula: |
+arcaneSchool: "Illusion // Glamour"
+formula: |2
   local BasicSpell = { cast = function() return "A spark of magic" end }
 
   local function LunarGlamour(spell)

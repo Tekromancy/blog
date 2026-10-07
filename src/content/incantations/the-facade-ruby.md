@@ -4,8 +4,8 @@ description: "A dark altar that conceals the maddening complexity of the underwo
 type: ruby
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Veiling
-formula: |
+arcaneSchool: "Illusion // Veiling"
+formula: |2
   class SoulHarvester
     def extract_soul(victim)
       "Extracting soul from #{victim}."

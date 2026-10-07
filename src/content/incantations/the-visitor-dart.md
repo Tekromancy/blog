@@ -4,45 +4,45 @@ description: Separate an algorithmic operation from the object structure it oper
 type: dart
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Astral Projection
-formula: |
+arcaneSchool: "Divination // Astral Projection"
+formula: |2
   abstract class MagicalEntity {
     void accept(AstralVisitor visitor);
   }
-  
+
   class Grimoire implements MagicalEntity {
     final int forbiddenPages = 50;
     @override
     void accept(AstralVisitor visitor) => visitor.visitGrimoire(this);
   }
-  
+
   class Artifact implements MagicalEntity {
     final int latentMana = 500;
     @override
     void accept(AstralVisitor visitor) => visitor.visitArtifact(this);
   }
-  
+
   abstract class AstralVisitor {
     void visitGrimoire(Grimoire grimoire);
     void visitArtifact(Artifact artifact);
   }
-  
+
   class InquisitorVisitor implements AstralVisitor {
     @override
     void visitGrimoire(Grimoire grimoire) {
       print('Inspecting grimoire. Corrupted pages: ${grimoire.forbiddenPages}');
     }
-    
+
     @override
     void visitArtifact(Artifact artifact) {
       print('Scanning artifact. Mana level: ${artifact.latentMana}');
     }
   }
-  
+
   void main() {
     final entities = <MagicalEntity>[Grimoire(), Artifact()];
     final inquisitor = InquisitorVisitor();
-    
+
     for (var entity in entities) {
       entity.accept(inquisitor);
     }

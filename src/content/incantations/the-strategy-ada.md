@@ -4,31 +4,31 @@ description: Swapping defensive algorithms on the fly to match the attacker's ve
 type: ada
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Algorithm Shifting
-formula: |
+arcaneSchool: "Abjuration // Algorithm Shifting"
+formula: |2
   package Defense_Strategies is
-  
+
      type Strategy is abstract tagged null record;
      procedure Deflect (S : in Strategy; Force : Float) is abstract;
-     
+
      type Harmonic_Dampening is new Strategy with null record;
      overriding procedure Deflect (S : in Harmonic_Dampening; Force : Float);
-     
+
      type Hard_Light_Barrier is new Strategy with null record;
      overriding procedure Deflect (S : in Hard_Light_Barrier; Force : Float);
-     
+
      type Matrix is tagged record
         Current_Strategy : access Strategy'Class;
      end record;
-     
+
      procedure Execute_Defense (M : in Matrix; Force : Float);
-     
+
   end Defense_Strategies;
-  
+
   package body Defense_Strategies is
      procedure Deflect (S : in Harmonic_Dampening; Force : Float) is begin null; end;
      procedure Deflect (S : in Hard_Light_Barrier; Force : Float) is begin null; end;
-     
+
      procedure Execute_Defense (M : in Matrix; Force : Float) is
      begin
         if M.Current_Strategy /= null then

@@ -4,8 +4,8 @@ description: Provide a way to access the elements of an aggregate object sequent
 type: rust
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   pub struct LeyLine { nodes: Vec<String> }
 
   pub struct LeyLineIterator<'a> {

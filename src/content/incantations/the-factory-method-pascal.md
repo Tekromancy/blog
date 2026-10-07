@@ -4,8 +4,8 @@ description: Delegating the precise nature of summoned familiars to subclasses.
 type: pascal
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   unit FactoryMethodPattern;
   interface
   type

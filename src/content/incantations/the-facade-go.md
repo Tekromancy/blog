@@ -4,8 +4,8 @@ description: Provide a unified interface to a set of interfaces in a subsystem.
 type: go
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // UI-masking
-formula: |
+arcaneSchool: "Illusion // UI-masking"
+formula: |2
   package facade
 
   // Subsystem 1

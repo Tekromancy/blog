@@ -4,22 +4,22 @@ description: Translating ancient curses into modern systemic shocks.
 type: assembly
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Necromancy // Soul Splicing
-formula: |
+arcaneSchool: "Necromancy // Soul Splicing"
+formula: |2
   section .text
       global modern_curse
       extern ancient_curse
-  
+
   modern_curse:
       ; Modern systems pass args in RDI, RSI
       ; Ancient curse expects them in RAX, RBX
       push rbp
       mov rbp, rsp
-      
+
       mov rax, rdi
       mov rbx, rsi
       call ancient_curse
-      
+
       pop rbp
       ret
 tags: [adapter, assembly, structural, necromancy]

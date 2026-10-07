@@ -4,8 +4,8 @@ description: A rigid skeletal ritual where only specific incantations can be sub
 type: pascal
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ritual
-formula: |
+arcaneSchool: "Necromancy // Ritual"
+formula: |2
   unit TemplatePattern;
   interface
   type

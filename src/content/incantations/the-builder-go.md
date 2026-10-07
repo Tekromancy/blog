@@ -4,8 +4,8 @@ description: Separate the construction of a complex object from its representati
 type: go
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct-shaping
-formula: |
+arcaneSchool: "Transmutation // Construct-shaping"
+formula: |2
   package builder
 
   // Builder interface

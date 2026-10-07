@@ -4,32 +4,32 @@ description: Providing a unified interface to a complex set of subsystem wards.
 type: ada
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Abjuration // Macro Control
-formula: |
+arcaneSchool: "Abjuration // Macro Control"
+formula: |2
   package Ward_Facades is
-  
+
      package Subsystem_Alpha is
         procedure Initialize_Plasma;
      end Subsystem_Alpha;
-     
+
      package Subsystem_Beta is
         procedure Calibrate_Harmonics;
      end Subsystem_Beta;
-     
+
      type Fortress_Facade is tagged null record;
      procedure Lockdown (F : in Fortress_Facade);
-     
+
   end Ward_Facades;
-  
+
   package body Ward_Facades is
      package body Subsystem_Alpha is
         procedure Initialize_Plasma is begin null; end;
      end Subsystem_Alpha;
-     
+
      package body Subsystem_Beta is
         procedure Calibrate_Harmonics is begin null; end;
      end Subsystem_Beta;
-     
+
      procedure Lockdown (F : in Fortress_Facade) is
      begin
         Subsystem_Alpha.Initialize_Plasma;

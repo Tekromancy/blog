@@ -4,21 +4,21 @@ description: Constructing complex arcane constructs step-by-step through functio
 type: ocaml
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct Assembly
-formula: |
+arcaneSchool: "Transmutation // Construct Assembly"
+formula: |2
   type golem = {
     head : string option;
     torso : string option;
     arms : int;
     legs : int;
   }
-  
+
   let base_golem = { head = None; torso = None; arms = 0; legs = 0 }
-  
+
   let with_head h g = { g with head = Some h }
   let with_torso t g = { g with torso = Some t }
   let with_limbs a l g = { g with arms = a; legs = l }
-  
+
   let build () = 
     base_golem
     |> with_head "Obsidian Skull"

@@ -4,13 +4,13 @@ description: "Dynamically weaving successive curses and blood hexes onto a base 
 type: ruby
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Hexing
-formula: |
+arcaneSchool: "Enchantment // Hexing"
+formula: |2
   class Spell
     def cast
       "A bolt of arcane energy"
     end
-    
+
     def cost
       10
     end
@@ -20,11 +20,11 @@ formula: |
     def initialize(spell)
       @spell = spell
     end
-    
+
     def cast
       @spell.cast
     end
-    
+
     def cost
       @spell.cost
     end
@@ -34,7 +34,7 @@ formula: |
     def cast
       super + ", dripping with boiling vitae"
     end
-    
+
     def cost
       super + 15
     end
@@ -44,7 +44,7 @@ formula: |
     def cast
       super + ", ripping the target's spirit"
     end
-    
+
     def cost
       super + 25
     end

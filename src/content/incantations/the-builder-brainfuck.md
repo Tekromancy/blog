@@ -4,8 +4,8 @@ description: Constructing sanity-shattering structures piece by piece.
 type: brainfuck
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Fleshcrafting
-formula: |
+arcaneSchool: "Transmutation // Fleshcrafting"
+formula: |2
   +         [Foundation of despair]
   >++       [Walls of screaming flesh]
   >+++      [Roof of the infinite abyss]

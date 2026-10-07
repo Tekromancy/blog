@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Flyweight"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Memory Compression"
-formula: |
+formula: |2
   library(R6)
 
   # Flyweight

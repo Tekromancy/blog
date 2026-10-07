@@ -4,15 +4,15 @@ description: Centralize chaotic communication among warring familiars.
 type: python
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Pact-Binding
-formula: |
+arcaneSchool: "Enchantment // Pact-Binding"
+formula: |2
   class PactMediator:
       def __init__(self):
           self.familiars = []
-          
+
       def register(self, familiar):
           self.familiars.append(familiar)
-          
+
       def broadcast(self, message: str, sender):
           for f in self.familiars:
               if f != sender:
@@ -23,11 +23,11 @@ formula: |
           self.name = name
           self.mediator = mediator
           self.mediator.register(self)
-          
+
       def send(self, message: str):
           print(f"{self.name} sends: {message}")
           self.mediator.broadcast(message, self)
-          
+
       def receive(self, message: str):
           print(f"[{self.name} received]: {message}")
 

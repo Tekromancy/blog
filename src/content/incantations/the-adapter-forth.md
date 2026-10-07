@@ -4,20 +4,20 @@ description: Bend the stack effects of alien artifacts to your will.
 type: forth
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Spell-Shaping
-formula: |
+arcaneSchool: "Transmutation // Spell-Shaping"
+formula: |2
   \ Spell-Shaping: The Adapter
   \ Modifying stack signatures to fit expected interfaces.
-  
+
   \ Alien word expects: ( y x -- )
   : ALIEN-BLAST ( y x -- )
     ." Blast coords: X=" . ." Y=" . CR ;
-    
+
   \ Our domain expects: ( x y -- )
   \ The Adapter simply swaps the stack parameters
   : ADAPTED-BLAST ( x y -- )
     SWAP ALIEN-BLAST ;
-    
+
   \ Usage:
   \ 10 20 ADAPTED-BLAST
 tags: [structural, adapter, forth, spell-shaping]

@@ -4,11 +4,11 @@ description: Parsing alien psychic syntax.
 type: erlang
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Deciphering
-formula: |
+arcaneSchool: "Divination // Deciphering"
+formula: |2
   -module(the_interpreter).
   -export([eval/2]).
-  
+
   eval({add, Expr1, Expr2}, Env) ->
       eval(Expr1, Env) + eval(Expr2, Env);
   eval({var, Name}, Env) ->

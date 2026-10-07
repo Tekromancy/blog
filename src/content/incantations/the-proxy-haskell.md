@@ -4,8 +4,8 @@ description: Lazy thunks acting as arcane gateways to deferred computations.
 type: haskell
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Gateway
-formula: |
+arcaneSchool: "Abjuration // Gateway"
+formula: |2
   module Proxy where
   heavyComputation :: Int -> Int
   heavyComputation x = sum [1..100000] + x

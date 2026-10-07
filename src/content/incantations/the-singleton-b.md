@@ -4,12 +4,12 @@ description: "The one true global word, eternal and unchanging across the execut
 type: b
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Sealing
-formula: |
+arcaneSchool: "Abjuration // Sealing"
+formula: |2
   /* The eternal 'ext' keyword anchors our memory in the world state */
-  
+
   ext monolith;
-  
+
   get_monolith() {
       if (monolith == 0) {
           /* Awakening the monolith for the first and only time */
@@ -17,7 +17,7 @@ formula: |
       }
       return monolith;
   }
-  
+
   commune() {
       auto a, b;
       a = get_monolith();

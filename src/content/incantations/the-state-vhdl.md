@@ -4,19 +4,19 @@ description: A finite state machine whose behavior changes with its state.
 type: vhdl
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // FSM Automaton
-formula: |
+arcaneSchool: "Silicon Golemancy // FSM Automaton"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity state_machine is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end state_machine;
-  
+
   architecture Physical of state_machine is
   begin
       process(clk, rst)

@@ -4,8 +4,8 @@ description: Constructing a complex eldritch abomination step by step.
 type: cpp
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Fleshcrafting
-formula: |
+arcaneSchool: "Transmutation // Fleshcrafting"
+formula: |2
   #include <string>
   #include <memory>
   class Golem {

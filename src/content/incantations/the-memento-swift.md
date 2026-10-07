@@ -4,8 +4,8 @@ description: Capturing and restoring a wizard's state.
 type: swift
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Time-Weaving
-formula: |
+arcaneSchool: "Chronomancy // Time-Weaving"
+formula: |2
   class WizardState {
       let mana: Int
       init(mana: Int) { self.mana = mana }

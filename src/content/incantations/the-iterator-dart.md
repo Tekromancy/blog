@@ -4,14 +4,14 @@ description: Traverse complex esoteric collections without exposing their underl
 type: dart
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Teleportation
-formula: |
+arcaneSchool: "Conjuration // Teleportation"
+formula: |2
   class GrimoireCollection implements Iterable<String> {
     final List<String> _tomes = ['Necronomicon', 'Book of Vile Darkness', 'Tome of Clear Thought'];
-    
+
     @override
     Iterator<String> get iterator => _TomeIterator(this);
-    
+
     // Boilerplate for Iterable omitted for arcane brevity
     @override get first => _tomes.first;
     @override get last => _tomes.last;
@@ -21,16 +21,16 @@ formula: |
     // ...
     @override dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
   }
-  
+
   class _TomeIterator implements Iterator<String> {
     final GrimoireCollection _collection;
     int _index = -1;
-    
+
     _TomeIterator(this._collection);
-    
+
     @override
     String get current => _collection._tomes[_index];
-    
+
     @override
     bool moveNext() {
       if (_index < _collection._tomes.length - 1) {
@@ -40,7 +40,7 @@ formula: |
       return false;
     }
   }
-  
+
   void main() {
     final library = GrimoireCollection();
     for (var tome in library) {

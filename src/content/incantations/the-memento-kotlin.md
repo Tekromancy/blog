@@ -4,17 +4,17 @@ description: Capturing temporal snapshots of a magical state.
 type: kotlin
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Snapshot
-formula: |
+arcaneSchool: "Chronomancy // Snapshot"
+formula: |2
   data class SoulMemento(val state: String)
-  
+
   class Wizard(var state: String) {
       fun save(): SoulMemento = SoulMemento(state)
       fun restore(memento: SoulMemento) {
           this.state = memento.state
       }
   }
-  
+
   class SoulStone {
       var savedState: SoulMemento? = null
   }

@@ -4,23 +4,23 @@ description: "Share the intrinsic magic of thousands of entities to prevent serv
 type: php
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Optimization
-formula: |
+arcaneSchool: "Transmutation // Optimization"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   class SigilType {
       public function __construct(public string $glyph, public string $color) {}
-      
+
       public function render(int $x, int $y): void {
           echo "Rendering $this->color $this->glyph at [$x, $y]\n";
       }
   }
-  
+
   class SigilFactory {
       private array $types = [];
-  
+
       public function getType(string $glyph, string $color): SigilType {
           $key = "$glyph-$color";
           if (!isset($this->types[$key])) {
@@ -29,7 +29,7 @@ formula: |
           return $this->types[$key];
       }
   }
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

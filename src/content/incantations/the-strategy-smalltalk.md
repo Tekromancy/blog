@@ -4,13 +4,13 @@ description: "Swap out the summoning chant algorithm dynamically without disrupt
 type: smalltalk
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Ritual Selection
-formula: |
+arcaneSchool: "Divination // Ritual Selection"
+formula: |2
   Object subclass: #SummoningRitual
     instanceVariableNames: 'chantStrategy'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   SummoningRitual >> perform [
       chantStrategy executeChant.
       Transcript show: 'The portal opens!'.

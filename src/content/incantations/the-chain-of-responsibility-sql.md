@@ -4,8 +4,8 @@ description: Passing requests along a chain of potential handlers until a non-nu
 type: sql
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Divination // Fallback Routing
-formula: |
+arcaneSchool: "Divination // Fallback Routing"
+formula: |2
   -- Identifying the true name via fallback chains
   SELECT 
       entity_id,

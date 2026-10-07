@@ -4,8 +4,8 @@ description: Constructing a Homunculus byte by byte, layering muscle over ethere
 type: wasm
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   (module
     (memory $homunculus_body 1)
     (func $build_skeleton (param $offset i32)

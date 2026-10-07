@@ -4,12 +4,12 @@ description: Control access to a powerful entity, filtering telepathic commands 
 type: elixir
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   defmodule Tekromancy.Vault do
     def access(secret_key), do: "Arcane Secrets unlocked with #{secret_key}"
   end
-  
+
   defmodule Tekromancy.VaultProxy do
     def access(secret_key, clearance_level) do
       if clearance_level >= 5 do

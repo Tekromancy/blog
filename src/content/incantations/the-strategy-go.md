@@ -4,8 +4,8 @@ description: Define a family of algorithms, encapsulate each one, and make them 
 type: go
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactical-casting
-formula: |
+arcaneSchool: "Evocation // Tactical-casting"
+formula: |2
   package strategy
 
   // Strategy interface

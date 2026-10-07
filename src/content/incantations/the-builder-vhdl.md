@@ -4,19 +4,19 @@ description: Constructs complex configuration records step-by-step.
 type: vhdl
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Silicon Golemancy // Signal Weaver
-formula: |
+arcaneSchool: "Silicon Golemancy // Signal Weaver"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity builder_fsm is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end builder_fsm;
-  
+
   architecture Physical of builder_fsm is
   begin
       process(clk, rst)

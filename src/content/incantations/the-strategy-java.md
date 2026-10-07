@@ -4,37 +4,37 @@ description: Swapping the algorithmic core of a spell dynamically based on the C
 type: java
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Algorithmics
-formula: |
+arcaneSchool: "Transmutation // Algorithmics"
+formula: |2
   public interface PurgeStrategy {
       void executePurge(String dataSector);
   }
-  
+
   public class FireWallPurge implements PurgeStrategy {
       @Override
       public void executePurge(String dataSector) {
           System.out.println("Deploying heavy firewall algorithms to incinerate " + dataSector);
       }
   }
-  
+
   public class SilentAuditPurge implements PurgeStrategy {
       @Override
       public void executePurge(String dataSector) {
           System.out.println("Silently nullifying corrupted bits in " + dataSector + " without raising alarms.");
       }
   }
-  
+
   public class InquisitorSquad {
       private PurgeStrategy strategy;
-      
+
       public InquisitorSquad(PurgeStrategy strategy) {
           this.strategy = strategy;
       }
-      
+
       public void setStrategy(PurgeStrategy strategy) {
           this.strategy = strategy;
       }
-      
+
       public void cleanse(String sector) {
           strategy.executePurge(sector);
       }

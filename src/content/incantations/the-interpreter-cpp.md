@@ -4,8 +4,8 @@ description: Deciphering an ancient arcane language grammatically.
 type: cpp
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   #include <string>
   class Context { public: std::string input; int output = 0; };
   class Expression {

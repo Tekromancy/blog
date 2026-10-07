@@ -4,8 +4,8 @@ description: "Structured antiquity and the Mediator pattern."
 type: algol
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Harmony
-formula: |
+arcaneSchool: "Enchantment // Harmony"
+formula: |2
   CO Mediator in ALGOL 68 CO
   BEGIN
     MODE MEDIATOR = STRUCT (PROC VOID mediate);

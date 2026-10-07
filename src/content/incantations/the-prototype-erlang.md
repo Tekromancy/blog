@@ -4,14 +4,14 @@ description: Cloning process state via psychic imprinting.
 type: erlang
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   -module(the_prototype).
   -export([clone/1]).
-  
+
   clone(State) ->
       spawn(fun() -> loop(State) end).
-      
+
   loop(State) ->
       receive
           {update, NewState} -> loop(NewState);

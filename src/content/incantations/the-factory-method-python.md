@@ -4,8 +4,8 @@ description: Defer the exact manifestation of a familiar to subclasses.
 type: python
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Familiar(ABC):

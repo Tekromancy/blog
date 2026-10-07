@@ -4,39 +4,39 @@ description: "Traversing the non-euclidean geometry of the Black Citadel without
 type: lisp
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   (defpackage :labyrinth-iterator
     (:use :cl))
   (in-package :labyrinth-iterator)
-  
+
   (defgeneric next-chamber (iterator))
   (defgeneric has-next-p (iterator))
-  
+
   ;; The Aggregate
   (defclass black-citadel ()
     ((chambers :initform '(alpha beta gamma delta epsilon) :reader all-chambers)))
-  
+
   (defgeneric create-iterator (citadel))
-  
+
   ;; The Iterator
   (defclass citadel-iterator ()
     ((citadel :initarg :citadel)
      (current-index :initform 0 :accessor current-index)))
-  
+
   (defmethod create-iterator ((c black-citadel))
     (make-instance 'citadel-iterator :citadel c))
-  
+
   (defmethod has-next-p ((it citadel-iterator))
     (< (current-index it) (length (all-chambers (slot-value it 'citadel)))))
-  
+
   (defmethod next-chamber ((it citadel-iterator))
     (let* ((c (slot-value it 'citadel))
            (idx (current-index it))
            (chamber (nth idx (all-chambers c))))
       (incf (current-index it))
       chamber))
-  
+
   ;; Usage
   (defun explore-the-unknown ()
     (let* ((citadel (make-instance 'black-citadel))

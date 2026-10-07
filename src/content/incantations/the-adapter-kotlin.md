@@ -4,18 +4,18 @@ description: Translating arcane signals from forgotten APIs.
 type: kotlin
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Formatting
-formula: |
+arcaneSchool: "Transmutation // Formatting"
+formula: |2
   interface ModernWand {
       fun castModern()
   }
-  
+
   class AncientStaff {
       fun invokeAncientRitual() {
           println("Ancient power unleashed")
       }
   }
-  
+
   class StaffAdapter(private val staff: AncientStaff) : ModernWand {
       override fun castModern() {
           staff.invokeAncientRitual()

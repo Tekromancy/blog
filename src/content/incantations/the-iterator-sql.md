@@ -4,8 +4,8 @@ description: Sequentially traversing massive datasets without exhausting memory 
 type: sql
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Sequential Draining
-formula: |
+arcaneSchool: "Necromancy // Sequential Draining"
+formula: |2
   -- Utilizing a Cursor within a PL/pgSQL block
   DO $$
   DECLARE

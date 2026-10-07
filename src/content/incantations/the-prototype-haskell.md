@@ -4,8 +4,8 @@ description: Cloning arcane constructs effortlessly via pure functional immutabi
 type: haskell
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Chronomancy
-formula: |
+arcaneSchool: "Illusion // Chronomancy"
+formula: |2
   module Prototype where
   data Simulacrum = Simulacrum { health :: Int, name :: String }
   base = Simulacrum 100 "Base"

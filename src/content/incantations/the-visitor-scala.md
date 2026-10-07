@@ -4,8 +4,8 @@ description: Add entirely new operations to a sprawling hierarchy of magical con
 type: scala
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Inspection
-formula: |
+arcaneSchool: "Divination // Inspection"
+formula: |2
   sealed trait Construct
   case class Golem(core: String) extends Construct
   case class Homunculus(blood: String) extends Construct

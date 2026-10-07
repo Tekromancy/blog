@@ -4,8 +4,8 @@ description: Step-by-step assembly of complex magical constructs.
 type: kotlin
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifice
-formula: |
+arcaneSchool: "Conjuration // Artifice"
+formula: |2
   class Golem private constructor(
       val core: String,
       val armor: String?,
@@ -22,7 +22,7 @@ formula: |
           fun build() = Golem(core, armor, weapon)
       }
   }
-  
+
   // Kotlin's pragmatic alternative: DSL approach
   class ModernGolem(val core: String, val armor: String? = null, val weapon: String? = null)
 tags: [kotlin, creational, builder]

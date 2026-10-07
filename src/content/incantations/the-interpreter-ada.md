@@ -4,25 +4,25 @@ description: Evaluating arcane runes against formal DoD grammars.
 type: ada
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Rune Parsing
-formula: |
+arcaneSchool: "Abjuration // Rune Parsing"
+formula: |2
   package Rune_Interpreters is
-  
+
      type Context is tagged record
         Variables : String (1 .. 100);
      end record;
-     
+
      type Abstract_Expression is abstract tagged null record;
      function Interpret (E : Abstract_Expression; C : in out Context) return Boolean is abstract;
-     
+
      type Terminal_Expression is new Abstract_Expression with record
         Data : Character;
      end record;
-     
+
      overriding function Interpret (E : Terminal_Expression; C : in out Context) return Boolean;
-     
+
   end Rune_Interpreters;
-  
+
   package body Rune_Interpreters is
      function Interpret (E : Terminal_Expression; C : in out Context) return Boolean is
      begin

@@ -4,11 +4,11 @@ description: Passing higher-order runes to dictate combat logic.
 type: erlang
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   -module(the_strategy).
   -export([execute/2]).
-  
+
   execute(Data, StrategyFun) ->
       StrategyFun(Data).
 tags: [erlang, actors, telepathy, switchboard, strategy]

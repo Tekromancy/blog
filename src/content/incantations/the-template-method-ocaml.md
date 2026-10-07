@@ -4,13 +4,13 @@ description: Defining the skeleton of a high-ritual, allowing acolytes to fill i
 type: ocaml
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ritual Skeleton
-formula: |
+arcaneSchool: "Necromancy // Ritual Skeleton"
+formula: |2
   let perform_ritual ~prepare ~invoke ~clean =
     prepare ();
     invoke ();
     clean ()
-    
+
   let raise_skeleton () =
     perform_ritual
       ~prepare:(fun () -> print_endline "Gathering bones.")

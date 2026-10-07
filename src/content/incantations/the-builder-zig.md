@@ -4,38 +4,38 @@ description: "Construct complex runic constructs step-by-step using a dedicated 
 type: zig
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Golemancy
-formula: |
+arcaneSchool: "Transmutation // Golemancy"
+formula: |2
   const std = @import("std");
-  
+
   pub const Golem = struct {
       head_rune: []const u8 = "None",
       core_aether: u32 = 0,
       limbs: u8 = 0,
   };
-  
+
   pub const GolemBuilder = struct {
       golem: Golem,
-      
+
       pub fn init() GolemBuilder {
           return GolemBuilder{ .golem = Golem{} };
       }
-      
+
       pub fn setHead(self: *GolemBuilder, rune: []const u8) *GolemBuilder {
           self.golem.head_rune = rune;
           return self;
       }
-      
+
       pub fn infuseAether(self: *GolemBuilder, amount: u32) *GolemBuilder {
           self.golem.core_aether = amount;
           return self;
       }
-      
+
       pub fn attachLimbs(self: *GolemBuilder, count: u8) *GolemBuilder {
           self.golem.limbs = count;
           return self;
       }
-      
+
       pub fn awaken(self: *GolemBuilder) Golem {
           return self.golem;
       }

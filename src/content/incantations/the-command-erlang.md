@@ -4,11 +4,11 @@ description: Encapsulating arcane rituals as pure messages.
 type: erlang
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Seals
-formula: |
+arcaneSchool: "Enchantment // Seals"
+formula: |2
   -module(the_command).
   -export([execute/1]).
-  
+
   %% A command is a fun() or a tuple {M, F, A}
   execute(CommandFun) when is_function(CommandFun) ->
       CommandFun();

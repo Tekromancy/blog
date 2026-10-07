@@ -4,31 +4,31 @@ description: Walking the grim rows of an unmarked burial ground without revealin
 type: assembly
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Crypt Traversal
-formula: |
+arcaneSchool: "Necromancy // Crypt Traversal"
+formula: |2
   section .data
       graveyard dq 0x11, 0x22, 0x33, 0x0 ; 0 terminated
-  
+
   section .bss
       iterator_ptr resq 1
-  
+
   section .text
       global _start
-  
+
   _start:
       mov qword [iterator_ptr], graveyard
-  
+
   .next:
       mov rsi, [iterator_ptr]
       mov rax, [rsi]
       test rax, rax
       jz .done
-      
+
       ; Process soul in rax
-      
+
       add qword [iterator_ptr], 8
       jmp .next
-      
+
   .done:
       mov rax, 60
       syscall

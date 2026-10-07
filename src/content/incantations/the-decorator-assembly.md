@@ -4,22 +4,22 @@ description: Layering volatile dark auras atop a base summoning ritual.
 type: assembly
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Necromancy // Aura Infusion
-formula: |
+arcaneSchool: "Necromancy // Aura Infusion"
+formula: |2
   section .text
       global _start
-  
+
   _start:
       call shadow_decorator
-      
+
       mov rax, 60
       xor rdi, rdi
       syscall
-  
+
   base_summon:
       ; The core summoning logic
       ret
-  
+
   shadow_decorator:
       ; Pre-summoning darkness
       call base_summon

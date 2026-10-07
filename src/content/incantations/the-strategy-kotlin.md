@@ -4,13 +4,13 @@ description: Swappable algorithms for dynamic spell weaving.
 type: kotlin
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactics
-formula: |
+arcaneSchool: "Evocation // Tactics"
+formula: |2
   typealias AttackStrategy = (Int) -> Int
-  
+
   val fireAttack: AttackStrategy = { baseDamage -> baseDamage * 2 }
   val frostAttack: AttackStrategy = { baseDamage -> baseDamage + 5 }
-  
+
   class ElementalMage(var strategy: AttackStrategy) {
       fun strike(baseDamage: Int) {
           println("Damage dealt: ${strategy(baseDamage)}")

@@ -4,17 +4,17 @@ description: Cloning magical artifacts by manipulating the ethereal memory heap.
 type: ocaml
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning Runes
-formula: |
+arcaneSchool: "Illusion // Cloning Runes"
+formula: |2
   type relic = {
     mutable energy : int;
     name : string;
   }
-  
+
   let create_relic name energy = { name; energy }
-  
+
   let clone_relic r = { r with name = r.name ^ " (Clone)" }
-  
+
   let original = create_relic "Amulet of Yendor" 100
   let copy = clone_relic original
 tags: [Caml Metamagic, Records, Mutability, OCaml]

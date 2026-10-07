@@ -4,10 +4,10 @@ description: "Define a one-to-many dependency so that when one object changes st
 type: zig
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   const std = @import("std");
-  
+
   pub const Watcher = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -17,11 +17,11 @@ formula: |
           self.vtable.update(self, energy);
       }
   };
-  
+
   pub const Core = struct {
       watchers: std.ArrayList(*Watcher),
       energy: u32,
-      
+
       pub fn pulse(self: *Core) void {
           for (self.watchers.items) |w| {
               w.update(self.energy);

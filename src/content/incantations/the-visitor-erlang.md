@@ -4,11 +4,11 @@ description: Sending itinerant spirits to traverse and mutate complex data grids
 type: erlang
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Pathfinding
-formula: |
+arcaneSchool: "Conjuration // Pathfinding"
+formula: |2
   -module(the_visitor).
   -export([visit/2]).
-  
+
   visit([], _VisitorFun) -> ok;
   visit([Node|Rest], VisitorFun) ->
       VisitorFun(Node),

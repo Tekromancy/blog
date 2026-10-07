@@ -4,45 +4,45 @@ description: "Creating a snapshot of an investigator's sanity to restore it afte
 type: lisp
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Temporal Anchors
-formula: |
+arcaneSchool: "Abjuration // Temporal Anchors"
+formula: |2
   (defpackage :sanity-memento
     (:use :cl))
   (in-package :sanity-memento)
-  
+
   ;; The Memento
   (defclass brain-snapshot ()
     ((sanity :initarg :sanity :reader get-sanity)
      (memories :initarg :memories :reader get-memories)))
-  
+
   ;; The Originator
   (defclass investigator ()
     ((sanity-points :initform 100 :accessor sanity)
      (memories :initform '("Childhood" "University") :accessor memories)))
-  
+
   (defmethod read-forbidden-tome ((inv investigator))
     (decf (sanity inv) 50)
     (push "The geometry is wrong" (memories inv))
     (format t "Read Tome. Sanity is now ~a~%" (sanity inv)))
-  
+
   (defmethod save-state ((inv investigator))
     (format t "Creating an anchor to the current timeline...~%")
     (make-instance 'brain-snapshot 
                    :sanity (sanity inv) 
                    :memories (copy-list (memories inv))))
-  
+
   (defmethod restore-state ((inv investigator) (m brain-snapshot))
     (format t "Reverting consciousness to the anchor...~%")
     (setf (sanity inv) (get-sanity m))
     (setf (memories inv) (copy-list (get-memories m))))
-  
+
   ;; The Caretaker
   (defclass temporal-grimoire ()
     ((saved-anchors :initform nil :accessor anchors)))
-  
+
   (defmethod store-anchor ((g temporal-grimoire) anchor)
     (push anchor (anchors g)))
-  
+
   (defmethod retrieve-anchor ((g temporal-grimoire))
     (pop (anchors g)))
 tags: [lisp, behavioral, memento, sanity, chronomancy]

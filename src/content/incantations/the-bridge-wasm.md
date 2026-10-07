@@ -4,8 +4,8 @@ description: Decoupling the physical manifestation of the homunculus from its et
 type: wasm
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Symbiosis
-formula: |
+arcaneSchool: "Transmutation // Symbiosis"
+formula: |2
   (module
     (type $renderer (func (param i32)))
     (table 1 funcref)

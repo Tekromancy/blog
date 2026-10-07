@@ -4,8 +4,8 @@ description: Provide a surrogate or placeholder for another object to control ac
 type: go
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Ward-weaving
-formula: |
+arcaneSchool: "Abjuration // Ward-weaving"
+formula: |2
   package proxy
 
   import "fmt"

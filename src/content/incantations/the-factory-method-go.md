@@ -4,8 +4,8 @@ description: Define an interface for creating an object, but let subclasses deci
 type: go
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Entity-summoning
-formula: |
+arcaneSchool: "Conjuration // Entity-summoning"
+formula: |2
   package factorymethod
 
   import "fmt"

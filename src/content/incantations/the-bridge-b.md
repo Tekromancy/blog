@@ -4,28 +4,28 @@ description: "Decoupling the abstract Bell Labs invocation from its primordial i
 type: b
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Divination // Connection
-formula: |
+arcaneSchool: "Divination // Connection"
+formula: |2
   /* Implementation plane */
   impl_a(msg) { putchar('A'); }
   impl_b(msg) { putchar('B'); }
-  
+
   /* Abstraction plane holds a pointer to the implementation */
   auto current_impl;
-  
+
   set_bridge(impl_ptr) {
       current_impl = impl_ptr;
   }
-  
+
   invoke_abstraction(msg) {
       /* Crossing the bridge */
       current_impl(msg);
   }
-  
+
   execute() {
       set_bridge(impl_a);
       invoke_abstraction(1);
-      
+
       set_bridge(impl_b);
       invoke_abstraction(2);
   }

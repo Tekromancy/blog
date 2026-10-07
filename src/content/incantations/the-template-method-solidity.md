@@ -4,8 +4,8 @@ description: Defining the skeleton of a blood ritual while leaving sacrifices to
 type: solidity
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ritual Skeleton
-formula: |
+arcaneSchool: "Necromancy // Ritual Skeleton"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

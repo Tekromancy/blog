@@ -4,21 +4,21 @@ description: Encapsulate spells as objects for queuing, logging, or undoing.
 type: python
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Temporal Queueing
-formula: |
+arcaneSchool: "Chronomancy // Temporal Queueing"
+formula: |2
   from abc import ABC, abstractmethod
 
   class SpellCommand(ABC):
       @abstractmethod
       def execute(self): pass
-      
+
       @abstractmethod
       def undo(self): pass
 
   class Target:
       def __init__(self):
           self.state = "Normal"
-          
+
       def mutate(self, new_state: str):
           self.state = new_state
 
@@ -30,18 +30,18 @@ formula: |
 
       def execute(self):
           self.target.mutate(self.new_form)
-          
+
       def undo(self):
           self.target.mutate(self.old_form)
 
   class SpellInvoker:
       def __init__(self):
           self.history = []
-          
+
       def cast(self, command: SpellCommand):
           command.execute()
           self.history.append(command)
-          
+
       def rewind(self):
           if self.history:
               command = self.history.pop()

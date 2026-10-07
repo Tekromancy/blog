@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Facade"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Simplification"
-formula: |
+formula: |2
   library(R6)
 
   # Subsystems
@@ -14,7 +14,7 @@ formula: |
       gather = function() "Gathering souls..."
     )
   )
-  
+
   MatrixComputation <- R6Class("MatrixComputation",
     public = list(
       compute = function() "Multiplying reality matrices..."

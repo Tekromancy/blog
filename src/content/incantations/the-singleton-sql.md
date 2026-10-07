@@ -4,8 +4,8 @@ description: Enforcing a singularity within the database realm through absolute 
 type: sql
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Singularity Constraint
-formula: |
+arcaneSchool: "Abjuration // Singularity Constraint"
+formula: |2
   CREATE TABLE system_core_matrix (
       core_id BOOLEAN PRIMARY KEY DEFAULT TRUE,
       encryption_key VARCHAR(255) NOT NULL,

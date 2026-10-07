@@ -4,12 +4,12 @@ description: Altering an entity's core behavior based on its progression through
 type: java
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Metamorphosis
-formula: |
+arcaneSchool: "Transmutation // Metamorphosis"
+formula: |2
   public interface MachineState {
       void process(ServerMachine context);
   }
-  
+
   public class OfflineState implements MachineState {
       @Override
       public void process(ServerMachine context) {
@@ -17,7 +17,7 @@ formula: |
           context.setState(new OnlineState());
       }
   }
-  
+
   public class OnlineState implements MachineState {
       @Override
       public void process(ServerMachine context) {
@@ -25,18 +25,18 @@ formula: |
           // Complex load-handling logic here
       }
   }
-  
+
   public class ServerMachine {
       private MachineState currentState;
-      
+
       public ServerMachine() {
           this.currentState = new OfflineState();
       }
-      
+
       public void setState(MachineState state) {
           this.currentState = state;
       }
-      
+
       public void requestService() {
           currentState.process(this);
       }

@@ -4,10 +4,10 @@ description: "Represent an operation to be performed on the elements of an objec
 type: zig
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Astral Scanning
-formula: |
+arcaneSchool: "Divination // Astral Scanning"
+formula: |2
   const std = @import("std");
-  
+
   pub const SpiritVisitor = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -15,7 +15,7 @@ formula: |
           visitFae: *const fn (self: *SpiritVisitor, fae: *anyopaque) void,
       };
   };
-  
+
   pub const Entity = struct {
       vtable: *const VTable,
       pub const VTable = struct {

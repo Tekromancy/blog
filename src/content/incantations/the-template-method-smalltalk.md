@@ -4,19 +4,19 @@ description: "Define the skeletal steps of a seance, letting subclasses override
 type: smalltalk
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Seance Scripting
-formula: |
+arcaneSchool: "Evocation // Seance Scripting"
+formula: |2
   Object subclass: #BaseSeance
     instanceVariableNames: ''
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   BaseSeance >> conductSeance [
       self dimLights.
       self invokeSpirit.
       self closePortal.
   ]
-  
+
   BaseSeance >> invokeSpirit [ self subclassResponsibility ]
 tags: [smalltalk, behavioral, seance]
 pubDate: 2026-10-07

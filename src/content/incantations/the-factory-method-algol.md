@@ -4,8 +4,8 @@ description: "Structured antiquity and the Factory Method pattern."
 type: algol
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Shaping
-formula: |
+arcaneSchool: "Conjuration // Shaping"
+formula: |2
   CO Factory Method in ALGOL 68 CO
   BEGIN
     MODE CREATOR = STRUCT (PROC VOID factoryMethod);

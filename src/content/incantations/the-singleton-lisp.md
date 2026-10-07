@@ -4,18 +4,18 @@ description: "Ensuring only one instance of the Blind Idiot God exists in the ru
 type: lisp
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Conjuration // Cosmic Binding
-formula: |
+arcaneSchool: "Conjuration // Cosmic Binding"
+formula: |2
   (defpackage :singleton-azathoth
     (:use :cl)
     (:export #:get-azathoth #:azathoth-awaken))
-  
+
   (in-package :singleton-azathoth)
-  
+
   (defclass blind-idiot-god ()
     ((slumbering :initform t :accessor is-slumbering-p)
      (pipers :initform 1000 :reader num-pipers)))
-  
+
   ;; We use a lexical closure to hide the singleton instance.
   (let ((the-center-of-the-universe nil))
     (defun get-azathoth ()
@@ -24,7 +24,7 @@ formula: |
         (format t "The Daemon Sultan is instantiated at the center of infinity.~%")
         (setf the-center-of-the-universe (make-instance 'blind-idiot-god)))
       the-center-of-the-universe))
-  
+
   (defmethod azathoth-awaken ((god blind-idiot-god))
     (setf (is-slumbering-p god) nil)
     (format t "Azathoth awakens. The garbage collector will now devour all existence.~%")

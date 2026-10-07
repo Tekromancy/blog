@@ -4,8 +4,8 @@ description: Define the unyielding skeleton of a grand ritual, letting apprentic
 type: scala
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Rituals
-formula: |
+arcaneSchool: "Evocation // Rituals"
+formula: |2
   abstract class GrandRitual {
     // The Template Method
     final def perform(): Unit = {
@@ -15,7 +15,7 @@ formula: |
     }
 
     private def drawCircle(): Unit = println("Drawing salt circle...")
-    
+
     // Steps to be implemented by subclasses
     def chant(): Unit
     def ignite(): Unit

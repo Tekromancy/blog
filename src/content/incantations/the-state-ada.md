@@ -4,27 +4,27 @@ description: Altering a shield's behavior dynamically based on its internal thre
 type: ada
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Stance Shifting
-formula: |
+arcaneSchool: "Abjuration // Stance Shifting"
+formula: |2
   package Shield_States is
-  
+
      type State is abstract tagged null record;
      procedure Handle_Threat (S : in State) is abstract;
-     
+
      type Context is tagged record
         Current_State : access State'Class;
      end record;
-     
+
      procedure Request_Action (C : in Context);
-     
+
      type Passive_State is new State with null record;
      overriding procedure Handle_Threat (S : in Passive_State);
-     
+
      type Active_Combat_State is new State with null record;
      overriding procedure Handle_Threat (S : in Active_Combat_State);
-     
+
   end Shield_States;
-  
+
   package body Shield_States is
      procedure Request_Action (C : in Context) is
      begin
@@ -32,12 +32,12 @@ formula: |
            Handle_Threat (C.Current_State.all);
         end if;
      end Request_Action;
-     
+
      procedure Handle_Threat (S : in Passive_State) is
      begin
         null; -- Minimal power draw, stealth mode
      end Handle_Threat;
-     
+
      procedure Handle_Threat (S : in Active_Combat_State) is
      begin
         null; -- Maximum kinetic deflection

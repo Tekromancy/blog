@@ -4,8 +4,8 @@ description: "Structured antiquity and the Abstract Factory pattern."
 type: algol
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Forge
-formula: |
+arcaneSchool: "Conjuration // Forge"
+formula: |2
   CO Abstract Factory in ALGOL 68 CO
   BEGIN
     MODE FACTORY = STRUCT (PROC VOID create);

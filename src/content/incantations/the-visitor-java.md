@@ -4,41 +4,41 @@ description: Dispatching an auditor to perform heavy operations across a heterog
 type: java
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Auditing
-formula: |
+arcaneSchool: "Divination // Auditing"
+formula: |2
   public interface CathedralElement {
       void accept(Auditor visitor);
   }
-  
+
   public class RelicCache implements CathedralElement {
       public String getSacredHash() { return "0xDEADBEEF"; }
-      
+
       @Override
       public void accept(Auditor visitor) {
           visitor.auditRelicCache(this);
       }
   }
-  
+
   public class PrayerQueue implements CathedralElement {
       public int getBacklog() { return 9001; }
-      
+
       @Override
       public void accept(Auditor visitor) {
           visitor.auditPrayerQueue(this);
       }
   }
-  
+
   public interface Auditor {
       void auditRelicCache(RelicCache cache);
       void auditPrayerQueue(PrayerQueue queue);
   }
-  
+
   public class ComplianceAuditor implements Auditor {
       @Override
       public void auditRelicCache(RelicCache cache) {
           System.out.println("Auditing Relic Cache. Hash verified: " + cache.getSacredHash());
       }
-      
+
       @Override
       public void auditPrayerQueue(PrayerQueue queue) {
           System.out.println("Auditing Prayer Queue. Backlog stands at: " + queue.getBacklog());

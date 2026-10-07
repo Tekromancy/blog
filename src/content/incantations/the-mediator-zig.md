@@ -4,10 +4,10 @@ description: "Define an object that encapsulates how a set of objects interact, 
 type: zig
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Illusion // Nexus Coordination
-formula: |
+arcaneSchool: "Illusion // Nexus Coordination"
+formula: |2
   const std = @import("std");
-  
+
   pub const Nexus = struct {
       vtable: *const VTable,
       pub const VTable = struct {

@@ -4,19 +4,19 @@ description: Defines the skeleton of an algorithm, deferring steps to subcompone
 type: vhdl
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Process Blueprint
-formula: |
+arcaneSchool: "Silicon Golemancy // Process Blueprint"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity template_skeleton is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end template_skeleton;
-  
+
   architecture Physical of template_skeleton is
   begin
       process(clk, rst)

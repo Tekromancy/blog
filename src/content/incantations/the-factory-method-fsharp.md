@@ -4,8 +4,8 @@ description: Deferring the instantiation of familiars to specialized sub-rituals
 type: fsharp
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   type IFamiliar =
       abstract member Manifest: unit -> string
 

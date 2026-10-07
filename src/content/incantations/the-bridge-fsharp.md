@@ -4,8 +4,8 @@ description: Decoupling a magical abstraction from its elemental implementation.
 type: fsharp
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Matrix
-formula: |
+arcaneSchool: "Transmutation // Matrix"
+formula: |2
   type IElementalSource =
       abstract member Channel: unit -> string
 

@@ -4,18 +4,18 @@ description: A shadow process standing in for the true entity.
 type: erlang
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Phantoms
-formula: |
+arcaneSchool: "Illusion // Phantoms"
+formula: |2
   -module(the_proxy).
   -export([start/1, request/2]).
-  
+
   start(RealTarget) ->
       spawn(fun() -> proxy_loop(RealTarget) end).
-      
+
   request(ProxyPid, Msg) ->
       ProxyPid ! {request, self(), Msg},
       receive {reply, Reply} -> Reply end.
-      
+
   proxy_loop(RealTarget) ->
       receive
           {request, Caller, Msg} ->

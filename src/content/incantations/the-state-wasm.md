@@ -4,17 +4,17 @@ description: Morphing the homunculus's behavior intrinsically as its elemental a
 type: wasm
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Metamorphosis
-formula: |
+arcaneSchool: "Transmutation // Metamorphosis"
+formula: |2
   (module
     (type $behavior (func (result i32)))
     (table 2 funcref)
     (elem (i32.const 0) $solid_state $liquid_state)
     (global $current_state (mut i32) (i32.const 0))
-    
+
     (func $solid_state (result i32) (i32.const 0x5011D))
     (func $liquid_state (result i32) (i32.const 0x11QU1D))
-    
+
     (func $act (result i32)
       (call_indirect (type $behavior) (global.get $current_state))
     )

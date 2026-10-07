@@ -4,26 +4,26 @@ description: Allow an entity to alter its behavior when its internal state chang
 type: javascript
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Metamorphosis
-formula: |
+arcaneSchool: "Transmutation // Metamorphosis"
+formula: |2
   class Form { attack() {} }
-  
+
   class HumanForm extends Form {
     attack() { console.log("Punches with fist."); }
   }
   class WolfForm extends Form {
     attack() { console.log("Bites with fangs!"); }
   }
-  
+
   class Lycanthrope {
     constructor() { this.state = new HumanForm(); }
     transform(newState) { this.state = newState; }
     attack() { this.state.attack(); }
   }
-  
+
   const werewolf = new Lycanthrope();
   werewolf.attack(); // Human
-  
+
   werewolf.transform(new WolfForm());
   werewolf.attack(); // Wolf
 tags: [state, behavior, shapeshifting]

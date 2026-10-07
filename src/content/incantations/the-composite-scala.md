@@ -4,8 +4,8 @@ description: Treat individual spells and sprawling ritual arrays uniformly as a 
 type: scala
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Gestalt
-formula: |
+arcaneSchool: "Illusion // Gestalt"
+formula: |2
   sealed trait SpellComponent {
     def manaCost: Int
   }

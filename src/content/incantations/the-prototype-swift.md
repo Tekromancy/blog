@@ -4,8 +4,8 @@ description: Cloning existing magical entities to save arcane energy.
 type: swift
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   protocol Clonable {
       func clone() -> Self
   }

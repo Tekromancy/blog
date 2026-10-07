@@ -4,21 +4,21 @@ description: Subscribing to mystical ripples in the aether.
 type: kotlin
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   interface Scryer {
       fun onEvent(event: String)
   }
-  
+
   class CrystalBall {
       private val scryers = mutableListOf<Scryer>()
-      
+
       fun register(s: Scryer) = scryers.add(s)
       fun triggerEvent(event: String) {
           scryers.forEach { it.onEvent(event) }
       }
   }
-  
+
   // Pragmatic approach: Kotlin flows are the modern incarnation
 tags: [kotlin, behavioral, observer]
 pubDate: 2026-10-07

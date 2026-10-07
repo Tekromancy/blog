@@ -4,18 +4,18 @@ description: Subscribing arcane sentinels to thermal fluxes in the monolith.
 type: fortran
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   module observer_m
     implicit none
     private
     public :: Observer, Subject, Sentinel, ThermalCore
-  
+
     type, abstract :: Observer
     contains
       procedure(update_obs), deferred, pass :: update
     end type Observer
-  
+
     abstract interface
       subroutine update_obs(this, temp)
         import :: Observer
@@ -23,39 +23,39 @@ formula: |
         real, intent(in) :: temp
       end subroutine update_obs
     end interface
-  
+
     type, extends(Observer) :: Sentinel
       integer :: id
     contains
       procedure, pass :: update => sentinel_update
     end type Sentinel
-  
+
     type :: Subject
       class(Observer), allocatable :: observers(:)
     contains
       procedure, pass :: attach
       procedure, pass :: notify_all
     end type Subject
-  
+
     type, extends(Subject) :: ThermalCore
       real :: temperature = 0.0
     contains
       procedure, pass :: set_temperature
     end type ThermalCore
-  
+
   contains
     subroutine sentinel_update(this, temp)
       class(Sentinel), intent(inout) :: this
       real, intent(in) :: temp
       ! Log thermal spike or trigger alarms
     end subroutine sentinel_update
-    
+
     subroutine attach(this, obs)
       class(Subject), intent(inout) :: this
       class(Observer), intent(in) :: obs
       ! Real Fortran array expansion logic omitted
     end subroutine attach
-    
+
     subroutine notify_all(this, temp)
       class(Subject), intent(inout) :: this
       real, intent(in) :: temp
@@ -66,7 +66,7 @@ formula: |
         end do
       end if
     end subroutine notify_all
-    
+
     subroutine set_temperature(this, temp)
       class(ThermalCore), intent(inout) :: this
       real, intent(in) :: temp

@@ -4,14 +4,14 @@ description: A central sigil to route the chaos of warring spirits.
 type: forth
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Sigil-Routing
-formula: |
+arcaneSchool: "Enchantment // Sigil-Routing"
+formula: |2
   \ Sigil-Routing: The Mediator
   \ A hub word that dictates interactions between systems.
-  
+
   VARIABLE FIRE-POWER
   VARIABLE WATER-POWER
-  
+
   : MEDIATE-ELEMENTS ( -- )
     FIRE-POWER @ WATER-POWER @ > IF
       ." Fire consumes the Water." CR
@@ -20,13 +20,13 @@ formula: |
       ." Water extinguishes the Fire." CR
       0 FIRE-POWER !
     THEN ;
-    
+
   : FEED-FIRE ( n -- )
     FIRE-POWER +! MEDIATE-ELEMENTS ;
-    
+
   : FEED-WATER ( n -- )
     WATER-POWER +! MEDIATE-ELEMENTS ;
-    
+
   \ Usage:
   \ 10 FEED-FIRE
   \ 20 FEED-WATER

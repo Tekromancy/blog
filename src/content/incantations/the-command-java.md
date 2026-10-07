@@ -4,44 +4,44 @@ description: Freezing a spell into a tangible object for queuing, logging, and u
 type: java
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Reification
-formula: |
+arcaneSchool: "Transmutation // Reification"
+formula: |2
   public interface HolyOrder {
       void execute();
       void undo();
   }
-  
+
   public class ExcommunicationTarget {
       public void banish() { System.out.println("Target banished to the Null Void."); }
       public void restore() { System.out.println("Target restored to the classpath."); }
   }
-  
+
   public class ExcommunicateCommand implements HolyOrder {
       private final ExcommunicationTarget target;
-      
+
       public ExcommunicateCommand(ExcommunicationTarget target) {
           this.target = target;
       }
-      
+
       @Override
       public void execute() {
           target.banish();
       }
-      
+
       @Override
       public void undo() {
           target.restore();
       }
   }
-  
+
   public class TribunalInvoker {
       private HolyOrder lastOrder;
-      
+
       public void submitOrder(HolyOrder order) {
           this.lastOrder = order;
           order.execute();
       }
-      
+
       public void rollback() {
           if (lastOrder != null) {
               lastOrder.undo();

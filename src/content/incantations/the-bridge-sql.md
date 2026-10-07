@@ -4,8 +4,8 @@ description: Decoupling entities through an intermediate table of relation.
 type: sql
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Relational Pact
-formula: |
+arcaneSchool: "Conjuration // Relational Pact"
+formula: |2
   -- Hierarchy 1: The Mage
   CREATE TABLE cyber_mages (
       mage_id SERIAL PRIMARY KEY,

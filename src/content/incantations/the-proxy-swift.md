@@ -4,8 +4,8 @@ description: A magical surrogate controlling access to a powerful artifact.
 type: swift
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   protocol Grimoire {
       func readSpells()
   }

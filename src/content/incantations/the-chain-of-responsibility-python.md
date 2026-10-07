@@ -4,18 +4,18 @@ description: Pass an anomalous magical disturbance along a hierarchy of wards.
 type: python
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Ward-Linking
-formula: |
+arcaneSchool: "Abjuration // Ward-Linking"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Ward(ABC):
       def __init__(self, next_ward=None):
           self._next_ward = next_ward
-          
+
       def set_next(self, ward):
           self._next_ward = ward
           return ward
-          
+
       @abstractmethod
       def handle(self, threat_level: int) -> str: pass
 

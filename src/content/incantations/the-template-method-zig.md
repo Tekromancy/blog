@@ -4,17 +4,17 @@ description: "Define the skeleton of an algorithm in an operation, deferring som
 type: zig
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Ritual Frameworks
-formula: |
+arcaneSchool: "Abjuration // Ritual Frameworks"
+formula: |2
   const std = @import("std");
-  
+
   pub const Ritual = struct {
       vtable: *const VTable,
       pub const VTable = struct {
           prepareIngredients: *const fn (self: *Ritual) void,
           ignite: *const fn (self: *Ritual) void,
       };
-      
+
       pub fn executeRitual(self: *Ritual) void {
           self.vtable.prepareIngredients(self);
           self.vtable.ignite(self);

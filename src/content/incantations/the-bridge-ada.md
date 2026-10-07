@@ -4,24 +4,24 @@ description: Decoupling a ward's abstraction from its deployment implementation.
 type: ada
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Abjuration // Deployment Mechanics
-formula: |
+arcaneSchool: "Abjuration // Deployment Mechanics"
+formula: |2
   package Ward_Bridges is
-  
+
      type Implementor is abstract tagged null record;
      procedure Render_Shield (I : in Implementor) is abstract;
-     
+
      type Ward_Abstraction is abstract tagged record
         Imp : access Implementor'Class;
      end record;
-     
+
      procedure Initialize (W : in out Ward_Abstraction) is abstract;
-     
+
      type Secure_Ward is new Ward_Abstraction with null record;
      overriding procedure Initialize (W : in out Secure_Ward);
-     
+
   end Ward_Bridges;
-  
+
   package body Ward_Bridges is
      procedure Initialize (W : in out Secure_Ward) is
      begin

@@ -4,8 +4,8 @@ description: Spawning nameless horrors from a generic void.
 type: brainfuck
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Voidmancy
-formula: |
+arcaneSchool: "Conjuration // Voidmancy"
+formula: |2
   [
     Abstract Factory: The Tape is the Void.
     +>+>+>+>  [Spawn generic horror seeds]

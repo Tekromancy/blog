@@ -4,36 +4,36 @@ description: Sealing the precise internal state of a spell to allow for temporal
 type: java
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Preservation
-formula: |
+arcaneSchool: "Chronomancy // Preservation"
+formula: |2
   public class EnterpriseState {
       private String dataPhase;
-      
+
       public void setPhase(String phase) {
           this.dataPhase = phase;
       }
-      
+
       public String getPhase() {
           return dataPhase;
       }
-      
+
       public Memento saveToMemento() {
           System.out.println("Sealing phase: " + dataPhase);
           return new Memento(dataPhase);
       }
-      
+
       public void restoreFromMemento(Memento memento) {
           this.dataPhase = memento.getSavedPhase();
           System.out.println("Temporal shift: Restored phase to " + dataPhase);
       }
-      
+
       public static class Memento {
           private final String savedPhase;
-          
+
           private Memento(String phaseToSave) {
               this.savedPhase = phaseToSave;
           }
-          
+
           private String getSavedPhase() {
               return savedPhase;
           }

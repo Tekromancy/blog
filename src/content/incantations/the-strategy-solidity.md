@@ -4,8 +4,8 @@ description: Swapping combat algorithms in the eternal Blood War.
 type: solidity
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

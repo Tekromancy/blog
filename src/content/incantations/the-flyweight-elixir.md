@@ -4,21 +4,21 @@ description: Minimize memory consumption by sharing common etheric patterns amon
 type: elixir
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Illusion // Optimization
-formula: |
+arcaneSchool: "Illusion // Optimization"
+formula: |2
   defmodule Tekromancy.DroneModel do
     # The Flyweight: shared intrinsic state
     defstruct [:mesh, :texture, :base_stats]
-    
+
     def new(mesh, texture) do
       %__MODULE__{mesh: mesh, texture: texture, base_stats: %{hp: 100, speed: 50}}
     end
   end
-  
+
   defmodule Tekromancy.DroneInstance do
     # Extrinsic state: unique to each drone
     defstruct [:id, :position, :model]
-    
+
     def spawn(id, {x, y}, %Tekromancy.DroneModel{} = model) do
       %__MODULE__{id: id, position: {x, y}, model: model}
     end

@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Proxy"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Ward"
-formula: |
+formula: |2
   library(R6)
 
   # Subject Interface

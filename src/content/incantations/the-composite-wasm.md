@@ -4,8 +4,8 @@ description: Treating individual synthetic cells and entire limbs with the same 
 type: wasm
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Transmutation // Golemancy
-formula: |
+arcaneSchool: "Transmutation // Golemancy"
+formula: |2
   (module
     ;; Recursively walk a tree of cells in linear memory
     (func $activate_node (param $node_ptr i32)

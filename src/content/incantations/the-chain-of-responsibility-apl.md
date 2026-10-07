@@ -4,16 +4,16 @@ description: Pass anomalous energy spikes down a hierarchy of ancient obelisks.
 type: apl
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Energy-Routing
-formula: |
+arcaneSchool: "Evocation // Energy-Routing"
+formula: |2
   :Class Node
       :Field Public NextNode ← ⍬
-      
+
       ∇ Handle Flare
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class MinorObelisk : Node
       ∇ Handle Flare
         :Access Public
@@ -24,7 +24,7 @@ formula: |
         :EndIf
       ∇
   :EndClass
-  
+
   :Class MajorMonolith : Node
       ∇ Handle Flare
         :Access Public

@@ -4,8 +4,8 @@ description: Runes that automatically shift configuration when a central leyston
 type: pascal
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Awareness
-formula: |
+arcaneSchool: "Divination // Awareness"
+formula: |2
   unit ObserverPattern;
   interface
   type

@@ -4,34 +4,34 @@ description: Traversing the labyrinthine collections of the Cathedral without un
 type: java
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Traversal
-formula: |
+arcaneSchool: "Divination // Traversal"
+formula: |2
   import java.util.NoSuchElementException;
-  
+
   public interface ReliquaryIterator {
       boolean hasNext();
       String next();
   }
-  
+
   public class ArrayReliquary {
       private final String[] relics;
-      
+
       public ArrayReliquary(String[] relics) {
           this.relics = relics;
       }
-      
+
       public ReliquaryIterator createIterator() {
           return new ReliquaryIteratorImpl();
       }
-      
+
       private class ReliquaryIteratorImpl implements ReliquaryIterator {
           private int index = 0;
-          
+
           @Override
           public boolean hasNext() {
               return index < relics.length;
           }
-          
+
           @Override
           public String next() {
               if (!hasNext()) {

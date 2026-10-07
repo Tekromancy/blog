@@ -4,8 +4,8 @@ description: Forging demonic pacts and abyssal tokens through an abstract nexus 
 type: solidity
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Pactmaking
-formula: |
+arcaneSchool: "Conjuration // Pactmaking"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

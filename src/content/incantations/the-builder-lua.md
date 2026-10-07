@@ -4,8 +4,8 @@ description: "A creational pattern to weave complex magical entities step-by-ste
 type: lua
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Weaving
-formula: |
+arcaneSchool: "Transmutation // Weaving"
+formula: |2
   local GolemBuilder = {}
   GolemBuilder.__index = GolemBuilder
 

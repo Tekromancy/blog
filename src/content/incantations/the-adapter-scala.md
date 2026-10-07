@@ -4,8 +4,8 @@ description: Translates arcane frequencies from an incompatible artifact into a 
 type: scala
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Resonance
-formula: |
+arcaneSchool: "Transmutation // Resonance"
+formula: |2
   trait StandardManaInterface {
     def channelMana(amount: Int): String
   }

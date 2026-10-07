@@ -4,11 +4,11 @@ description: The solitary eternal process, registered in the cosmic registry.
 type: erlang
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Anchoring
-formula: |
+arcaneSchool: "Abjuration // Anchoring"
+formula: |2
   -module(the_singleton).
   -export([start/0, get_instance/0]).
-  
+
   start() ->
       case whereis(the_one) of
           undefined -> 
@@ -17,9 +17,9 @@ formula: |
               {ok, Pid};
           Pid -> {ok, Pid}
       end.
-      
+
   get_instance() -> whereis(the_one).
-  
+
   loop() -> receive _ -> loop() end.
 tags: [erlang, actors, telepathy, switchboard, singleton]
 pubDate: 2026-10-07

@@ -5,7 +5,7 @@ type: "script"
 gofPattern: "Observer Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Evocation // The All-Seeing Beacon Sentinel"
-formula: |
+formula: |2
   #!/usr/bin/env bash
   set -Eeuo pipefail
   readonly FIFO="/tmp/beacon.fifo"

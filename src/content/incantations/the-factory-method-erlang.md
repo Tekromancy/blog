@@ -4,18 +4,18 @@ description: Deferring spirit incarnation to specialized sub-cults.
 type: erlang
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Calling
-formula: |
+arcaneSchool: "Conjuration // Calling"
+formula: |2
   -module(the_factory_method).
   -export([summon/1]).
-  
+
   summon(Type) -> 
       Pid = create(Type),
       {ok, Pid}.
-      
+
   create(warrior) -> spawn(fun() -> warrior_loop() end);
   create(mage) -> spawn(fun() -> mage_loop() end).
-  
+
   warrior_loop() -> receive _ -> warrior_loop() end.
   mage_loop() -> receive _ -> mage_loop() end.
 tags: [erlang, actors, telepathy, switchboard, factory-method]

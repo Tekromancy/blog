@@ -4,17 +4,17 @@ description: "Clone existing magical entities without coupling to their specific
 type: zig
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Biomimicry
-formula: |
+arcaneSchool: "Illusion // Biomimicry"
+formula: |2
   const std = @import("std");
-  
+
   pub const Cloneable = struct {
       vtable: *const VTable,
-      
+
       pub const VTable = struct {
           clone: *const fn (self: *const Cloneable, alloc: std.mem.Allocator) std.mem.Allocator.Error!*Cloneable,
       };
-      
+
       pub fn clone(self: *const Cloneable, alloc: std.mem.Allocator) !*Cloneable {
           return self.vtable.clone(self, alloc);
       }

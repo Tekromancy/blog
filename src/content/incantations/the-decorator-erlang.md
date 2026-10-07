@@ -4,11 +4,11 @@ description: Wrapping message passing with arcane wards and filters.
 type: erlang
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   -module(the_decorator).
   -export([with_logging/1]).
-  
+
   with_logging(Fun) ->
       fun(Args) ->
           io:format("Invoking with ~p~n", [Args]),

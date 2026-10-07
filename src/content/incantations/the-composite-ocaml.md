@@ -4,16 +4,16 @@ description: Structuring complex magical sigils using recursive algebraic data t
 type: ocaml
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Conjuration // Fractal Geometry
-formula: |
+arcaneSchool: "Conjuration // Fractal Geometry"
+formula: |2
   type sigil =
     | Glyph of string
     | Compound of sigil list
-    
+
   let rec activate = function
     | Glyph name -> Printf.printf "Activating %s\n" name
     | Compound sigils -> List.iter activate sigils
-    
+
   let master_sigil = Compound [
     Glyph "Fire";
     Compound [Glyph "Wind"; Glyph "Spark"];

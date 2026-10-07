@@ -4,13 +4,13 @@ description: "Assemble complex rituals step-by-step before invoking the final ma
 type: smalltalk
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct Assembly
-formula: |
+arcaneSchool: "Transmutation // Construct Assembly"
+formula: |2
   Object subclass: #RitualBuilder
     instanceVariableNames: 'candles chalk incantation'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   RitualBuilder >> addCandles: anInteger [ candles := anInteger ]
   RitualBuilder >> drawSigil: aString [ chalk := aString ]
   RitualBuilder >> chant: aString [ incantation := aString ]

@@ -4,19 +4,19 @@ description: Sequentially accesses elements of an array or memory block.
 type: vhdl
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Memory Stepper
-formula: |
+arcaneSchool: "Silicon Golemancy // Memory Stepper"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity iterator_stepper is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end iterator_stepper;
-  
+
   architecture Physical of iterator_stepper is
   begin
       process(clk, rst)

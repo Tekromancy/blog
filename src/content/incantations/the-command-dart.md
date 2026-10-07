@@ -4,49 +4,49 @@ description: Encapsulate an arcane request as a standalone object, ready for del
 type: dart
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Runesmithing
-formula: |
+arcaneSchool: "Evocation // Runesmithing"
+formula: |2
   abstract class Command {
     void execute();
     void undo();
   }
-  
+
   class FireballSpell {
     void ignite() => print('Fireball bursts!');
     void extinguish() => print('Flames drawn back into the void.');
   }
-  
+
   class CastFireballCommand implements Command {
     final FireballSpell _spell;
-    
+
     CastFireballCommand(this._spell);
-    
+
     @override
     void execute() => _spell.ignite();
-    
+
     @override
     void undo() => _spell.extinguish();
   }
-  
+
   class Wand {
     final List<Command> _history = [];
-    
+
     void invoke(Command command) {
       command.execute();
       _history.add(command);
     }
-    
+
     void rewind() {
       if (_history.isNotEmpty) {
         _history.removeLast().undo();
       }
     }
   }
-  
+
   void main() {
     final wand = Wand();
     final fireball = CastFireballCommand(FireballSpell());
-    
+
     wand.invoke(fireball);
     wand.rewind(); // Time magic undo
   }

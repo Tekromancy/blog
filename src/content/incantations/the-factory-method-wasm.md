@@ -4,8 +4,8 @@ description: Delegating the instantiation of volatile engine spirits to localize
 type: wasm
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Spirit Binding
-formula: |
+arcaneSchool: "Conjuration // Spirit Binding"
+formula: |2
   (module
     (func $spawn_spirit (param $type i32) (result i32)
       (if (result i32) (i32.eq (local.get $type) (i32.const 1))

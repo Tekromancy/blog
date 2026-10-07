@@ -4,8 +4,8 @@ description: "A ritualistic assembly line for crafting intricate, flesh-grafted 
 type: ruby
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Fleshcrafting
-formula: |
+arcaneSchool: "Transmutation // Fleshcrafting"
+formula: |2
   class Golem
     attr_accessor :flesh, :bones, :blood, :animus
 

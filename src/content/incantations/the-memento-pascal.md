@@ -4,8 +4,8 @@ description: Capturing the precise temporal state of a subject for later restora
 type: pascal
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Restoration
-formula: |
+arcaneSchool: "Chronomancy // Restoration"
+formula: |2
   unit MementoPattern;
   interface
   type

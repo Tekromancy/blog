@@ -4,13 +4,13 @@ description: "Allow multiple cultists to passively watch the Ouija board for any
 type: smalltalk
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Ectoplasmic Resonance
-formula: |
+arcaneSchool: "Divination // Ectoplasmic Resonance"
+formula: |2
   Object subclass: #OuijaBoardSubject
     instanceVariableNames: 'observers currentLetter'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   OuijaBoardSubject >> letter: aChar [
       currentLetter := aChar.
       self changed: #letterUpdate

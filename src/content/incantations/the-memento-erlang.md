@@ -4,11 +4,11 @@ description: Snapshotting a spirit's essence to restore it from oblivion.
 type: erlang
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Stasis
-formula: |
+arcaneSchool: "Necromancy // Stasis"
+formula: |2
   -module(the_memento).
   -export([save/1, restore/1]).
-  
+
   save(State) -> {memento, State}.
   restore({memento, State}) -> State.
 tags: [erlang, actors, telepathy, switchboard, memento]

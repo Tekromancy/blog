@@ -4,8 +4,8 @@ description: Dynamically weaving additional protective layers onto an existing s
 type: fsharp
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Layering
-formula: |
+arcaneSchool: "Abjuration // Layering"
+formula: |2
   type ISpell =
       abstract member Cast: unit -> string
 

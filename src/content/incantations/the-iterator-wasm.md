@@ -4,8 +4,8 @@ description: Sequentially traversing the neural pathways of the synthetic homunc
 type: wasm
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Pathfinding
-formula: |
+arcaneSchool: "Divination // Pathfinding"
+formula: |2
   (module
     (global $current_node (mut i32) (i32.const 0))
     (func $next (result i32)

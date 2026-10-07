@@ -4,8 +4,8 @@ description: "Structured antiquity and the Command pattern."
 type: algol
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Imperative
-formula: |
+arcaneSchool: "Enchantment // Imperative"
+formula: |2
   CO Command in ALGOL 68 CO
   BEGIN
     MODE COMMAND = STRUCT (PROC VOID execute);

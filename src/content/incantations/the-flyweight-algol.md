@@ -4,8 +4,8 @@ description: "Structured antiquity and the Flyweight pattern."
 type: algol
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Abjuration // Compression
-formula: |
+arcaneSchool: "Abjuration // Compression"
+formula: |2
   CO Flyweight in ALGOL 68 CO
   BEGIN
     MODE FLYWEIGHT = STRUCT (PROC VOID operation);

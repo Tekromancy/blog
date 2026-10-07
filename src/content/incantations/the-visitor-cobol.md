@@ -4,43 +4,43 @@ description: Separating an algorithm from the object structure on which it opera
 type: cobol
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Corp-mancy
-formula: |
-       IDENTIFICATION DIVISION.
-       CLASS-ID. SOUL-REAPER-VISITOR INHERITS I-VISITOR.
-       
-       ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
-       REPOSITORY.
-           CLASS I-VISITOR IS "IVisitor"
-           CLASS THRALL-NODE IS "ThrallNode"
-           CLASS DEMON-NODE IS "DemonNode".
-           
-       OBJECT.
-       PROCEDURE DIVISION.
-       
-       IDENTIFICATION DIVISION.
-       METHOD-ID. VISIT-THRALL.
-       DATA DIVISION.
-       LINKAGE SECTION.
-       01 TARGET-NODE OBJECT REFERENCE THRALL-NODE.
-       PROCEDURE DIVISION USING TARGET-NODE.
-           DISPLAY "Reaping a minor thrall's life force...".
-           INVOKE TARGET-NODE "DRAIN-HP" USING 50.
-       END METHOD VISIT-THRALL.
-       
-       IDENTIFICATION DIVISION.
-       METHOD-ID. VISIT-DEMON.
-       DATA DIVISION.
-       LINKAGE SECTION.
-       01 TARGET-NODE OBJECT REFERENCE DEMON-NODE.
-       PROCEDURE DIVISION USING TARGET-NODE.
-           DISPLAY "Negotiating pact to reap demonic energy...".
-           INVOKE TARGET-NODE "DRAIN-HP" USING 500.
-       END METHOD VISIT-DEMON.
-       
-       END OBJECT.
-       END CLASS SOUL-REAPER-VISITOR.
+arcaneSchool: "Necromancy // Corp-mancy"
+formula: |2
+  IDENTIFICATION DIVISION.
+  CLASS-ID. SOUL-REAPER-VISITOR INHERITS I-VISITOR.
+
+  ENVIRONMENT DIVISION.
+  CONFIGURATION SECTION.
+  REPOSITORY.
+      CLASS I-VISITOR IS "IVisitor"
+      CLASS THRALL-NODE IS "ThrallNode"
+      CLASS DEMON-NODE IS "DemonNode".
+
+  OBJECT.
+  PROCEDURE DIVISION.
+
+  IDENTIFICATION DIVISION.
+  METHOD-ID. VISIT-THRALL.
+  DATA DIVISION.
+  LINKAGE SECTION.
+  01 TARGET-NODE OBJECT REFERENCE THRALL-NODE.
+  PROCEDURE DIVISION USING TARGET-NODE.
+      DISPLAY "Reaping a minor thrall's life force...".
+      INVOKE TARGET-NODE "DRAIN-HP" USING 50.
+  END METHOD VISIT-THRALL.
+
+  IDENTIFICATION DIVISION.
+  METHOD-ID. VISIT-DEMON.
+  DATA DIVISION.
+  LINKAGE SECTION.
+  01 TARGET-NODE OBJECT REFERENCE DEMON-NODE.
+  PROCEDURE DIVISION USING TARGET-NODE.
+      DISPLAY "Negotiating pact to reap demonic energy...".
+      INVOKE TARGET-NODE "DRAIN-HP" USING 500.
+  END METHOD VISIT-DEMON.
+
+  END OBJECT.
+  END CLASS SOUL-REAPER-VISITOR.
 tags: [necromancy, mainframe, gof, behavioral]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

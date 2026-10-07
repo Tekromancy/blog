@@ -4,8 +4,8 @@ description: Share intrinsic magically dense data across millions of spectral co
 type: scala
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarming
-formula: |
+arcaneSchool: "Conjuration // Swarming"
+formula: |2
   // Intrinsic State
   case class SpectralCore(color: String, baseDamage: Int)
 

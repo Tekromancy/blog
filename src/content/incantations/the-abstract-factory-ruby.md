@@ -4,8 +4,8 @@ description: "A blood-pact generator for producing familiars and crimson weapons
 type: ruby
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Bloodmancy
-formula: |
+arcaneSchool: "Conjuration // Bloodmancy"
+formula: |2
   module BloodMagic
     class HemomancerForge
       def create_familiar

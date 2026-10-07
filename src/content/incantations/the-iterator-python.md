@@ -4,16 +4,16 @@ description: Traverse a grimoire's cryptic dimensions sequentially.
 type: python
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Crypt-Crawling
-formula: |
+arcaneSchool: "Necromancy // Crypt-Crawling"
+formula: |2
   class GrimoireIterator:
       def __init__(self, pages: list):
           self._pages = pages
           self._index = 0
-          
+
       def __iter__(self):
           return self
-          
+
       def __next__(self):
           if self._index < len(self._pages):
               result = self._pages[self._index]
@@ -24,7 +24,7 @@ formula: |
   class CursedGrimoire:
       def __init__(self):
           self.pages = ["Blood Ritual", "Soul Tear", "Bone Splinter"]
-          
+
       def __iter__(self):
           return GrimoireIterator(self.pages)
 

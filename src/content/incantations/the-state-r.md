@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "State"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Phase Shifting"
-formula: |
+formula: |2
   library(R6)
 
   # State Interface

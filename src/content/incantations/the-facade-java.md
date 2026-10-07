@@ -4,31 +4,31 @@ description: Concealing a tangled nightmare of subsystems behind a single, elega
 type: java
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Masking
-formula: |
+arcaneSchool: "Illusion // Masking"
+formula: |2
   class IncenseBurner {
       void ignite() { System.out.println("Incense burning."); }
   }
-  
+
   class Choir {
       void sing() { System.out.println("Choir intones the hex-chants."); }
   }
-  
+
   class BellTower {
       void toll() { System.out.println("Bells toll to ward off anomalies."); }
   }
-  
+
   public class CathedralFacade {
       private final IncenseBurner burner;
       private final Choir choir;
       private final BellTower bells;
-      
+
       public CathedralFacade() {
           this.burner = new IncenseBurner();
           this.choir = new Choir();
           this.bells = new BellTower();
       }
-      
+
       public void beginMass() {
           System.out.println("--- Initiating High Mass ---");
           burner.ignite();

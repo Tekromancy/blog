@@ -4,8 +4,8 @@ description: Given a language, define a representation for its grammar along wit
 type: go
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Code-cracking
-formula: |
+arcaneSchool: "Divination // Code-cracking"
+formula: |2
   package interpreter
 
   import "strings"

@@ -4,15 +4,15 @@ description: Passing heretical requests along a chain of handlers until one take
 type: java
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Divination // Routing
-formula: |
+arcaneSchool: "Divination // Routing"
+formula: |2
   public abstract class Inquisitor {
       protected Inquisitor next;
-      
+
       public void setNext(Inquisitor next) {
           this.next = next;
       }
-      
+
       public void processHeresy(int severity) {
           if (canHandle(severity)) {
               executeJudgment(severity);
@@ -23,18 +23,18 @@ formula: |
               System.out.println("Heresy level " + severity + " is beyond even the High Council. The system falls.");
           }
       }
-      
+
       protected abstract boolean canHandle(int severity);
       protected abstract void executeJudgment(int severity);
   }
-  
+
   public class NoviceInquisitor extends Inquisitor {
       @Override protected boolean canHandle(int severity) { return severity <= 10; }
       @Override protected void executeJudgment(int severity) {
           System.out.println("Novice Inquisitor resolves minor anomaly.");
       }
   }
-  
+
   public class GrandInquisitor extends Inquisitor {
       @Override protected boolean canHandle(int severity) { return severity <= 100; }
       @Override protected void executeJudgment(int severity) {

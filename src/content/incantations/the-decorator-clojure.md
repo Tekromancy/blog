@@ -4,23 +4,23 @@ description: Dynamically layering new enchantments upon an existing spell.
 type: clojure
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Layering
-formula: |
+arcaneSchool: "Enchantment // Layering"
+formula: |2
   (ns tekromancy.decorator)
-  
+
   ;; Higher-order functions act as natural decorators in Clojure.
-  
+
   (defn base-spell [target]
     (str "Striking " target " with pure energy"))
-  
+
   (defn with-fire [spell-fn]
     (fn [target]
       (str (spell-fn target) " and searing flames")))
-  
+
   (defn with-echo [spell-fn]
     (fn [target]
       (str (spell-fn target) "... (echo)")))
-  
+
   ;; Usage:
   ;; (def ultimate-spell (-> base-spell with-fire with-echo))
   ;; (ultimate-spell "the beast")

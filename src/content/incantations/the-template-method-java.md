@@ -4,35 +4,35 @@ description: Dictating the rigid skeleton of a holy ritual while deferring minor
 type: java
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Formalism
-formula: |
+arcaneSchool: "Abjuration // Formalism"
+formula: |2
   public abstract class EnterpriseRitual {
-      
+
       // The Template Method itself is sealed
       public final void performRitual() {
           purifyEnvironment();
           chant();
           sealWards();
       }
-      
+
       private void purifyEnvironment() {
           System.out.println("System GC invoked. Environment purified.");
       }
-      
+
       protected abstract void chant();
-      
+
       private void sealWards() {
           System.out.println("Enterprise firewalls re-engaged. Wards sealed.");
       }
   }
-  
+
   public class DataMigrationRitual extends EnterpriseRitual {
       @Override
       protected void chant() {
           System.out.println("Intoning SQL queries across the vast databanks...");
       }
   }
-  
+
   public class CacheEvictionRitual extends EnterpriseRitual {
       @Override
       protected void chant() {

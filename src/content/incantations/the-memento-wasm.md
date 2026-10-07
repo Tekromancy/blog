@@ -4,8 +4,8 @@ description: Capturing the volatile soul state of the engine into a linear memor
 type: wasm
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Soul Trapping
-formula: |
+arcaneSchool: "Necromancy // Soul Trapping"
+formula: |2
   (module
     (memory 1)
     (func $save_state (param $snapshot_ptr i32) (param $hp i32) (param $mana i32)

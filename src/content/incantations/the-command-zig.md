@@ -4,10 +4,10 @@ description: "Encapsulate a request as an object, allowing parameterization, que
 type: zig
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Invocation Storing
-formula: |
+arcaneSchool: "Evocation // Invocation Storing"
+formula: |2
   const std = @import("std");
-  
+
   pub const Command = struct {
       vtable: *const VTable,
       pub const VTable = struct {
@@ -17,14 +17,14 @@ formula: |
       pub fn execute(self: *Command) void { self.vtable.execute(self); }
       pub fn undo(self: *Command) void { self.vtable.undo(self); }
   };
-  
+
   pub const RitualQueue = struct {
       commands: std.ArrayList(*Command),
-      
+
       pub fn addRitual(self: *RitualQueue, cmd: *Command) !void {
           try self.commands.append(cmd);
       }
-      
+
       pub fn unleash(self: *RitualQueue) void {
           for (self.commands.items) |cmd| {
               cmd.execute();

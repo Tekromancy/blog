@@ -4,13 +4,13 @@ description: Caching intrinsic mystical states to prevent mana exhaustion.
 type: kotlin
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Abjuration // Efficiency
-formula: |
+arcaneSchool: "Abjuration // Efficiency"
+formula: |2
   class RuneTexture(val color: String, val glow: Boolean)
-  
+
   object TextureCache {
       private val cache = mutableMapOf<String, RuneTexture>()
-      
+
       fun getTexture(color: String): RuneTexture {
           return cache.getOrPut(color) {
               println("Generating new texture for $color")
@@ -18,7 +18,7 @@ formula: |
           }
       }
   }
-  
+
   class RenderedRune(val x: Int, val y: Int, val texture: RuneTexture)
 tags: [kotlin, structural, flyweight]
 pubDate: 2026-10-07

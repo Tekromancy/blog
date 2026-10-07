@@ -4,8 +4,8 @@ description: "Structured antiquity and the Builder pattern."
 type: algol
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Assembly
-formula: |
+arcaneSchool: "Transmutation // Assembly"
+formula: |2
   CO Builder in ALGOL 68 CO
   BEGIN
     MODE BUILDER = STRUCT (PROC VOID build);

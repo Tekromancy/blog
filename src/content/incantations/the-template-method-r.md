@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Template Method"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Ritual Skeleton"
-formula: |
+formula: |2
   library(R6)
 
   # Abstract Class

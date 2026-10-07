@@ -4,8 +4,8 @@ description: "A treacherous familiar that acts as a gatekeeper, demanding a toll
 type: ruby
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   class ForbiddenGrimoire
     def read_secret
       "The true name of the Archdemon is revealed!"

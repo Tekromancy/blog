@@ -4,8 +4,8 @@ description: Translating arcane browser incantations into native WASM logic puls
 type: wasm
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Polymorph
-formula: |
+arcaneSchool: "Transmutation // Polymorph"
+formula: |2
   (module
     (import "env" "legacy_cast" (func $legacy_cast (param i32)))
     (func $modern_cast (param $spell_id f64)

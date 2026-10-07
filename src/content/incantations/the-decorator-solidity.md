@@ -4,8 +4,8 @@ description: Layering curses upon an existing geas without altering its core ess
 type: solidity
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Layering
-formula: |
+arcaneSchool: "Enchantment // Layering"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 
@@ -21,7 +21,7 @@ formula: |
 
   abstract contract GeasModifier is IGeas {
       IGeas public baseGeas;
-      
+
       constructor(address _geas) {
           baseGeas = IGeas(_geas);
       }

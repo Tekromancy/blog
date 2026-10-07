@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Adapter"
 gofCategory: "Structural"
 arcaneSchool: "Divination // Translation"
-formula: |
+formula: |2
   library(R6)
 
   # Target Interface

@@ -4,8 +4,8 @@ description: Modeling mutable planes with the State Monad.
 type: haskell
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Flux
-formula: |
+arcaneSchool: "Transmutation // Flux"
+formula: |2
   module StatePattern where
   import Control.Monad.State
   type MachineState = String

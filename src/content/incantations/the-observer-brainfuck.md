@@ -4,8 +4,8 @@ description: When you look into the tape, the tape looks into you.
 type: brainfuck
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   +           [The Subject changes]
   >+>+<<      [Notify the Observers]
 tags: [observer, abyss, scrying]

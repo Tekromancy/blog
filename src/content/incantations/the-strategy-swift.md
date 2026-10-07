@@ -4,8 +4,8 @@ description: Selecting a magical algorithm at runtime.
 type: swift
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   protocol CombatStrategy {
       func executeAttack()
   }

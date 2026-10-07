@@ -4,8 +4,8 @@ description: Broadcasting notifications directly from the database engine to lis
 type: sql
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Ethereal Broadcasting
-formula: |
+arcaneSchool: "Divination // Ethereal Broadcasting"
+formula: |2
   -- The Subject sending the notification
   CREATE OR REPLACE FUNCTION notify_summoning_complete()
   RETURNS TRIGGER AS $$

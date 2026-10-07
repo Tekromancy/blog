@@ -4,21 +4,21 @@ description: Preserving the soul's state in a phylactery to rewind time upon dea
 type: assembly
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Chronomancy
-formula: |
+arcaneSchool: "Necromancy // Chronomancy"
+formula: |2
   section .bss
       phylactery_rax resq 1
       phylactery_rbx resq 1
-  
+
   section .text
       global save_state
       global restore_state
-  
+
   save_state:
       mov [phylactery_rax], rax
       mov [phylactery_rbx], rbx
       ret
-  
+
   restore_state:
       mov rax, [phylactery_rax]
       mov rbx, [phylactery_rbx]

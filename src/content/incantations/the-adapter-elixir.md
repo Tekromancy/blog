@@ -4,19 +4,19 @@ description: Bridge incompatible telepathic protocols to forge unexpected allian
 type: elixir
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Alteration // Protocol-Shifting
-formula: |
+arcaneSchool: "Alteration // Protocol-Shifting"
+formula: |2
   defmodule Tekromancy.OldGodsProtocol do
     def chant(words), do: "Ph'nglui mglw'nafh #{words}"
   end
-  
+
   defmodule Tekromancy.NeonSyndicateProtocol do
     @callback broadcast(binary) :: :ok
   end
-  
+
   defmodule Tekromancy.ProtocolAdapter do
     @behaviour Tekromancy.NeonSyndicateProtocol
-    
+
     def broadcast(message) do
       # Adapting the ancient chants into a neon broadcast
       chant = Tekromancy.OldGodsProtocol.chant(message)

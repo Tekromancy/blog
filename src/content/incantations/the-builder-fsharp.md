@@ -4,8 +4,8 @@ description: Constructing complex magical artifacts step-by-step through immutab
 type: fsharp
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Artifice
-formula: |
+arcaneSchool: "Transmutation // Artifice"
+formula: |2
   type Artifact = { Core: string; Runes: string list; EnchantmentLevel: int }
 
   type ArtifactBuilder() =
@@ -16,7 +16,7 @@ formula: |
       member _.SetCore c = core <- c; ()
       member _.AddRune r = runes <- r :: runes; ()
       member _.SetLevel l = level <- l; ()
-      
+
       member _.Build() =
           { Core = core; Runes = List.rev runes; EnchantmentLevel = level }
 

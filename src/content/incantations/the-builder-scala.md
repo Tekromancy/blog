@@ -4,8 +4,8 @@ description: Construct complex magical constructs step-by-step, separating the r
 type: scala
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Golemancy
-formula: |
+arcaneSchool: "Transmutation // Golemancy"
+formula: |2
   case class Golem(core: String, limbs: Int, runes: List[String])
 
   class GolemBuilder {
@@ -16,7 +16,7 @@ formula: |
     def withCore(c: String): GolemBuilder = { this.core = c; this }
     def withLimbs(l: Int): GolemBuilder = { this.limbs = l; this }
     def withRune(r: String): GolemBuilder = { this.runes = this.runes :+ r; this }
-    
+
     def awaken(): Golem = Golem(core, limbs, runes)
   }
 

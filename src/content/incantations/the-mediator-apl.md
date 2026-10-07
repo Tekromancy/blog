@@ -4,43 +4,43 @@ description: Coordinate alien drone swarms without tight neural coupling.
 type: apl
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Neural-Routing
-formula: |
+arcaneSchool: "Enchantment // Neural-Routing"
+formula: |2
   :Class SwarmMediator
       :Field Public Drones ← ⍬
-      
+
       ∇ Register Drone
         :Access Public
         Drones ← Drones , Drone
         Drone.SetMediator ⎕THIS
       ∇
-      
+
       ∇ Broadcast (Sender Message)
         :Access Public
         { (⍵≢Sender) : ⍵.Receive Message } ¨ Drones
       ∇
   :EndClass
-  
+
   :Class Drone
       :Field Private Mediator ← ⍬
       :Field Public ID
-      
+
       ∇ Make I
         :Access Public
         :Implements Constructor
         ID ← I
       ∇
-      
+
       ∇ SetMediator M
         :Access Public
         Mediator ← M
       ∇
-      
+
       ∇ Send Message
         :Access Public
         Mediator.Broadcast ⎕THIS Message
       ∇
-      
+
       ∇ Receive Message
         :Access Public
         ⎕ ← 'Drone ', ⍕ID, ' received: ', Message, ' ⍫'

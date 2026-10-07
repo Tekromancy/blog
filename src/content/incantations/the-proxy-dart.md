@@ -4,27 +4,27 @@ description: Control access to an underlying magical entity with a surrogate.
 type: dart
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Phantasm
-formula: |
+arcaneSchool: "Illusion // Phantasm"
+formula: |2
   abstract class Grimoire {
     void readForbiddenKnowledge();
   }
-  
+
   class RealGrimoire implements Grimoire {
     RealGrimoire() {
       print('Materializing the heavy, cursed tome... (Costly)');
     }
-    
+
     @override
     void readForbiddenKnowledge() => print('Reading secrets of the abyss...');
   }
-  
+
   class GrimoireProxy implements Grimoire {
     RealGrimoire? _realGrimoire;
     final bool hasClearance;
-    
+
     GrimoireProxy({this.hasClearance = false});
-    
+
     @override
     void readForbiddenKnowledge() {
       if (!hasClearance) {
@@ -35,7 +35,7 @@ formula: |
       _realGrimoire!.readForbiddenKnowledge();
     }
   }
-  
+
   void main() {
     final proxy = GrimoireProxy(hasClearance: true);
     print('Proxy created. Tome not yet loaded.');

@@ -4,13 +4,13 @@ description: Dynamic context swapping using the State pattern.
 type: script
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Statemancy
-formula: |
+arcaneSchool: "Transmutation // Statemancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Context pointer
   CURRENT_STATE="state_idle"
-  
+
   # State Implementations
   state_idle() {
     echo "[Idle] Waiting for stimulus..."
@@ -18,7 +18,7 @@ formula: |
       CURRENT_STATE="state_breaching"
     fi
   }
-  
+
   state_breaching() {
     echo "[Breaching] Injecting payloads..."
     if [[ "$1" == "success" ]]; then
@@ -27,17 +27,17 @@ formula: |
       CURRENT_STATE="state_idle"
     fi
   }
-  
+
   state_root() {
     echo "[Root] Complete system control achieved."
   }
-  
+
   # Context runner
   execute_state() {
     # Call the function named in CURRENT_STATE
     $CURRENT_STATE "$1"
   }
-  
+
   # Client Simulation
   execute_state "wait"
   execute_state "hack"

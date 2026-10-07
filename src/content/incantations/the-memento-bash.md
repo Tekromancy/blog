@@ -4,38 +4,38 @@ description: Preserving and restoring temporal shell variables via the Memento.
 type: script
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Statecraft
-formula: |
+arcaneSchool: "Chronomancy // Statecraft"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Originator State
   CYBER_CORE_FREQ=2.4
   CYBER_SHIELD_PWR=100
-  
+
   # Memento Array
   declare -A MEMENTO_STATE
-  
+
   save_memento() {
     MEMENTO_STATE[freq]=$CYBER_CORE_FREQ
     MEMENTO_STATE[shield]=$CYBER_SHIELD_PWR
     echo "State saved to temporal buffer."
   }
-  
+
   restore_memento() {
     CYBER_CORE_FREQ=${MEMENTO_STATE[freq]}
     CYBER_SHIELD_PWR=${MEMENTO_STATE[shield]}
     echo "State restored from temporal buffer."
   }
-  
+
   # Usage
   echo "Initial: Freq=$CYBER_CORE_FREQ, Shield=$CYBER_SHIELD_PWR"
   save_memento
-  
+
   echo "Overclocking core..."
   CYBER_CORE_FREQ=5.0
   CYBER_SHIELD_PWR=20
   echo "Current: Freq=$CYBER_CORE_FREQ, Shield=$CYBER_SHIELD_PWR"
-  
+
   echo "System unstable! Rolling back..."
   restore_memento
   echo "Final: Freq=$CYBER_CORE_FREQ, Shield=$CYBER_SHIELD_PWR"

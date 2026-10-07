@@ -4,10 +4,10 @@ description: Spawning polymorphic daemon processes using the Factory Method in B
 type: script
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Processmancy
-formula: |
+arcaneSchool: "Conjuration // Processmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Factory Method
   spawn_daemon() {
     local daemon_type=$1
@@ -24,16 +24,16 @@ formula: |
         ;;
     esac
   }
-  
+
   # Concrete Products
   spawn_watcher_daemon() {
     echo "[Watcher Daemon] Initialized. Monitoring system logs for anomalies..."
   }
-  
+
   spawn_indexer_daemon() {
     echo "[Indexer Daemon] Initialized. Cataloging cyber-artifacts..."
   }
-  
+
   # Client
   spawn_daemon "watcher"
   spawn_daemon "indexer"

@@ -4,24 +4,24 @@ description: Snapshot the stack state to cheat death itself.
 type: forth
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Time-Weaving
-formula: |
+arcaneSchool: "Chronomancy // Time-Weaving"
+formula: |2
   \ Time-Weaving: The Memento
   \ Saving and restoring variables or stack depth.
-  
+
   VARIABLE TIMELINE-HP
   VARIABLE SAVED-HP
-  
+
   : SET-HP ( n -- ) TIMELINE-HP ! ;
-  
+
   : SAVE-TIMELINE ( -- )
     TIMELINE-HP @ SAVED-HP !
     ." Timeline preserved." CR ;
-    
+
   : RESTORE-TIMELINE ( -- )
     SAVED-HP @ TIMELINE-HP !
     ." Time reversed. HP restored." CR ;
-    
+
   \ Usage:
   \ 100 SET-HP SAVE-TIMELINE
   \ 0 SET-HP   \ Death!

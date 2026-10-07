@@ -4,8 +4,8 @@ description: Delegating the incantation of creation to specialized sub-mages.
 type: cpp
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   #include <memory>
   class Familiar {
   public: virtual ~Familiar() = default; virtual void Speak() = 0;

@@ -4,8 +4,8 @@ description: Defining the skeleton of an arcane ritual, allowing subclasses to o
 type: swift
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Rituals
-formula: |
+arcaneSchool: "Enchantment // Rituals"
+formula: |2
   protocol Ritual {
       func prepareIngredients()
       func chant()

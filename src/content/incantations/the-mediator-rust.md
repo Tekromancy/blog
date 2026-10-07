@@ -4,8 +4,8 @@ description: Define an object that encapsulates how a set of objects interact.
 type: rust
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Synchronization
-formula: |
+arcaneSchool: "Enchantment // Synchronization"
+formula: |2
   pub trait Mediator {
       fn notify(&self, sender: &str, event: &str);
   }

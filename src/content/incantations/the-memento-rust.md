@@ -4,8 +4,8 @@ description: Without violating encapsulation, capture and externalize an object'
 type: rust
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State-preservation
-formula: |
+arcaneSchool: "Chronomancy // State-preservation"
+formula: |2
   #[derive(Clone, Debug)]
   pub struct CoreSnapshot {
       state: String,

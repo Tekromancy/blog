@@ -4,17 +4,17 @@ description: Safely traversing collections and text streams without memory bloat
 type: script
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Loopmancy
-formula: |
+arcaneSchool: "Transmutation // Loopmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Aggregate (A generated stream of data)
   generate_nodes() {
     echo "Node_Alpha"
     echo "Node_Beta"
     echo "Node_Gamma"
   }
-  
+
   # The Iterator
   process_stream() {
     # 'read -r' is the Iterator traversing the stream line-by-line
@@ -24,7 +24,7 @@ formula: |
       sleep 0.5
     done
   }
-  
+
   # Client Code connecting Aggregate to Iterator
   generate_nodes | process_stream
 tags: [bash, iterator, behavioral, streams]

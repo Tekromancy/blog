@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Factory Method"
 gofCategory: "Creational"
 arcaneSchool: "Divination // Scrying Weaver"
-formula: |
+formula: |2
   library(R6)
 
   # Product interface

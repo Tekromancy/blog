@@ -4,8 +4,8 @@ description: Treating individual rows and collections of rows uniformly via recu
 type: sql
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Divination // Fractal Tracing
-formula: |
+arcaneSchool: "Divination // Fractal Tracing"
+formula: |2
   -- Self-referential table
   CREATE TABLE coven_hierarchy (
       member_id SERIAL PRIMARY KEY,
@@ -19,9 +19,9 @@ formula: |
       SELECT member_id, moniker, mentor_id, 1 as rank
       FROM coven_hierarchy
       WHERE mentor_id IS NULL
-      
+
       UNION ALL
-      
+
       -- Recursive step: Apprentices
       SELECT c.member_id, c.moniker, c.mentor_id, l.rank + 1
       FROM coven_hierarchy c

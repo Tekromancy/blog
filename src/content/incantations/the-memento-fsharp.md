@@ -4,8 +4,8 @@ description: Capturing and restoring the internal state of a spellcasting matrix
 type: fsharp
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Chronomancy
-formula: |
+arcaneSchool: "Transmutation // Chronomancy"
+formula: |2
   type Memento = { State: string }
 
   type Chronomancer() =
@@ -14,9 +14,9 @@ formula: |
       member _.SetState(state) = 
           currentState <- state
           printfn "Chronomancer state is now: %s" currentState
-          
+
       member _.SaveTimeAnchor() = { State = currentState }
-      
+
       member _.RestoreTimeAnchor(memento: Memento) =
           currentState <- memento.State
           printfn "Time rewound. State restored to: %s" currentState
@@ -33,7 +33,7 @@ formula: |
   vault.Store(magus.SaveTimeAnchor())
 
   magus.SetState("Exhausted")
-  
+
   magus.RestoreTimeAnchor(vault.Retrieve())
 tags: [behavioral, memento, fsharp, chronomancy]
 pubDate: 2026-10-07

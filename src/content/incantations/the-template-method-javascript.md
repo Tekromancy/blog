@@ -4,8 +4,8 @@ description: Define the skeleton of a ritual in an operation, deferring some ste
 type: javascript
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Ritual Crafting
-formula: |
+arcaneSchool: "Necromancy // Ritual Crafting"
+formula: |2
   class RitualSkeleton {
     performRitual() {
       this.prepareCircle();
@@ -16,15 +16,15 @@ formula: |
     chant() { throw new Error("Must implement chant"); }
     manifest() { console.log("The entity appears!"); }
   }
-  
+
   class DemonSummoning extends RitualSkeleton {
     chant() { console.log("Chanting abyssal verses."); }
   }
-  
+
   class SpiritSummoning extends RitualSkeleton {
     chant() { console.log("Singing ancestral songs."); }
   }
-  
+
   const ritual = new DemonSummoning();
   ritual.performRitual();
 tags: [templates, rituals, inheritance]

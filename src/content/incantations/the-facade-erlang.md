@@ -4,11 +4,11 @@ description: A clean interface over a sprawling supervision tree.
 type: erlang
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Masking
-formula: |
+arcaneSchool: "Illusion // Masking"
+formula: |2
   -module(the_facade).
   -export([ignite_system/0]).
-  
+
   ignite_system() ->
       auth_server:start(),
       db_server:start(),

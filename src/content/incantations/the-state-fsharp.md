@@ -4,8 +4,8 @@ description: Allowing an entity to alter its behavior when its internal aetheric
 type: fsharp
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shapeshifting
-formula: |
+arcaneSchool: "Transmutation // Shapeshifting"
+formula: |2
   type IElementalState =
       abstract member Attack: unit -> string
       abstract member Morph: unit -> IElementalState
@@ -26,7 +26,7 @@ formula: |
 
   type ElementalFamiliar() =
       let mutable state : IElementalState = FireState()
-      
+
       member _.Action() = printfn "%s" (state.Attack())
       member _.Shift() = state <- state.Morph()
 

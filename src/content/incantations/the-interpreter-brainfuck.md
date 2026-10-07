@@ -4,8 +4,8 @@ description: Parsing the language of chaos.
 type: brainfuck
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Tongues
-formula: |
+arcaneSchool: "Divination // Tongues"
+formula: |2
   ,           [Read the chaotic input]
   [->+<]      [Translate into internal suffering]
   .           [Speak the translation]

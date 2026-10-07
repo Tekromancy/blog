@@ -4,8 +4,8 @@ description: Translating ancient draconic pacts into modern infernal interfaces.
 type: solidity
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Translation
-formula: |
+arcaneSchool: "Transmutation // Translation"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

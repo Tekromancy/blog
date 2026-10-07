@@ -4,12 +4,12 @@ description: Define an interface for summoning familiars, but let subclasses dec
 type: javascript
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Familiar Binding
-formula: |
+arcaneSchool: "Conjuration // Familiar Binding"
+formula: |2
   class Familiar { act() {} }
   class Raven extends Familiar { act() { console.log('Scouting from above'); } }
   class Rat extends Familiar { act() { console.log('Sneaking through shadows'); } }
-  
+
   class Summoner {
     summonFamiliar() { throw new Error('Must override'); }
     scout() {
@@ -17,15 +17,15 @@ formula: |
       familiar.act();
     }
   }
-  
+
   class AerialSummoner extends Summoner {
     summonFamiliar() { return new Raven(); }
   }
-  
+
   class UrbanSummoner extends Summoner {
     summonFamiliar() { return new Rat(); }
   }
-  
+
   const summoner = new AerialSummoner();
   summoner.scout();
 tags: [summoning, familiars, interface]

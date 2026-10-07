@@ -4,21 +4,21 @@ description: Parsing ancient runes to manifest dark logic.
 type: assembly
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Rune Deciphering
-formula: |
+arcaneSchool: "Necromancy // Rune Deciphering"
+formula: |2
   section .data
       dark_script db "R S R D", 0 ; Raise, Strike, Raise, Destroy
-  
+
   section .text
       global _start
-  
+
   _start:
       mov rsi, dark_script
   .loop:
       lodsb
       test al, al
       jz .end
-      
+
       cmp al, 'R'
       je .raise
       cmp al, 'S'
@@ -26,7 +26,7 @@ formula: |
       cmp al, 'D'
       je .destroy
       jmp .loop
-  
+
   .raise:
       ; Logic
       jmp .loop
@@ -36,7 +36,7 @@ formula: |
   .destroy:
       ; Logic
       jmp .loop
-  
+
   .end:
       mov rax, 60
       syscall

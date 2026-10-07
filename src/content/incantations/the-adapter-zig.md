@@ -4,25 +4,25 @@ description: "Bridge incompatible magical interfaces, allowing alien artifacts t
 type: zig
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Divination // Translation
-formula: |
+arcaneSchool: "Divination // Translation"
+formula: |2
   const std = @import("std");
-  
+
   pub const ModernWard = struct {
       pub fn activateWard(self: *ModernWard) void {
           std.debug.print("Modern ward activated.\n", .{});
       }
   };
-  
+
   pub const AncientRelic = struct {
       pub fn channelAether(self: *AncientRelic) void {
           std.debug.print("Ancient relic channeling aether.\n", .{});
       }
   };
-  
+
   pub const RelicAdapter = struct {
       relic: *AncientRelic,
-      
+
       pub fn activateWard(self: *RelicAdapter) void {
           // Adapting the old relic's power into a modern ward activation
           self.relic.channelAether();

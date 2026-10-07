@@ -4,24 +4,24 @@ description: Mutate an entity's soul dynamically via XT vectoring.
 type: forth
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Soul-Shifting
-formula: |
+arcaneSchool: "Transmutation // Soul-Shifting"
+formula: |2
   \ Soul-Shifting: The State Pattern
   \ Changing the behavior of a word by updating a DEFER.
-  
+
   DEFER BEHAVIOR
-  
+
   : PEACEFUL-STATE ( -- ) ." The golem stands idle." CR ;
   : ENRAGED-STATE ( -- ) ." The golem SMASHES!" CR ;
-  
+
   : PROVOKE ( -- )
     ' ENRAGED-STATE IS BEHAVIOR
     ." Golem provoked!" CR ;
-    
+
   : CALM ( -- )
     ' PEACEFUL-STATE IS BEHAVIOR
     ." Golem pacified." CR ;
-    
+
   \ Usage:
   \ CALM BEHAVIOR
   \ PROVOKE BEHAVIOR

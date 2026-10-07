@@ -4,8 +4,8 @@ description: Cloning existing mana constructs without re-invoking their creation
 type: pascal
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Transmutation // Replication
-formula: |
+arcaneSchool: "Transmutation // Replication"
+formula: |2
   unit PrototypePattern;
   interface
   type

@@ -4,30 +4,30 @@ description: Primordial foundries churning out families of numeric constructs fr
 type: fortran
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Supercomputing
-formula: |
+arcaneSchool: "Conjuration // Supercomputing"
+formula: |2
   module abstract_factory_m
     implicit none
     private
     public :: AbstractMonolith, AbstractFoundry
-  
+
     type, abstract :: AbstractMonolith
     contains
       procedure(calc_interface), deferred, pass :: compute
     end type AbstractMonolith
-  
+
     abstract interface
       subroutine calc_interface(this)
         import :: AbstractMonolith
         class(AbstractMonolith), intent(inout) :: this
       end subroutine calc_interface
     end interface
-  
+
     type, abstract :: AbstractFoundry
     contains
       procedure(forge_interface), deferred, pass :: create_monolith
     end type AbstractFoundry
-  
+
     abstract interface
       function forge_interface(this) result(ptr)
         import :: AbstractFoundry, AbstractMonolith

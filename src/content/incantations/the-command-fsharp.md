@@ -4,8 +4,8 @@ description: Encapsulating a spell request as an object, allowing logging, queui
 type: fsharp
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Geas
-formula: |
+arcaneSchool: "Enchantment // Geas"
+formula: |2
   type ICommand =
       abstract member Execute: unit -> unit
       abstract member Undo: unit -> unit
@@ -21,11 +21,11 @@ formula: |
 
   type ArchmageInvoker() =
       let mutable history: ICommand list = []
-      
+
       member _.Invoke(cmd: ICommand) =
           cmd.Execute()
           history <- cmd :: history
-          
+
       member _.UndoLast() =
           match history with
           | head :: tail -> 

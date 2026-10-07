@@ -4,23 +4,23 @@ description: Parsing custom domain-specific languages natively in the shell.
 type: script
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguamancy
-formula: |
+arcaneSchool: "Divination // Linguamancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # A simple DSL interpreter for moving a cyber-drone
   # Syntax: MOVE UP/DOWN/LEFT/RIGHT <steps>
-  
+
   interpret_drone_cmd() {
     local action=$1
     local dir=$2
     local steps=$3
-    
+
     if [[ "$action" != "MOVE" ]]; then
       echo "Syntax Error: Unknown action '$action'"
       return 1
     fi
-    
+
     case "$dir" in
       "UP")    echo "Drone thrusters fired. Ascending $steps units." ;;
       "DOWN")  echo "Drone descending $steps units." ;;
@@ -29,7 +29,7 @@ formula: |
       *)       echo "Syntax Error: Unknown direction '$dir'" ;;
     esac
   }
-  
+
   # Client / Context
   dsl_script="
   MOVE UP 10
@@ -37,7 +37,7 @@ formula: |
   ATTACK FRONT
   MOVE DOWN 2
   "
-  
+
   echo "$dsl_script" | while read -r line; do
     # Skip empty lines
     [[ -z "$line" ]] && continue

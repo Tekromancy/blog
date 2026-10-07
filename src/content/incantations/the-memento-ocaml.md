@@ -4,8 +4,8 @@ description: Capturing temporal snapshots of a sorcerer's state for chronomantic
 type: ocaml
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State Reversal
-formula: |
+arcaneSchool: "Chronomancy // State Reversal"
+formula: |2
   module ChronoVault : sig
     type state
     type memento

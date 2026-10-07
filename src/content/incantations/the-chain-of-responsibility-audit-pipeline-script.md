@@ -5,7 +5,7 @@ type: "script"
 gofPattern: "Chain of Responsibility Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // The Seven Veils Audit Tribunal"
-formula: |
+formula: |2
   #!/usr/bin/env bash
   set -Eeuo pipefail
   readonly HANDLERS=(veil_syntax veil_permissions veil_secrets veil_checksum)

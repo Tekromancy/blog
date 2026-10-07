@@ -4,8 +4,8 @@ description: Allow a familiar to completely alter its behavior when its internal
 type: scala
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Shapeshifting
-formula: |
+arcaneSchool: "Transmutation // Shapeshifting"
+formula: |2
   sealed trait ElementalState {
     def attack(): String
   }

@@ -4,16 +4,16 @@ description: Parsing and evaluating archaic runic languages.
 type: kotlin
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   interface Expression {
       fun interpret(context: Map<String, Boolean>): Boolean
   }
-  
+
   class RuneExpression(private val rune: String) : Expression {
       override fun interpret(context: Map<String, Boolean>) = context[rune] ?: false
   }
-  
+
   class AndExpression(private val left: Expression, private val right: Expression) : Expression {
       override fun interpret(context: Map<String, Boolean>) =
           left.interpret(context) && right.interpret(context)

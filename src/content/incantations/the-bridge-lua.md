@@ -4,8 +4,8 @@ description: "Separating the abstraction of a magical ritual from its specific e
 type: lua
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Planar
-formula: |
+arcaneSchool: "Conjuration // Planar"
+formula: |2
   local FireElement = { ignite = function() return "Flames burst" end }
   local FrostElement = { ignite = function() return "Frost shatters" end }
 

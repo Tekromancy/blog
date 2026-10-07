@@ -4,8 +4,8 @@ description: Apply new arcane operations over an entire bestiary structure.
 type: python
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Taxonomy
-formula: |
+arcaneSchool: "Divination // Taxonomy"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Creature(ABC):
@@ -23,14 +23,14 @@ formula: |
   class SpellVisitor(ABC):
       @abstractmethod
       def visit_dragon(self, dragon: Dragon): pass
-      
+
       @abstractmethod
       def visit_griffin(self, griffin: Griffin): pass
 
   class ScanWeaknessVisitor(SpellVisitor):
       def visit_dragon(self, dragon: Dragon):
           print("Dragon weakness: Underbelly scales.")
-          
+
       def visit_griffin(self, griffin: Griffin):
           print("Griffin weakness: Aerial immobility during dive.")
 

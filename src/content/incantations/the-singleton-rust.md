@@ -4,8 +4,8 @@ description: Ensure a class only has one instance, and provide a global point of
 type: rust
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Ley-line Tapping
-formula: |
+arcaneSchool: "Abjuration // Ley-line Tapping"
+formula: |2
   use std::sync::{Arc, Mutex};
   use lazy_static::lazy_static;
 

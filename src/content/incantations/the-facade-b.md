@@ -4,13 +4,13 @@ description: "A simple interface hiding the chaotic abyss of primordial B struct
 type: b
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Glamour
-formula: |
+arcaneSchool: "Illusion // Glamour"
+formula: |2
   /* The chaotic abyss */
   subsystem_init_mem(ptr) { /* Arcane setup */ }
   subsystem_align_stars() { /* Cosmological wait */ }
   subsystem_ignite(ptr) { /* Unleash energy */ }
-  
+
   /* The Facade */
   simple_cast() {
       auto chaos_buffer[10];
@@ -18,7 +18,7 @@ formula: |
       subsystem_align_stars();
       subsystem_ignite(chaos_buffer);
   }
-  
+
   apprentice_turn() {
       /* The apprentice need not know the stars or the abyss */
       simple_cast();

@@ -4,20 +4,20 @@ description: A spectral stand-in for a resource-heavy arcane entity.
 type: kotlin
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Phantasm
-formula: |
+arcaneSchool: "Illusion // Phantasm"
+formula: |2
   interface Grimoire {
       fun readSecret(): String
   }
-  
+
   class AncientGrimoire : Grimoire {
       init { println("Loading heavy grimoire into memory...") }
       override fun readSecret() = "The ultimate truth"
   }
-  
+
   class GrimoireProxy : Grimoire {
       private val realGrimoire by lazy { AncientGrimoire() }
-      
+
       override fun readSecret(): String {
           println("Checking clearance...")
           return realGrimoire.readSecret()

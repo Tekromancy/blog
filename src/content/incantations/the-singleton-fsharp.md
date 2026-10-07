@@ -4,15 +4,15 @@ description: A singular, immutable locus of magical energy within the CLR.
 type: fsharp
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Leylines
-formula: |
+arcaneSchool: "Abjuration // Leylines"
+formula: |2
   type LeylineNexus private () =
       static let instance = LeylineNexus()
-      
+
       let mutable energyLevel = 1000
 
       static member Instance = instance
-      
+
       member _.TapEnergy(amount) =
           if energyLevel >= amount then
               energyLevel <- energyLevel - amount

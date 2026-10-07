@@ -4,12 +4,12 @@ description: Coordinating the dance of elemental spirits to prevent chaotic clas
 type: ocaml
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Elemental Harmony
-formula: |
+arcaneSchool: "Enchantment // Elemental Harmony"
+formula: |2
   module type SPIRIT = sig
     val receive : string -> unit
   end
-  
+
   module Nexus = struct
     let spirits = ref []
     let register s = spirits := s :: !spirits

@@ -4,8 +4,8 @@ description: Decoupling the mystical abstraction from its implementation planar 
 type: pascal
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Abjuration // Planar
-formula: |
+arcaneSchool: "Abjuration // Planar"
+formula: |2
   unit BridgePattern;
   interface
   type

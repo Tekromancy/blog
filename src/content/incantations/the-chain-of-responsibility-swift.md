@@ -4,8 +4,8 @@ description: Passing an arcane request along a chain of magical handlers.
 type: swift
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Channeling
-formula: |
+arcaneSchool: "Evocation // Channeling"
+formula: |2
   protocol SpellHandler {
       var next: SpellHandler? { get set }
       func handle(spellLevel: Int)

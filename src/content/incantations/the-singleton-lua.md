@@ -4,8 +4,8 @@ description: "Ensures only one instance of a supreme magical artifact exists wit
 type: lua
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Sealing
-formula: |
+arcaneSchool: "Abjuration // Sealing"
+formula: |2
   local WorldTree = {}
   local instance = nil
 

@@ -4,12 +4,12 @@ description: Traversing chaotic collections of magical artifacts safely.
 type: kotlin
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Seeking
-formula: |
+arcaneSchool: "Divination // Seeking"
+formula: |2
   class Grimoire(private val spells: List<String>) : Iterable<String> {
       override fun iterator(): Iterator<String> = GrimoireIterator(spells)
   }
-  
+
   class GrimoireIterator(private val spells: List<String>) : Iterator<String> {
       private var index = 0
       override fun hasNext() = index < spells.size

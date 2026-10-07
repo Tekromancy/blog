@@ -4,8 +4,8 @@ description: A rigid warding structure for generating families of arcane sigils.
 type: pascal
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Wardcraft
-formula: |
+arcaneSchool: "Conjuration // Wardcraft"
+formula: |2
   unit AbstractFactory;
   interface
   type

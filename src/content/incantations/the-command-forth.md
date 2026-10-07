@@ -4,18 +4,18 @@ description: Encapsulate actions as pure Execution Tokens on the stack.
 type: forth
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Rune-Binding
-formula: |
+arcaneSchool: "Enchantment // Rune-Binding"
+formula: |2
   \ Rune-Binding: The Command Pattern
   \ Treating actions as data using XTs (Execution Tokens).
-  
+
   : SPELL-HEAL ( -- ) ." Vitality restored." CR ;
   : SPELL-HARM ( -- ) ." Flesh boils." CR ;
-  
+
   \ We push the XT of the spells to the stack and execute them later.
   : CAST-STORED ( xt -- )
     ." Channeling stored rune... " EXECUTE ;
-    
+
   \ Usage:
   \ ' SPELL-HEAL CAST-STORED
   \ ' SPELL-HARM CAST-STORED

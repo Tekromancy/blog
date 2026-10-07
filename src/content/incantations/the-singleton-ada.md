@@ -4,22 +4,22 @@ description: Ensuring only one instance of the primary ley-line tap exists.
 type: ada
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Ley-Line Control
-formula: |
+arcaneSchool: "Abjuration // Ley-Line Control"
+formula: |2
   package Ley_Line_Tap is
-     
+
      type Tap_Instance is tagged private;
-     
+
      function Get_Instance return Tap_Instance;
      procedure Draw_Power (T : in out Tap_Instance; Amount : Float);
-     
+
   private
      type Tap_Instance is tagged record
         Power_Level : Float := 100.0;
      end record;
-     
+
      The_Single_Tap : Tap_Instance;
-     
+
      function Get_Instance return Tap_Instance is
      begin
         return The_Single_Tap;

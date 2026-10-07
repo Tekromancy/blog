@@ -4,29 +4,29 @@ description: A unified interface to the ancient, sprawling subsystems of a subte
 type: fortran
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Transmutation // Subsystem Binding
-formula: |
+arcaneSchool: "Transmutation // Subsystem Binding"
+formula: |2
   module facade_m
     implicit none
     private
     public :: MainframeFacade
-  
+
     ! Complex Subsystems
     type :: CoolingSubsystem
     contains
       procedure, pass :: pump_nitrogen
     end type CoolingSubsystem
-    
+
     type :: PowerSubsystem
     contains
       procedure, pass :: ignite_core
     end type PowerSubsystem
-    
+
     type :: MemorySubsystem
     contains
       procedure, pass :: load_punch_cards
     end type MemorySubsystem
-  
+
     ! The Facade
     type :: MainframeFacade
       type(CoolingSubsystem) :: cooler
@@ -35,20 +35,20 @@ formula: |
     contains
       procedure, pass :: cold_boot
     end type MainframeFacade
-  
+
   contains
     subroutine pump_nitrogen(this)
       class(CoolingSubsystem), intent(inout) :: this
     end subroutine pump_nitrogen
-    
+
     subroutine ignite_core(this)
       class(PowerSubsystem), intent(inout) :: this
     end subroutine ignite_core
-    
+
     subroutine load_punch_cards(this)
       class(MemorySubsystem), intent(inout) :: this
     end subroutine load_punch_cards
-    
+
     subroutine cold_boot(this)
       class(MainframeFacade), intent(inout) :: this
       call this%cooler%pump_nitrogen()

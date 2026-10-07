@@ -4,14 +4,14 @@ description: Dynamically attach new meta-magical properties to an artifact.
 type: python
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Transmutation // Aura Weaving
-formula: |
+arcaneSchool: "Transmutation // Aura Weaving"
+formula: |2
   from abc import ABC, abstractmethod
 
   class Artifact(ABC):
       @abstractmethod
       def power_level(self) -> int: pass
-      
+
       @abstractmethod
       def description(self) -> str: pass
 
@@ -22,7 +22,7 @@ formula: |
   class ArtifactDecorator(Artifact):
       def __init__(self, artifact: Artifact):
           self.artifact = artifact
-          
+
       def power_level(self) -> int: return self.artifact.power_level()
       def description(self) -> str: return self.artifact.description()
 

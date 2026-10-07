@@ -4,11 +4,11 @@ description: Conserving magical energy by sharing immutable soul-fragments.
 type: ocaml
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Essence Conservation
-formula: |
+arcaneSchool: "Transmutation // Essence Conservation"
+formula: |2
   module SoulForge = struct
     let cache = Hashtbl.create 16
-    
+
     let get_fragment essence =
       match Hashtbl.find_opt cache essence with
       | Some frag -> frag

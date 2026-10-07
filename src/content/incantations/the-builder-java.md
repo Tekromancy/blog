@@ -4,47 +4,47 @@ description: Step-by-step construction of complex, immutable enterprise grimoire
 type: java
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Liturgy
-formula: |
+arcaneSchool: "Transmutation // Liturgy"
+formula: |2
   public class EnterpriseGrimoire {
       private final String binding;
       private final String pages;
       private final boolean isCursed;
       private final int bureaucraticStamps;
-  
+
       private EnterpriseGrimoire(Builder builder) {
           this.binding = builder.binding;
           this.pages = builder.pages;
           this.isCursed = builder.isCursed;
           this.bureaucraticStamps = builder.bureaucraticStamps;
       }
-  
+
       public static class Builder {
           private String binding;
           private String pages;
           private boolean isCursed = false;
           private int bureaucraticStamps = 0;
-  
+
           public Builder withBinding(String binding) {
               this.binding = binding;
               return this;
           }
-  
+
           public Builder withPages(String pages) {
               this.pages = pages;
               return this;
           }
-  
+
           public Builder addCurse() {
               this.isCursed = true;
               return this;
           }
-  
+
           public Builder addStamp() {
               this.bureaucraticStamps++;
               return this;
           }
-  
+
           public EnterpriseGrimoire build() {
               if (binding == null || pages == null) {
                   throw new IllegalStateException("Grimoire violates enterprise standards.");
@@ -52,7 +52,7 @@ formula: |
               return new EnterpriseGrimoire(this);
           }
       }
-      
+
       public void invoke() {
           System.out.println("Invoking grimoire with " + bureaucraticStamps + " stamps.");
       }

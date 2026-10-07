@@ -4,8 +4,8 @@ description: "Cloning existing magical entities by copying their essence across 
 type: lua
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Cloning
-formula: |
+arcaneSchool: "Illusion // Cloning"
+formula: |2
   local Prototype = {}
   function Prototype:clone(obj)
     local cloned = {}

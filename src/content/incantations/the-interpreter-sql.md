@@ -4,8 +4,8 @@ description: Parsing and executing logic strings stored within the database grid
 type: sql
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Rune Translation
-formula: |
+arcaneSchool: "Enchantment // Rune Translation"
+formula: |2
   -- Evaluating simple mathematical runes via PL/pgSQL
   CREATE OR REPLACE FUNCTION interpret_rune_math(expression TEXT) 
   RETURNS NUMERIC AS $$

@@ -4,8 +4,8 @@ description: The single immutable dark grimoire on the blockchain, eternally sin
 type: solidity
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 
@@ -14,9 +14,9 @@ formula: |
 
       // In Solidity, contracts are inherently singletons if only deployed once.
       // To enforce this within another contract system:
-      
+
       bool private initialized;
-      
+
       function init() public {
           require(!initialized, "The Grimoire is already bound to this realm.");
           initialized = true;

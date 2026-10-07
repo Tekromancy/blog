@@ -4,32 +4,32 @@ description: Preserve and restore the state of shifting dimensional matrices.
 type: apl
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State-Preservation
-formula: |
+arcaneSchool: "Chronomancy // State-Preservation"
+formula: |2
   :Class MatrixState
       :Field Public StateArray
-      
+
       ∇ Make Arr
         :Access Public
         :Implements Constructor
         StateArray ← Arr
       ∇
   :EndClass
-  
+
   :Class AlienConstruct
       :Field Private CurrentState ← 2 2 ⍴ 0
-      
+
       ∇ Mutate NewState
         :Access Public
         CurrentState ← NewState
         ⎕ ← 'Construct mutated: ', ⍕CurrentState
       ∇
-      
+
       ∇ R←Save
         :Access Public
         R ← ⎕NEW MatrixState (CurrentState)
       ∇
-      
+
       ∇ Restore Memento
         :Access Public
         CurrentState ← Memento.StateArray

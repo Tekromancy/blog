@@ -4,8 +4,8 @@ description: "Bridging the host engine's magic with the delicate syntax of Lua's
 type: lua
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Bridging
-formula: |
+arcaneSchool: "Transmutation // Bridging"
+formula: |2
   local HostEngineAPI = {
     execute_spell_command = function(self, cmd) return "Executing: " .. cmd end
   }

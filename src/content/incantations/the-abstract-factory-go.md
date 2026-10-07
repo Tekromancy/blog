@@ -4,8 +4,8 @@ description: Conjure families of related or dependent objects without specifying
 type: go
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Matter-weaving
-formula: |
+arcaneSchool: "Conjuration // Matter-weaving"
+formula: |2
   package abstractfactory
 
   import "fmt"

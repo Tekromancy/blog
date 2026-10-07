@@ -4,8 +4,8 @@ description: "Structured antiquity and the Interpreter pattern."
 type: algol
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Lexicon
-formula: |
+arcaneSchool: "Divination // Lexicon"
+formula: |2
   CO Interpreter in ALGOL 68 CO
   BEGIN
     MODE EXPRESSION = STRUCT (PROC VOID interpret);

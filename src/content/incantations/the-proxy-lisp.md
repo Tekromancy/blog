@@ -4,28 +4,28 @@ description: "Delaying the instantiation of an apocalyptic entity until absolute
 type: lisp
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Containment
-formula: |
+arcaneSchool: "Abjuration // Containment"
+formula: |2
   (defpackage :sealed-proxy
     (:use :cl))
   (in-package :sealed-proxy)
-  
+
   (defgeneric smite-world (entity target))
-  
+
   ;; The Real Subject
   (defclass true-cthulhu ()
     ((awoken :initform t)))
-  
+
   (defmethod initialize-instance :after ((c true-cthulhu) &key)
     (format t "[EXPENSIVE] The oceans boil! True Cthulhu is loaded into memory!~%"))
-  
+
   (defmethod smite-world ((c true-cthulhu) target)
     (format t "True Cthulhu crushes ~a into cosmic dust.~%" target))
-  
+
   ;; The Proxy
   (defclass idol-of-cthulhu ()
     ((real-instance :initform nil :accessor real-instance)))
-  
+
   (defmethod smite-world ((proxy idol-of-cthulhu) target)
     (format t "The idol resonates... checking containment...~%")
     (unless (real-instance proxy)

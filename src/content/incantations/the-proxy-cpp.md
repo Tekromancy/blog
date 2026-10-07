@@ -4,8 +4,8 @@ description: Providing a surrogate or placeholder to control access to a true ma
 type: cpp
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Illusion // Shadowcraft
-formula: |
+arcaneSchool: "Illusion // Shadowcraft"
+formula: |2
   #include <memory>
   class Grimoire {
   public: virtual ~Grimoire() = default; virtual void Read() = 0;

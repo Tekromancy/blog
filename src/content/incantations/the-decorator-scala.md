@@ -4,8 +4,8 @@ description: Dynamically attach new enchantments to an artifact without altering
 type: scala
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Imbuement
-formula: |
+arcaneSchool: "Enchantment // Imbuement"
+formula: |2
   trait Weapon {
     def damage: Int
     def description: String

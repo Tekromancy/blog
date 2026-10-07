@@ -4,8 +4,8 @@ description: Clone existing spell matrices to bypass expensive casting times.
 type: python
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Duplication
-formula: |
+arcaneSchool: "Illusion // Duplication"
+formula: |2
   import copy
 
   class SpellMatrix:
@@ -13,10 +13,10 @@ formula: |
           self.name = name
           self.complexity = complexity
           self.runes = runes
-          
+
       def clone(self):
           return copy.deepcopy(self)
-          
+
       def __str__(self):
           return f"{self.name} Matrix [Complexity: {self.complexity}, Runes: {self.runes}]"
 

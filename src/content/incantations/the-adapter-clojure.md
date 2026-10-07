@@ -4,27 +4,27 @@ description: Translating incompatible magical frequencies into unified resonance
 type: clojure
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Harmonization
-formula: |
+arcaneSchool: "Transmutation // Harmonization"
+formula: |2
   (ns tekromancy.adapter)
-  
+
   (defprotocol TargetProtocol
     (cast-spell [_]))
-  
+
   ;; The Adaptee, using an ancient, incompatible interface
   (defrecord AncientWand [ancient-power]
     Object
     (toString [_] (str "Ancient wand crackles with " ancient-power)))
-  
+
   (defn invoke-ancient [wand]
     (str "Invoking " (:ancient-power wand)))
-  
+
   ;; The Adapter, utilizing `extend-type` to adapt existing types to new protocols
   (extend-type AncientWand
     TargetProtocol
     (cast-spell [this]
       (invoke-ancient this)))
-  
+
   ;; Usage:
   ;; (cast-spell (->AncientWand "Void Energy"))
 tags: [structural, adapter, clojure, protocols]

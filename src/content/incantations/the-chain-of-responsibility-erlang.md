@@ -4,13 +4,13 @@ description: Cascading messages through linked spirits.
 type: erlang
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Cascades
-formula: |
+arcaneSchool: "Evocation // Cascades"
+formula: |2
   -module(the_chain).
   -export([build_chain/1, handle/2]).
-  
+
   build_chain(Handlers) -> Handlers.
-  
+
   handle([], _Msg) -> unhandled;
   handle([Handler|Rest], Msg) ->
       case Handler(Msg) of

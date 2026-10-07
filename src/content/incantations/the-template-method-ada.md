@@ -4,24 +4,24 @@ description: Defining the skeleton of a warding ritual, allowing subclasses to p
 type: ada
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Ritual Frameworks
-formula: |
+arcaneSchool: "Abjuration // Ritual Frameworks"
+formula: |2
   package Ritual_Templates is
-  
+
      type Ritual is abstract tagged null record;
      procedure Cast_Ritual (R : in Ritual);
-     
+
      procedure Purify_Area (R : in Ritual) is abstract;
      procedure Draw_Circle (R : in Ritual) is abstract;
      procedure Ignite_Lines (R : in Ritual) is abstract;
-     
+
      type Aegis_Ritual is new Ritual with null record;
      overriding procedure Purify_Area (R : in Aegis_Ritual);
      overriding procedure Draw_Circle (R : in Aegis_Ritual);
      overriding procedure Ignite_Lines (R : in Aegis_Ritual);
-     
+
   end Ritual_Templates;
-  
+
   package body Ritual_Templates is
      procedure Cast_Ritual (R : in Ritual) is
      begin
@@ -29,7 +29,7 @@ formula: |
         Draw_Circle (R);
         Ignite_Lines (R);
      end Cast_Ritual;
-     
+
      procedure Purify_Area (R : in Aegis_Ritual) is begin null; end;
      procedure Draw_Circle (R : in Aegis_Ritual) is begin null; end;
      procedure Ignite_Lines (R : in Aegis_Ritual) is begin null; end;

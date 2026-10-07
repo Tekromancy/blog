@@ -4,43 +4,43 @@ description: "Decoupling the abstract incantation logic from its concrete dimens
 type: lisp
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Abjuration // Gateways
-formula: |
+arcaneSchool: "Abjuration // Gateways"
+formula: |2
   (defpackage :silver-key-bridge
     (:use :cl))
   (in-package :silver-key-bridge)
-  
+
   ;; Implementor Hierarchy: The Dimensional Gates
   (defgeneric open-gate (gate))
   (defgeneric close-gate (gate))
-  
+
   (defclass dreamlands-gate () ())
   (defmethod open-gate ((g dreamlands-gate))
     (format t "The Seventy Steps of Light Sleep materialize...~%"))
   (defmethod close-gate ((g dreamlands-gate))
     (format t "The dream dissolves into waking reality.~%"))
-  
+
   (defclass yuggoth-gate () ())
   (defmethod open-gate ((g yuggoth-gate))
     (format t "A Mi-Go portal hums with dark energy...~%"))
   (defmethod close-gate ((g yuggoth-gate))
     (format t "The humming ceases; the void is sealed.~%"))
-  
+
   ;; Abstraction Hierarchy: The Incantations
   (defclass incantation ()
     ((gate :initarg :gate :accessor bound-gate)))
-  
+
   (defgeneric perform-ritual (incantation))
-  
+
   (defclass simple-passage (incantation) ())
   (defmethod perform-ritual ((inc simple-passage))
     (format t "Chanting the simple passage...~%")
     (open-gate (bound-gate inc))
     (close-gate (bound-gate inc)))
-  
+
   (defclass extended-voyage (incantation)
     ((duration :initarg :duration :reader voyage-duration)))
-  
+
   (defmethod perform-ritual ((inc extended-voyage))
     (format t "Chanting the extended voyage for ~a cycles...~%" (voyage-duration inc))
     (open-gate (bound-gate inc))

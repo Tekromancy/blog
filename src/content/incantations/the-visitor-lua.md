@@ -4,8 +4,8 @@ description: "An external entity traversing a diverse structure of magical nodes
 type: lua
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Divination // Spirit-Walking
-formula: |
+arcaneSchool: "Divination // Spirit-Walking"
+formula: |2
   local SpiritVisitor = {
     visitTree = function(self, tree) print("Blessing the Ancient Tree.") end,
     visitStone = function(self, stone) print("Reading the Runestone.") end

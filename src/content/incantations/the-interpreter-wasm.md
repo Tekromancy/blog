@@ -4,8 +4,8 @@ description: Parsing ancient runes directly into web assembly bytecode instructi
 type: wasm
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Truenaming
-formula: |
+arcaneSchool: "Divination // Truenaming"
+formula: |2
   (module
     (memory 1)
     (func $interpret_rune (param $rune_ptr i32) (result i32)

@@ -4,22 +4,22 @@ description: Instantiates families of related components based on generics.
 type: vhdl
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Silicon Golemancy // Component Forge
-formula: |
+arcaneSchool: "Silicon Golemancy // Component Forge"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   -- The incantation for Abstract Factory
   -- Carving logic gates into the physical plane via Silicon Golemancy
-  
+
   entity abstract_factory_pkg is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end abstract_factory_pkg;
-  
+
   architecture Physical of abstract_factory_pkg is
   begin
       process(clk, rst)

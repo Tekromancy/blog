@@ -4,8 +4,8 @@ description: Given a language, define a representation for its grammar along wit
 type: rust
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   pub trait Expression {
       fn interpret(&self, context: &mut String) -> bool;
   }

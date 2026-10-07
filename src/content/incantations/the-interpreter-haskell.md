@@ -4,8 +4,8 @@ description: Parsing the true names of the universe via parser combinators and A
 type: haskell
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   module Interpreter where
   data Expr = Lit Int | Add Expr Expr
   eval :: Expr -> Int

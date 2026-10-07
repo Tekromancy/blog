@@ -4,32 +4,32 @@ description: Conserving the Cathedral's memory by sharing the intrinsic essence 
 type: java
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Enchantment // Compression
-formula: |
+arcaneSchool: "Enchantment // Compression"
+formula: |2
   import java.util.HashMap;
   import java.util.Map;
-  
+
   public interface Glyph {
       void render(String position);
   }
-  
+
   public class SacredGlyph implements Glyph {
       private final String intrinsicSymbol; // Shared state
-      
+
       public SacredGlyph(String intrinsicSymbol) {
           this.intrinsicSymbol = intrinsicSymbol;
           System.out.println("Forging new Glyph in memory: " + intrinsicSymbol);
       }
-      
+
       @Override
       public void render(String position) {
           System.out.println("Rendering glyph '" + intrinsicSymbol + "' at position " + position);
       }
   }
-  
+
   public class GlyphFactory {
       private final Map<String, Glyph> pool = new HashMap<>();
-      
+
       public Glyph getGlyph(String symbol) {
           if (!pool.containsKey(symbol)) {
               pool.put(symbol, new SacredGlyph(symbol));

@@ -4,8 +4,8 @@ description: Intermix distinct targeting algorithms for your arcane missiles.
 type: python
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactical Warfare
-formula: |
+arcaneSchool: "Evocation // Tactical Warfare"
+formula: |2
   from abc import ABC, abstractmethod
 
   class TargetingStrategy(ABC):
@@ -23,7 +23,7 @@ formula: |
   class ArcaneMissile:
       def __init__(self, strategy: TargetingStrategy):
           self.strategy = strategy
-          
+
       def fire(self, entities: list):
           target = self.strategy.select_target(entities)
           print(f"Missile streaks toward {target}!")

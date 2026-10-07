@@ -4,11 +4,11 @@ description: Cache alien memory fragments to save multidimensional processing po
 type: apl
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Memory-Caching
-formula: |
+arcaneSchool: "Transmutation // Memory-Caching"
+formula: |2
   :Class GeneticMemory
       :Field Public Sequence
-      
+
       ∇ Make Seq
         :Access Public
         :Implements Constructor
@@ -16,10 +16,10 @@ formula: |
         ⎕ ← 'Synthesizing new sequence: ', Sequence
       ∇
   :EndClass
-  
+
   :Class MemoryPool
       :Field Private Shared Cache ← 0 2 ⍴ ''
-      
+
       ∇ R←GetMemory Seq
         :Access Public Shared
         :If (⊂Seq) ∊ Cache[;1]

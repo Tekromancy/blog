@@ -4,8 +4,8 @@ description: Construct complex cyber-magical entities step-by-step, separating c
 type: rust
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Construct-shaping
-formula: |
+arcaneSchool: "Transmutation // Construct-shaping"
+formula: |2
   #[derive(Default, Debug)]
   pub struct Golem {
       chassis: String,

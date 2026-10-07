@@ -4,18 +4,18 @@ description: Layering protective enchantments dynamically using function composi
 type: ocaml
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Abjuration // Layered Wards
-formula: |
+arcaneSchool: "Abjuration // Layered Wards"
+formula: |2
   let basic_cast spell = "Casting " ^ spell
-  
+
   let with_echo f spell = 
     let res = f spell in
     res ^ " (echo)"
-    
+
   let with_sparkles f spell =
     let res = f spell in
     res ^ " with ✨sparkles✨"
-    
+
   let ultimate_cast = basic_cast |> with_echo |> with_sparkles
 tags: [Caml Metamagic, Higher-Order Functions, OCaml]
 pubDate: 2026-10-07

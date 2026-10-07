@@ -4,8 +4,8 @@ description: Define a family of algorithms, encapsulate each one, and make them 
 type: rust
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactical-insight
-formula: |
+arcaneSchool: "Divination // Tactical-insight"
+formula: |2
   pub trait PathfindingStrategy {
       fn route(&self, start: &str, end: &str);
   }

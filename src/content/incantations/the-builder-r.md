@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Builder"
 gofCategory: "Creational"
 arcaneSchool: "Divination // Model Artifice"
-formula: |
+formula: |2
   library(R6)
 
   # Product

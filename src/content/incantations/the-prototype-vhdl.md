@@ -4,19 +4,19 @@ description: Clones a baseline configuration for new instances.
 type: vhdl
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Silicon Golemancy // Shadow Copy
-formula: |
+arcaneSchool: "Silicon Golemancy // Shadow Copy"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity prototype_clone is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end prototype_clone;
-  
+
   architecture Physical of prototype_clone is
   begin
       process(clk, rst)

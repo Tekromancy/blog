@@ -4,19 +4,19 @@ description: Captures and restores the internal state of a component.
 type: vhdl
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // State Snapshot
-formula: |
+arcaneSchool: "Silicon Golemancy // State Snapshot"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity memento_shadow_reg is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end memento_shadow_reg;
-  
+
   architecture Physical of memento_shadow_reg is
   begin
       process(clk, rst)

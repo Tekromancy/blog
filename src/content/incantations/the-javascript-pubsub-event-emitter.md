@@ -5,7 +5,7 @@ type: "javascript"
 gofPattern: "Observer Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Evocation // The Resonance Chime Bus"
-formula: |
+formula: |2
   class ResonanceBus {
     constructor() { this.topics = new Map(); }
     on(topic, handler) {

@@ -4,8 +4,8 @@ description: Reshaping arcane data forms to fit the expected temporal bindings.
 type: sql
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Interface Shifting
-formula: |
+arcaneSchool: "Transmutation // Interface Shifting"
+formula: |2
   -- Legacy Table with chaotic schema
   CREATE TABLE legacy_runic_logs (
       log_time BIGINT, -- Unix timestamp

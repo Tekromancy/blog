@@ -4,8 +4,8 @@ description: Alter an elemental's behavior when its internal phase shifts.
 type: python
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase Shifting
-formula: |
+arcaneSchool: "Transmutation // Phase Shifting"
+formula: |2
   from abc import ABC, abstractmethod
 
   class ElementalState(ABC):
@@ -24,10 +24,10 @@ formula: |
   class Elemental:
       def __init__(self, state: ElementalState):
           self.state = state
-          
+
       def change_state(self, new_state: ElementalState):
           self.state = new_state
-          
+
       def attack(self):
           return self.state.attack()
 

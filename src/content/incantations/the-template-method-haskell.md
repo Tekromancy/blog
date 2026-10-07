@@ -4,8 +4,8 @@ description: Higher-order functions defining the skeletal structure of a spell.
 type: haskell
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Skeletons
-formula: |
+arcaneSchool: "Necromancy // Skeletons"
+formula: |2
   module TemplateMethod where
   template :: (String -> String) -> String -> String
   template step1 input = "Start -> " ++ step1 input ++ " -> End"

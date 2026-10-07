@@ -4,8 +4,8 @@ description: "Duplicating esoteric artifacts by spilling a drop of blood upon a 
 type: ruby
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Transmutation // Cloning
-formula: |
+arcaneSchool: "Transmutation // Cloning"
+formula: |2
   class ArcaneArtifact
     attr_accessor :name, :curse_level, :essence
 

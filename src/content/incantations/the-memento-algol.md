@@ -4,8 +4,8 @@ description: "Structured antiquity and the Memento pattern."
 type: algol
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chrononmancy // Reversion
-formula: |
+arcaneSchool: "Chrononmancy // Reversion"
+formula: |2
   CO Memento in ALGOL 68 CO
   BEGIN
     MODE MEMENTO = STRUCT (PROC VOID restore);

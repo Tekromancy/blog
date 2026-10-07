@@ -4,8 +4,8 @@ description: Control access to an astronomically expensive artifact until it is 
 type: scala
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   trait Oracle {
     def scry(target: String): String
   }
@@ -18,7 +18,7 @@ formula: |
 
   class ProxyOracle extends Oracle {
     private lazy val trueOracle = new TrueOracle()
-    
+
     override def scry(target: String): String = {
       if (target == "Forbidden") "Access Denied by Proxy."
       else trueOracle.scry(target)

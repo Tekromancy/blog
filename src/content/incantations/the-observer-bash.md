@@ -4,18 +4,18 @@ description: Implementing a pub/sub mechanism natively within Bash arrays.
 type: script
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Eventmancy
-formula: |
+arcaneSchool: "Divination // Eventmancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Subject (Event Bus)
   declare -a OBSERVERS
-  
+
   subscribe() {
     OBSERVERS+=("$1")
     echo "Subscribed: $1"
   }
-  
+
   notify_all() {
     local event=$1
     echo "Broadcasting event: $event"
@@ -24,15 +24,15 @@ formula: |
       $observer "$event"
     done
   }
-  
+
   # The Observers
   logger_plugin() { echo "Logger: Recorded event '$1'"; }
   mailer_plugin() { echo "Mailer: Sent admin alert for '$1'"; }
-  
+
   # Client
   subscribe "logger_plugin"
   subscribe "mailer_plugin"
-  
+
   echo "Simulating system breach..."
   notify_all "BREACH_DETECTED"
 tags: [bash, observer, behavioral, pubsub]

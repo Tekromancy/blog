@@ -4,16 +4,16 @@ description: Guarding access to volatile dimensions with intercepting wards.
 type: ocaml
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Dimensional Ward
-formula: |
+arcaneSchool: "Abjuration // Dimensional Ward"
+formula: |2
   module type REALM = sig
     val enter : string -> unit
   end
-  
+
   module Abyss : REALM = struct
     let enter name = Printf.printf "%s enters the Abyss.\n" name
   end
-  
+
   module ProxyAbyss : REALM = struct
     let enter name =
       if name = "Archmage" then Abyss.enter name

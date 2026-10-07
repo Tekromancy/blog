@@ -4,8 +4,8 @@ description: "A terrifying wraith that traverses a menagerie of familiars, extra
 type: ruby
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Extraction
-formula: |
+arcaneSchool: "Necromancy // Extraction"
+formula: |2
   class WraithVisitor
     def visit_bat(bat)
       "Extracting airborne agility from #{bat.name}."

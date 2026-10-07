@@ -4,8 +4,8 @@ description: "A subscription to the cosmos where starry events trigger earthly m
 type: lua
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Astrology
-formula: |
+arcaneSchool: "Divination // Astrology"
+formula: |2
   local Moon = { observers = {} }
   function Moon:subscribe(obs)
     table.insert(self.observers, obs)

@@ -4,25 +4,25 @@ description: Treat individual spells and sprawling spell clusters uniformly.
 type: dart
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm Intelligence
-formula: |
+arcaneSchool: "Conjuration // Swarm Intelligence"
+formula: |2
   abstract class SpellComponent {
     void invoke();
   }
-  
+
   class MinorHex implements SpellComponent {
     final String name;
     MinorHex(this.name);
-    
+
     @override
     void invoke() => print('Casting $name.');
   }
-  
+
   class SpellCluster implements SpellComponent {
     final List<SpellComponent> _children = [];
-    
+
     void add(SpellComponent component) => _children.add(component);
-    
+
     @override
     void invoke() {
       print('Invoking Spell Cluster...');
@@ -31,19 +31,19 @@ formula: |
       }
     }
   }
-  
+
   void main() {
     final fire = MinorHex('Spark');
     final air = MinorHex('Breeze');
-    
+
     final storm = SpellCluster();
     storm.add(fire);
     storm.add(air);
-    
+
     final maelstrom = SpellCluster();
     maelstrom.add(storm);
     maelstrom.add(MinorHex('Void Ripple'));
-    
+
     maelstrom.invoke();
   }
 tags: [dart, composite, tree-structure, swarm]

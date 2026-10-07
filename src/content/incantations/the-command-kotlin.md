@@ -4,26 +4,26 @@ description: Encapsulating arcane intents into executable crystals.
 type: kotlin
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   interface SpellCommand {
       fun execute()
       fun undo()
   }
-  
+
   class TeleportCommand(private val target: String) : SpellCommand {
       override fun execute() = println("Teleporting to $target")
       override fun undo() = println("Recalling from $target")
   }
-  
+
   class Wand {
       private val history = mutableListOf<SpellCommand>()
-      
+
       fun cast(command: SpellCommand) {
           command.execute()
           history.add(command)
       }
-      
+
       fun rewind() {
           if (history.isNotEmpty()) history.removeLast().undo()
       }

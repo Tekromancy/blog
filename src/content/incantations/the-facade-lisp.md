@@ -4,24 +4,24 @@ description: "Providing a simplified interface to a horribly complex cosmic ritu
 type: lisp
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Divination // Forbidden Texts
-formula: |
+arcaneSchool: "Divination // Forbidden Texts"
+formula: |2
   (defpackage :necronomicon-facade
     (:use :cl)
     (:export #:summon-horror))
   (in-package :necronomicon-facade)
-  
+
   ;; Complex Subsystem A: Blood Sacrifices
   (defun prepare-altar () (format t "Altar cleaned with salt and bone.~%"))
   (defun spill-blood (liters) (format t "Spilled ~a liters of blood.~%" liters))
-  
+
   ;; Complex Subsystem B: Astrological Alignments
   (defun check-stars () (format t "The stars are right.~%") t)
-  
+
   ;; Complex Subsystem C: Chanting
   (defun chant-rlyehian (verses)
     (format t "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn! [x~a]~%" verses))
-  
+
   ;; The Facade
   (defun summon-horror (horror-name)
     "A simple, unified interface for the uninitiated magus."

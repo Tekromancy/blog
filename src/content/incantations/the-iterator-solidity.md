@@ -4,8 +4,8 @@ description: Traversing a crypt of lost souls without revealing its underlying t
 type: solidity
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Traversal
-formula: |
+arcaneSchool: "Divination // Traversal"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

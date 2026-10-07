@@ -4,21 +4,21 @@ description: Treating single artifacts and chaotic swarms identically.
 type: kotlin
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm
-formula: |
+arcaneSchool: "Conjuration // Swarm"
+formula: |2
   interface MagicalEntity {
       fun trigger()
   }
-  
+
   class Sigil : MagicalEntity {
       override fun trigger() = println("Sigil flashes")
   }
-  
+
   class RuneCluster : MagicalEntity {
       private val entities = mutableListOf<MagicalEntity>()
-      
+
       fun add(entity: MagicalEntity) = entities.add(entity)
-      
+
       override fun trigger() {
           entities.forEach { it.trigger() }
       }

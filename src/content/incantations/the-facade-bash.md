@@ -4,17 +4,17 @@ description: Simplifying arcane administration tasks behind a unified cyber-faca
 type: script
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Interfacemancy
-formula: |
+arcaneSchool: "Illusion // Interfacemancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Subsystem 1
   restart_network() { echo "Bringing down eth0... Bringing up eth0..."; }
   # Subsystem 2
   clear_caches() { echo "Flushing DNS... Dropping kernel caches..."; }
   # Subsystem 3
   restart_services() { echo "Restarting nginx... Restarting docker..."; }
-  
+
   # The Facade
   cyber_reboot() {
     echo "--- Initiating Cyber-Reboot Sequence ---"
@@ -23,7 +23,7 @@ formula: |
     restart_services
     echo "--- System fully rejuvenated ---"
   }
-  
+
   # Client
   cyber_reboot
 tags: [bash, facade, structural, administration]

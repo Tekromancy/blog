@@ -4,8 +4,8 @@ description: Define an object that encapsulates how a set of objects interact.
 type: go
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Mind-linking
-formula: |
+arcaneSchool: "Enchantment // Mind-linking"
+formula: |2
   package mediator
 
   import "fmt"

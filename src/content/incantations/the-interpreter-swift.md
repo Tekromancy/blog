@@ -4,8 +4,8 @@ description: Evaluating arcane runes and magical syntax.
 type: swift
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   protocol Expression {
       func evaluate(_ context: String) -> Bool
   }

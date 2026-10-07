@@ -4,8 +4,8 @@ description: Passing aberrant psychic pulses through a sequence of protective wa
 type: wasm
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   (module
     (func $ward_tier_1 (param $pulse_level i32) (result i32)
       (if (result i32) (i32.le_u (local.get $pulse_level) (i32.const 10))

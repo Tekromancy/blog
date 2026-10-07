@@ -4,8 +4,8 @@ description: "A rigid skeleton for standard dark rituals, allowing subclasses to
 type: ruby
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Evocation // Rituals
-formula: |
+arcaneSchool: "Evocation // Rituals"
+formula: |2
   class BaseRitual
     def execute
       prepare_altar

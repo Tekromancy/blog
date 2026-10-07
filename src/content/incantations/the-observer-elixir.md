@@ -4,14 +4,14 @@ description: Subscribe to the telepathic broadcast of an Overmind and react inst
 type: elixir
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Telepathic-Links
-formula: |
+arcaneSchool: "Divination // Telepathic-Links"
+formula: |2
   defmodule Tekromancy.Overmind do
     # Using Elixir's native Registry for PubSub
     def start_link, do: Registry.start_link(keys: :duplicate, name: HivePubSub)
-    
+
     def subscribe(topic), do: Registry.register(HivePubSub, topic, [])
-    
+
     def broadcast(topic, message) do
       Registry.dispatch(HivePubSub, topic, fn entries ->
         for {pid, _} <- entries, do: send(pid, {:broadcast, message})

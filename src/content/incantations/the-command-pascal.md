@@ -4,8 +4,8 @@ description: Encapsulating an incantation as a fully bounded object.
 type: pascal
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   unit CommandPattern;
   interface
   type

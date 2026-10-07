@@ -4,18 +4,18 @@ description: Ensure only one supreme Overmind instance governs the collective.
 type: apl
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Enchantment // Hive-Mind
-formula: |
+arcaneSchool: "Enchantment // Hive-Mind"
+formula: |2
   :Class Overmind
       :Field Private Shared Instance ← ⍬
       :Field Public Thoughts ← ''
-      
+
       ∇ Make
         :Access Private
         :Implements Constructor
         Thoughts ← '⍙⍚⍛'
       ∇
-      
+
       ∇ R←GetInstance
         :Access Public Shared
         :If 0=≢Instance

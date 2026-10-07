@@ -4,8 +4,8 @@ description: "Evaluating abstract syntax trees of magical runes through a symbio
 type: lua
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   local RuneExpression = {}
   RuneExpression.__index = RuneExpression
 

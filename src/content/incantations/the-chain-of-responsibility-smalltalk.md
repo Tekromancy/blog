@@ -4,13 +4,13 @@ description: "Pass a plea through a circle of mediums until one has the power to
 type: smalltalk
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Evocation // Seance Circle
-formula: |
+arcaneSchool: "Evocation // Seance Circle"
+formula: |2
   Object subclass: #MediumCircle
     instanceVariableNames: 'nextMedium powerLevel'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   MediumCircle >> handleRequest: aRequest [
       aRequest intensity <= powerLevel
           ifTrue: [ self process: aRequest ]

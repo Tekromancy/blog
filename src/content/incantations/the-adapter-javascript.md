@@ -4,26 +4,26 @@ description: Convert the interface of an ancient grimoire into another interface
 type: javascript
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Divination // Linguistics
-formula: |
+arcaneSchool: "Divination // Linguistics"
+formula: |2
   class ModernSpellbook {
     castSpell(spellName) {
       console.log(`Casting modern spell: ${spellName}`);
     }
   }
-  
+
   class AncientScroll {
     chantRune(runeSequence) {
       console.log(`Chanting ancient runes: ${runeSequence}`);
     }
   }
-  
+
   class ScrollAdapter extends ModernSpellbook {
     constructor(ancientScroll) {
       super();
       this.ancientScroll = ancientScroll;
     }
-    
+
     castSpell(spellName) {
       const runeMap = {
         'Fireball': 'Ignis-Ka',
@@ -33,7 +33,7 @@ formula: |
       this.ancientScroll.chantRune(runes);
     }
   }
-  
+
   const scroll = new AncientScroll();
   const adapter = new ScrollAdapter(scroll);
   adapter.castSpell('Fireball');

@@ -4,13 +4,13 @@ description: "Share ectoplasmic state efficiently to support vast numbers of wea
 type: smalltalk
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Ectoplasm Pooling
-formula: |
+arcaneSchool: "Conjuration // Ectoplasm Pooling"
+formula: |2
   Object subclass: #EctoplasmPool
     instanceVariableNames: 'sharedEssences'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   EctoplasmPool >> essenceFor: emotionType [
       ^ sharedEssences at: emotionType ifAbsentPut: [ Ectoplasm newType: emotionType ]
   ]

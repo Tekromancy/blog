@@ -4,23 +4,23 @@ description: Guaranteeing a single Lich King controls the execution flow.
 type: assembly
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Necromancy // Phylactery Binding
-formula: |
+arcaneSchool: "Necromancy // Phylactery Binding"
+formula: |2
   section .bss
       lich_instance resq 1
-  
+
   section .text
       global get_lich
-  
+
   get_lich:
       mov rax, [lich_instance]
       test rax, rax
       jnz .done
-      
+
       ; Initialize the Lich King
       mov qword [lich_instance], 0xDEADBEEF
       mov rax, [lich_instance]
-      
+
   .done:
       ret
 tags: [singleton, assembly, creational, necromancy]

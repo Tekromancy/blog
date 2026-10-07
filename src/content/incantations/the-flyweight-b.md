@@ -4,16 +4,16 @@ description: "Sharing the sacred untyped words to conserve the scarce memory of 
 type: b
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Creation
-formula: |
+arcaneSchool: "Conjuration // Creation"
+formula: |2
   /* Memory is scarce. We keep a cache of sacred words */
   ext word_cache[5];
   ext cache_count;
-  
+
   init_cache() {
       cache_count = 0;
   }
-  
+
   get_sacred_word(val) {
       auto i;
       i = 0;
@@ -23,7 +23,7 @@ formula: |
           }
           i = i + 1;
       }
-      
+
       /* Manifest new flyweight */
       word_cache[cache_count] = val;
       cache_count = cache_count + 1;

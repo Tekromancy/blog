@@ -4,22 +4,22 @@ description: Centralizing complex communications between chaotic ward sub-compon
 type: ada
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Abjuration // Subsystem Regulation
-formula: |
+arcaneSchool: "Abjuration // Subsystem Regulation"
+formula: |2
   package Ward_Mediators is
-  
+
      type Mediator is abstract tagged null record;
      procedure Notify (M : in Mediator; Sender : String; Event : String) is abstract;
-     
+
      type Colleague is abstract tagged record
         Med : access Mediator'Class;
      end record;
-     
+
      type Concrete_Mediator is new Mediator with null record;
      overriding procedure Notify (M : in Concrete_Mediator; Sender : String; Event : String);
-     
+
   end Ward_Mediators;
-  
+
   package body Ward_Mediators is
      procedure Notify (M : in Concrete_Mediator; Sender : String; Event : String) is
      begin

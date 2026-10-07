@@ -4,15 +4,15 @@ description: Traversing a heterogeneous menagerie of magical beasts and applying
 type: ocaml
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Menagerie Traversal
-formula: |
+arcaneSchool: "Conjuration // Menagerie Traversal"
+formula: |2
   type beast = Dragon | Griffin | Mimic
-  
+
   let feed = function
     | Dragon -> "Fed molten rock."
     | Griffin -> "Fed raw meat."
     | Mimic -> "Fed a gold coin."
-    
+
   let pet = function
     | Dragon -> "Burned hand."
     | Griffin -> "Purrs loudly."

@@ -4,23 +4,23 @@ description: A central psychic nexus through which entities communicate.
 type: assembly
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Psychic Nexus
-formula: |
+arcaneSchool: "Necromancy // Psychic Nexus"
+formula: |2
   section .text
       global notify_nexus
-  
+
   ; Entities call notify_nexus instead of each other
   notify_nexus:
       ; RDI = Sender ID, RSI = Event Type
       cmp rsi, 1  ; 'Enemy Spotted'
       je .alert_legion
       ret
-      
+
   .alert_legion:
       ; The nexus coordinates the response
       call awaken_gargoyles
       ret
-      
+
   awaken_gargoyles:
       ret
 tags: [mediator, assembly, behavioral, necromancy]

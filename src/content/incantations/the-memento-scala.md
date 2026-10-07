@@ -4,13 +4,13 @@ description: Capture a snapshot of an artifact's state so it can be restored if 
 type: scala
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Time Reversal
-formula: |
+arcaneSchool: "Chronomancy // Time Reversal"
+formula: |2
   case class TimeCrystal(state: String) // The Memento
 
   class AlchemistFlask {
     private var potionColor: String = "Clear"
-    
+
     def addIngredient(color: String): Unit = potionColor = color
     def save(): TimeCrystal = TimeCrystal(potionColor)
     def restore(crystal: TimeCrystal): Unit = potionColor = crystal.state

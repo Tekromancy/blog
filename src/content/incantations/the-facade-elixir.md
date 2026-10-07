@@ -4,15 +4,15 @@ description: Provide a unified, simplified interface to a labyrinthine subsystem
 type: elixir
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Simplicity
-formula: |
+arcaneSchool: "Illusion // Simplicity"
+formula: |2
   defmodule Tekromancy.Core.Shields, do: def raise, do: :shields_up
   defmodule Tekromancy.Core.Engines, do: def ignite, do: :engines_hot
   defmodule Tekromancy.Core.Weapons, do: def arm, do: :weapons_hot
-  
+
   defmodule Tekromancy.ShipFacade do
     alias Tekromancy.Core.{Shields, Engines, Weapons}
-    
+
     def combat_ready do
       [
         Shields.raise(),

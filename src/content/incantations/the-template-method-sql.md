@@ -4,8 +4,8 @@ description: Defining the skeleton of an algorithm in a stored procedure, deferr
 type: sql
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Skeletal Invocation
-formula: |
+arcaneSchool: "Necromancy // Skeletal Invocation"
+formula: |2
   -- The Skeleton Routine
   CREATE OR REPLACE FUNCTION process_ritual_template(
       ritual_id INT, 
@@ -20,7 +20,7 @@ formula: |
 
       -- Step 2: The Variable Step (The injected hook)
       EXECUTE format('SELECT %I(%s)', purification_function, ritual_id) INTO is_purified;
-      
+
       IF NOT is_purified THEN
           UPDATE rituals SET status = 'FAILED' WHERE id = ritual_id;
           RETURN FALSE;

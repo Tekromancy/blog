@@ -4,8 +4,8 @@ description: Separating the ritual from the sacrifice.
 type: brainfuck
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Gateways
-formula: |
+arcaneSchool: "Conjuration // Gateways"
+formula: |2
   +>+         [Ritual and Sacrifice, separated by a pointer shift]
   <[->>+<<]   [The Bridge crosses the gap]
 tags: [bridge, gateway, stars]

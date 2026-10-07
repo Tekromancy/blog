@@ -4,8 +4,8 @@ description: An alien entity traversing your memory.
 type: brainfuck
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Star-calling
-formula: |
+arcaneSchool: "Conjuration // Star-calling"
+formula: |2
   >+>++>+++   [The local entities]
   <<<         [The Visitor arrives]
   [->+>+>+<<<][The Visitor corrupts them all]

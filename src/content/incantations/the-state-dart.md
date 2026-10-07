@@ -4,39 +4,39 @@ description: Allow an entity to alter its behavior entirely when its internal ma
 type: dart
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Polymorph
-formula: |
+arcaneSchool: "Transmutation // Polymorph"
+formula: |2
   abstract class DruidState {
     void attack();
   }
-  
+
   class HumanForm implements DruidState {
     @override
     void attack() => print('Swings a wooden staff.');
   }
-  
+
   class BearForm implements DruidState {
     @override
     void attack() => print('Mauls with savage claws!');
   }
-  
+
   class Druid {
     DruidState _state;
-    
+
     Druid(this._state);
-    
+
     void polymorph(DruidState newState) {
       _state = newState;
       print('Druid shifted forms.');
     }
-    
+
     void attack() => _state.attack();
   }
-  
+
   void main() {
     final druid = Druid(HumanForm());
     druid.attack();
-    
+
     druid.polymorph(BearForm());
     druid.attack(); // Behavior fundamentally changed
   }

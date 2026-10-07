@@ -4,8 +4,8 @@ description: Define the skeleton of an alchemy ritual, deferring exact ingredien
 type: python
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Alchemy
-formula: |
+arcaneSchool: "Transmutation // Alchemy"
+formula: |2
   from abc import ABC, abstractmethod
 
   class AlchemyRitual(ABC):
@@ -14,23 +14,23 @@ formula: |
           self.add_ingredients()
           self.chant()
           self.distill()
-          
+
       def ignite_flame(self):
           print("Lighting the alchemical burner.")
-          
+
       def distill(self):
           print("Distilling the essence into a vial.")
-          
+
       @abstractmethod
       def add_ingredients(self): pass
-      
+
       @abstractmethod
       def chant(self): pass
 
   class ElixirOfLife(AlchemyRitual):
       def add_ingredients(self):
           print("Adding Phoenix Tear and Unicorn Blood.")
-          
+
       def chant(self):
           print("Chanting the hymn of dawn.")
 

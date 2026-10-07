@@ -4,8 +4,8 @@ description: "Encapsulating a blood sacrifice as an invocable command, ready to 
 type: ruby
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Compulsion
-formula: |
+arcaneSchool: "Enchantment // Compulsion"
+formula: |2
   class BloodSacrificeCommand
     def initialize(victim, liters)
       @victim = victim

@@ -4,13 +4,13 @@ description: Gen_event streams for global awareness.
 type: erlang
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   -module(the_observer).
   -export([notify/2, listen/1]).
-  
+
   notify(EventMgr, Event) -> EventMgr ! {event, Event}.
-  
+
   listen(EventMgr) ->
       EventMgr ! {add_handler, self()}.
 tags: [erlang, actors, telepathy, switchboard, observer]

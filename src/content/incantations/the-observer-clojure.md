@@ -4,19 +4,19 @@ description: Watching the shifting tides of state and reacting in real-time.
 type: clojure
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   (ns tekromancy.observer)
-  
+
   (def ancient-obelisk (atom {:status :dormant}))
-  
+
   ;; Clojure's `add-watch` is the built-in Observer pattern.
-  
+
   (add-watch ancient-obelisk :cultist-watcher
              (fn [key ref old-state new-state]
                (when (not= (:status old-state) (:status new-state))
                  (println "The Obelisk shifted to:" (:status new-state)))))
-  
+
   ;; Usage:
   ;; (swap! ancient-obelisk assoc :status :glowing)
 tags: [behavioral, observer, clojure, atoms, watches]

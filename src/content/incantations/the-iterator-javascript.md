@@ -4,8 +4,8 @@ description: Provide a way to access the elements of a magical aggregate object 
 type: javascript
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   class Grimoire {
     constructor() { this.spells = []; }
     addSpell(spell) { this.spells.push(spell); }
@@ -23,12 +23,12 @@ formula: |
       }
     }
   }
-  
+
   const book = new Grimoire();
   book.addSpell("Fireball");
   book.addSpell("Invisibility");
   book.addSpell("Levitation");
-  
+
   for (const spell of book) {
     console.log(`Scrying spell: ${spell}`);
   }

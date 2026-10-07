@@ -4,8 +4,8 @@ description: Swap arcane algorithms on the fly depending on the weakness of the 
 type: scala
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   type AttackStrategy = (Int) => Int
 
   val fireBlast: AttackStrategy = power => power * 2

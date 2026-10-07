@@ -4,8 +4,8 @@ description: Typeclass-driven conjuration, yielding polymorphic forms from the p
 type: haskell
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Voidmancy
-formula: |
+arcaneSchool: "Conjuration // Voidmancy"
+formula: |2
   module FactoryMethod where
   class Spell s where cast :: s -> String
   data Fireball = Fireball

@@ -4,8 +4,8 @@ description: Define the skeleton of an algorithm in an operation, deferring some
 type: go
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Alchemy // Ritual-structuring
-formula: |
+arcaneSchool: "Alchemy // Ritual-structuring"
+formula: |2
   package templatemethod
 
   import "fmt"

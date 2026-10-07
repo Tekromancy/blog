@@ -4,8 +4,8 @@ description: Encapsulating a spell request as an object.
 type: swift
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Invocation
-formula: |
+arcaneSchool: "Evocation // Invocation"
+formula: |2
   protocol Command {
       func execute()
   }

@@ -4,8 +4,8 @@ description: Cloning the incomprehensible.
 type: brainfuck
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Shadowcasting
-formula: |
+arcaneSchool: "Illusion // Shadowcasting"
+formula: |2
   +++++       [Original Entity]
   [->+>+<<]   [Drain original to spawn two shadows]
   >>[-<<+>>]  [Restore original from first shadow]

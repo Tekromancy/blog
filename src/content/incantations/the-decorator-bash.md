@@ -4,16 +4,16 @@ description: Augmenting command functionality by enveloping them in ethereal wra
 type: script
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Illusion // Wrappermancy
-formula: |
+arcaneSchool: "Illusion // Wrappermancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # The Core Command
   base_action() {
     echo "Transferring data packets..."
     sleep 1
   }
-  
+
   # Decorator 1: Logging
   with_logging() {
     local cmd=$1
@@ -21,7 +21,7 @@ formula: |
     $cmd
     echo "[LOG] $(date): $cmd finished."
   }
-  
+
   # Decorator 2: Time Tracking
   with_timing() {
     local cmd=$1
@@ -30,12 +30,12 @@ formula: |
     local duration=$(( SECONDS - start ))
     echo "[TIME] Execution took $duration seconds."
   }
-  
+
   # Usage: We build a decorated command dynamically
   decorated_spell() {
     with_timing "with_logging base_action"
   }
-  
+
   decorated_spell
 tags: [bash, decorator, structural, wrappers]
 pubDate: 2026-10-07

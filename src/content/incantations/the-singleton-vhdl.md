@@ -4,19 +4,19 @@ description: A unique, centralized arbiter resource.
 type: vhdl
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Silicon Golemancy // Singular Arbiter
-formula: |
+arcaneSchool: "Silicon Golemancy // Singular Arbiter"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity singleton_arbiter is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end singleton_arbiter;
-  
+
   architecture Physical of singleton_arbiter is
   begin
       process(clk, rst)

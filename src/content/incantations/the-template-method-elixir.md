@@ -4,16 +4,16 @@ description: Define the skeleton of a ritual, letting subordinate sects fill in 
 type: elixir
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Ritual-Frameworks
-formula: |
+arcaneSchool: "Conjuration // Ritual-Frameworks"
+formula: |2
   defmodule Tekromancy.Ritual do
     @callback gather_components() :: list()
     @callback chant(list()) :: binary()
-    
+
     defmacro __using__(_opts) do
       quote do
         @behaviour Tekromancy.Ritual
-        
+
         def perform_ritual do
           components = gather_components()
           IO.puts("Preparing components: #{inspect(components)}")
@@ -23,10 +23,10 @@ formula: |
       end
     end
   end
-  
+
   defmodule Tekromancy.VoidRitual do
     use Tekromancy.Ritual
-    
+
     def gather_components, do: [:dark_matter, :stardust]
     def chant(_), do: "Embrace the eternal silence!"
   end

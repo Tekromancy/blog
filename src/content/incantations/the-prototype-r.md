@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Prototype"
 gofCategory: "Creational"
 arcaneSchool: "Divination // Cloning"
-formula: |
+formula: |2
   library(R6)
 
   # Prototype

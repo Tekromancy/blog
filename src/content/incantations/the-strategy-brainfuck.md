@@ -4,8 +4,8 @@ description: Choosing the path of most resistance.
 type: brainfuck
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Fateweaving
-formula: |
+arcaneSchool: "Divination // Fateweaving"
+formula: |2
   >+<         [Select Strategy 1]
   >>++<<      [Select Strategy 2]
   [->>+<<]    [Execute chosen strategy]

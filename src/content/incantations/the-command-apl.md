@@ -4,37 +4,37 @@ description: Encode orbital strikes into storable, executable psychic matrices.
 type: apl
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Matrix-Encoding
-formula: |
+arcaneSchool: "Evocation // Matrix-Encoding"
+formula: |2
   :Class Command
       ∇ Execute
         :Access Public Shared
       ∇
   :EndClass
-  
+
   :Class OrbitalStrike : Command
       :Field Private Coordinates
-      
+
       ∇ Make C
         :Access Public
         :Implements Constructor
         Coordinates ← C
       ∇
-      
+
       ∇ Execute
         :Access Public
         ⎕ ← 'Unleashing plasma at ', ⍕Coordinates, ' ⌖'
       ∇
   :EndClass
-  
+
   :Class HiveMind
       :Field Private Queue ← ⍬
-      
+
       ∇ StoreCmd Cmd
         :Access Public
         Queue ← Queue , Cmd
       ∇
-      
+
       ∇ ExecuteAll
         :Access Public
         {⍵.Execute} ¨ Queue

@@ -4,32 +4,32 @@ description: Assemble unfathomable alien monoliths glyph by glyph.
 type: apl
 gofPattern: Builder
 gofCategory: Creational
-arcaneSchool: Transmutation // Monolith-Shaping
-formula: |
+arcaneSchool: "Transmutation // Monolith-Shaping"
+formula: |2
   :Class MonolithBuilder
       :Field Private Structure ← ''
-      
+
       ∇ AddBase
         :Access Public
         Structure ← Structure , '⍙'
       ∇
-      
+
       ∇ AddCore
         :Access Public
         Structure ← Structure , '⍎⍕'
       ∇
-      
+
       ∇ AddApex
         :Access Public
         Structure ← Structure , '⍋'
       ∇
-      
+
       ∇ R←GetResult
         :Access Public
         R ← Structure
       ∇
   :EndClass
-  
+
   :Class MonolithDirector
       ∇ R←Construct MBuilder
         :Access Public

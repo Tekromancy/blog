@@ -4,8 +4,8 @@ description: Changing behavior as sanity slips.
 type: brainfuck
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Mindbending
-formula: |
+arcaneSchool: "Transmutation // Mindbending"
+formula: |2
   +           [Sanity level]
   [           [While sane...]
     -         [Lose sanity]

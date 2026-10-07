@@ -4,8 +4,8 @@ description: Delegating the instantiation of magical artifacts to subclasses.
 type: swift
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Artifactmancy
-formula: |
+arcaneSchool: "Conjuration // Artifactmancy"
+formula: |2
   protocol Wand {
       func cast() -> String
   }

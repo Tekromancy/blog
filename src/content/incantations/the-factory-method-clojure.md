@@ -4,18 +4,18 @@ description: Delegating the instantiation of arcane constructs to specialized si
 type: clojure
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Spawning
-formula: |
+arcaneSchool: "Conjuration // Spawning"
+formula: |2
   (ns tekromancy.factory-method)
-  
+
   (defmulti summon-familiar (fn [type] type))
-  
+
   (defmethod summon-familiar :raven [_]
     {:creature :raven, :action "Scouts the astral plane."})
-  
+
   (defmethod summon-familiar :shadow-cat [_]
     {:creature :shadow-cat, :action "Hunts in the void."})
-  
+
   ;; Usage:
   ;; (summon-familiar :shadow-cat)
 tags: [creational, factory-method, clojure, multimethods]

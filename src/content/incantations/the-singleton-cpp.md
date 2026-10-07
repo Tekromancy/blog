@@ -4,8 +4,8 @@ description: Ensuring only one nexus of power exists within the reality matrix.
 type: cpp
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Conjuration // Chronomancy
-formula: |
+arcaneSchool: "Conjuration // Chronomancy"
+formula: |2
   class Nexus {
   public:
       static Nexus& GetInstance() {

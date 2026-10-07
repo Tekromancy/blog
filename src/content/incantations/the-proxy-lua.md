@@ -4,8 +4,8 @@ description: "A magical ward that controls access to a powerful, hidden artifact
 type: lua
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   local TrueGrimoire = {
     read = function() return "Secrets of the Fae Moon revealed." end
   }

@@ -4,29 +4,29 @@ description: Capturing and restoring the snapshot of a fragile arcane process.
 type: clojure
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Restoration
-formula: |
+arcaneSchool: "Chronomancy // Restoration"
+formula: |2
   (ns tekromancy.memento)
-  
+
   ;; Immutability gives us Memento for free. We just hold onto old states.
-  
+
   (def timeline (atom '()))
   (def state (atom {:hp 100 :mana 50}))
-  
+
   (defn save-state! []
     (swap! timeline conj @state)
     (println "Timeline snapshot saved."))
-  
+
   (defn mutate-state! [f]
     (save-state!)
     (swap! state f))
-  
+
   (defn rewind! []
     (when-let [past (first @timeline)]
       (reset! state past)
       (swap! timeline rest)
       (println "Rewound to past state:" @state)))
-  
+
   ;; Usage:
   ;; (mutate-state! #(assoc % :hp 10))
   ;; (rewind!)

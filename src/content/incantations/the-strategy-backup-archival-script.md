@@ -5,7 +5,7 @@ type: "script"
 gofPattern: "Strategy Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Transmutation // The Alchemical Compression Engine"
-formula: |
+formula: |2
   #!/usr/bin/env bash
   set -Eeuo pipefail
   strategy_zstd() { tar -cf - "$1" | zstd -19 -T0 -o "$2.tar.zst"; }

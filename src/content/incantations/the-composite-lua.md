@@ -4,8 +4,8 @@ description: "Treating individual fae spirits and massive circles of spirits thr
 type: lua
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Enchantment // Chanting
-formula: |
+arcaneSchool: "Enchantment // Chanting"
+formula: |2
   local FaeEntity = {}
   function FaeEntity:sing() end
 

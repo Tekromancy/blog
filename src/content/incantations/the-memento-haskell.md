@@ -4,8 +4,8 @@ description: Capturing the state of the universe at a point in time, made trivia
 type: haskell
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // Storage
-formula: |
+arcaneSchool: "Chronomancy // Storage"
+formula: |2
   module Memento where
   data State = State Int String deriving (Show, Eq)
   saveState :: State -> State

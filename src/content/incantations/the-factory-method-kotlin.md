@@ -4,12 +4,12 @@ description: Deferring the manifestation of entities to the subclasses.
 type: kotlin
 gofPattern: Factory Method
 gofCategory: Creational
-arcaneSchool: Conjuration // Summoning
-formula: |
+arcaneSchool: "Conjuration // Summoning"
+formula: |2
   sealed class Familiar
   class Raven : Familiar()
   class Cat : Familiar()
-  
+
   abstract class Summoner {
       abstract fun summon(): Familiar
       fun bind() {
@@ -17,7 +17,7 @@ formula: |
           println("Binding ${familiar::class.simpleName} to the soul...")
       }
   }
-  
+
   class ShadowSummoner : Summoner() {
       override fun summon() = Raven()
   }

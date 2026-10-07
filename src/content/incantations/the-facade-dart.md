@@ -4,8 +4,8 @@ description: Provide a unified, simplified interface to a sprawling, incomprehen
 type: dart
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Perception Alteration
-formula: |
+arcaneSchool: "Illusion // Perception Alteration"
+formula: |2
   class LeylineRouter {
     void connect() => print('Routing ley energy...');
   }
@@ -15,12 +15,12 @@ formula: |
   class AetherValve {
     void open() => print('Opening Aether Valve...');
   }
-  
+
   class PortalFacade {
     final _router = LeylineRouter();
     final _condenser = ManaCondenser();
     final _valve = AetherValve();
-    
+
     void openPortal() {
       print('Initiating portal sequence...');
       _router.connect();
@@ -29,7 +29,7 @@ formula: |
       print('Portal stabilized.');
     }
   }
-  
+
   void main() {
     final portal = PortalFacade();
     portal.openPortal();

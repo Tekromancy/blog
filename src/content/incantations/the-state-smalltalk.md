@@ -4,17 +4,17 @@ description: "Allow a phantom to completely alter its reactions based on its emo
 type: smalltalk
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase Shifting
-formula: |
+arcaneSchool: "Transmutation // Phase Shifting"
+formula: |2
   Object subclass: #PhantomEntity
     instanceVariableNames: 'emotionalState'
     classVariableNames: ''
     package: 'Tekromancy-Seance'.
-  
+
   PhantomEntity >> interact [
       emotionalState interactWith: self
   ]
-  
+
   PhantomEntity >> beVengeful [ emotionalState := VengefulState new ]
 tags: [smalltalk, behavioral, seance]
 pubDate: 2026-10-07

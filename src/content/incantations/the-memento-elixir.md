@@ -4,14 +4,14 @@ description: Capture and externalize an actor's internal state to restore it fro
 type: elixir
 gofPattern: Memento
 gofCategory: Behavioral
-arcaneSchool: Chronomancy // State-Preservation
-formula: |
+arcaneSchool: "Chronomancy // State-Preservation"
+formula: |2
   defmodule Tekromancy.TimeWeaver do
     def save_state(state_map), do: :erlang.term_to_binary(state_map)
-    
+
     def restore_state(binary_memento), do: :erlang.binary_to_term(binary_memento)
   end
-  
+
   # Usage inside an actor before a risky computation
   # memento = Tekromancy.TimeWeaver.save_state(current_state)
   # # If crash occurs, a supervisor can reboot and we inject the memento to restore

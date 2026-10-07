@@ -4,8 +4,8 @@ description: "Structured antiquity and the Bridge pattern."
 type: algol
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Spanning
-formula: |
+arcaneSchool: "Conjuration // Spanning"
+formula: |2
   CO Bridge in ALGOL 68 CO
   BEGIN
     MODE BRIDGE = STRUCT (PROC VOID operation);

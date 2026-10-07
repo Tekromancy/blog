@@ -4,18 +4,18 @@ description: Finite state machines mapped directly to process behavior.
 type: erlang
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Phase
-formula: |
+arcaneSchool: "Transmutation // Phase"
+formula: |2
   -module(the_state).
   -export([start/0, idle/1, active/1]).
-  
+
   start() -> spawn(fun() -> idle(#{}) end).
-  
+
   idle(Data) ->
       receive
           wake -> active(Data)
       end.
-      
+
   active(Data) ->
       receive
           sleep -> idle(Data)

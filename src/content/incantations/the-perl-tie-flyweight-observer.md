@@ -5,7 +5,7 @@ type: "perl"
 gofPattern: "Observer Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Necromancy // The Tied Ghost-Variable Phylactery"
-formula: |
+formula: |2
   package ObservedScalar;
   sub TIESCALAR { my ($class, $cb) = @_; bless { val => undef, cb => $cb }, $class; }
   sub FETCH { my ($self) = @_; return $self->{val}; }

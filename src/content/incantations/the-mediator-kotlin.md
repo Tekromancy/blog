@@ -4,14 +4,14 @@ description: A central hub for managing chaotic component communications.
 type: kotlin
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Orchestration
-formula: |
+arcaneSchool: "Enchantment // Orchestration"
+formula: |2
   class CombatMediator {
       fun notify(sender: String, event: String) {
           println("Mediator intercepts $event from $sender, updating battlefield.")
       }
   }
-  
+
   class Mage(private val name: String, private val mediator: CombatMediator) {
       fun castAoe() {
           println("$name casts Blizzard!")

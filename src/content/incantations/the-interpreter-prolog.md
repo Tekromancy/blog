@@ -4,26 +4,26 @@ description: Define a grammar for magical runes and a logical engine to interpre
 type: prolog
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Glyphmancy
-formula: |
+arcaneSchool: "Divination // Glyphmancy"
+formula: |2
   % Grammar Definition via DCG (Definite Clause Grammars)
-  
+
   % Sentence -> Subject Verb Object
   incantation(meaning(S, V, O)) --> subject(S), verb(V), object(O).
-  
+
   subject(caster) --> [ego].
   subject(target) --> [tu].
-  
+
   verb(burn) --> [ignis].
   verb(freeze) --> [glacium].
-  
+
   object(area) --> [omni].
   object(single) --> [solus].
-  
+
   % Interpreter
   translate_glyph_sequence(Words, Meaning) :-
       phrase(incantation(Meaning), Words).
-      
+
   % ?- translate_glyph_sequence([ego, ignis, omni], Meaning).
   % Meaning = meaning(caster, burn, area).
 tags: [interpreter, behavioral, prolog, grammar, runes]

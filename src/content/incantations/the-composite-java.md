@@ -4,40 +4,40 @@ description: Treating individual clerics and vast bureaucratic departments as un
 type: java
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Illusion // Holography
-formula: |
+arcaneSchool: "Illusion // Holography"
+formula: |2
   import java.util.ArrayList;
   import java.util.List;
-  
+
   public interface CathedralComponent {
       void audit();
   }
-  
+
   public class Cleric implements CathedralComponent {
       private final String name;
-      
+
       public Cleric(String name) {
           this.name = name;
       }
-      
+
       @Override
       public void audit() {
           System.out.println("Cleric " + name + " passes the enterprise audit.");
       }
   }
-  
+
   public class Department implements CathedralComponent {
       private final String departmentName;
       private final List<CathedralComponent> components = new ArrayList<>();
-      
+
       public Department(String departmentName) {
           this.departmentName = departmentName;
       }
-      
+
       public void add(CathedralComponent component) {
           components.add(component);
       }
-      
+
       @Override
       public void audit() {
           System.out.println("Auditing department: " + departmentName);

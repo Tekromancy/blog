@@ -4,8 +4,8 @@ description: Utilizing views and security policies to control access to the core
 type: sql
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Access Warding
-formula: |
+arcaneSchool: "Abjuration // Access Warding"
+formula: |2
   -- The True Table
   CREATE TABLE forbidden_archives (
       archive_id SERIAL PRIMARY KEY,

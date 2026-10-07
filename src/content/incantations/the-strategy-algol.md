@@ -4,8 +4,8 @@ description: "Structured antiquity and the Strategy pattern."
 type: algol
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Divination // Tactics
-formula: |
+arcaneSchool: "Divination // Tactics"
+formula: |2
   CO Strategy in ALGOL 68 CO
   BEGIN
     MODE STRATEGY = STRUCT (PROC VOID execute);

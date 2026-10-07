@@ -4,14 +4,14 @@ description: Cloning existing magical matrices instead of chanting from scratch.
 type: kotlin
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Transmutation // Cloning
-formula: |
+arcaneSchool: "Transmutation // Cloning"
+formula: |2
   data class SpellMatrix(val power: Int, val element: String) : Cloneable {
       public override fun clone(): SpellMatrix {
           return super.clone() as SpellMatrix
       }
   }
-  
+
   // Pragmatic Kotlin way
   val fireBall = SpellMatrix(100, "Fire")
   val greaterFireBall = fireBall.copy(power = 200)

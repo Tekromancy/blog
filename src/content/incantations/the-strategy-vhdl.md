@@ -4,19 +4,19 @@ description: Selects a processing algorithm dynamically based on a control signa
 type: vhdl
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Algorithmic Switch
-formula: |
+arcaneSchool: "Silicon Golemancy // Algorithmic Switch"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity strategy_mux is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end strategy_mux;
-  
+
   architecture Physical of strategy_mux is
   begin
       process(clk, rst)

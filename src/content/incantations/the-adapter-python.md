@@ -4,8 +4,8 @@ description: Translate alien incantations to a modern standard interface.
 type: python
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Linguistic Alchemy
-formula: |
+arcaneSchool: "Transmutation // Linguistic Alchemy"
+formula: |2
   class ModernSpell:
       def cast_spell(self) -> str:
           return "Casting a standard spell."

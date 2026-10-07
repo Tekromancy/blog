@@ -4,8 +4,8 @@ description: "A blood-pact broker that controls communication between warring de
 type: ruby
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Binding
-formula: |
+arcaneSchool: "Enchantment // Binding"
+formula: |2
   class PactBroker
     def initialize
       @factions = {}

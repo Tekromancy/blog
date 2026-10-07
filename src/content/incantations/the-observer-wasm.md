@@ -4,13 +4,13 @@ description: Allowing parasitic familiars to subscribe to the host's life-force 
 type: wasm
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Scrying
-formula: |
+arcaneSchool: "Divination // Scrying"
+formula: |2
   (module
     (type $callback (func (param i32)))
     (table 10 funcref)
     (global $sub_count (mut i32) (i32.const 0))
-    
+
     (func $notify_all (param $vital_sign i32)
       (local $i i32)
       (loop $notify_loop

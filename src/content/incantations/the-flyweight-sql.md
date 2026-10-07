@@ -4,8 +4,8 @@ description: Conserving relational space through normalized lookup tables.
 type: sql
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Essence Compression
-formula: |
+arcaneSchool: "Transmutation // Essence Compression"
+formula: |2
   -- The Flyweight Table (Intrinsic State)
   CREATE TABLE spell_elements (
       element_id SERIAL PRIMARY KEY,

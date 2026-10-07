@@ -4,8 +4,8 @@ description: Traversing infinite planes via Foldable, Traversable, and lazy list
 type: haskell
 gofPattern: Iterator
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Traversal
-formula: |
+arcaneSchool: "Transmutation // Traversal"
+formula: |2
   module Iterator where
   -- Haskell uses Foldable and lists.
   traverseList :: Show a => [a] -> [String]

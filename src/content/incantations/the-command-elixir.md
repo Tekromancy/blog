@@ -4,19 +4,19 @@ description: Encapsulate a request as an object, allowing logging, queuing, and 
 type: elixir
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Evocation // Will-Binding
-formula: |
+arcaneSchool: "Evocation // Will-Binding"
+formula: |2
   defmodule Tekromancy.Command do
     @callback execute(map) :: map
     @callback undo(map) :: map
   end
-  
+
   defmodule Tekromancy.HealCommand do
     @behaviour Tekromancy.Command
     def execute(state), do: %{state | hp: state.hp + 20}
     def undo(state), do: %{state | hp: state.hp - 20}
   end
-  
+
   defmodule Tekromancy.Invoker do
     def run_commands(initial_state, commands) do
       Enum.reduce(commands, initial_state, fn cmd, state -> cmd.execute(state) end)

@@ -5,7 +5,7 @@ type: "rust"
 gofPattern: "State Pattern (Behavioral)"
 gofCategory: "Behavioral"
 arcaneSchool: "Abjuration // The Ephemeral RAII Vault Guard"
-formula: |
+formula: |2
   struct SealedVault { secret: Vec<u8> }
   struct UnlockedVault<'a> { vault: &'a mut SealedVault }
 

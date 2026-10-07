@@ -4,39 +4,39 @@ description: "Managing a massive swarm of Mi-Go by sharing extrinsic cosmic stat
 type: lisp
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm Mechanics
-formula: |
+arcaneSchool: "Conjuration // Swarm Mechanics"
+formula: |2
   (defpackage :migo-flyweight
     (:use :cl))
   (in-package :migo-flyweight)
-  
+
   ;; The Flyweight: Intrinsic State
   (defclass migo-species-data ()
     ((texture :initform "fungal-crust.png" :reader texture)
      (base-mesh :initform "migo-poly.obj" :reader mesh)
      (flight-sound :initform "buzzing.wav" :reader flight-sound)))
-  
+
   ;; The Factory to ensure only one instance of the intrinsic data exists
   (let ((shared-data nil))
     (defun get-migo-data ()
       (or shared-data
           (setf shared-data (make-instance 'migo-species-data)))))
-  
+
   ;; The Extrinsic Context
   (defclass migo-drone ()
     ((x :initarg :x :accessor pos-x)
      (y :initarg :y :accessor pos-y)
      (z :initarg :z :accessor pos-z)
      (species-data :initform (get-migo-data) :reader data)))
-  
+
   (defgeneric render-drone (drone))
-  
+
   (defmethod render-drone ((d migo-drone))
     ;; Using the shared data to render, saving vast amounts of memory
     (format t "Rendering Mi-Go at (~a, ~a, ~a) using mesh ~a~%"
             (pos-x d) (pos-y d) (pos-z d)
             (mesh (data d))))
-  
+
   (defun spawn-swarm (count)
     (loop for i from 1 to count
           collect (make-instance 'migo-drone 

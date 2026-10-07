@@ -4,8 +4,8 @@ description: Duplicate complex magical states without re-casting the entire init
 type: scala
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Illusion // Duplication
-formula: |
+arcaneSchool: "Illusion // Duplication"
+formula: |2
   case class SpellMatrix(runes: Vector[String], potency: Double) {
     // Scala case classes inherently provide a highly efficient `copy` method, 
     // effectively acting as the Prototype pattern organically.

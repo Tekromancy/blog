@@ -4,15 +4,15 @@ description: Intercepting dangerous command executions through a permission-awar
 type: script
 gofPattern: Proxy
 gofCategory: Structural
-arcaneSchool: Abjuration // Gatekeeping
-formula: |
+arcaneSchool: "Abjuration // Gatekeeping"
+formula: |2
   #!/usr/bin/env bash
-  
+
   # Real Subject
   wipe_drive() {
     echo "WIPING SECURE DRIVE... ALL DATA LOST."
   }
-  
+
   # The Proxy
   secure_wipe_drive() {
     local user=$1
@@ -23,7 +23,7 @@ formula: |
       echo "Proxy: Access Denied! $user does not have clearance."
     fi
   }
-  
+
   # Usage
   secure_wipe_drive "guest"
   secure_wipe_drive "admin"

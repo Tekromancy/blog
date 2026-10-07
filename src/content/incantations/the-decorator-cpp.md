@@ -4,8 +4,8 @@ description: Dynamically attaching new magical properties to an artifact.
 type: cpp
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Enchantment // Imbuing
-formula: |
+arcaneSchool: "Enchantment // Imbuing"
+formula: |2
   #include <memory>
   class Relic {
   public: virtual ~Relic() = default; virtual void Power() = 0;

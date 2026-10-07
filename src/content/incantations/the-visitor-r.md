@@ -5,7 +5,7 @@ type: "r"
 gofPattern: "Visitor"
 gofCategory: "Behavioral"
 arcaneSchool: "Divination // Astral Projection"
-formula: |
+formula: |2
   library(R6)
 
   # Visitor Interface

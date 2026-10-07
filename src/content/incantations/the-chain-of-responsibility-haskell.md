@@ -4,8 +4,8 @@ description: Monadic failure and the Maybe monad to pass the burden along the ch
 type: haskell
 gofPattern: Chain of Responsibility
 gofCategory: Behavioral
-arcaneSchool: Divination // Flow
-formula: |
+arcaneSchool: "Divination // Flow"
+formula: |2
   module ChainOfResponsibility where
   import Control.Applicative ((<|>))
   handler1 x = if x == 1 then Just "H1 handled" else Nothing

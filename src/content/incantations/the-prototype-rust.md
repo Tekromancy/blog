@@ -4,8 +4,8 @@ description: Specify the kinds of objects to create using a prototypical instanc
 type: rust
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Biomancy // Cloning
-formula: |
+arcaneSchool: "Biomancy // Cloning"
+formula: |2
   #[derive(Clone, Debug)]
   pub struct Replicant {
       pub designation: String,

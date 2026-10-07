@@ -4,8 +4,8 @@ description: Altering a magical entity's behavior when its internal state change
 type: swift
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Polymorph
-formula: |
+arcaneSchool: "Transmutation // Polymorph"
+formula: |2
   protocol ElementalState {
       func attack()
   }

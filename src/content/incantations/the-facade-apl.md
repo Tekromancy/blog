@@ -4,34 +4,34 @@ description: Conceal the terrifying complexity of the warp engine behind a simpl
 type: apl
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Void-Masking
-formula: |
+arcaneSchool: "Illusion // Void-Masking"
+formula: |2
   :Class MatterAntimatterInjector
       ∇ Inject
         :Access Public
         ⎕ ← 'Injecting ⍺ and ⍵...'
       ∇
   :EndClass
-  
+
   :Class MagneticContainment
       ∇ Contain
         :Access Public
         ⎕ ← 'Magnetic fields locked ⍕⍎...'
       ∇
   :EndClass
-  
+
   :Class SingularityCore
       ∇ Ignite
         :Access Public
         ⎕ ← 'Singularity born ⍟!'
       ∇
   :EndClass
-  
+
   :Class WarpEngineFacade
       :Field Private Injector ← ⎕NEW MatterAntimatterInjector
       :Field Private Containment ← ⎕NEW MagneticContainment
       :Field Private Core ← ⎕NEW SingularityCore
-      
+
       ∇ EngageWarp
         :Access Public
         Injector.Inject

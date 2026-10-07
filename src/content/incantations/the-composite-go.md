@@ -4,8 +4,8 @@ description: Compose objects into tree structures to represent part-whole hierar
 type: go
 gofPattern: Composite
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm-shaping
-formula: |
+arcaneSchool: "Conjuration // Swarm-shaping"
+formula: |2
   package composite
 
   import "fmt"

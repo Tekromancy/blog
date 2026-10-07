@@ -4,20 +4,20 @@ description: Decoupling a magical abstraction from its elemental implementation.
 type: kotlin
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Illusion // Construct
-formula: |
+arcaneSchool: "Illusion // Construct"
+formula: |2
   interface Enchantment {
       fun applyEffect()
   }
-  
+
   class FireEnchantment : Enchantment {
       override fun applyEffect() = println(" engulfed in flames!")
   }
-  
+
   abstract class Weapon(protected val enchantment: Enchantment) {
       abstract fun swing()
   }
-  
+
   class Sword(enchantment: Enchantment) : Weapon(enchantment) {
       override fun swing() {
           print("Swinging sword...")

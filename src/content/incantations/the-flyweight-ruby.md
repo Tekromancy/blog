@@ -4,8 +4,8 @@ description: "Summoning an endless rain of blood-droplets, conserving mana by sh
 type: ruby
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Optimization
-formula: |
+arcaneSchool: "Conjuration // Optimization"
+formula: |2
   class BloodDropEssence
     attr_reader :color, :toxicity
 
@@ -13,7 +13,7 @@ formula: |
       @color = color
       @toxicity = toxicity
     end
-    
+
     def splash(x, y)
       "Splash at #{x},#{y} with toxicity #{toxicity}."
     end
@@ -40,7 +40,7 @@ formula: |
       essence = @factory.get_essence(color, toxicity)
       @drops << { x: x, y: y, essence: essence }
     end
-    
+
     def render_storm
       @drops.map { |drop| drop[:essence].splash(drop[:x], drop[:y]) }
     end

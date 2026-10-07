@@ -4,8 +4,8 @@ description: Decouple an abstraction from its implementation so that the two can
 type: go
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Transmutation // Dimensional-binding
-formula: |
+arcaneSchool: "Transmutation // Dimensional-binding"
+formula: |2
   package bridge
 
   // Implementor

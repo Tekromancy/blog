@@ -4,24 +4,24 @@ description: Encapsulating a spell cast as an executable, reified sigil.
 type: clojure
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Storing
-formula: |
+arcaneSchool: "Enchantment // Storing"
+formula: |2
   (ns tekromancy.command)
-  
+
   ;; A command is simply a zero-arity function capturing its environment.
-  
+
   (defn create-teleport-command [target destination]
     (fn []
       (println (str "Teleporting " target " to " destination))))
-  
+
   (defn create-banish-command [target]
     (fn []
       (println (str "Banishing " target " to the shadow realm!"))))
-  
+
   (defn trigger-runes [commands]
     (doseq [cmd commands]
       (cmd)))
-  
+
   ;; Usage:
   ;; (def queued-spells [(create-teleport-command "Golem" "The Keep")
   ;;                     (create-banish-command "Demon")])

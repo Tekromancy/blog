@@ -4,19 +4,19 @@ description: Conjure related families of cyber-constructs without specifying the
 type: elixir
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Hivemancy
-formula: |
+arcaneSchool: "Conjuration // Hivemancy"
+formula: |2
   defmodule Tekromancy.HiveFactory do
     @callback spawn_drone() :: term()
     @callback spawn_overseer() :: term()
   end
-  
+
   defmodule Tekromancy.CyberHive do
     @behaviour Tekromancy.HiveFactory
     def spawn_drone, do: %{type: :cyber_drone, protocols: [:stealth, :recon]}
     def spawn_overseer, do: %{type: :cyber_overseer, protocols: [:command, :control]}
   end
-  
+
   defmodule Tekromancy.NeonHive do
     @behaviour Tekromancy.HiveFactory
     def spawn_drone, do: %{type: :neon_drone, protocols: [:flash, :burn]}

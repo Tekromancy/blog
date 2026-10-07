@@ -4,8 +4,8 @@ description: Dynamically attaching behaviors and metadata without altering the c
 type: sql
 gofPattern: Decorator
 gofCategory: Structural
-arcaneSchool: Illusion // Metamagic Triggers
-formula: |
+arcaneSchool: "Illusion // Metamagic Triggers"
+formula: |2
   CREATE TABLE spell_registry (
       spell_id SERIAL PRIMARY KEY,
       spell_name TEXT NOT NULL,

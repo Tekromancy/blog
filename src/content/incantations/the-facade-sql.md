@@ -4,8 +4,8 @@ description: Hiding the terrifying complexity of multi-dimensional joins behind 
 type: sql
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Enchantment // Simplification
-formula: |
+arcaneSchool: "Enchantment // Simplification"
+formula: |2
   -- The unified interface hiding chaos
   CREATE OR REPLACE VIEW omni_nexus_facade AS
   SELECT 

@@ -4,49 +4,49 @@ description: "Conjure chaotic web artifacts across multiple arcane families usin
 type: php
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Web Chaos Magic
-formula: |
+arcaneSchool: "Conjuration // Web Chaos Magic"
+formula: |2
   <?php
-  
+
   namespace Tekromancy\WebChaos;
-  
+
   interface ServerRune {
       public function cast(): string;
   }
-  
+
   interface ClientSigil {
       public function bind(ServerRune $rune): string;
   }
-  
+
   interface ChaosFactory {
       public function createServerRune(): ServerRune;
       public function createClientSigil(): ClientSigil;
   }
-  
+
   class LegacyServerRune implements ServerRune {
       public function cast(): string { return "Casting legacy mysql_connect spell."; }
   }
-  
+
   class LegacyClientSigil implements ClientSigil {
       public function bind(ServerRune $rune): string {
           return "Binding legacy client to: " . $rune->cast();
       }
   }
-  
+
   class LegacyChaosFactory implements ChaosFactory {
       public function createServerRune(): ServerRune { return new LegacyServerRune(); }
       public function createClientSigil(): ClientSigil { return new LegacyClientSigil(); }
   }
-  
+
   // Client code
   function invokeChaos(ChaosFactory $factory) {
       $rune = $factory->createServerRune();
       $sigil = $factory->createClientSigil();
       echo $sigil->bind($rune) . "\n";
   }
-  
+
   invokeChaos(new LegacyChaosFactory());
-  
+
 tags: [web-chaos-magic, elephants-curse, php8]
 pubDate: 2026-10-07
 author: Joshua Edward McLaughlin Cox

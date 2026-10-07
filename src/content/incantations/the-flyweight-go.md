@@ -4,8 +4,8 @@ description: Use sharing to support large numbers of fine-grained objects effici
 type: go
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Conjuration // Swarm-shaping
-formula: |
+arcaneSchool: "Conjuration // Swarm-shaping"
+formula: |2
   package flyweight
 
   import "fmt"

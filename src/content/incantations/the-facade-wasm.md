@@ -4,8 +4,8 @@ description: A unified ritual interface masking the terrifying complexity of the
 type: wasm
 gofPattern: Facade
 gofCategory: Structural
-arcaneSchool: Illusion // Shadow Magic
-formula: |
+arcaneSchool: "Illusion // Shadow Magic"
+formula: |2
   (module
     (import "dom" "create" (func $create (param i32)))
     (import "dom" "append" (func $append (param i32 i32)))

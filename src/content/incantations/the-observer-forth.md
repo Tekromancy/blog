@@ -4,26 +4,26 @@ description: Bind familiars to watch the shifting of the aether.
 type: forth
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Familiar-Binding
-formula: |
+arcaneSchool: "Divination // Familiar-Binding"
+formula: |2
   \ Familiar-Binding: The Observer
   \ A list of XTs invoked upon state change.
-  
+
   CREATE FAMILIARS 10 CELLS ALLOT
   VARIABLE FAMILIAR-COUNT  0 FAMILIAR-COUNT !
-  
+
   : WATCH ( xt -- )
     FAMILIAR-COUNT @ CELLS FAMILIARS + !
     1 FAMILIAR-COUNT +! ;
-    
+
   : NOTIFY-ALL ( -- )
     FAMILIAR-COUNT @ 0 ?DO
       I CELLS FAMILIARS + @ EXECUTE
     LOOP ;
-    
+
   : IMP-WATCHER ( -- ) ." Imp notices a shift in power!" CR ;
   : RAVEN-WATCHER ( -- ) ." Raven caws at the anomaly!" CR ;
-  
+
   \ Usage:
   \ ' IMP-WATCHER WATCH
   \ ' RAVEN-WATCHER WATCH

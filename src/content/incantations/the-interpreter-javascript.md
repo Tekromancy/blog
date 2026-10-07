@@ -4,15 +4,15 @@ description: Given a language, define a representation for its grammar along wit
 type: javascript
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Truenaming
-formula: |
+arcaneSchool: "Divination // Truenaming"
+formula: |2
   class Expression { interpret(context) { return false; } }
-  
+
   class TerminalExpression extends Expression {
     constructor(data) { super(); this.data = data; }
     interpret(context) { return context.includes(this.data); }
   }
-  
+
   class OrExpression extends Expression {
     constructor(expr1, expr2) {
       super(); this.expr1 = expr1; this.expr2 = expr2;
@@ -21,11 +21,11 @@ formula: |
       return this.expr1.interpret(context) || this.expr2.interpret(context);
     }
   }
-  
+
   const fire = new TerminalExpression("Ignis");
   const flame = new TerminalExpression("Flamma");
   const fireSpell = new OrExpression(fire, flame);
-  
+
   console.log(fireSpell.interpret("We invoke the Flamma!")); // true
   console.log(fireSpell.interpret("Summon the Aqua.")); // false
 tags: [language, grammar, truenames]

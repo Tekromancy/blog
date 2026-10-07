@@ -4,19 +4,19 @@ description: A state machine that interprets a stream of custom runes.
 type: vhdl
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Silicon Golemancy // Opcode Decoder
-formula: |
+arcaneSchool: "Silicon Golemancy // Opcode Decoder"
+formula: |2
   library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-  
+
   entity interpreter_fsm is
       Port ( clk : in STD_LOGIC;
              rst : in STD_LOGIC;
              aether_in : in STD_LOGIC_VECTOR (31 downto 0);
              aether_out : out STD_LOGIC_VECTOR (31 downto 0));
   end interpreter_fsm;
-  
+
   architecture Physical of interpreter_fsm is
   begin
       process(clk, rst)

@@ -4,8 +4,8 @@ description: "Structured antiquity and the Visitor pattern."
 type: algol
 gofPattern: Visitor
 gofCategory: Behavioral
-arcaneSchool: Conjuration // Roaming
-formula: |
+arcaneSchool: "Conjuration // Roaming"
+formula: |2
   CO Visitor in ALGOL 68 CO
   BEGIN
     MODE VISITOR = STRUCT (PROC VOID visit);

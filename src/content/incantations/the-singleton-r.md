@@ -5,13 +5,13 @@ type: "r"
 gofPattern: "Singleton"
 gofCategory: "Creational"
 arcaneSchool: "Divination // Core Scrying"
-formula: |
+formula: |2
   library(R6)
 
   # The Oracle Core (Singleton)
   OracleCore <- (function() {
     instance <- NULL
-    
+
     CoreClass <- R6Class("OracleCoreClass",
       public = list(
         state = "Dormant",
@@ -23,7 +23,7 @@ formula: |
         }
       )
     )
-    
+
     list(
       get_instance = function() {
         if (is.null(instance)) {

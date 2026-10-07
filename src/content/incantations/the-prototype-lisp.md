@@ -4,20 +4,20 @@ description: "Duplicating Eldritch biomass without executing the expensive initi
 type: lisp
 gofPattern: Prototype
 gofCategory: Creational
-arcaneSchool: Transmutation // Cloning
-formula: |
+arcaneSchool: "Transmutation // Cloning"
+formula: |2
   (defpackage :eldritch-prototype
     (:use :cl))
   (in-package :eldritch-prototype)
-  
+
   (defgeneric clone-biomass (entity)
     (:documentation "Creates an exact cellular copy of the given eldritch entity."))
-  
+
   (defclass protoplasmic-horror ()
     ((mass :initarg :mass :accessor horror-mass)
      (mutation-signature :initarg :sig :accessor horror-sig)
      (absorbed-souls :initarg :souls :accessor absorbed-souls)))
-  
+
   (defmethod clone-biomass ((entity protoplasmic-horror))
     ;; In Lisp, a shallow or deep copy must be explicitly defined
     ;; Here we perform a deep-enough copy to ensure independent mutation
@@ -25,7 +25,7 @@ formula: |
                    :mass (horror-mass entity)
                    :sig (copy-seq (horror-sig entity))
                    :souls (copy-list (absorbed-souls entity))))
-  
+
   ;; Example usage:
   ;; (defparameter *patient-zero* 
   ;;   (make-instance 'protoplasmic-horror 

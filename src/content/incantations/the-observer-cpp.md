@@ -4,8 +4,8 @@ description: Allowing familiars to react to shifts in magical leylines.
 type: cpp
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Foresight
-formula: |
+arcaneSchool: "Divination // Foresight"
+formula: |2
   #include <vector>
   class Observer { public: virtual void Update() = 0; };
   class Leyline {

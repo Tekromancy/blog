@@ -4,16 +4,16 @@ description: Translating ancient dialects into modern somatic components via wra
 type: ocaml
 gofPattern: Adapter
 gofCategory: Structural
-arcaneSchool: Transmutation // Semantic Shift
-formula: |
+arcaneSchool: "Transmutation // Semantic Shift"
+formula: |2
   module type ANCIENT_RUNE = sig
     val cast_ancient : string -> int
   end
-  
+
   module type MODERN_SPELL = sig
     val cast : string -> string
   end
-  
+
   module RuneAdapter (A : ANCIENT_RUNE) : MODERN_SPELL = struct
     let cast spell = 
       let power = A.cast_ancient spell in

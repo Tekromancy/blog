@@ -4,8 +4,8 @@ description: Morphing a demonic entity's behavior as its physical form transform
 type: solidity
 gofPattern: State
 gofCategory: Behavioral
-arcaneSchool: Transmutation // Metamorphosis
-formula: |
+arcaneSchool: "Transmutation // Metamorphosis"
+formula: |2
   // SPDX-License-Identifier: MIT
   pragma solidity ^0.8.0;
 

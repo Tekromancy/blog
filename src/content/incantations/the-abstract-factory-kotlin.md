@@ -4,28 +4,28 @@ description: A pragmatic hex for conjuring families of related runes safely.
 type: kotlin
 gofPattern: Abstract Factory
 gofCategory: Creational
-arcaneSchool: Conjuration // Rune-Weaving
-formula: |
+arcaneSchool: "Conjuration // Rune-Weaving"
+formula: |2
   interface Rune {
       fun glow(): String
   }
-  
+
   class FireRune : Rune {
       override fun glow() = "Burning red"
   }
-  
+
   class FrostRune : Rune {
       override fun glow() = "Chilling blue"
   }
-  
+
   interface RuneFactory {
       fun createRune(): Rune
   }
-  
+
   class FireRuneFactory : RuneFactory {
       override fun createRune() = FireRune()
   }
-  
+
   class FrostRuneFactory : RuneFactory {
       override fun createRune() = FrostRune()
   }

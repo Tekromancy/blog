@@ -4,18 +4,18 @@ description: Invoke the outer dark to parse chaotic incantations.
 type: forth
 gofPattern: Interpreter
 gofCategory: Behavioral
-arcaneSchool: Divination // Void-Parsing
-formula: |
+arcaneSchool: "Divination // Void-Parsing"
+formula: |2
   \ Void-Parsing: The Interpreter
   \ Using EVALUATE to parse dynamic strings as code.
-  
+
   : SUMMON ( -- ) ." Summoning circle drawn." CR ;
   : BIND ( -- ) ." Chains of binding applied." CR ;
-  
+
   : RUN-SCROLL ( c-addr u -- )
     ." Reading from the forbidden scroll..." CR
     EVALUATE ;
-    
+
   \ Usage:
   \ S" SUMMON BIND" RUN-SCROLL
 tags: [behavioral, interpreter, forth, parsing]

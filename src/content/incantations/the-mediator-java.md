@@ -4,23 +4,23 @@ description: Forcing chaotic peer-to-peer communications to flow through a stric
 type: java
 gofPattern: Mediator
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Orchestration
-formula: |
+arcaneSchool: "Enchantment // Orchestration"
+formula: |2
   public interface CathedralHub {
       void notify(Component sender, String event);
   }
-  
+
   public class HighCouncilHub implements CathedralHub {
       private final Choir choir;
       private final BellTower tower;
-      
+
       public HighCouncilHub(Choir choir, BellTower tower) {
           this.choir = choir;
           this.tower = tower;
           this.choir.setHub(this);
           this.tower.setHub(this);
       }
-      
+
       @Override
       public void notify(Component sender, String event) {
           if (event.equals("SING")) {
@@ -29,19 +29,19 @@ formula: |
           }
       }
   }
-  
+
   public abstract class Component {
       protected CathedralHub hub;
       public void setHub(CathedralHub hub) { this.hub = hub; }
   }
-  
+
   public class Choir extends Component {
       public void sing() {
           System.out.println("Choir begins the chant.");
           hub.notify(this, "SING");
       }
   }
-  
+
   public class BellTower extends Component {
       public void toll() {
           System.out.println("Bells are tolling.");

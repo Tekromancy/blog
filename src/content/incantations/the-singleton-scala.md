@@ -4,8 +4,8 @@ description: Ensures a single, globally accessible focal point of magical energy
 type: scala
 gofPattern: Singleton
 gofCategory: Creational
-arcaneSchool: Abjuration // Warding
-formula: |
+arcaneSchool: "Abjuration // Warding"
+formula: |2
   // Scala provides native Singletons via the `object` keyword.
   object LeyLineNexus {
     private var energyLevel: Int = 1000

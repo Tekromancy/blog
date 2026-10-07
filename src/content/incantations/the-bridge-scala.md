@@ -4,8 +4,8 @@ description: Decouples an abstraction from its implementation so the two can var
 type: scala
 gofPattern: Bridge
 gofCategory: Structural
-arcaneSchool: Conjuration // Teleportation
-formula: |
+arcaneSchool: "Conjuration // Teleportation"
+formula: |2
   trait MagicSchool {
     def castSpell(name: String): String
   }

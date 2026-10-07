@@ -4,12 +4,12 @@ description: Minimizing system calls by caching expensive computational states.
 type: script
 gofPattern: Flyweight
 gofCategory: Structural
-arcaneSchool: Transmutation // Cachemancy
-formula: |
+arcaneSchool: "Transmutation // Cachemancy"
+formula: |2
   #!/usr/bin/env bash
-  
+
   declare -A DNS_CACHE
-  
+
   # Flyweight Factory / Accessor
   resolve_host() {
     local host=$1
@@ -21,10 +21,10 @@ formula: |
     else
       echo "[Cache Hit] Using cached record for $host"
     fi
-    
+
     echo "$host -> ${DNS_CACHE[$host]}"
   }
-  
+
   # Client Code
   resolve_host "neon.local"
   resolve_host "matrix.local"

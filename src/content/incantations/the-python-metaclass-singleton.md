@@ -5,7 +5,7 @@ type: "python"
 gofPattern: "Singleton Pattern (Creational)"
 gofCategory: "Creational"
 arcaneSchool: "Thaumaturgy // The Prime Mover Metaclass"
-formula: |
+formula: |2
   import threading
 
   class SingletonMeta(type):

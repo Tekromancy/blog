@@ -4,8 +4,8 @@ description: Define a one-to-many dependency between objects so that when one ob
 type: rust
 gofPattern: Observer
 gofCategory: Behavioral
-arcaneSchool: Divination // Sensory-linking
-formula: |
+arcaneSchool: "Divination // Sensory-linking"
+formula: |2
   use std::cell::RefCell;
   use std::rc::Rc;
 

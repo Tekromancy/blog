@@ -4,8 +4,8 @@ description: Define the skeleton of an algorithm in an operation, deferring some
 type: rust
 gofPattern: Template Method
 gofCategory: Behavioral
-arcaneSchool: Necromancy // Bone-crafting
-formula: |
+arcaneSchool: "Necromancy // Bone-crafting"
+formula: |2
   pub trait DataMiner {
       // Template method skeleton
       fn mine_data(&self) {
@@ -15,7 +15,7 @@ formula: |
       }
       fn connect(&self) { println!("Establishing standard neural link."); }
       fn disconnect(&self) { println!("Severing link cleanly."); }
-      
+
       // Hook to be implemented
       fn extract(&self);
   }

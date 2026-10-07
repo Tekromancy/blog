@@ -4,8 +4,8 @@ description: Encapsulating a dark ritual as a single action.
 type: brainfuck
 gofPattern: Command
 gofCategory: Behavioral
-arcaneSchool: Enchantment // Compulsion
-formula: |
+arcaneSchool: "Enchantment // Compulsion"
+formula: |2
   +++++       [The Command payload]
   >>[-<<+>>]  [Execute the Command]
 tags: [command, compulsion, ritual]

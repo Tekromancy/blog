@@ -4,20 +4,20 @@ description: Swap out algorithms and combat protocols dynamically during the hea
 type: elixir
 gofPattern: Strategy
 gofCategory: Behavioral
-arcaneSchool: Evocation // Tactical-Weaving
-formula: |
+arcaneSchool: "Evocation // Tactical-Weaving"
+formula: |2
   defmodule Tekromancy.CombatAI do
     def evaluate(target, strategy_fn) do
       strategy_fn.(target)
     end
   end
-  
+
   defmodule Tekromancy.Strategies do
     def aggressive(target), do: "Strike #{target} with all available plasma!"
     def defensive(target), do: "Raise shields and evade #{target}'s lock."
     def stealth(target), do: "Cloak and bypass #{target}'s sensors."
   end
-  
+
   # Usage:
   # Tekromancy.CombatAI.evaluate("ICE_Node", &Tekromancy.Strategies.stealth/1)
 tags: [elixir, behavioral, strategy, functions, ai]
