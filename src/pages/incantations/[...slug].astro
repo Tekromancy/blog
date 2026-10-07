@@ -176,6 +176,26 @@ function getTypeMeta(type: string) {
 				badgeClass: "bg-[#fde047]/15 border-[#fde047]/50 text-[#fde047]",
 				fullHeader: "// BLAZING-FAST ZIG ALCHEMY //",
 			};
+		case "forth":
+			return { badge: "🥞 FORTH STACK", badgeClass: "bg-[#facc15]/15 border-[#facc15]/50 text-[#facc15]", formulaTag: "\ forth", glow: "bg-[#facc15]" };
+		case "smalltalk":
+			return { badge: "📚 SMALLTALK SEANCE", badgeClass: "bg-[#fbcfe8]/15 border-[#fbcfe8]/50 text-[#fbcfe8]", formulaTag: "gst -q", glow: "bg-[#fbcfe8]" };
+		case "ada":
+			return { badge: "🛡️ ADA ABJURATION", badgeClass: "bg-[#0284c7]/15 border-[#0284c7]/50 text-[#0284c7]", formulaTag: "-- gnatmake", glow: "bg-[#0284c7]" };
+		case "sql":
+			return { badge: "🗄️ SQL PACT", badgeClass: "bg-[#f97316]/15 border-[#f97316]/50 text-[#f97316]", formulaTag: "-- psql -c", glow: "bg-[#f97316]" };
+		case "lua":
+			return { badge: "🌙 LUA GLYPH", badgeClass: "bg-[#3b82f6]/15 border-[#3b82f6]/50 text-[#3b82f6]", formulaTag: "-- lua5.4", glow: "bg-[#3b82f6]" };
+		case "r":
+			return { badge: "🎲 R HARUSPEX", badgeClass: "bg-[#10b981]/15 border-[#10b981]/50 text-[#10b981]", formulaTag: "# Rscript", glow: "bg-[#10b981]" };
+		case "php":
+			return { badge: "🐘 PHP CURSE", badgeClass: "bg-[#8b5cf6]/15 border-[#8b5cf6]/50 text-[#8b5cf6]", formulaTag: "// php -r", glow: "bg-[#8b5cf6]" };
+		case "vhdl":
+			return { badge: "🖥️ VHDL GOLEM", badgeClass: "bg-[#14b8a6]/15 border-[#14b8a6]/50 text-[#14b8a6]", formulaTag: "-- ghdl -a", glow: "bg-[#14b8a6]" };
+		case "brainfuck":
+			return { badge: "🐙 ABYSSAL RUNES", badgeClass: "bg-[#ef4444]/15 border-[#ef4444]/50 text-[#ef4444]", formulaTag: "[>+<-]", glow: "bg-[#ef4444]" };
+		case "erlang":
+			return { badge: "☎️ ERLANG HIVE", badgeClass: "bg-[#a855f7]/15 border-[#a855f7]/50 text-[#a855f7]", formulaTag: "% erl -noshell", glow: "bg-[#a855f7]" };
 		default:
 			return {
 				badge: "✨ ARCANUM RUNE",

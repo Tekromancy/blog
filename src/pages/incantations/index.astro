@@ -27,6 +27,16 @@ const asmCount = allIncantations.filter((i) => i.data.type === "assembly").lengt
 const elixirCount = allIncantations.filter((i) => i.data.type === "elixir").length;
 const solCount = allIncantations.filter((i) => i.data.type === "solidity").length;
 const juliaCount = allIncantations.filter((i) => i.data.type === "julia").length;
+const forthCount = allIncantations.filter((i) => i.data.type === "forth").length;
+const smalltalkCount = allIncantations.filter((i) => i.data.type === "smalltalk").length;
+const adaCount = allIncantations.filter((i) => i.data.type === "ada").length;
+const sqlCount = allIncantations.filter((i) => i.data.type === "sql").length;
+const luaCount = allIncantations.filter((i) => i.data.type === "lua").length;
+const rCount = allIncantations.filter((i) => i.data.type === "r").length;
+const phpCount = allIncantations.filter((i) => i.data.type === "php").length;
+const vhdlCount = allIncantations.filter((i) => i.data.type === "vhdl").length;
+const brainfuckCount = allIncantations.filter((i) => i.data.type === "brainfuck").length;
+const erlangCount = allIncantations.filter((i) => i.data.type === "erlang").length;
 const wasmCount = allIncantations.filter((i) => i.data.type === "wasm").length;
 const javaCount = allIncantations.filter((i) => i.data.type === "java").length;
 const cobolCount = allIncantations.filter((i) => i.data.type === "cobol").length;
@@ -199,6 +209,26 @@ function getTypeMeta(type: string) {
 				formulaTag: "// zig run",
 				glow: "bg-[#fde047]",
 			};
+		case "forth":
+			return { badge: "🥞 FORTH STACK", badgeClass: "bg-[#facc15]/15 border-[#facc15]/50 text-[#facc15]", formulaTag: "\ forth", glow: "bg-[#facc15]" };
+		case "smalltalk":
+			return { badge: "📚 SMALLTALK SEANCE", badgeClass: "bg-[#fbcfe8]/15 border-[#fbcfe8]/50 text-[#fbcfe8]", formulaTag: "gst -q", glow: "bg-[#fbcfe8]" };
+		case "ada":
+			return { badge: "🛡️ ADA ABJURATION", badgeClass: "bg-[#0284c7]/15 border-[#0284c7]/50 text-[#0284c7]", formulaTag: "-- gnatmake", glow: "bg-[#0284c7]" };
+		case "sql":
+			return { badge: "🗄️ SQL PACT", badgeClass: "bg-[#f97316]/15 border-[#f97316]/50 text-[#f97316]", formulaTag: "-- psql -c", glow: "bg-[#f97316]" };
+		case "lua":
+			return { badge: "🌙 LUA GLYPH", badgeClass: "bg-[#3b82f6]/15 border-[#3b82f6]/50 text-[#3b82f6]", formulaTag: "-- lua5.4", glow: "bg-[#3b82f6]" };
+		case "r":
+			return { badge: "🎲 R HARUSPEX", badgeClass: "bg-[#10b981]/15 border-[#10b981]/50 text-[#10b981]", formulaTag: "# Rscript", glow: "bg-[#10b981]" };
+		case "php":
+			return { badge: "🐘 PHP CURSE", badgeClass: "bg-[#8b5cf6]/15 border-[#8b5cf6]/50 text-[#8b5cf6]", formulaTag: "// php -r", glow: "bg-[#8b5cf6]" };
+		case "vhdl":
+			return { badge: "🖥️ VHDL GOLEM", badgeClass: "bg-[#14b8a6]/15 border-[#14b8a6]/50 text-[#14b8a6]", formulaTag: "-- ghdl -a", glow: "bg-[#14b8a6]" };
+		case "brainfuck":
+			return { badge: "🐙 ABYSSAL RUNES", badgeClass: "bg-[#ef4444]/15 border-[#ef4444]/50 text-[#ef4444]", formulaTag: "[>+<-]", glow: "bg-[#ef4444]" };
+		case "erlang":
+			return { badge: "☎️ ERLANG HIVE", badgeClass: "bg-[#a855f7]/15 border-[#a855f7]/50 text-[#a855f7]", formulaTag: "% erl -noshell", glow: "bg-[#a855f7]" };
 		default:
 			return {
 				badge: "✨ ARCANUM RUNE",
@@ -274,6 +304,14 @@ function getTypeMeta(type: string) {
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#fde047]"></span>
 							<span>ESOTERIC RUNES: <strong class="text-white">{lispCount + haskellCount + rubyCount + asmCount + elixirCount + solCount + zigCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#f97316]"></span>
+							<span>DOMAIN & CHAOS: <strong class="text-white">{sqlCount + luaCount + rCount + phpCount + forthCount + smalltalkCount + adaCount}</strong></span>
+						</div>
+						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
+							<span class="w-2 h-2 rounded-full bg-[#ef4444]"></span>
+							<span>ABYSSAL & HARDWARE: <strong class="text-white">{vhdlCount + brainfuckCount + erlangCount}</strong></span>
 						</div>
 						<div class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 flex items-center gap-2">
 							<span class="w-2 h-2 rounded-full bg-[#ec4899]"></span>
