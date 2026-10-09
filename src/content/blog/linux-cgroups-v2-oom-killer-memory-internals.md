@@ -5,7 +5,7 @@ pubDate: "2026-09-22"
 heroImage: "7.jpg"
 tags: ["linux", "kernel", "kubernetes", "sre", "performance"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Every Site Reliability Engineer and DevOps practitioner has faced the dreaded Kubernetes diagnosis:

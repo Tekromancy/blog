@@ -1,5 +1,5 @@
 # Tekromancy Engineering Telemetry & Unified Ads Feedback Report
-Generated: 2026-09-29T13:47:45.930Z
+Generated: 2026-10-09T12:25:02.765Z
 
 ## 1. Connected Ecosystem Infrastructure
 
@@ -31,9 +31,9 @@ The following event taxonomy is now active across all production components:
 
 ## 3. Engineering Content Radar & Inventory
 
-* **Total Articles**: 23
-* **Published**: 17
-* **Pending Drafts**: 6
+* **Total Articles**: 24
+* **Published**: 19
+* **Pending Drafts**: 5
 * **Top Technical Clusters**:
   * `#linux`: 12 articles
   * `#security`: 10 articles

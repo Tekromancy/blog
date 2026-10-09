@@ -18,7 +18,7 @@
 		"generate-themes": "tsx scripts/generate-themes.ts",
 		"generate-og-image": "tsx scripts/generate-og-image.ts",
 		"generate-ad-assets": "tsx scripts/generate-ad-assets.ts",
-		"telemetry:sync": "tsx scripts/telemetry-sync.ts"
+		"telemetry:sync": "tsx scripts/telemetry-sync.ts && tsx scripts/generate-content-gaps.ts"
 	},
 	"engines": {
 		"node": ">=22.12.0"

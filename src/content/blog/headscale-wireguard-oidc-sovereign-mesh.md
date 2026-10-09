@@ -5,7 +5,7 @@ pubDate: "2026-09-22"
 heroImage: "6.jpg"
 tags: ["networking", "wireguard", "security", "sysadmin", "linux"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Tailscale has revolutionized internal network access by wrapping the modern **WireGuard** protocol in an intuitive peer-to-peer mesh with NAT traversal and central coordination.

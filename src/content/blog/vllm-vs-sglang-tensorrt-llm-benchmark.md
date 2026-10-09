@@ -5,7 +5,7 @@ pubDate: "2026-09-22"
 heroImage: "3.jpg"
 tags: ["ai-ml", "llm", "performance", "cuda", "infrastructure"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 As open-weight foundation models (Llama 3.x, Mistral Large, DeepSeek-Coder, Qwen 2.5) approach frontier closed-source capabilities, the operational bottleneck has shifted from fine-tuning to **inference economics**.

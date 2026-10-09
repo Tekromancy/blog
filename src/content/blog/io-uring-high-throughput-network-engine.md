@@ -5,7 +5,7 @@ pubDate: "2026-09-22"
 heroImage: "4.jpg"
 tags: ["linux", "kernel", "networking", "performance", "rust"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 For over two decades, the backbone of high-performance Linux network servers—from NGINX and Node.js (libuv) to Redis and Netty—has been **`epoll`**.

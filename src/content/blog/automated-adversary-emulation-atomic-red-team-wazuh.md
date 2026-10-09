@@ -5,7 +5,7 @@ pubDate: "2026-09-22"
 heroImage: "8.png"
 tags: ["security", "ctf", "red-team", "blue-team", "sysadmin"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 A common fallacy in cybersecurity engineering is assuming that deploying a Security Information and Event Management (SIEM) system or Endpoint Detection and Response (EDR) agent means your infrastructure is protected.
