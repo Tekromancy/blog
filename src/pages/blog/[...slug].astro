@@ -31,10 +31,8 @@ type Props = {
 const { post, allPosts = [] } = Astro.props;
 const { Content, headings = [] } = await render(post);
 const heroImage = getBlogImage(post.data.heroImage);
-// Get the image URL for ogImage meta tag
-const ogImageUrl = heroImage
-	? new URL(heroImage.src, import.meta.env.SITE || SITE.url).href
-	: undefined;
+// Get the dynamic OG image URL
+const ogImageUrl = new URL(`/og/${post.id}.png`, import.meta.env.SITE || SITE.url).href;
 const authors = getPostAuthors(post.data);
 const authorNamesStr = formatAuthorNames(authors);
 const postUrl = `${SITE.url}/blog/${post.id}`;
@@ -55,6 +53,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 	articleSection={post.data.tags?.[0] || "Engineering"}
 	articleTags={post.data.tags || []}
 	noindex={post.data.draft}
+	preloadImages={heroImage ? [heroImage.src] : []}
 >
 	<ReadingProgressBar />
 	<Header />
@@ -103,6 +102,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 							class="w-full h-96 md:h-[500px] object-cover rounded-lg"
 							style="border-radius: 0.5rem;"
 							loading="eager"
+							fetchpriority="high"
 							widths={[400, 800, 1200, 1600]}
 							sizes="(max-width: 768px) 100vw, 1200px"
 						/>
@@ -169,7 +169,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 										{authors.map((author, i) => (
 											<span class="inline-flex items-center gap-1 font-medium">
 												<a
-													href={`/blog?author=${encodeURIComponent(author.name)}`}
+													href={`/author/${author.id}`}
 													class="hover:underline transition-colors font-mono text-xs sm:text-sm"
 													style="color: var(--token-color-primary, #22EE44);"
 												>
@@ -289,7 +289,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 												style="color: var(--token-color-text-primary, #111827);"
 											>
 												<a
-													href={`/blog?author=${encodeURIComponent(author.name)}`}
+													href={`/author/${author.id}`}
 													class="hover:underline"
 												>
 													{author.name}
@@ -336,7 +336,7 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 												</a>
 											)}
 											<a
-												href={`/blog?author=${encodeURIComponent(author.name)}`}
+												href={`/author/${author.id}`}
 												class="inline-flex items-center gap-1 hover:underline ml-auto"
 												style="color: var(--token-color-text-muted, #94a3b8);"
 											>
@@ -425,9 +425,9 @@ const postUrl = `${SITE.url}/blog/${post.id}`;
 								"author": authors.map((a) => ({
 									"@type": "Person",
 									"name": a.name,
-									...(a.website ? { url: a.website } : {}),
+									"url": `${SITE.url}/author/${a.id}`,
 									...(a.role ? { jobTitle: a.role } : {}),
-									sameAs: [a.github, a.linkedin].filter(Boolean),
+									sameAs: [a.website, a.github, a.linkedin].filter(Boolean),
 								})),
 								"publisher": {
 									"@type": "Organization",

@@ -15,12 +15,53 @@ const blogPosts = (
 	await getCollection("blog", ({ data }) => isDev || !data.draft)
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const upcomingEvents = getUpcomingEvents();
+
+const blogJsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{
+					"@type": "ListItem",
+					"position": 1,
+					"name": "Home",
+					"item": SITE.url,
+				},
+				{
+					"@type": "ListItem",
+					"position": 2,
+					"name": "Dispatches",
+					"item": `${SITE.url}/blog`,
+				},
+			],
+		},
+		{
+			"@type": "Blog",
+			"name": `Articles & Field Notes | ${SITE.title}`,
+			"description": "Deep-dive tutorials, system benchmarks, and architecture guides on Linux, Kubernetes, AI/ML engineering, networking, and cybersecurity.",
+			"url": `${SITE.url}/blog`,
+			"blogPost": blogPosts.map((post) => ({
+				"@type": "BlogPosting",
+				"headline": post.data.title,
+				"datePublished": post.data.pubDate.toISOString(),
+				"url": `${SITE.url}/blog/${post.id}`,
+				"author": getPostAuthors(post.data).map((author) => ({
+					"@type": "Person",
+					"name": author.name,
+					"url": `${SITE.url}/author/${author.id}`,
+				})),
+			})),
+		},
+	],
+};
 ---
 
 <Layout
 	title={`Articles & Field Notes | ${SITE.title}`}
 	description="Deep-dive tutorials, system benchmarks, and architecture guides on Linux, Kubernetes, AI/ML engineering, networking, and cybersecurity."
 	canonicalURL={`${SITE.url}/blog`}
+	jsonLd={blogJsonLd}
 >
 	<Header />
 	<main
@@ -409,99 +450,76 @@ const upcomingEvents = getUpcomingEvents();
 										.join("|")}
 									style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);"
 								>
-									<a
-										href={`/blog/${post.id}`}
-										class="block group flex-1 flex flex-col"
-									>
-										{heroImage ? (
-											<div class="w-full h-48 md:h-52 overflow-hidden rounded-t-xl relative">
-												<Image
-													src={heroImage}
-													alt={post.data.title}
-													transition:name={`blog-image-${post.id}`}
-													class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-													loading="lazy"
-													widths={[400, 800, 1200]}
-													sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-												/>
-											</div>
-										) : (
-											<div
-												class="w-full h-32 flex items-center justify-between px-6 rounded-t-xl border-b"
-												style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);"
-											>
-												<span
-													class="font-mono text-xs opacity-75"
-													style="color: var(--token-color-primary, #0ea5e9);"
-												>
-													&gt;_ sys.dispatch
-												</span>
-												<span
-													class="font-mono text-xs"
-													style="color: var(--token-color-text-muted, #64748b);"
-												>
-													tekromancy.com
-												</span>
-											</div>
-										)}
-										<div class="p-6 flex flex-col flex-1">
-											<div
-												class="flex items-center justify-between gap-3 mb-2 text-xs font-mono"
-												style="color: var(--token-color-text-muted, #64748b);"
-											>
-												<time datetime={post.data.pubDate.toISOString()}>
-													{post.data.pubDate.toLocaleDateString("en-US", {
-														year: "numeric",
-														month: "short",
-														day: "numeric",
-													})}
-												</time>
-												<div class="flex items-center gap-1.5">
-													{post.data.draft && (
-														<span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] tracking-wider uppercase border border-amber-500/60 bg-amber-500/20 text-amber-300">
-															DRAFT
-														</span>
-													)}
-													{firstTag && (
-														<span
-															class="px-2 py-0.5 rounded font-mono font-medium"
-															style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);"
-														>
-															#{firstTag}
-														</span>
-													)}
-												</div>
-											</div>
-											<div
-												class="text-[11px] font-mono mb-3 flex items-center gap-1.5 truncate"
-												style="color: var(--token-color-primary, #22EE44);"
-											>
-												<span class="opacity-70">by</span>
-												<span class="font-medium truncate">
-													{authorNamesStr}
-												</span>
-											</div>
-											<h2
-												class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2 group-hover:text-[var(--token-color-primary)]"
-												style="color: var(--token-color-text-primary, #111827);"
-											>
-												{post.data.title}
-											</h2>
-											<p
-												class="text-sm leading-relaxed flex-1 line-clamp-3 mb-4"
-												style="color: var(--token-color-text-muted, #64748b);"
-											>
-												{post.data.description}
-											</p>
-											<div
-												class="pt-4 border-t flex items-center justify-between text-xs font-mono"
-												style="border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-primary, #0ea5e9);"
-											>
-												<span>Read article</span>
-												<span>→</span>
+									{heroImage ? (
+										<a href={`/blog/${post.id}`} class="block w-full h-48 md:h-52 overflow-hidden rounded-t-xl relative group">
+											<Image
+												src={heroImage}
+												alt={post.data.title}
+												transition:name={`blog-image-${post.id}`}
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+												loading="lazy"
+												widths={[400, 800, 1200]}
+												sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+											/>
+										</a>
+									) : (
+										<a href={`/blog/${post.id}`} class="block w-full h-32 flex items-center justify-between px-6 rounded-t-xl border-b hover:bg-slate-50 transition-colors" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+											<span class="font-mono text-xs opacity-75" style="color: var(--token-color-primary, #0ea5e9);">
+												&gt;_ sys.dispatch
+											</span>
+											<span class="font-mono text-xs" style="color: var(--token-color-text-muted, #64748b);">
+												tekromancy.com
+											</span>
+										</a>
+									)}
+									<div class="p-6 flex flex-col flex-1">
+										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono" style="color: var(--token-color-text-muted, #64748b);">
+											<time datetime={post.data.pubDate.toISOString()}>
+												{post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+											</time>
+											<div class="flex items-center gap-1.5">
+												{post.data.draft && (
+													<span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] tracking-wider uppercase border border-amber-500/60 bg-amber-500/20 text-amber-300">
+														DRAFT
+													</span>
+												)}
+												{firstTag && (
+													<a href={`/tags/${encodeURIComponent(firstTag)}`} class="px-2 py-0.5 rounded font-mono font-medium hover:underline transition-colors" style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
+														#{firstTag}
+													</a>
+												)}
 											</div>
 										</div>
-									</a>
+										<div class="text-[11px] font-mono mb-3 flex flex-wrap items-center gap-1.5" style="color: var(--token-color-primary, #22EE44);">
+											<span class="opacity-70">by</span>
+											{getPostAuthors(post.data).map((author, i, arr) => (
+												<span class="inline-flex items-center">
+													<a href={`/author/${author.id}`} class="font-medium hover:underline">
+														{author.name}
+													</a>
+													{i < arr.length - 2 ? (
+														<span>, </span>
+													) : i === arr.length - 2 ? (
+														<span class="opacity-75 mx-1">&amp;</span>
+													) : null}
+												</span>
+											))}
+										</div>
+										<h2 class="text-xl font-bold font-mono mb-3 transition-colors line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
+											<a href={`/blog/${post.id}`} class="hover:text-[var(--token-color-primary)]">
+												{post.data.title}
+											</a>
+										</h2>
+										<p class="text-sm leading-relaxed flex-1 line-clamp-3 mb-4" style="color: var(--token-color-text-muted, #64748b);">
+											{post.data.description}
+										</p>
+										<div class="pt-4 border-t flex items-center justify-between text-xs font-mono" style="border-color: var(--token-color-border, #e5e7eb); color: var(--token-color-primary, #0ea5e9);">
+											<a href={`/blog/${post.id}`} class="inline-flex items-center gap-1 hover:underline group">
+												<span>Read article</span>
+												<span class="transition-transform group-hover:translate-x-1">→</span>
+											</a>
+										</div>
+									</div>
 								</article>
 							);
 						})}

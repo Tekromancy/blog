@@ -1,0 +1,213 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollReveal from "../../components/ScrollReveal.tsx";
+import { getCollection } from "astro:content";
+import { getAllAuthors, getPostAuthors } from "../../data/authors";
+import { getBlogImage } from "../../utils/blogImages";
+import { Image } from "astro:assets";
+import { SITE } from "../../config/site.mjs";
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+	const authors = getAllAuthors();
+
+	return authors.map((author) => {
+		// Find all posts by this author
+		const authorPosts = allPosts.filter((post) => {
+			const postAuthors = getPostAuthors(post.data);
+			return postAuthors.some((a) => a.id === author.id);
+		});
+		
+		// Sort by date
+		authorPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+		return {
+			params: { id: author.id },
+			props: { author, posts: authorPosts },
+		};
+	});
+}
+
+const { author, posts } = Astro.props;
+
+const authorJsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{
+					"@type": "ListItem",
+					"position": 1,
+					"name": "Home",
+					"item": SITE.url,
+				},
+				{
+					"@type": "ListItem",
+					"position": 2,
+					"name": "Authors",
+					"item": `${SITE.url}/author`,
+				},
+				{
+					"@type": "ListItem",
+					"position": 3,
+					"name": author.name,
+					"item": `${SITE.url}/author/${author.id}`,
+				},
+			],
+		},
+		{
+			"@type": "ProfilePage",
+			"mainEntity": {
+				"@type": "Person",
+				"name": author.name,
+				"description": author.bio,
+				"jobTitle": author.role,
+				...(author.website ? { url: author.website } : {}),
+				sameAs: [author.github, author.linkedin, author.twitter].filter(Boolean),
+			},
+		},
+	],
+};
+---
+
+<Layout
+	title={`${author.name} | Authors | Tekromancy`}
+	description={`Articles and field notes written by ${author.name} on Tekromancy.`}
+	jsonLd={authorJsonLd}
+	ogImage={new URL(`/og/author/${author.id}.png`, import.meta.env.SITE || SITE.url).href}
+	ogType="profile"
+>
+	<Header />
+	<main id="main-content" role="main" class="min-h-screen pb-20">
+		<div class="max-w-6xl mx-auto px-4 py-16">
+			
+			<div class="mb-12 border-b pb-12" style="border-color: var(--token-color-border, #e5e7eb);">
+				<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+					<div class="w-24 h-24 rounded-2xl flex items-center justify-center font-mono font-bold text-3xl shrink-0"
+						style="background-color: var(--token-color-surface, #f8fafc); border: 1px solid var(--token-color-border, #e2e8f0); color: var(--token-color-primary, #0ea5e9);">
+						{author.initials}
+					</div>
+					<div>
+						<h1 class="text-4xl font-bold font-mono tracking-tight mb-2" style="color: var(--token-color-text-primary, #111827);">
+							{author.name}
+						</h1>
+						{author.role && (
+							<p class="text-sm font-mono mb-4" style="color: var(--token-color-primary, #0ea5e9);">
+								// {author.role.toUpperCase()}
+							</p>
+						)}
+						{author.bio && (
+							<p class="text-lg max-w-2xl leading-relaxed" style="color: var(--token-color-text-muted, #64748b);">
+								{author.bio}
+							</p>
+						)}
+						<div class="flex items-center gap-4 mt-6">
+							{author.github && (
+								<a href={author.github} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+									GITHUB ↗
+								</a>
+							)}
+							{author.linkedin && (
+								<a href={author.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+									LINKEDIN ↗
+								</a>
+							)}
+							{author.website && (
+								<a href={author.website} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+									WEBSITE ↗
+								</a>
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-8">
+				<h2 class="text-2xl font-bold font-mono tracking-tight mb-2" style="color: var(--token-color-text-primary, #111827);">
+					Authored Dispatches
+				</h2>
+				<p class="font-mono text-sm" style="color: var(--token-color-text-muted, #64748b);">
+					{posts.length} {posts.length === 1 ? "article" : "articles"} published
+				</p>
+			</div>
+
+			{posts.length === 0 ? (
+				<div class="py-12 text-center rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+					<p class="font-mono text-lg" style="color: var(--token-color-text-muted, #64748b);">
+						No public field notes found from this author.
+					</p>
+				</div>
+			) : (
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{posts.map((post, index) => {
+						const heroImage = getBlogImage(post.data.heroImage);
+						const firstTag = post.data.tags && post.data.tags.length > 0 ? post.data.tags[0] : null;
+						
+						return (
+							<ScrollReveal client:load delay={0.1 * index}>
+								<article class="rounded-xl border h-full flex flex-col justify-between transition-all hover:shadow-lg overflow-hidden group"
+									style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);">
+									<div>
+										<a href={`/blog/${post.id}`} class="block overflow-hidden relative">
+											{heroImage ? (
+												<div class="w-full h-48 overflow-hidden relative">
+													<Image
+														src={heroImage}
+														alt={post.data.title}
+														class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+														loading="lazy"
+														widths={[400, 800]}
+														sizes="(max-width: 768px) 100vw, 33vw"
+													/>
+												</div>
+											) : (
+												<div class="w-full h-24 flex items-center justify-between px-6 border-b"
+													style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+													<span class="font-mono text-xs opacity-75" style="color: var(--token-color-primary, #0ea5e9);">
+														&gt;_ sys.dispatch
+													</span>
+												</div>
+											)}
+										</a>
+										<div class="p-6">
+											<div class="flex items-center justify-between text-xs font-mono mb-2" style="color: var(--token-color-text-muted, #64748b);">
+												<time datetime={post.data.pubDate.toISOString()}>
+													{post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+												</time>
+												{firstTag && (
+													<a href={`/tags/${encodeURIComponent(firstTag)}`} class="px-2 py-0.5 rounded font-mono font-medium hover:underline transition-colors"
+														style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
+														#{firstTag}
+													</a>
+												)}
+											</div>
+											<h3 class="text-xl font-bold font-mono mb-3 line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
+												<a href={`/blog/${post.id}`} class="transition-colors hover:text-[var(--token-color-primary)]">
+													{post.data.title}
+												</a>
+											</h3>
+											<p class="text-sm line-clamp-3 mb-2" style="color: var(--token-color-text-muted, #64748b);">
+												{post.data.description}
+											</p>
+										</div>
+									</div>
+									<div class="px-6 pb-6 pt-0 border-t pt-4" style="border-color: var(--token-color-border, #e5e7eb);">
+										<a href={`/blog/${post.id}`} class="inline-flex items-center gap-1.5 text-xs font-mono font-medium transition-colors hover:translate-x-1 duration-200"
+											style="color: var(--token-color-primary, #0ea5e9);">
+											<span>Read article</span>
+											<span>→</span>
+										</a>
+									</div>
+								</article>
+							</ScrollReveal>
+						);
+					})}
+				</div>
+			)}
+		</div>
+	</main>
+	<Footer />
+</Layout>

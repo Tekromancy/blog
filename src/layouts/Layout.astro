@@ -34,6 +34,8 @@ const {
 	nofollow = false,
 	lang = SITE.defaultLanguage,
 	jsonLd,
+	preloadImages = [],
+	preloadFonts = [],
 } = Astro.props;
 
 // Construct full URLs
@@ -73,6 +75,9 @@ const robotsContent = [
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#000000" />
 		<link
 			rel="alternate"
 			type="application/rss+xml"
@@ -108,6 +113,12 @@ const robotsContent = [
 
 		<!-- Preload Critical Resources -->
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
+		{preloadImages.map(href => (
+			<link rel="preload" href={href} as="image" fetchpriority="high" />
+		))}
+		{preloadFonts.map(href => (
+			<link rel="preload" href={href} as="font" type="font/woff2" crossorigin="anonymous" />
+		))}
 
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>

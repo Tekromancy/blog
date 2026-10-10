@@ -13,6 +13,7 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getBlogImage } from "../utils/blogImages";
 import { getPostAuthors, formatAuthorNames } from "../data/authors";
+import sketchSvg from "../assets/sketch.svg";
 
 const latestPosts = (await getCollection("blog", ({ data }) => !data.draft))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -61,6 +62,7 @@ const homeJsonLd = {
 	description={SITE.description}
 	canonicalURL={SITE.url}
 	jsonLd={homeJsonLd}
+	preloadImages={[sketchSvg.src]}
 >
 	<Header />
 	<main id="main-content" role="main">
@@ -173,13 +175,22 @@ const homeJsonLd = {
 												)}
 											</div>
 											<div
-												class="text-[11px] font-mono mb-2 flex items-center gap-1.5 truncate"
+												class="text-[11px] font-mono mb-2 flex flex-wrap items-center gap-1.5"
 												style="color: var(--token-color-primary, #22EE44);"
 											>
 												<span class="opacity-70">by</span>
-												<span class="font-medium truncate">
-													{formatAuthorNames(getPostAuthors(post.data))}
-												</span>
+												{getPostAuthors(post.data).map((author, i, arr) => (
+													<span class="inline-flex items-center">
+														<a href={`/author/${author.id}`} class="font-medium hover:underline">
+															{author.name}
+														</a>
+														{i < arr.length - 2 ? (
+															<span>, </span>
+														) : i === arr.length - 2 ? (
+															<span class="opacity-75 mx-1">&amp;</span>
+														) : null}
+													</span>
+												))}
 											</div>
 											<h3
 												class="text-lg font-bold font-mono mb-2 line-clamp-2"

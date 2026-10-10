@@ -2,6 +2,10 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { SITE } from "../config/site.mjs";
 import type { APIContext } from "astro";
+import sanitizeHtml from "sanitize-html";
+import MarkdownIt from "markdown-it";
+
+const parser = new MarkdownIt();
 
 export async function GET(context: APIContext) {
 	const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -20,6 +24,9 @@ export async function GET(context: APIContext) {
 			link: `/blog/${post.id}/`,
 			categories: post.data.tags,
 			author: post.data.author,
+			content: sanitizeHtml(parser.render(post.body || ""), {
+				allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+			}),
 		})),
 		customData: `<language>${SITE.defaultLanguage || "en"}</language>`,
 	});
