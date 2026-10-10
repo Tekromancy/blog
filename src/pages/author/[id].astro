@@ -79,6 +79,7 @@ const authorJsonLd = {
 	jsonLd={authorJsonLd}
 	ogImage={new URL(`/og/author/${author.id}.png`, import.meta.env.SITE || SITE.url).href}
 	ogType="profile"
+	noindex={true}
 >
 	<Header />
 	<main id="main-content" role="main" class="min-h-screen pb-20">

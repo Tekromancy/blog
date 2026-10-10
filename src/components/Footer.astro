@@ -14,8 +14,8 @@ import { Icon } from "astro-icon/components";
 	>
 	</div>
 	<div class="max-w-6xl mx-auto px-4">
-		<div class="grid md:grid-cols-3 gap-8 mb-8">
-			<div>
+		<div class="grid md:grid-cols-4 gap-8 mb-8">
+			<div class="md:col-span-1 lg:col-span-1">
 				<div class="flex items-center gap-2 mb-4">
 					<span
 						class="inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold font-mono shadow-sm"
@@ -246,6 +246,48 @@ import { Icon } from "astro-icon/components";
 								aria-hidden="true"
 							/>
 							<span>RSS Feed</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h2
+					class="text-base font-semibold font-mono mb-4"
+					style="color: var(--token-color-text-primary, #111827);"
+				>
+					Legal &amp; Policy
+				</h2>
+				<ul class="space-y-2 text-sm">
+					<li>
+						<a
+							href="/privacy"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:shield-lock" class="w-4 h-4" aria-hidden="true" />
+							<span>Privacy Policy</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="/terms"
+							class="flex items-center gap-2 transition-colors"
+							style="color: var(--token-color-text-muted, #374151);"
+							onmouseenter={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-primary, #0ea5e9)")}
+							onmouseleave={(e) =>
+								(e.currentTarget.style.color =
+									"var(--token-color-text-muted, #374151)")}
+						>
+							<Icon name="tabler:file-text" class="w-4 h-4" aria-hidden="true" />
+							<span>Terms of Service</span>
 						</a>
 					</li>
 				</ul>
