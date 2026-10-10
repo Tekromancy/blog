@@ -8,12 +8,40 @@ import { SITE } from "../config/site.mjs";
 import { Icon } from "astro-icon/components";
 
 const linkedinUrl = SITE.linkedin || "https://www.linkedin.com/in/coxjosh/";
+
+const contactJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE.url },
+        { "@type": "ListItem", "position": 2, "name": "Contact", "item": `${SITE.url}/contact` }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      "name": `Contact | ${SITE.title}`,
+      "description": "Initiate contact with Tekromancy. Connect directly with Joshua Cox on LinkedIn or submit an architectural transmission.",
+      "url": `${SITE.url}/contact`,
+      "publisher": {
+        "@type": "Organization",
+        "name": SITE.title,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${SITE.url}/favicon.svg`
+        }
+      }
+    }
+  ]
+};
 ---
 
 <Layout
   title={`Contact | ${SITE.title}`}
   description="Initiate contact with Tekromancy. Connect directly with Joshua Cox on LinkedIn or submit an architectural transmission."
   canonicalURL={`${SITE.url}/contact`}
+  jsonLd={contactJsonLd}
 >
   <Header />
   <main id="main-content" role="main">

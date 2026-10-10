@@ -36,12 +36,67 @@ const ogImageUrl = new URL(`/og/${post.id}.png`, import.meta.env.SITE || SITE.ur
 const authors = getPostAuthors(post.data);
 const authorNamesStr = formatAuthorNames(authors);
 const postUrl = `${SITE.url}/blog/${post.id}`;
+
+const postJsonLd = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{ "@type": "ListItem", "position": 1, "name": "Home", "item": SITE.url },
+				{ "@type": "ListItem", "position": 2, "name": "Dispatches", "item": `${SITE.url}/blog` },
+				...(post.data.tags && post.data.tags.length > 0 ? [{
+					"@type": "ListItem",
+					"position": 3,
+					"name": `#${post.data.tags[0]}`,
+					"item": `${SITE.url}/tags/${encodeURIComponent(post.data.tags[0])}`
+				}, {
+					"@type": "ListItem",
+					"position": 4,
+					"name": post.data.title,
+					"item": postUrl
+				}] : [{
+					"@type": "ListItem",
+					"position": 3,
+					"name": post.data.title,
+					"item": postUrl
+				}])
+			]
+		},
+		{
+			"@type": "BlogPosting",
+			"headline": post.data.title,
+			"description": post.data.description,
+			"image": ogImageUrl,
+			"author": authors.map(a => ({
+				"@type": "Person",
+				"name": a.name,
+				"url": a.website || `${SITE.url}/author/${a.id}`
+			})),
+			"publisher": {
+				"@type": "Organization",
+				"name": SITE.title,
+				"logo": {
+					"@type": "ImageObject",
+					"url": `${SITE.url}/favicon.svg`
+				}
+			},
+			"datePublished": post.data.pubDate.toISOString(),
+			"dateModified": (post.data.updatedDate || post.data.pubDate).toISOString(),
+			"mainEntityOfPage": {
+				"@type": "WebPage",
+				"@id": postUrl
+			}
+		}
+	]
+};
 ---
 
 <Layout
 	title={`${post.data.title} | ${SITE.title}`}
 	description={post.data.description}
 	canonicalURL={`${SITE.url}/blog/${post.id}`}
+	jsonLd={postJsonLd}
 	ogType="article"
 	ogImage={ogImageUrl}
 	ogImageWidth={1200}

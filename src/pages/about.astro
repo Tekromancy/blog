@@ -6,12 +6,40 @@ import ScrollReveal from "../components/ScrollReveal.tsx";
 import { SITE } from "../config/site.mjs";
 import { Icon } from "astro-icon/components";
 import { getAllAuthors } from "../data/authors";
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE.url },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": `${SITE.url}/about` }
+      ]
+    },
+    {
+      "@type": "AboutPage",
+      "name": `About | ${SITE.title}`,
+      "description": "About Tekromancy: Explorations into the arcane arts of Linux, Kubernetes, AI/ML systems, distributed networking, and cybersecurity.",
+      "url": `${SITE.url}/about`,
+      "publisher": {
+        "@type": "Organization",
+        "name": SITE.title,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${SITE.url}/favicon.svg`
+        }
+      }
+    }
+  ]
+};
 ---
 
 <Layout
   title={`About | ${SITE.title}`}
   description="About Tekromancy: Explorations into the arcane arts of Linux, Kubernetes, AI/ML systems, distributed networking, and cybersecurity."
   canonicalURL={`${SITE.url}/about`}
+  jsonLd={aboutJsonLd}
 >
   <Header />
   <main id="main-content" role="main">

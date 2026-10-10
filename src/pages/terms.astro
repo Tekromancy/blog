@@ -8,11 +8,39 @@ const currentMeta = {
 	title: "Terms of Service",
 	desc: "Terms of Service and conditions for using Tekromancy.",
 };
+
+const termsJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE.url },
+        { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": `${SITE.url}/terms` }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "name": `Terms of Service | ${SITE.title}`,
+      "description": currentMeta.desc,
+      "url": `${SITE.url}/terms`,
+      "publisher": {
+        "@type": "Organization",
+        "name": SITE.title,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${SITE.url}/favicon.svg`
+        }
+      }
+    }
+  ]
+};
 ---
 
 <Layout
 	title={`${currentMeta.title} | ${SITE.title}`}
 	description={currentMeta.desc}
+	jsonLd={termsJsonLd}
 >
 	<Header />
 	<main class="min-h-screen bg-black text-gray-300 py-24">
