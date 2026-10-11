@@ -11,7 +11,7 @@ draft: false
 
 Software engineering has always carried an undertone of the arcane. We write structured language in text files, pass them through a compiler, and the machine animates our will. It is modern spellcasting.
 
-Today, we are thrilled to announce the open-source release of [**Incantations**](https://github.com/Tekromancy/incantations)—a repository where POSIX shell philosophy, multi-language systems code, and generative latent space converge. 
+Today, we are thrilled to announce the release of the live [**Incantations Grimoire**](https://incantations.tekromancy.com/) and its open-source [GitHub repository](https://github.com/Tekromancy/incantations)—where POSIX shell philosophy, multi-language systems code, and generative latent space converge. 
 
 This is not your standard boilerplate repository. It is a grimoire that traces the lineage of structured software design back to the sacred 1994 Gang of Four (GoF) design patterns, projecting them forward into a wildly diverse array of languages and modern AI architectures.
 
@@ -36,9 +36,9 @@ The intent behind `incantations` is to document the evolution of code as magic. 
 
 Whether you are a systems engineer optimizing eBPF hooks or an AI researcher designing autonomous agent swarms, the patterns governing your work are older than the languages you write them in.
 
-## Clone the Repository
+## Explore the Live Grimoire & Clone the Repository
 
-The grimoire is open. You can clone the repository, explore the `apps/web/src/content/incantations/` directory, and contribute your own arcane patterns.
+You can explore the full interactive matrix online at [**incantations.tekromancy.com**](https://incantations.tekromancy.com/), browse our [**Pattern Categories**](https://incantations.tekromancy.com/category), explore the [**130+ Language Compendium**](https://incantations.tekromancy.com/language), or clone the source directly:
 
 ```bash
 # Clone the repository
