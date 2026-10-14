@@ -8,6 +8,7 @@ import { TEKROMANCY_APPS } from "../data/apps";
 import { Icon } from "astro-icon/components";
 import BatteryRetentionCalculator from "../components/interactive/BatteryRetentionCalculator.tsx";
 import TelecomTimelineMatrix from "../components/interactive/TelecomTimelineMatrix.tsx";
+import GeodesicCompassSimulator from "../components/interactive/GeodesicCompassSimulator.tsx";
 
 const apps = TEKROMANCY_APPS;
 
@@ -243,6 +244,12 @@ const appsJsonLd = {
               {app.id === "silent-mode-control" && (
                 <div class="mt-8 pt-6 border-t border-white/10">
                   <TelecomTimelineMatrix client:visible />
+                </div>
+              )}
+
+              {app.id === "coordy" && (
+                <div class="mt-8 pt-6 border-t border-white/10">
+                  <GeodesicCompassSimulator client:visible />
                 </div>
               )}
             </article>
