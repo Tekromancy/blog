@@ -16,6 +16,8 @@ import BatteryRetentionCalculator from "../../components/interactive/BatteryRete
 import TelecomTimelineMatrix from "../../components/interactive/TelecomTimelineMatrix.tsx";
 import GeodesicCompassSimulator from "../../components/interactive/GeodesicCompassSimulator.tsx";
 import TpmSpireAttestationSimulator from "../../components/interactive/TpmSpireAttestationSimulator.tsx";
+import ScxLatencySimulator from "../../components/interactive/ScxLatencySimulator.tsx";
+import AgentSandboxSimulator from "../../components/interactive/AgentSandboxSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -337,6 +339,42 @@ const postJsonLd = {
 								Simulate Evil Maid boot tampering, NVMe drive theft, and rogue container image substitution to observe how TPM 2.0 PCR quotes and SPIRE workload selectors halt unauthorized credential issuance.
 							</p>
 							<TpmSpireAttestationSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "custom-linux-kernel-scheduling-userspace-sched-ext-rust" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // KERNEL SCHED_EXT DSQ LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive sched_ext (scx) Tail-Latency &amp; Watchdog Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Hot-swap between Linux EEVDF, scx_bpfland, scx_lavd, and custom Rustland schedulers under variable all-core build saturation, tune DSQ time slices, and inject BPF watchdog stalls in real time.
+							</p>
+							<ScxLatencySimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "sandboxing-autonomous-coding-agents-firecracker-landlock-ebpf" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // THREE-RING AGENT CONTAINMENT LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Autonomous Agent Breakout &amp; Containment Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Simulate cloud IMDS token theft, shared-kernel io_uring privilege escalation, host filesystem credential leaks, and public PyPI exfiltration across Docker, Rootless Seccomp, gVisor, and the Three-Ring Firecracker+Landlock+eBPF jail.
+							</p>
+							<AgentSandboxSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
