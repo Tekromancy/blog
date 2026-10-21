@@ -3,15 +3,24 @@ import { Resvg } from "@resvg/resvg-js";
 import fs from "fs/promises";
 import path from "path";
 import React from "react";
-import { getAllAuthors } from "../../../data/authors";
+import { getAllAuthors, getPostAuthors } from "../../../data/authors";
+import { getCollection } from "astro:content";
 import { SITE } from "../../../config/site.mjs";
 
 export async function getStaticPaths() {
+	const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 	const authors = getAllAuthors();
-	return authors.map((author) => ({
-		params: { id: author.id },
-		props: author,
-	}));
+	return authors
+		.filter((author) => {
+			return allPosts.some((post) => {
+				const postAuthors = getPostAuthors(post.data);
+				return postAuthors.some((a) => a.id === author.id);
+			});
+		})
+		.map((author) => ({
+			params: { id: author.id },
+			props: author,
+		}));
 }
 
 export async function GET({ props }) {
