@@ -18,6 +18,7 @@ import GeodesicCompassSimulator from "../../components/interactive/GeodesicCompa
 import TpmSpireAttestationSimulator from "../../components/interactive/TpmSpireAttestationSimulator.tsx";
 import ScxLatencySimulator from "../../components/interactive/ScxLatencySimulator.tsx";
 import AgentSandboxSimulator from "../../components/interactive/AgentSandboxSimulator.tsx";
+import PostQuantumMeshSimulator from "../../components/interactive/PostQuantumMeshSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -375,6 +376,24 @@ const postJsonLd = {
 								Simulate cloud IMDS token theft, shared-kernel io_uring privilege escalation, host filesystem credential leaks, and public PyPI exfiltration across Docker, Rootless Seccomp, gVisor, and the Three-Ring Firecracker+Landlock+eBPF jail.
 							</p>
 							<AgentSandboxSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "post-quantum-wireguard-hybrid-ml-kem-rosenpass-mesh" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // HYBRID POST-QUANTUM MESH LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Harvest-Now-Decrypt-Later (HNDL) &amp; Rosenpass Dual-KEM Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Compare Classical WireGuard, Static PSK, Single-KEM Lattice, and Rosenpass Dual-KEM (Classic McEliece 460896 + ML-KEM-512) under active CRQC Shor attacks, future disk compromises, and variable PSK rotation intervals.
+							</p>
+							<PostQuantumMeshSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
