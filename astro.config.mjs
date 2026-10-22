@@ -23,6 +23,8 @@ export default defineConfig({
           "/features",
           "/landing",
           "/theme",
+          "/tags",
+          "/author",
         ];
         return !excluded.some((pattern) => page.includes(pattern));
       },
@@ -34,9 +36,6 @@ export default defineConfig({
         } else if (url === `${SITE.url}/blog` || url === `${SITE.url}/apps`) {
           item.priority = 0.9;
           item.changefreq = "daily";
-        } else if (url.includes("/tags/")) {
-          item.priority = 0.8;
-          item.changefreq = "weekly";
         } else if (url.includes("/blog/")) {
           item.priority = 0.8;
           item.changefreq = "monthly";
