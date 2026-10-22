@@ -19,6 +19,7 @@ import TpmSpireAttestationSimulator from "../../components/interactive/TpmSpireA
 import ScxLatencySimulator from "../../components/interactive/ScxLatencySimulator.tsx";
 import AgentSandboxSimulator from "../../components/interactive/AgentSandboxSimulator.tsx";
 import PostQuantumMeshSimulator from "../../components/interactive/PostQuantumMeshSimulator.tsx";
+import McpSecuritySimulator from "../../components/interactive/McpSecuritySimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -394,6 +395,24 @@ const postJsonLd = {
 								Compare Classical WireGuard, Static PSK, Single-KEM Lattice, and Rosenpass Dual-KEM (Classic McEliece 460896 + ML-KEM-512) under active CRQC Shor attacks, future disk compromises, and variable PSK rotation intervals.
 							</p>
 							<PostQuantumMeshSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "mcp-under-siege-tool-poisoning-securing-model-context-protocol" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // ZERO-TRUST MCP INTERCEPTOR LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive MCP Tool-Poisoning, Rug-Pull &amp; Taint-Tracking Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Compare what the human operator sees in the IDE UI against the raw JSON-RPC payload injected into the LLM system prompt, and test RFC 8785 JCS lockfiles, Unicode tag strippers, and capability taint gates.
+							</p>
+							<McpSecuritySimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
