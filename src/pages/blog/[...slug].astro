@@ -21,6 +21,7 @@ import AgentSandboxSimulator from "../../components/interactive/AgentSandboxSimu
 import PostQuantumMeshSimulator from "../../components/interactive/PostQuantumMeshSimulator.tsx";
 import McpSecuritySimulator from "../../components/interactive/McpSecuritySimulator.tsx";
 import ImmutableBackupSimulator from "../../components/interactive/ImmutableBackupSimulator.tsx";
+import DisaggregatedInferenceSimulator from "../../components/interactive/DisaggregatedInferenceSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -432,6 +433,24 @@ const postJsonLd = {
 								Test compromised backup clients, SeaweedFS Filer/DeleteBucket side-doors, NTP clock fast-forward attacks, and storage root breaches across self-hosted and dual-substrate B2/Wasabi/AWS WORM architectures.
 							</p>
 							<ImmutableBackupSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "disaggregated-llm-serving-prefill-decode-rdma-rocev2" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // DISAGGREGATED RDMA KV-STREAMING LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Prefill-Decode RDMA KV-Transfer &amp; Tail-Latency Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Model KV-cache payload sizes across GQA (Llama-3.3-70B, Qwen-2.5-72B, Llama-3.1-405B) and MLA (DeepSeek-V3 671B), compare FP8 vs. BF16 precision over 100G–800G RoCEv2/IB fabrics, and observe layer-pipelined overlap and p99 ITL stalls.
+							</p>
+							<DisaggregatedInferenceSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
