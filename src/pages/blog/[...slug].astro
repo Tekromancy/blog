@@ -23,6 +23,7 @@ import McpSecuritySimulator from "../../components/interactive/McpSecuritySimula
 import ImmutableBackupSimulator from "../../components/interactive/ImmutableBackupSimulator.tsx";
 import DisaggregatedInferenceSimulator from "../../components/interactive/DisaggregatedInferenceSimulator.tsx";
 import ConfidentialComputingSimulator from "../../components/interactive/ConfidentialComputingSimulator.tsx";
+import CxlMemoryTieringSimulator from "../../components/interactive/CxlMemoryTieringSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -470,6 +471,24 @@ const postJsonLd = {
 								Simulate malicious KVM hypervisor `/dev/mem` dumps, Nested Page Table (`GPA -&gt; SPA`) aliasing, forged `#VC` exception injection (`WeSee`), PCIe `BAR1` bus snooping, and firmware tampering across CPU + GPU confidential computing architectures.
 							</p>
 							<ConfidentialComputingSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "cxl-3-memory-pooling-tiered-ram-linux-kernel-numactl-damon" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // CXL 3.1 COHERENT POOL &amp; DAMON TIERING LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive CXL 3.0/3.1 Memory Tiering, Bandwidth Striping &amp; FLIT Coherency Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Model composite nanosecond read latency, sustained DDR5 + CXL bandwidth striping (`weighted_interleave`), hardware CAPEX savings, and Linux 6.11+ `DAMON` (`DAMOS_MIGRATE_HOT` / `COLD`) policies—or inspect 256B `LO-Flit` and `S2M BISnp` back-invalidation traces.
+							</p>
+							<CxlMemoryTieringSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
