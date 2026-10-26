@@ -24,6 +24,7 @@ import ImmutableBackupSimulator from "../../components/interactive/ImmutableBack
 import DisaggregatedInferenceSimulator from "../../components/interactive/DisaggregatedInferenceSimulator.tsx";
 import ConfidentialComputingSimulator from "../../components/interactive/ConfidentialComputingSimulator.tsx";
 import CxlMemoryTieringSimulator from "../../components/interactive/CxlMemoryTieringSimulator.tsx";
+import November3EphemeraAlmanac from "../../components/interactive/November3EphemeraAlmanac.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -489,6 +490,24 @@ const postJsonLd = {
 								Model composite nanosecond read latency, sustained DDR5 + CXL bandwidth striping (`weighted_interleave`), hardware CAPEX savings, and Linux 6.11+ `DAMON` (`DAMOS_MIGRATE_HOT` / `COLD`) policies—or inspect 256B `LO-Flit` and `S2M BISnp` back-invalidation traces.
 							</p>
 							<CxlMemoryTieringSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "november-3-chronicles-unix-v1-strowger-switches-morris-worm-tekromancy-ephemera" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // NOVEMBER 3RD TECHNOMANCER CHRONICLES LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive 11/3/71 UNIX First Edition PDP-11/20 Console, Strowger Relay &amp; Ephemera Vault
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Explore 134 years of verified November 3rd milestones, execute authentic `11/3/71` First Edition UNIX commands on a simulated 24 KB DEC PDP-11/20 Model 37 Teletype, and pulse-dial Almon Strowger&apos;s 1892 step-by-step electromechanical switch.
+							</p>
+							<November3EphemeraAlmanac client:visible />
 						</div>
 					</ScrollReveal>
 				)}
