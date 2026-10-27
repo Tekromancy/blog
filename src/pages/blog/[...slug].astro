@@ -25,6 +25,7 @@ import DisaggregatedInferenceSimulator from "../../components/interactive/Disagg
 import ConfidentialComputingSimulator from "../../components/interactive/ConfidentialComputingSimulator.tsx";
 import CxlMemoryTieringSimulator from "../../components/interactive/CxlMemoryTieringSimulator.tsx";
 import November3EphemeraAlmanac from "../../components/interactive/November3EphemeraAlmanac.tsx";
+import EbpfIoUringRootkitSimulator from "../../components/interactive/EbpfIoUringRootkitSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -508,6 +509,24 @@ const postJsonLd = {
 								Explore 134 years of verified November 3rd milestones, execute authentic `11/3/71` First Edition UNIX commands on a simulated 24 KB DEC PDP-11/20 Model 37 Teletype, and pulse-dial Almon Strowger&apos;s 1892 step-by-step electromechanical switch.
 							</p>
 							<November3EphemeraAlmanac client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "detecting-ebpf-io-uring-rootkits-lsm-bpf-hardware-pmu-telemetry" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // RING-0 IO_URING &amp; EBPF FORENSICS LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive io_uring SQPOLL, Self-Hiding eBPF `sys_bpf` &amp; Hardware PMU Rootkit Hunter
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Simulate syscall-less `io_uring` `SQPOLL` implants, `fexit/__x64_sys_bpf` program-ID spoofing, and pre-stack `XDP_DROP` C2 triggers against legacy `sys_enter` EDRs, `/proc/kcore` `prog_idr` XArray walking (`drgn`), and Intel LBR hardware PMU branch telemetry.
+							</p>
+							<EbpfIoUringRootkitSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
