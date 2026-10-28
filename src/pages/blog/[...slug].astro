@@ -26,6 +26,7 @@ import ConfidentialComputingSimulator from "../../components/interactive/Confide
 import CxlMemoryTieringSimulator from "../../components/interactive/CxlMemoryTieringSimulator.tsx";
 import November3EphemeraAlmanac from "../../components/interactive/November3EphemeraAlmanac.tsx";
 import EbpfIoUringRootkitSimulator from "../../components/interactive/EbpfIoUringRootkitSimulator.tsx";
+import Nvfp4MicroscalingSimulator from "../../components/interactive/Nvfp4MicroscalingSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -527,6 +528,24 @@ const postJsonLd = {
 								Simulate syscall-less `io_uring` `SQPOLL` implants, `fexit/__x64_sys_bpf` program-ID spoofing, and pre-stack `XDP_DROP` C2 triggers against legacy `sys_enter` EDRs, `/proc/kcore` `prog_idr` XArray walking (`drgn`), and Intel LBR hardware PMU branch telemetry.
 							</p>
 							<EbpfIoUringRootkitSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "fp4-mx-microscaling-blackwell-nvfp4-quantization-aware-llm-inference" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // W4A4 NVFP4 &amp; HADAMARD ROTATION LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive 16-Element NVFP4 / MXFP4 Quantizer &amp; Fast Walsh-Hadamard Outlier Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Inject 120x activation outlier spikes, toggle orthogonal Fast Walsh-Hadamard rotation (`QuaRot` / `SpinQuant`), inspect bit-level `E2M1` (`±0..6.0`) and `FP8 E4M3` micro-scales, and size 70B–671B Blackwell B200 deployments.
+							</p>
+							<Nvfp4MicroscalingSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
