@@ -27,6 +27,7 @@ import CxlMemoryTieringSimulator from "../../components/interactive/CxlMemoryTie
 import November3EphemeraAlmanac from "../../components/interactive/November3EphemeraAlmanac.tsx";
 import EbpfIoUringRootkitSimulator from "../../components/interactive/EbpfIoUringRootkitSimulator.tsx";
 import Nvfp4MicroscalingSimulator from "../../components/interactive/Nvfp4MicroscalingSimulator.tsx";
+import RailOptimizedFabricSimulator from "../../components/interactive/RailOptimizedFabricSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -546,6 +547,24 @@ const postJsonLd = {
 								Inject 120x activation outlier spikes, toggle orthogonal Fast Walsh-Hadamard rotation (`QuaRot` / `SpinQuant`), inspect bit-level `E2M1` (`±0..6.0`) and `FP8 E4M3` micro-scales, and size 70B–671B Blackwell B200 deployments.
 							</p>
 							<Nvfp4MicroscalingSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "bgp-evpn-vxlan-srv6-clos-leaf-spine-ai-gpu-cluster-fabric" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // 8-RAIL CLOS, SRv6 uSID &amp; DLB SPRAYING LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive 8-Rail Clos Topology, ECMP Collision &amp; SRv6 uSID / DLB Packet Spraying Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Compare static 5-tuple ECMP Balls-into-Bins spine collisions against 1-hop `NCCL PxN` rail switching, `RFC 8986` `SRv6 uSID` deterministic carrier steering (`fcbb:bb00::/32`), and Switch `DLB` + ConnectX-7/8 `OOO-DDP` across 400GbE and 800GbE fabrics.
+							</p>
+							<RailOptimizedFabricSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
