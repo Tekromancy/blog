@@ -28,6 +28,7 @@ import November3EphemeraAlmanac from "../../components/interactive/November3Ephe
 import EbpfIoUringRootkitSimulator from "../../components/interactive/EbpfIoUringRootkitSimulator.tsx";
 import Nvfp4MicroscalingSimulator from "../../components/interactive/Nvfp4MicroscalingSimulator.tsx";
 import RailOptimizedFabricSimulator from "../../components/interactive/RailOptimizedFabricSimulator.tsx";
+import KernelLivepatchSimulator from "../../components/interactive/KernelLivepatchSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -565,6 +566,24 @@ const postJsonLd = {
 								Compare static 5-tuple ECMP Balls-into-Bins spine collisions against 1-hop `NCCL PxN` rail switching, `RFC 8986` `SRv6 uSID` deterministic carrier steering (`fcbb:bb00::/32`), and Switch `DLB` + ConnectX-7/8 `OOO-DDP` across 400GbE and 800GbE fabrics.
 							</p>
 							<RailOptimizedFabricSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "linux-live-kernel-patching-kpatch-klp-zero-downtime-cve-remediation" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // RING-0 CONFIG_LIVEPATCH &amp; ORC UNWINDER LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Linux Kernel Livepatch (`klp`) ftrace Trampoline &amp; Per-Task Consistency Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Step through `insmod livepatch-cve.ko` to observe 5-byte `ftrace` prologue patching (`0f 1f 44 00 00` -&gt; `call klp_ftrace_handler`), per-task `TIF_PATCH_PENDING` convergence across Ring-3 syscall exits and `ORC` stack unwinding (`arch_stack_walk_reliable`), and `klp_shadow_alloc()` double-free prevention.
+							</p>
+							<KernelLivepatchSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
