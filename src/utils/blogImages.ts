@@ -34,6 +34,13 @@ import image32 from "../assets/blog/32.jpg";
 import image33 from "../assets/blog/33.jpg";
 import image34 from "../assets/blog/34.jpg";
 import image35 from "../assets/blog/35.jpg";
+import image36 from "../assets/blog/36.jpg";
+import image37 from "../assets/blog/37.jpg";
+import image38 from "../assets/blog/38.jpg";
+import image39 from "../assets/blog/39.jpg";
+import image40 from "../assets/blog/40.jpg";
+import image41 from "../assets/blog/41.jpg";
+import image42 from "../assets/blog/42.jpg";
 import talosBareMetal from "../assets/blog/talos-bare-metal.jpg";
 import type { ImageMetadata } from "astro";
 
@@ -74,6 +81,13 @@ export const blogImages: Record<string, ImageMetadata> = {
 	"33.jpg": image33,
 	"34.jpg": image34,
 	"35.jpg": image35,
+	"36.jpg": image36,
+	"37.jpg": image37,
+	"38.jpg": image38,
+	"39.jpg": image39,
+	"40.jpg": image40,
+	"41.jpg": image41,
+	"42.jpg": image42,
 	"talos-bare-metal.jpg": talosBareMetal,
 };
 
