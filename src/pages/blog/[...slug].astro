@@ -29,6 +29,7 @@ import EbpfIoUringRootkitSimulator from "../../components/interactive/EbpfIoUrin
 import Nvfp4MicroscalingSimulator from "../../components/interactive/Nvfp4MicroscalingSimulator.tsx";
 import RailOptimizedFabricSimulator from "../../components/interactive/RailOptimizedFabricSimulator.tsx";
 import KernelLivepatchSimulator from "../../components/interactive/KernelLivepatchSimulator.tsx";
+import CyberReasoningSimulator from "../../components/interactive/CyberReasoningSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -584,6 +585,24 @@ const postJsonLd = {
 								Step through `insmod livepatch-cve.ko` to observe 5-byte `ftrace` prologue patching (`0f 1f 44 00 00` -&gt; `call klp_ftrace_handler`), per-task `TIF_PATCH_PENDING` convergence across Ring-3 syscall exits and `ORC` stack unwinding (`arch_stack_walk_reliable`), and `klp_shadow_alloc()` double-free prevention.
 							</p>
 							<KernelLivepatchSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "autonomous-binary-exploitation-fuzzing-libafl-symbolic-execution-llm-crs" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(245, 158, 11, 0.35);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-amber-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // ALL HALLOWS&apos; EVE CRS &amp; ASAN SHADOW MEMORY LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Tri-Engine CRS (`LibAFL` + `SymCC Z3` + LLM Slicer), `ASan` Shadow Memory &amp; Oct 31 Hacker Lore Vault
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Compare `LibAFL CmpLog`, `SymCC + Z3` concolic execution, and LLM backward `LLVM IR` slicing across a 4-gate control-flow maze, inspect `ASan` Shadow Memory (`0xfa` Redzones, `0xfd` Quarantine Ghosts, and `House of Spirit` fake chunks), and explore the October 31st All Hallows&apos; Eve Hacker Grimoire.
+							</p>
+							<CyberReasoningSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
