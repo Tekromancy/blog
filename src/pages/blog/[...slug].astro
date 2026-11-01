@@ -30,6 +30,7 @@ import Nvfp4MicroscalingSimulator from "../../components/interactive/Nvfp4Micros
 import RailOptimizedFabricSimulator from "../../components/interactive/RailOptimizedFabricSimulator.tsx";
 import KernelLivepatchSimulator from "../../components/interactive/KernelLivepatchSimulator.tsx";
 import CyberReasoningSimulator from "../../components/interactive/CyberReasoningSimulator.tsx";
+import FlashAttentionWarpSimulator from "../../components/interactive/FlashAttentionWarpSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -603,6 +604,24 @@ const postJsonLd = {
 								Compare `LibAFL CmpLog`, `SymCC + Z3` concolic execution, and LLM backward `LLVM IR` slicing across a 4-gate control-flow maze, inspect `ASan` Shadow Memory (`0xfa` Redzones, `0xfd` Quarantine Ghosts, and `House of Spirit` fake chunks), and explore the October 31st All Hallows&apos; Eve Hacker Grimoire.
 							</p>
 							<CyberReasoningSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "flashattention-3-warp-specialization-wgmma-tma-hopper-blackwell-cuda" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // SM90 WGMMA &amp; SM100 TCGEN05 WARP-SPECIALIZED LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive FlashAttention-3 Warp Specialization, Ping-Pong Overlap &amp; `TMA` `mbarrier` Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Compare Hopper `SM90` (`wgmma.mma_async` + `RMEM`) and Blackwell `SM100` (`tcgen05.mma` + `256 KB TMEM`) across synchronous `FlashAttention-2`, `TMA` Warp Specialization (`setmaxnreg`), and 2-Warpgroup Ping-Pong schedules, and step through the circular SMEM `mbarrier` parity ring.
+							</p>
+							<FlashAttentionWarpSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}

@@ -6,28 +6,30 @@ updatedDate: "2026-11-01"
 heroImage: "36.jpg"
 tags: ["ai-ml", "gpu", "performance", "cuda", "infrastructure"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 When **FlashAttention-2** launched on NVIDIA Ampere (`A100`, `SM80`), it achieved ~70% of theoretical peak FP16 FLOPs by fusing the $O(N^2)$ attention matrix $S = QK^T$ and online softmax rescaling inside on-chip SRAM. Yet when engineers compiled that exact same synchronous CUDA programming model onto **NVIDIA Hopper (`H100`/`H200`, `SM90`)**, Tensor Core utilization plummeted to **35%**.
 
 Why did an architecture with 3x higher Tensor Core throughput (`989 TFLOPS` BF16 / `1,979 TFLOPS` FP8) stall for nearly two-thirds of every clock cycle under a FlashAttention-2 schedule?
 
-Because on Hopper (`SM90`) and Blackwell (`SM100`), **data movement and Tensor Core matrix multiply-accumulate (`WGMMA` / `TCGen05`) are fundamentally asynchronous hardware engines**, whereas non-Tensor-Core Special Function Units (`SFU` / `MUFU.EX2` used by `softmax`) remain synchronous and heavily throughput-limited:
+Because on Hopper (`SM90`) and Blackwell (`SM100`), **data movement and Tensor Core matrix multiply-accumulate (`WGMMA` / `tcgen05.mma`) are fundamentally asynchronous hardware engines**, whereas non-Tensor-Core Special Function Units (`SFU` / `MUFU.EX2` used by `softmax`) remain synchronous and heavily throughput-limited:
 - On an `H100 SXM5`, the 4th-generation Tensor Cores execute **1,024 FP16/BF16 operations per clock cycle per SM** (`wgmma.mma_async`), while the Special Function Unit (`SFU`) computes only **16 `exp2f` transcendental operations per clock cycle per SM**—a **64:1 throughput asymmetry**!
 - Worse, in a classical homogeneous threadblock (`SIMT`), every warp executes the same instruction stream: load tile (`cp.async`), hit `__syncthreads()`, run `mma.sync`, hit `__syncthreads()`, and stall on `MUFU.EX2` softmax. While the `SFU` is computing `exp2`, both the **3.35 TB/s HBM3e bus** and the **Tensor Cores** sit completely idle.
 
-**FlashAttention-3** and modern `CUTLASS 3.x` / `ThunderKittens` kernels break this wall—reaching **75%–85% Tensor Core utilization (up to 1.2 PFLOPS FP8 per GPU)**—through three hardware-software co-design primitives: **Warp Specialization**, **Tensor Memory Accelerator (`TMA`) Circular Buffers with `mbarrier`**, and **Two-Warpgroup Ping-Pong Overlapping**.
+**FlashAttention-3** and modern `CUTLASS 3.x` / `ThunderKittens` kernels break this wall—reaching **75%–85% Tensor Core utilization (up to 1.2 PFLOPS FP8 on Hopper and 2.25+ PFLOPS on Blackwell)**—through four hardware-software co-design primitives: **Warp Specialization (`setmaxnreg`)**, **Tensor Memory Accelerator (`TMA`) Circular Buffers with `mbarrier`**, **Two-Warpgroup Ping-Pong Overlapping**, and **Blackwell `SM100` Dedicated Tensor Memory (`TMEM`)**.
 
 ---
 
 ## 1. Warp Specialization: Producer Warpgroups vs. Consumer Warpgroups
 
 In a traditional CUDA kernel, all warps in a Cooperative Thread Array (`CTA` / Threadblock) are symmetric workers. On `SM90+`, symmetric warps suffer from **Register Pressure Inversion**:
-- Issuing asynchronous HBM-to-Shared-Memory (`SMEM`) transfers requires very few registers (`24–32 regs/thread`).
-- Accumulating a $64 \times 128$ or $128 \times 128$ `WGMMA` tile in registers requires massive register files (`232–255 regs/thread`, the hardware ceiling of 65,536 32-bit registers per SM).
+- Issuing asynchronous HBM-to-Shared-Memory (`SMEM`) transfers requires very few registers (`24–40 regs/thread`).
+- Accumulating a $64 \times 128$ or $128 \times 128$ `WGMMA` tile in registers requires massive register files (`232–255 regs/thread`, hitting the hardware ceiling of 65,536 32-bit registers per SM).
 
 Using PTX **`setmaxnreg.dec` / `setmaxnreg.inc`**, a Warp-Specialized kernel divides a 12-warp (3-Warpgroup, 384-thread) CTA into two asymmetric roles that execute completely independent control-flow loops:
+
+![SM90 / SM100 Warp-Specialized CTA and Ping-Pong Execution Pipeline](/images/fa3-warp-specialized-ping-pong-pipeline.jpg)
 
 ```text
 +-----------------------------------------------------------------------------------+
@@ -55,7 +57,7 @@ Using PTX **`setmaxnreg.dec` / `setmaxnreg.inc`**, a Warp-Specialized kernel div
 ```
 
 1. **Producer Warpgroup (`WG0`, 4 Warps / 128 Threads)**: Voluntarily relinquishes its unused registers back to the SM pool via `setmaxnreg.dec.sync.aligned.u32 40`. A single elected thread (`elect.sync`) inside `WG0` issues asynchronous **Tensor Memory Accelerator (`TMA`)** descriptors to stream $K_j$ and $V_j$ tiles from HBM3e into a multi-stage circular buffer in Shared Memory (`SMEM`).
-2. **Consumer Warpgroups (`WG1` & `WG2`, 8 Warps / 256 Threads)**: Claim the donated registers via `setmaxnreg.inc.sync.aligned.u32 232`, holding the query tile $Q_i$, running online softmax statistics $(m_i, \ell_i)$, and output accumulator $O_i$ entirely in register file (`RMEM`) without spilling to local memory!
+2. **Consumer Warpgroups (`WG1` & `WG2`, 8 Warps / 256 Threads)**: Claim the donated registers via `setmaxnreg.inc.sync.aligned.u32 232`, holding the query tile $Q_i$, running online softmax statistics $(m_i, \ell_i)$, and output accumulator $O_i$ entirely in register file (`RMEM`) without spilling a single byte to local memory!
 
 ---
 
@@ -64,8 +66,8 @@ Using PTX **`setmaxnreg.dec` / `setmaxnreg.inc`**, a Warp-Specialized kernel div
 Prior to Hopper, loading a multidimensional tensor tile $(B, H, N, D)$ from HBM into Shared Memory required every thread in the block to compute 64-bit stride offsets, evaluate boundary predicates for sequence lengths not divisible by 128, and issue `cp.async.cg.shared.global` 16 bytes at a time.
 
 The **Tensor Memory Accelerator (`TMA`)** is a dedicated hardware DMA unit inside each SM that offloads address generation and out-of-bounds zero-padding completely:
-- On the host, you initialize a 64-byte **`CUtensorMap`** descriptor (`cuTensorMapEncodeTiled`) describing the global HBM tensor base pointer, 5D dimensions, strides, and **128-byte SMEM swizzle layout** (`CU_TENSOR_MAP_SWIZZLE_128B`—which permutes shared memory bank addresses via XOR so `WGMMA` matrix reads suffer zero 32-way bank conflicts).
-- Inside the kernel, **one single thread** issues `cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes` while passing the byte count (`expect_tx`) to a hardware shared-memory barrier (`mbarrier_t`). The TMA engine transfers the entire $128 \times 128$ tile and atomically decrements the `mbarrier` transaction counter in silicon when the last cacheline lands in SMEM!
+- On the host, you initialize a 64-byte **`CUtensorMap`** descriptor (`cuTensorMapEncodeTiled`) describing the global HBM tensor base pointer, 5D dimensions, strides, and **128-byte SMEM swizzle layout** (`CU_TENSOR_MAP_SWIZZLE_128B`—which permutes shared memory bank addresses via bitwise XOR so `WGMMA` matrix reads suffer zero 32-way bank conflicts).
+- Inside the kernel, **one single thread** issues `cp.async.bulk.tensor.2d.shared::cluster.global.mbarrier::complete_tx::bytes` while passing the expected byte count (`expect_tx`) to a hardware shared-memory barrier (`mbarrier_t`). The TMA engine transfers the entire $128 \times 128$ tile and atomically decrements the `mbarrier` transaction counter in silicon when the last cacheline lands in SMEM!
 
 Here is how the Producer and Consumer Warpgroups synchronize over a $K$-stage circular SMEM ring using inline PTX `mbarrier` phase-bit flipping:
 
@@ -149,17 +151,32 @@ FlashAttention-3 introduces a two-level overlapping schedule:
 
 ---
 
-## 4. FP8 (`E4M3`) Block Quantization with Incoherent Hadamard Processing
+## 4. From Hopper `SM90` (`wgmma`) to Blackwell `SM100` (`tcgen05.mma` + `256 KB TMEM`)
 
-When dropping from `BF16` (`989 TFLOPS`) to **`FP8 E4M3` (`1,979 TFLOPS`)** in `wgmma.mma_async.m64n128k32.f32.e4m3.e4m3`:
+On Hopper (`SM90`), holding both the $64 \times 128$ FP32 accumulator matrix $O_i$ and the current attention score tile $S_j$ inside the standard Register File (`RMEM`) pushes Consumer Warpgroups right to the 232-register-per-thread limit.
+
+**NVIDIA Blackwell (`B200` / `SM100`, 5th-Gen Tensor Cores `tcgen05`)** eliminates register accumulator pressure entirely by introducing a brand-new on-chip memory hierarchy tier: **Dedicated Tensor Memory (`TMEM`)**:
+
+![Hopper SM90 (WGMMA + RMEM) vs. Blackwell SM100 (TCGEN05 + 256KB TMEM)](/images/hopper-sm90-wgmma-vs-blackwell-sm100-tmem.jpg)
+
+1. **256 KB of Dedicated `TMEM` per SM (`512 Columns x 128 Lanes` of 32-bit cells)**: Instead of storing matrix multiply accumulators in general-purpose registers (`RMEM`), `tcgen05.mma` reads operands from Shared Memory (`SMEM` or `TMEM`) and writes its FP32/FP16 accumulators **directly into `TMEM`** (`tcgen05.alloc` / `tcgen05.ld` / `tcgen05.st`).
+2. **Single-Thread MMA Issue (`tcgen05.mma`)**: Whereas Hopper's `wgmma.mma_async` required all 128 threads of a 4-warp Warpgroup to execute the MMA instruction synchronously (`sync.aligned`), Blackwell's **`tcgen05.mma` is issued by a single elected thread** (just like `TMA`!), freeing the Consumer Warpgroups to run online `MUFU.EX2` softmax rescaling continuously while the 5th-Gen Tensor Core accumulates in `TMEM` in the background.
+3. **2-CTA Cooperative Cluster MMA (`cta_group::2`)**: Two adjacent CTAs in a Threadblock Cluster can pool their Distributed Shared Memory (`DSMEM`) and `TMEM` to execute a single massive `m256n128k32` `tcgen05.mma.cta_group::2` instruction, halving $K_j$ / $V_j$ HBM reload bandwidth across query heads!
+
+---
+
+## 5. FP8 (`E4M3`) Block Quantization with Incoherent Hadamard Processing
+
+When dropping from `BF16` (`989 TFLOPS` on H100 / `2.25 PFLOPS` on B200) to **`FP8 E4M3` (`1,979 TFLOPS` on H100 / `4.5 PFLOPS` on B200)**:
 1. **Transpose via Shared Memory Byte Permute (`stmatrix` / `prmt`)**: The `SM90` FP8 `WGMMA` instruction requires both $P_j$ and $V_j$ to be contiguous along the reduction dimension $K$ (`k-major`). Since $V_j$ arrives from HBM contiguous along the head dimension $D$, the kernel performs an in-register `prmt.b32` byte shuffle paired with `stmatrix.sync.aligned.m8n8.x4.trans.shared.b16` to transpose $V_j$ in SMEM at full bank bandwidth.
 2. **Block-Scale + Hadamard Outlier Smoothing**: Before quantizing $Q$ and $K$ to `FP8 E4M3`, applying a fast in-register $16 \times 16$ orthogonal Walsh-Hadamard transform ($Q' = Q H$, $K' = K H \implies Q' (K')^T = Q H H^T K^T = Q K^T$) eliminates outlier channels without altering the attention dot product—reducing FP8 attention RMSE by **2.6x** compared to naive per-tensor FP8 scaling!
 
-| Attention Kernel Implementation (H100 SXM5 80GB, $N=8192, D=128$) | Precision | Measured TFLOPS/s | % of Peak Tensor Core FLOPs | Relative Speedup |
+| Attention Kernel Implementation ($N=8192, D=128$, Causal) | Silicon / Precision | Measured TFLOPS/s | % of Peak Tensor Core FLOPs | Relative Speedup |
 | :--- | :---: | :---: | :---: | :---: |
-| **PyTorch `sdpa` (cuDNN / Standard Math)** | `BF16` | 312 TFLOPS | 31.5% | `1.00x` |
-| **FlashAttention-2 (Homogeneous CTA, `cp.async`)** | `BF16` | 415 TFLOPS | 42.0% | `1.33x` |
-| **FlashAttention-3 (Warp-Specialized `TMA` + Ping-Pong)** | `BF16` | **742 TFLOPS** | **75.0%** | **`2.38x`** |
-| **FlashAttention-3 FP8 (`E4M3` + Hadamard Block-Scale)** | `FP8 E4M3` | **1,195 TFLOPS** | **60.4% (of 2 PFLOPS!)** | **`3.83x`** |
+| **PyTorch `sdpa` (cuDNN / Standard Math)** | `H100 SXM5` (`BF16`) | 312 TFLOPS | 31.5% | `1.00x` |
+| **FlashAttention-2 (Homogeneous CTA, `cp.async`)** | `H100 SXM5` (`BF16`) | 415 TFLOPS | 42.0% | `1.33x` |
+| **FlashAttention-3 (Warp-Specialized `TMA` + Ping-Pong)** | `H100 SXM5` (`BF16`) | **742 TFLOPS** | **75.0%** | **`2.38x`** |
+| **FlashAttention-3 FP8 (`E4M3` + Hadamard Block-Scale)** | `H100 SXM5` (`FP8`) | **1,195 TFLOPS** | **60.4% (of 2 PFLOPS!)** | **`3.83x`** |
+| **Warp-Specialized `tcgen05.mma` + `TMEM` Attention** | `B200 SXM6` (`FP8`) | **3,080 TFLOPS** | **68.4% (of 4.5 PFLOPS!)** | **`9.87x`** |
 
-By treating the GPU not as a uniform SIMD array, but as a **heterogeneous dataflow processor** with decoupled `TMA`, `WGMMA`, and `SFU` pipelines coordinated via `mbarrier`, Warp-Specialized kernels unlock nearly 2x higher attention throughput on the exact same silicon.
+By treating the GPU not as a uniform SIMD array, but as a **heterogeneous dataflow processor** with decoupled `TMA`, `WGMMA`/`tcgen05`, `TMEM`, and `SFU` pipelines coordinated via `mbarrier`, Warp-Specialized kernels unlock 2.4x–3.8x higher attention throughput on the exact same silicon.
