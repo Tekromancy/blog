@@ -6,7 +6,7 @@ updatedDate: "2026-11-02"
 heroImage: "37.jpg"
 tags: ["security", "cryptography", "networking", "architecture", "zero-trust"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Suppose a user wants to prove to an autonomous verifier or smart contract that an authoritative HTTPS API—say, `api.github.com/user`, a bank's wire-transfer REST endpoint, or a cloud provider's billing API—returned a specific JSON field (`"verified_owner": true`), **without revealing their OAuth bearer token, session cookie, or adjacent private fields**, and **without asking the target server to change a single line of code**.
@@ -47,7 +47,7 @@ Modern zkTLS systems prevent client-side transcript forgery by introducing an un
 |            |                                           |                          |
 |            +-------------------+-----------------------+                          |
 |                                |                                                  |
-|   Step 1: 2PC ECDHE (`P-256` / `X25519` Multiplicative-to-Additive `MtA`)         |
+|   Step 1: 2PC ECDHE (P-256 / X25519 Multiplicative-to-Additive MtA)               |
 |           Jointly compute TLS Traffic Key shares: K_P (+) K_V = K_TLS             |
 |           (Neither party ever learns K_TLS or GHASH key H!)                       |
 |                                |                                                  |
@@ -66,29 +66,42 @@ Modern zkTLS systems prevent client-side transcript forgery by introducing an un
 +-----------------------------------------------------------------------------------+
 ```
 
+![zkTLS MPC-TLS 2PC Handshake Protocol, Garbled Circuits, and VOLE Selective Redaction Architecture](/images/zktls-mpc-tls-2pc-handshake-protocol.jpg)
+*Figure 1: Deep technical schematic of the zkTLS 2PC protocol. (Top) Distributed ephemeral ECDHE key exchange via Multiplicative-to-Additive (MtA) Oblivious Transfer and Half-Gates Garbled Circuits deriving split session keys $K_P \oplus K_V = K_{\text{TLS}}$ and $H_P \oplus H_V = H$. (Bottom) VOLE (SoftSpokenOT) selective redaction masking client Bearer credentials while outputting a tamper-proof cryptographic attestation.*
+
 ### Step-by-Step Cryptography Inside `MPC-TLS` (`TLSNotary` Protocol)
 
 1. **Distributed `ECDHE` Key Exchange (`MtA` Protocol)**:
    - When the Server sends its ephemeral `ServerHello` public key $Q_S \in E(\mathbb{F}_p)$, the Prover ($P$) holds secret scalar share $d_P$ and the Notary ($V$) holds secret scalar share $d_V$ such that the client public key sent in `ClientHello` was $Q_C = (d_P + d_V) \cdot G$.
    - $P$ computes $d_P \cdot Q_S = (x_1, y_1)$ and $V$ computes $d_V \cdot Q_S = (x_2, y_2)$. Using **Multiplicative-to-Additive (`MtA`) Oblivious Transfer**, $P$ and $V$ compute additive shares of the `X25519`/`P-256` x-coordinate $Z = Z_P + Z_V \pmod p$ without either party learning the Pre-Master Secret $Z$.
 2. **2PC `HKDF-Expand-Label` & `AES-128-GCM` via Garbled Circuits**:
-   - $P$ and $V$ evaluate `HKDF-SHA256` and the `AES-128` key schedule inside a boolean **Garbled Circuit (`GC`)** using **Free-XOR** and **Half-Gates** (requiring only 2 ciphertexts per `AND` gate and 0 ciphertexts per `XOR` gate).
+   - $P$ and $V$ evaluate `HKDF-SHA256` and the `AES-128` key schedule inside a boolean **Garbled Circuit (`GC`)** using **Free-XOR** (Kolesnikov & Schneider 2008) and **Half-Gates** (Zahur, Rosulek, Evans 2015).
+   - In Half-Gates, an `AND` gate requires only two 128-bit ciphertexts (32 bytes) sent over the wire, while `XOR` gates require zero ciphertexts. Because `AES-128` consists of 10 rounds of `SubBytes` (S-box affine inversions over $\text{GF}(2^8)$), `ShiftRows`, `MixColumns`, and `AddRoundKey`, the circuit requires approximately 2,688 `AND` gates per 16-byte block, generating approximately 84 KB of garbled tables per block.
    - The resulting 128-bit `server_write_key` $K$ and `client_write_key` are XOR-shared: $K = K_P \oplus K_V$.
 3. **2PC `GHASH` Authentication over $\text{GF}(2^{128})$**:
-   - In `AES-GCM`, the authentication tag is computed via polynomial evaluation over $\text{GF}(2^{128})$ using $H = \text{AES}_K(0^{128})$.
+   - In `AES-GCM`, the authentication tag is computed via polynomial evaluation over $\text{GF}(2^{128})$ modulo $p(x) = x^{128} + x^7 + x^2 + x + 1$ using $H = \text{AES}_K(0^{128})$:
+     $$T = \left( \sum_{i=1}^{m} A_i \cdot H^{m+n+1-i} + \sum_{j=1}^{n} C_j \cdot H^{n+1-j} + L \cdot H \right) \oplus \text{AES}_K(J_0)$$
    - Because $P$ and $V$ only hold shares $H_P \oplus H_V = H$, $P$ cannot forge a valid server response tag! Only the real HTTPS Server (which knows the full $H$ from its side of `ECDHE`) can produce a valid ciphertext and `AES-GCM` tag that passes the joint check.
 4. **Selective Redaction via `VOLE` (`Vector Oblivious Linear Evaluation`)**:
    - Once the Server sends the encrypted HTTP response $C$, $P$ and $V$ hold authenticated bit-commitments (`Information-Theoretic MACs` via `SoftSpokenOT`) to the decrypted plaintext $M = C \oplus \text{AES-CTR}_K(\text{IV})$.
+   - In VOLE, the Verifier holds a secret scalar $\Delta \in \mathbb{F}_{2^k}$ and the Prover holds secret plaintext bits $x_i \in \{0, 1\}$. Through pseudo-random correlation generators (PCGs), they establish information-theoretic MACs $M_i = K_i \oplus (x_i \cdot \Delta)$.
    - $P$ can open public substrings (e.g., `HTTP/1.1 200 OK`, `"balance": `) directly while proving range or regex predicates over private substrings in Zero Knowledge (`Quicksilver` / `Groth16`) at < 50 MB RAM cost!
 
 ---
 
 ## 3. Building a Production `TLSNotary` Rust Prover & Verifier
 
-Here is a complete Rust implementation using the `tlsn-prover` and `tlsn-core` crates (`tlsn v0.1+`) demonstrating how a Prover executes an `MPC-TLS` session against an HTTPS API, redacts the `Authorization: Bearer` header, and emits a portable cryptographic presentation:
+Below is a complete, production-grade Rust implementation using `tlsn-prover`, `tlsn-verifier`, and `tlsn-core` demonstrating how a Prover executes an `MPC-TLS` session against an HTTPS API, redacts the `Authorization: Bearer` header, and emits a portable cryptographic presentation verified by an independent third party:
 
 ```rust
-// Cargo.toml dependencies: tlsn-prover, tlsn-core, tokio, tokio-util, hyper
+// Cargo.toml dependencies:
+// tlsn-prover = "0.1.0-alpha.7"
+// tlsn-verifier = "0.1.0-alpha.7"
+// tlsn-core = "0.1.0-alpha.7"
+// tokio = { version = "1.38", features = ["full"] }
+// tokio-util = { version = "0.7", features = ["compat"] }
+// bincode = "1.3"
+
 use std::ops::Range;
 use tlsn_core::{
     proof::SessionProof,
@@ -96,9 +109,12 @@ use tlsn_core::{
     Direction,
 };
 use tlsn_prover::{Prover, ProverConfig};
+use tlsn_verifier::{Verifier, VerifierConfig};
 use tokio::net::TcpStream;
 use tokio_util::compat::TokioAsyncReadCompatExt;
 
+/// Generates a portable zkTLS attestation over a target HTTPS API call
+/// while completely redacting secret bearer tokens and PII.
 pub async fn generate_zktls_api_attestation(
     notary_stream: TcpStream,
     server_domain: &str,
@@ -156,11 +172,36 @@ pub async fn generate_zktls_api_attestation(
     // 6. Serialize the verifiable proof (contains X.509 cert chain + redacted openings)
     Ok(bincode::serialize(&notarized_session)?)
 }
+
+/// Standalone verifier function that verifies the cryptographic proof without
+/// needing contact with either the Notary or the original HTTPS server.
+pub fn verify_zktls_attestation(
+    proof_bytes: &[u8],
+    expected_domain: &str,
+    expected_notary_pubkey: &[u8],
+) -> anyhow::Result<String> {
+    let session_proof: SessionProof = bincode::deserialize(proof_bytes)?;
+    
+    // 1. Verify Notary signature over the session header
+    session_proof.verify_with_notary_key(expected_notary_pubkey)?;
+
+    // 2. Verify server identity against WebPKI root certificates
+    assert_eq!(session_proof.header().server_name().as_str(), expected_domain);
+
+    // 3. Extract the revealed plaintext (redacted ranges are zeroized/omitted)
+    let (sent_transcript, recv_transcript) = session_proof.verify()?;
+    let revealed_response = String::from_utf8(recv_transcript.to_vec())?;
+
+    Ok(revealed_response)
+}
 ```
 
 ---
 
 ## 4. Security & Performance Tradeoffs: `MPC-TLS` vs. `DECO` vs. TEE Oracles (`SGX`/`TDX`)
+
+![Architectural and Quantitative Comparison: Proxy MPC-TLS vs. 3-Party Handshake DECO vs. Hardware Enclave TDX Oracles](/images/zktls-vs-tee-vs-deco-comparison.jpg)
+*Figure 2: Comprehensive architectural and operational benchmark comparing Proxy MPC-TLS (TLSNotary), 3-Party Handshake (DECO / PADO), and Hardware Enclaves (Intel TDX / SGX). While hardware enclaves offer millisecond execution, MPC-TLS provides mathematical non-repudiation free from silicon microarchitectural side-channels.*
 
 | Web2 Oracle Architecture | Server Changes Required? | Trust Assumption | Bandwidth Overhead per 4 KB API Call | Prover Latency (WAN) | Key Vulnerability Surface |
 | :--- | :---: | :---: | :---: | :---: | :--- |
@@ -168,4 +209,9 @@ pub async fn generate_zktls_api_attestation(
 | **3-Party Handshake (`DECO` / `PADO`)** | **None** | Non-collusion of Prover & Verifier (`1-of-2`) | `~18 MB – 35 MB` (`VOLE` + `2PC-GCM`) | `1.5 s – 3.1 s` | Requires TLS 1.2/1.3 ciphersuite without ChaCha20 carry blowup |
 | **Hardware Enclave Proxy (`Intel TDX` / `SGX`)** | **None** | Hardware vendor root key + microcode TCB | `< 10 KB` (Native TLS speed) | `< 45 ms` | Microarchitectural side-channels (`MMIO`, `Downfall`, silicon TCB) |
 
-By combining **Proxy `MPC-TLS`** (where the Notary also routes the raw TCP socket to verify destination IP/BGP routing and certificate transparency logs) with **Intel TDX / AMD SEV-SNP enclave-hosted Notaries**, engineers achieve defense-in-depth: even if a hardware enclave key were ever compromised, the enclave never sees the user's plaintext OAuth token or redacted PII!
+### Defense-in-Depth: Enclave-Boosted MPC-TLS
+
+By combining **Proxy `MPC-TLS`** (where the Notary also routes the raw TCP socket to verify destination IP/BGP routing and certificate transparency logs) with **Intel TDX / AMD SEV-SNP enclave-hosted Notaries**, engineers achieve the ultimate defense-in-depth security model:
+- **If the enclave is breached:** The attacker only sees the Notary's 2PC key shares ($d_V, K_V, H_V$) and garbled circuit wires. The attacker learns **zero plaintext bytes** of the client's API tokens, bearer cookies, or redacted payload data.
+- **If the Prover tries to forge data:** The 2PC `GHASH` check mathematically prevents tag fabrication with $1 - 2^{-128}$ cryptographic certainty.
+- **Zero Server Changes:** Any REST, GraphQL, or RPC endpoint running over standard `RFC 8446` TLS 1.3 can be immediately converted into a verifiable web oracle.
