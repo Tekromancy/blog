@@ -180,4 +180,4 @@ To round out the November 3rd bonanza, look at how four modern software and AI p
 | **Nov 3, 1994** | **Red Hat Software Linux Commercial Launch** | `0.9` "Halloween" release (`RPM` package lineage) | `rpm` / `dnf` / `ostree` on bare-metal RHEL, Fedora, & CoreOS |
 | **Nov 3, 2023** | **Bletchley Park AI Safety Pact** | Frontier LLM ($10^{25}+$ FLOP) red-team evaluations | Hardware enclave attestation, MCP security, & Firecracker sandboxes |
 
-Happy Birthday to November 3rd—and to every `fork()`, laser photon, LED blink, and `Mozilla/5.0` packet carrying the `11/03` lineage forward!
+Happy Birthday to [Josh Cox](https://tekromancy.com/blog?author=Joshua%20Edward%20McLaughlin%20Cox) on November 3rd—and to every `fork()`, laser photon, LED blink, and `Mozilla/5.0` packet carrying the `11/03` lineage forward!
