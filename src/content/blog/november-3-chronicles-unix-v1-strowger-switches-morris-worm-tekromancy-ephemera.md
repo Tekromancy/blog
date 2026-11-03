@@ -6,7 +6,7 @@ updatedDate: "2026-11-03"
 heroImage: "35.jpg"
 tags: ["unix", "linux", "security", "telecom", "history", "hardware", "kernel"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 If you pick a random calendar day and grep the annals of systems engineering, telecommunications, cryptography, and orbital telemetry, you might find one or two historical footnotes.
