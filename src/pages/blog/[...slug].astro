@@ -33,6 +33,7 @@ import CyberReasoningSimulator from "../../components/interactive/CyberReasoning
 import FlashAttentionWarpSimulator from "../../components/interactive/FlashAttentionWarpSimulator.tsx";
 import ZkTlsOracleSimulator from "../../components/interactive/ZkTlsOracleSimulator.tsx";
 import CowStorageEngineSimulator from "../../components/interactive/CowStorageEngineSimulator.tsx";
+import UefiBootkitDefenseSimulator from "../../components/interactive/UefiBootkitDefenseSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -660,6 +661,24 @@ const postJsonLd = {
 								Model declustered spare resilver speedups on 24-bay to 60-bay U.3 NVMe and 24TB SAS arrays, compare RAIDZ2 single-drive write bottlenecks against dRAID N-way parallel reconstruction, and evaluate Bcachefs 256KB extent B-tree interior bset log appends and 3-tier NVMe target migration.
 							</p>
 							<CowStorageEngineSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "uefi-bootkit-defense-intel-boot-guard-txt-drtm-trenchboot-measured-launch" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // RING -2 BOOTKIT DEFENSE &amp; DRTM LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Intel Boot Guard, SPI Flash Protection &amp; TrenchBoot DRTM Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Simulate real-world firmware attacks including LogoFAIL DXE heap corruption, BlackLotus BYOVD bootloader hijacks, and flashrom SPI overwrites. Compare static SRTM PCR 0..7 vulnerabilities against hardware-enforced DRTM Locality 4 late-launch isolation (PCR 17+18).
+							</p>
+							<UefiBootkitDefenseSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}

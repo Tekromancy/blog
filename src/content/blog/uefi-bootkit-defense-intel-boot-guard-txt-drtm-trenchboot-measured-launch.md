@@ -6,7 +6,7 @@ updatedDate: "2026-11-05"
 heroImage: "39.jpg"
 tags: ["security", "linux", "kernel", "hardware", "zero-trust"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Suppose you harden a bare-metal Linux server with `Unified Kernel Images (UKI)`, `UEFI Secure Boot` signed by custom `PK`/`KEK`/`db` keys, `dm-verity` immutable root filesystems, and `SELinux` / `BPF_LSM`. Can an attacker with transient root access—or a supply-chain compromise inside a vendor BMC or UEFI capsule update—still plant a persistent Ring `-2` implant that survives wiping every NVMe drive in the chassis?
@@ -31,6 +31,9 @@ Before the CPU executes a single instruction of `SEC` or `PEI` from the motherbo
 2. **SPI Controller Protected Range Registers (`PR0..PR4`) & `BLE` / `SMM_BWP`**:
    - Even if Boot Guard is active, you must verify that the chipset's `BIOS_CNTL` register locks out Ring-0 software writes to SPI flash unless executing inside authenticated System Management Mode (`SMM`):
    - **`BIOSWE = 0`** (BIOS Write Enable disabled), **`BLE = 1`** (BIOS Lock Enable: traps any attempt to set `BIOSWE=1` into an `SMI#`), and **`SMM_BWP = 1`** (SMM BIOS Write Protection: blocks flash writes unless all CPU cores are inside SMM).
+
+![Intel Boot Guard & AMD PSB Hardware-Enforced SPI Flash Protection and IBB Chain of Trust](/images/intel-boot-guard-spi-flash-defense.jpg)
+*Figure 1: Hardware-enforced SPI flash protection architecture. (Left) Fuse-blown root of trust where Field Programmable Fuses (FPF) verify the Key Manifest hash before microcode releases the x86 reset vector 0xFFFFFFF0. (Right) Chipset write protection mechanics via BIOS_CNTL (BIOSWE=0, BLE=1, SMM_BWP=1) and PR0..PR4 registers physically blocking Ring-0 flashrom overwrite attempts.*
 
 You can audit your fleet's `Intel Boot Guard`, `BIOS_CNTL`, and `SPI PR0` lock bits directly from Linux using `fwupd` (`fwupdmgr security`) or reading the `MSR_BOOT_GUARD_SACM_INFO` (`0x13A`) register:
 
@@ -91,6 +94,9 @@ In a **Static Root of Trust (`SRTM`, PCR `0..7`)**, trust is a fragile chain fro
 +-----------------------------------------------------------------------------------+
 ```
 
+![Dynamic Root of Trust for Measurement (DRTM) via TrenchBoot Late-Launch Architecture](/images/drtm-trenchboot-secure-launch-architecture.jpg)
+*Figure 2: Contrast between fragile Static Root of Trust (SRTM) and TrenchBoot Dynamic Root of Trust (DRTM). By invoking hardware microcode instructions (GETSEC[SENTER] / SKINIT), the CPU halts all APs, activates IOMMU PMR DMA protections, resets PCR 17..22 via hardware Locality 4, measures the kernel in Locality 2, and jumps directly to sl_stub_entry—bypassing 500+ UEFI DXE drivers.*
+
 ### How `GETSEC[SENTER]` (Intel `TXT`) and `SKINIT` (AMD `SVM`) Work in Silicon
 
 Why can't a compromised UEFI DXE bootkit spoof `TPM PCR 17` or `PCR 18`?
@@ -135,6 +141,6 @@ tpm2_create -C primary.ctx \
 
 | Boot Security Architecture | Trusted Computing Base (TCB) Size | Survives `LogoFAIL` / `PixieFail` DXE Exploit? | Survives Malicious Bootloader (`BlackLotus`)? | Breaks TPM Policy on BIOS Update? |
 | :--- | :---: | :---: | :---: | :---: |
-| **Legacy UEFI Secure BootOnly** | ~550 DXE Drivers + Shim + GRUB + Kernel | **No** (Ring-0 hook before `ExitBootServices`) | **No** (BYOVD bootloader bypass) | N/A |
+| **Legacy UEFI Secure Boot Only** | ~550 DXE Drivers + Shim + GRUB + Kernel | **No** (Ring-0 hook before `ExitBootServices`) | **No** (BYOVD bootloader bypass) | N/A |
 | **SRTM (`Boot Guard` + `PCR 0..7`)** | ~550 DXE Drivers + Shim + GRUB + Kernel | **No** (DXE runs *after* `PCR 0` measurement!) | Detected (If `PCR 4` is sealed) | **Yes** (`PCR 0/2` changes on every BIOS update) |
 | **SRTM + DRTM (`TrenchBoot` `PCR 17..18`)** | **CPU Silicon + `SINIT/SL` + Linux Kernel Only!** | **Yes (100% Bypassed via Late Launch!)** | **Yes (Hardware `Locality 4` PCR 17/18)** | **No (`PCR 17/18` decoupled from UEFI DXE!)** |
