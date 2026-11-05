@@ -6,7 +6,7 @@ updatedDate: "2026-11-04"
 heroImage: "38.jpg"
 tags: ["linux", "storage", "kernel", "performance", "infrastructure"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 For the past fifteen years, Linux storage engineers building multi-petabyte storage arrays faced a stark architectural trade-off:
@@ -51,11 +51,14 @@ How the filesystem tracks that pointer update determines its worst-case tail lat
 +-----------------------------------------------------------------------------------+
 ```
 
+![Bcachefs B-Tree Journaling and 3-Tier Multi-Device Target Routing Architecture](/images/bcachefs-btree-tiering-architecture.jpg)
+*Figure 1: Deep architectural schematic of Bcachefs. (Left) Extent-keyed B-Tree node layout showing 4K-16K interior bset log appends, bkey pointers, append-only journal ring, and bucket generational counters ($O(1)$ invalidation). (Right) Hierarchical 3-tier target storage pipeline routing synchronous foreground writes to Gen5 NVMe while an async kernel worker compresses, erasure-codes, and migrates cold data to capacity storage.*
+
 ### Inside `Bcachefs`: A Filesystem Built as a High-Throughput Key-Value B-Tree
 
 Unlike `ZFS` (which structures every file as its own independent tree of `dnode` indirect blocks) or `Btrfs` (which rewrites full 16 KB B-tree nodes via shadow paging on every commit), **`Bcachefs` is architected like a modern LSM/B+Tree database engine**:
 1. **Large 256 KB B-Tree Nodes with Interior Log Appends**: A Bcachefs B-tree node is 256 KB on disk, divided into smaller `bset` log sections matching the underlying SSD's physical page size (4 KB–16 KB). Updating an extent key (`bkey: u64 inode, u64 offset -> disk_ptr, crc64/xxhash, compression_type`) only appends a dirty `bset` sector rather than rewriting all 256 KB!
-2. **bucket-Based Allocation & Generation Numbers**: Every drive is partitioned into fixed-size **Buckets** (typically `256 KB – 2 MB`). Each bucket tracks an 8-bit/16-bit monotonic **Generation Number (`gen`)**. Pointers to cached data store the expected `gen`; evicting and reusing a cache bucket simply increments `bucket->gen` in $O(1)$ without hunting down and invalidating every B-tree pointer across the filesystem!
+2. **Bucket-Based Allocation & Generation Numbers**: Every drive is partitioned into fixed-size **Buckets** (typically `256 KB – 2 MB`). Each bucket tracks an 8-bit/16-bit monotonic **Generation Number (`gen`)**. Pointers to cached data store the expected `gen`; evicting and reusing a cache bucket simply increments `bucket->gen` in $O(1)$ without hunting down and invalidating every B-tree pointer across the filesystem!
 3. **Native 3-Tier Storage Targets (`foreground`, `promote`, `background`)**:
    - **`foreground_target=nvme`**: Every synchronous `write()` and `fsync()` lands purely at sequential line rate on your fastest PCIe Gen5 NVMe drives (`Optane` / enterprise `E3.S` high-DWPD NVMe).
    - **`background_target=hdd` (or `qlc_nvme`)**: A background kernel thread (`bch2_move_data`) asynchronously compacts, compresses (`zstd`), erasure-codes (`replicas=2`, `erasure_code`), and drains cold extents to high-capacity QLC NVMe or SAS HDDs completely off the critical path.
@@ -120,9 +123,12 @@ Why does traditional `RAIDZ2` hit a brick wall when drive capacities reach **24 
 +-----------------------------------------------------------------------------------+
 ```
 
+![OpenZFS dRAID Declustered Permutation Resilvering vs RAIDZ2 Single Spare Bottleneck](/images/openzfs-draid-declustered-rebuild.jpg)
+*Figure 2: Architectural comparison between traditional RAIDZ2 and OpenZFS dRAID2 declustered permutation striping. When a drive fails in dRAID, parity reconstruction writes fan out in parallel across all surviving disks in sequential LBA order, slashing 24 TB rebuild windows from 48+ hours down to 95 minutes.*
+
 **OpenZFS `dRAID` (`draid<parity>:<data>d:<children>c:<spares>s`)** changes the math completely:
 1. **Declustered Virtual Spares**: Instead of leaving 2 hot-spare drives sitting 100% idle until a failure, `dRAID` distributes the spare blocks evenly across **all 24 drives** using a deterministic array of 256 pseudorandom **Permutation Maps**.
-2. **N-Way Parallel Rebuild Bandwidth**: When 1 drive fails in a 24-drive `draid2:8d:24c:2s` vdev, the reconstructed data is written across **all 23 surviving drives simultaneously**! Instead of being bottlenecked by 1 target disk's write speed, rebuild throughput scales with $(N - 1)$ drives—completing in **under 95 minutes** on 24 TB SAS/SATA drives and **under 14 minutes** on U.3 NVMe drives!
+2. **N-Way Parallel Rebuild Bandwidth**: When 1 drive fails in a 24-drive `draid2:8d:24c:2s` vdev, the reconstructed data is written across **all 23 surviving drives simultaneously**! Instead of being bottlenecked by 1 target disk's write speed, rebuild throughput scales with $(N - 1)$ drives—completing in **under 95 minutes** on 24 TB SAS/SATA drives and **under 18.5 minutes** on U.3 NVMe drives!
 3. **Special Allocation Classes (`special` vdev)**: Because `dRAID` uses fixed-width redundancy groups (padding blocks smaller than $D \times 4\text{ KB}$), pairing an HDD/QLC `dRAID` pool with a 3-way mirrored **Gen5 NVMe `special` vdev (`special_small_blocks=64K`)** routes all ZFS metadata, DDT tables, and `< 64 KB` files onto sub-100-microsecond NVMe flash while streaming large sequential stripes to `dRAID`:
 
 ```bash
