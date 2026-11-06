@@ -6,7 +6,7 @@ updatedDate: "2026-11-06"
 heroImage: "40.jpg"
 tags: ["distributed-systems", "rust", "testing", "storage", "architecture"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Why do distributed storage and consensus engines (`Raft`, `Multi-Paxos`, `Viewstamped Replication`) still suffer catastrophic split-brain or data-loss bugs in production—even after passing thousands of unit tests and weeks of chaos engineering (`Jepsen` / `Chaos Mesh`) on real Kubernetes clusters?
@@ -49,6 +49,9 @@ To run an entire 5-node distributed cluster inside a single OS thread where ever
 |                                                                                   |
 +-----------------------------------------------------------------------------------+
 ```
+
+![Deterministic Simulation Testing Hypervisor Architecture & Fault-Injecting Storage Matrix](/images/dst-deterministic-hypervisor-storage-matrix.jpg)
+*Figure 1: Single-Threaded DST Hypervisor Architecture. Abstracting wall-clock time behind a virtual timer wheel, network routing through an N x N asymmetric gray loss matrix, and NVMe block writes behind torn 512B/4KB DMA injection.*
 
 1. **No Wall-Clock Syscalls (`clock_gettime` Forbidden)**: Nodes never call `std::time::Instant::now()`. Instead, they query `env.now_ns()`. When all 5 simulated nodes are waiting for a `300 ms` election timer or a `50 ms` network packet delay, the simulator **does not `sleep()`**—it pops the earliest event from a binary min-heap (`BinaryHeap<SimEvent>`) and jumps `virtual_time_ns` forward by `50,000,000 ns` in **3 nanoseconds of CPU time**!
 2. **Single-Threaded PRNG Task Interleaving**: Instead of spawning OS threads (`pthread_create`), all 5 cluster nodes execute as cooperative state machines (or `Future` tasks polled by a custom single-threaded executor). Whenever multiple nodes have runnable events at the same virtual timestamp, the simulator draws from `ChaCha8Rng` to permute the wakeup order.
@@ -201,3 +204,6 @@ Throughout the run, the simulator records every client request invocation and re
 | **Multi-Node Docker `Jepsen`** | `~416 Days` (1:1 Wall Clock) | **No** (OS scheduler & TCP jitter) | Rare (Requires custom `dm-flakey` setup) | Heavy (5+ VMs per run) |
 | **Antithesis (Deterministic Hypervisor VM)** | `~4 Hours` (Parallel VM clones) | **Yes** (Deterministic hypervisor) | Yes (Full system simulation) | Dedicated appliance/cloud |
 | **In-Process Rust `DST` (`VOPR` / `turmoil`)** | **`~3.6 Seconds` (100,000x Speedup!)** | **Yes (`CARGO_DST_SEED=0x...`)** | **Yes (Exact LBA & byte-level control)** | **Runs in `cargo test`!** |
+
+![Deterministic Simulation Testing (DST) vs Wall-Clock Jepsen Testing Acceleration Benchmark](/images/dst-vs-jepsen-acceleration-benchmark.jpg)
+*Figure 2: Execution Time & Determinism Matrix. Wall-clock Jepsen vs. in-process Rust DST hypervisor compressing 10,000 cluster-hours of chaotic multi-node operation into seconds with zero-flakiness linearizability verification.*

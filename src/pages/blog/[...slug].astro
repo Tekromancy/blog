@@ -34,6 +34,7 @@ import FlashAttentionWarpSimulator from "../../components/interactive/FlashAtten
 import ZkTlsOracleSimulator from "../../components/interactive/ZkTlsOracleSimulator.tsx";
 import CowStorageEngineSimulator from "../../components/interactive/CowStorageEngineSimulator.tsx";
 import UefiBootkitDefenseSimulator from "../../components/interactive/UefiBootkitDefenseSimulator.tsx";
+import DeterministicSimulationTestingSimulator from "../../components/interactive/DeterministicSimulationTestingSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -679,6 +680,24 @@ const postJsonLd = {
 								Simulate real-world firmware attacks including LogoFAIL DXE heap corruption, BlackLotus BYOVD bootloader hijacks, and flashrom SPI overwrites. Compare static SRTM PCR 0..7 vulnerabilities against hardware-enforced DRTM Locality 4 late-launch isolation (PCR 17+18).
 							</p>
 							<UefiBootkitDefenseSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "deterministic-simulation-testing-dst-jepsen-raft-paxos-consensus-engines" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(6, 182, 212, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-cyan-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // DETERMINISTIC CONSENSUS &amp; FAULT LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Raft/Paxos Deterministic Simulation Testing (DST) Hypervisor Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Test 5-node consensus clusters at 100,000x virtual clock acceleration. Inject torn 512B NVMe DMA writes, asymmetric link partitions, clock drift, and gray loss with PRNG seed reproducibility and strict linearizability verification.
+							</p>
+							<DeterministicSimulationTestingSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
