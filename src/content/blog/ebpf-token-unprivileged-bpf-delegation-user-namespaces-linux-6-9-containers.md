@@ -1,12 +1,12 @@
 ---
 title: "Safe Unprivileged eBPF in Multi-Tenant Containers: Deep Dive into Linux 6.9+ BPF Tokens (BPF_TOKEN_CREATE), User Namespaces, and bpffs Delegation"
 description: "Why global CAP_BPF broke multi-tenant container isolation—and how Linux 6.9+ BPF Tokens (struct bpf_token) safely delegate granular eBPF program types, maps, and attach hooks into rootless User Namespaces via bpffs mount options and LSM gates."
-pubDate: "2026-11-07"
-updatedDate: "2026-11-07"
+pubDate: "2026-11-08"
+updatedDate: "2026-11-08"
 heroImage: "41.jpg"
 tags: ["linux", "ebpf", "security", "kubernetes", "containers"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 For years, Kubernetes platform and security engineers faced an impossible Catch-22 when running eBPF-powered workloads (such as rootless container profilers, per-pod XDP/TC service-mesh sidecars, or CI/CD runners testing eBPF programs) on multi-tenant Linux hosts:
