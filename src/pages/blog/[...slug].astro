@@ -35,6 +35,7 @@ import ZkTlsOracleSimulator from "../../components/interactive/ZkTlsOracleSimula
 import CowStorageEngineSimulator from "../../components/interactive/CowStorageEngineSimulator.tsx";
 import UefiBootkitDefenseSimulator from "../../components/interactive/UefiBootkitDefenseSimulator.tsx";
 import DeterministicSimulationTestingSimulator from "../../components/interactive/DeterministicSimulationTestingSimulator.tsx";
+import KubernetesStorageArchitectSimulator from "../../components/interactive/KubernetesStorageArchitectSimulator.tsx";
 
 export async function getStaticPaths() {
 	const blogPosts = await getCollection("blog");
@@ -698,6 +699,24 @@ const postJsonLd = {
 								Test 5-node consensus clusters at 100,000x virtual clock acceleration. Inject torn 512B NVMe DMA writes, asymmetric link partitions, clock drift, and gray loss with PRNG seed reproducibility and strict linearizability verification.
 							</p>
 							<DeterministicSimulationTestingSimulator client:visible />
+						</div>
+					</ScrollReveal>
+				)}
+
+				{post.id === "nas-san-minio-seaweedfs-migration-kubernetes-storage-longhorn-openebs-rook-ceph" && (
+					<ScrollReveal client:load delay={0.6}>
+						<div class="mt-12 p-6 sm:p-8 rounded-2xl border bg-black/60 shadow-2xl" style="border-color: rgba(34, 238, 68, 0.3);">
+							<div class="flex items-center gap-2 mb-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+								<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+								<span>// TACTICAL SIMULATION // SAN · NAS · SEAWEEDFS &amp; K8S CSI DECISION LAB</span>
+							</div>
+							<h3 class="text-xl sm:text-2xl font-bold font-mono text-white mb-2">
+								Interactive Kubernetes CSI Storage Engine, MinIO-to-SeaweedFS O(1) Volume &amp; SAN/NAS Protocol Simulator
+							</h3>
+							<p class="text-xs font-mono text-gray-400 mb-6">
+								Benchmark Longhorn (v1 iSCSI vs. v2 SPDK), OpenEBS (LocalPV-ZFS &amp; Mayastor NVMe-oF), Rook-Ceph, Piraeus/LINSTOR DRBD 9, and SeaweedFS CSI across 10G–100G fabrics, quantify XFS xl.meta inode storms vs. Haystack 30 GB superblocks, and inspect SAN vs. NAS kernel I/O paths.
+							</p>
+							<KubernetesStorageArchitectSimulator client:visible />
 						</div>
 					</ScrollReveal>
 				)}
