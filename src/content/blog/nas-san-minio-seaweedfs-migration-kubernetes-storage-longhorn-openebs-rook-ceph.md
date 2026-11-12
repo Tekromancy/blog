@@ -1,10 +1,10 @@
 ---
 title: "NAS, SAN & Cloud-Native Storage Wars: Escaping the MinIO Licensing Trap with SeaweedFS and Benchmarking Longhorn, OpenEBS & Rook-Ceph"
-description: "A bare-metal systems engineering deep dive into SAN (NVMe-oF vs. iSCSI) and NAS (NFSv4.2/RDMA) internals, why MinIO's AGPLv3 relicensing and repository sunset triggered a mass exodus to Apache-2.0 SeaweedFS Haystack volumes, and how Longhorn v2, OpenEBS Mayastor, Rook-Ceph, LINSTOR/DRBD, and Democratic-CSI compare on Kubernetes."
+description: "A bare-metal systems engineering deep dive into SAN (NVMe-oF vs. iSCSI) and NAS (NFSv4.2/RDMA) internals, why MinIO's AGPLv3 relicensing and repository sunset triggered a mass exodus to Apache-2.0 SeaweedFS Haystack volumes, how Longhorn v2, OpenEBS Mayastor, Rook-Ceph, LINSTOR/DRBD, and Democratic-CSI compare on Kubernetes, and how Axonwall converges OpenZFS, hardened SeaweedFS WORM Vaults, and 2-node K3s OpenEBS."
 pubDate: "2026-11-12"
 updatedDate: "2026-11-12"
 heroImage: "43.jpg"
-tags: ["storage", "kubernetes", "linux", "infrastructure", "devops", "open-source"]
+tags: ["storage", "kubernetes", "linux", "infrastructure", "devops", "open-source", "axonwall"]
 author: "Joshua Edward McLaughlin Cox"
 draft: false
 ---
@@ -200,6 +200,7 @@ As we detailed in our [Bare-Metal Talos + Cilium + Rook-Ceph blueprint](/blog/ba
 | **Rook-Ceph** | Apache 2.0 / LGPL | `BlueStore` / `Crimson` | Yes (`RBD`) | **Yes (`CephFS`)** | **Yes (`RGW`)** | `150K–300K+` | `~0.6 Core` | **`4+` (Prod)** | Unified Enterprise Block + File + S3 |
 | **SeaweedFS** | **Apache 2.0** | Haystack `O(1)` + Filer | No | **Yes (`CSI`)** | **Yes (Native)** | `80K+` (Meta) | `~0.2 Core` | `1–3+` | **#1 MinIO replacement + AI `RWX`** |
 | **Democratic-CSI** | MIT | External ZFS `NVMe-oF`/`NFS` | Yes | **Yes (`NFSv4.2`)** | No | Array-bound | **`~0%` on K8s** | `1` Array | Disaggregated TrueNAS + Stateless K8s |
+| **Axonwall (`core-nas` + `core-k3s` + `Vault`)** | **GPLv2+** | OpenZFS + Hardened SeaweedFS + OpenEBS | **Yes (`ZVOL` / `Mayastor`)** | **Yes (`SMB3` / `NFSv4`)** | **Yes (WORM `8333`)** | **`395K–600K+`** | `~0.15 Core` (Local) | **`1–2+` (HA)** | **Converged 1–2 Node ZFS NAS/SAN + WORM Vault + K3s** |
 
 ### Production Kernel Prep & `StorageClass` Manifests (`NVMe-oF` + `SeaweedFS` + `NFSv4.2 nconnect`)
 
@@ -253,9 +254,102 @@ parameters:
   concurrentWriters: "32"
 ```
 
+---
+
+## 5. How Axonwall Converges OpenZFS NAS/SAN, Hardened SeaweedFS Vaults & 2-Node K3s OpenEBS
+
+If you step back and look at the modern self-hosted or enterprise edge rack, an uncomfortable operational tax jumps out immediately: **appliance sprawl**. Stitching together best-of-breed sovereign storage typically forces you to deploy, patch, and monitor four completely disjoint control planes—a perimeter router/firewall, a dedicated TrueNAS OpenZFS array for `SMB3`/`NFSv4`/`iSCSI`, a standalone SeaweedFS backup target for immutable S3 snapshots, and a 3-to-4-node Kubernetes cluster running OpenEBS or Ceph CSI.
+
+**[Axonwall](https://axonwall.com)** (`v0.11+`, licensed strictly under **`GPL-2.0-or-later`** with zero `AGPLv3` feature traps or console rug-pulls) takes a fundamentally converged approach on **Linux `6.12+` LTS**. Instead of bolting fragile scripts across four operating systems, Axonwall unifies **`core-nas`**, **`Vault Edition` (SeaweedFS WORM)**, and **`core-k3s` (OpenEBS CSI)** beneath a single declarative 12-file YAML control plane (`/etc/axonwall/*.yaml`) backed by Junos-style **Commit-Confirm automatic rollback**—and can even run with `core-firewall` disabled (`capabilities.firewallEnabled: false`) as a dedicated **Host-Mode ZFS & S3 Storage Vault**, complete with a deterministic **TrueNAS SCALE** configuration importer (`pools`, `datasets`, `zvols`, `SMB3`, `NFS`, `iSCSI`, and `rclone` tasks).
+
+![Axonwall Sovereign Storage Convergence Architecture](/images/axonwall-converged-zfs-seaweedfs-k3s-storage.jpg)
+
+### 1. Closing SeaweedFS's Three Upstream WORM Footguns (`Axonwall Vault Edition`)
+
+Earlier in Section 2, we saw why teams are migrating backup repositories (`Kopia`, `Restic`, `Veeam`, `CloudNativePG` Barman WAL archives, `Longhorn` DR) from frozen MinIO builds to **SeaweedFS S3 Object Lock**. However, dropping a stock `weed server -s3` container onto a Linux host creates a dangerous illusion of ransomware immutability. During Phase 0 bench auditing for **Axonwall Vault Edition**, three severe upstream posture traps surfaced—all of which Axonwall closes automatically at provisioning and `Ring 0`:
+
+1. **Trap #1 — Coarse `"Write"` Identities Silently Grant `DeleteObjectVersion`**:
+   In upstream SeaweedFS (`4.48+`), configuring a backup client with the legacy coarse `"actions": ["Write"]` credential **silently grants `s3:DeleteObjectVersion`**, while per-object retention-header `PUT`s (required by Kopia and Veeam) demand full AWS IAM policy documents. Axonwall's provisioner (`axonwall-vault-provision`) rejects coarse actions entirely: it keeps `vault-admin` strictly bound to `127.0.0.1` (never leaving the appliance) and synthesizes a scoped `vault-writer` IAM policy allowing `s3:PutObject`, `s3:PutObjectRetention`, `s3:PutObjectLegalHold`, multipart uploads, and delete-marker `s3:DeleteObject`, while **explicitly omitting `s3:DeleteObjectVersion`**.
+2. **Trap #2 — The Filer HTTP Surface & Non-Empty Bucket Deletion Bypass Object Lock**:
+   Out of the box, SeaweedFS's Filer HTTP listener (`:8888`) exposes a namespace admin domain that **bypasses S3 Object Lock completely** and can wipe locked buckets, while `-s3.allowDeleteBucketNotEmpty` defaults to `true` (destroying non-empty buckets instead of enforcing AWS `BucketNotEmpty` semantics). Axonwall hardens `seaweedfs.service` with `-filer.disableHttp=true` (forcing S3-to-Filer traffic over internal gRPC), `-s3.allowDeleteBucketNotEmpty=false`, and `-s3.autoCreateBucket=false`, while enforcing a static kernel `nftables` drop table (`vault_filter`) that drops Master (`9333`), Volume (`8080`), and Filer (`8888`/`18888`) ports on the wire—exposing **only TLS S3 on TCP `8333`**.
+3. **Trap #3 — Unverified WORM Claims & Root-Level Substrate Tampering**:
+   Before stamping `/etc/axonwall/vault-provisioned-at`, `axonwall-vault-provision --ensure` executes **four live SigV4 cryptographic probes** against the bucket: verifying retention-header `PUT` acceptance, reading back `<Mode>COMPLIANCE</Mode>`, and proving that *both* `backup-writer` and `vault-admin` receive **`HTTP 403`** when attempting `DELETE ?versionId=...` on the locked probe object. Beneath SeaweedFS, Axonwall guards the host substrate with **`CO-RE BPF-LSM`** lockdown policies, `io_uring` restriction (`ioUringDisabledMode: "2"`), `drgn` `/proc/kcore` eBPF `prog_idr` rootkit auditing, and **`ZFSBootMenu` / Dual-Root A/B / `LUKS2 + TPM 2.0`** boot integrity—closing the exact root-SSH substrate hole that undermines bare Docker S3 deployments.
+
+### 2. Solving the 2-Node Sovereign Edge Problem (`core-nas` + `core-k3s`)
+
+Look back at the `Min Nodes` column in our Kubernetes CSI matrix: **Rook-Ceph requires `4+` production nodes**, and **Mayastor / Longhorn require `3+` nodes** for Raft/etcd quorum and 3-way replica placement. For edge sites, branch offices, clinics, defense kits, and serious homelabs, running four 25GbE servers just to survive a hardware failure is overkill—you want **two identical bare-metal appliances** in Active/Passive or 2-Node HA.
+
+Axonwall bridges this gap by unifying SAN, NAS, and Kubernetes CSI across a **dedicated point-to-point HA sync link (`eth3`, `mTLS` TCP `9876`)**:
+- **Declarative OpenZFS NAS + LIO SAN (`core-nas`)**: Compiles `/etc/axonwall/storage.yaml` directly into OpenZFS pools (`mirror`, `raidz1-3`, `draid`, `ashift=12`, `autotrim=on`, `lz4`/`zstd`) with mirrored NVMe **`special` VDEVs** (`special_small_blocks`), `SLOG`, `L2ARC`, native `AES-256-GCM` datasets/ZVOLs, **Samba `SMB3 Multichannel`** shares (auto-wired to `.zfs/snapshot` via `shadow_copy2` for Windows Previous Versions and `fruit` for macOS Time Machine), **`NFSv4`** exports, and kernel **Linux-IO (`LIO`) `iSCSI` SAN targets** backed by `16K`-block ZVOLs. Over `eth3`, the HA engine streams raw encrypted incremental **`zfs send -w -I`** snapshots while keeping standby pools mounted `readonly=on` until VRRP failover promotes `BACKUP` to `MASTER`.
+- **Zero-Touch K3s + OpenEBS StorageClasses (`core-k3s`)**: Enabling `core-k3s` in `/etc/axonwall/k3s.yaml` automatically compiles and reconciles both **`axonwall-zfs-local`** (`zfs.csi.openebs.io` for `600K+` IOPS zero-hop transactional databases) and **`axonwall-replicated-ha`** (`io.openebs.csi-mayastor` over `nvmf` with automatic `repl: "2"` when 2-host HA is active), paired with `Cilium eBPF` (`kubeProxyReplacement: true`), automated S3 etcd snapshots, and unprivileged [Linux `6.12` `BPF Token`](/blog/linux-6-12-ebpf-token-delegation-user-namespaces-bpf-lsm-containers) container profiles (`hostUsers: false`).
+
+```yaml
+# /etc/axonwall/storage.yaml — Converged OpenZFS Pool, SMB3 VSS Share & LIO iSCSI SAN
+nas:
+  enabled: true
+  workgroup: CORP
+  smbMultichannel: true
+  pools:
+    - name: tank
+      topology: raidz2
+      dataDisks: [/dev/sda, /dev/sdb, /dev/sdc, /dev/sdd, /dev/sde, /dev/sdf]
+      specialDisks: [/dev/nvme0n1, /dev/nvme1n1] # Mirrored NVMe metadata + small blocks!
+      specialSmallBlocks: 32K
+      compression: zstd
+      autotrim: true
+  datasets:
+    - pool: tank
+      name: shares/engineering
+      type: filesystem
+      recordSize: 128K
+      encryption: aes-256-gcm
+    - pool: tank
+      name: san/proxmox-vmstore
+      type: zvol
+      volSizeGb: 2000
+      compression: lz4
+  smbShares:
+    - name: engineering
+      path: /mnt/tank/shares/engineering
+      enabled: true
+      shadowCopies: true   # Exposes .zfs/snapshot directly in Windows Explorer!
+      timeMachine: true
+  iscsiTargets:
+    - iqn: iqn.2026-11.com.axonwall:tank.proxmox-san
+      enabled: true
+      portalIp: 10.0.10.1  # Floating VRRP LAN VIP for seamless HA SAN failover
+      portalPort: 3260
+      luns:
+        - lunId: 0
+          zvolPath: tank/san/proxmox-vmstore
+          blockSize: "4096"
+---
+# /etc/axonwall/k3s.yaml — Embedded 2-Node HA K3s + OpenEBS ZFS-LocalPV & Mayastor NVMe-oF
+k3s:
+  enabled: true
+  cniPlugin: cilium-ebpf
+  ciliumKubeProxyReplacement: true
+  autoJoinHaPeer: true
+  enableUserNamespaces: true
+  etcdSnapshots:
+    enabled: true
+    scheduleCron: "0 */6 * * *"
+    s3Enabled: true
+    s3Endpoint: "10.0.10.50:8333" # Streams straight to Axonwall SeaweedFS WORM Vault!
+    s3Bucket: "backups"
+  openEbs:
+    enabled: true
+    zfsLocalPvEnabled: true
+    zfsLocalPvPool: tank
+    replicatedStorageEnabled: true
+    defaultReplicaCount: 2
+    replicatedBackingPool: tank/openebs-replicated
+```
+
 ### The Pragmatic 2026 Sovereign Storage Blueprint
 
-If you are architecting a greenfield bare-metal Kubernetes stack tomorrow without cloud lock-in or `AGPLv3` licensing landmines, you rarely need one monolithic hammer for every nail:
-- **For CloudNativePG, ClickHouse, and Kafka**: Deploy **`OpenEBS LocalPV-ZFS`** (or **`TopoLVM`**) on local PLP NVMe drives (`1x` storage layer, `3x` database replication) and stream WAL archives + basebackups into **SeaweedFS S3**.
-- **For Replicated `RWO` Block + `RWX` Shared Filesystems at Cluster Scale ($\ge 4$ Nodes)**: Deploy **`Rook-Ceph`** (`RBD` + `CephFS`)—or **`Piraeus / LINSTOR (DRBD 9)`** if you want blistering `RWO` transactional speed on smaller nodes without `SPDK` CPU polling overhead.
-- **For S3 Object Storage, Backup Vaults, and AI/ML Datasets**: Replace frozen **MinIO** deployments with **`SeaweedFS` (`Apache 2.0`)**—gaining $O(1)$ Haystack small-file physics, `10+4` Reed-Solomon erasure coding, S3 Object Lock Compliance Mode, a full open-source Web UI, and native `ReadWriteMany` POSIX CSI access over the exact same buckets.
+If you are architecting a greenfield bare-metal storage and Kubernetes stack tomorrow without cloud lock-in or `AGPLv3` licensing landmines, match the physics of your data plane to the scale of your cluster:
+- **For CloudNativePG, ClickHouse, and Kafka**: Deploy **`OpenEBS LocalPV-ZFS`** (or **`TopoLVM`**) on local PLP NVMe drives (`1x` storage layer, `3x` database replication) and stream WAL archives + basebackups into a hardened **SeaweedFS S3** bucket.
+- **For Dedicated Scale-Out Kubernetes Clusters ($\ge 4$ Nodes)**: Deploy **`Rook-Ceph`** (`RBD` + `CephFS`) when you need unified multi-rack block and shared POSIX filesystems—or **`Piraeus / LINSTOR (DRBD 9)`** when you want `300K+` `RWO` transactional IOPS without burning dedicated cores on `SPDK` busy-polling.
+- **For S3 Object Storage, Ransomware-Proof Backup Vaults, and AI/ML Datasets**: Replace frozen **MinIO** deployments with **`SeaweedFS` (`Apache 2.0`)**—and if you need verified `COMPLIANCE` WORM immutability without Filer HTTP or coarse-policy bypasses, deploy it via **Axonwall Vault Edition** (`port 8333` only, 4-probe SigV4 verification, and `BPF-LSM` Ring-0 lockdown).
+- **For 1-to-2-Node Sovereign Edge, Branch, or Hyperconverged Racks**: Consolidate the entire stack onto **[Axonwall](https://axonwall.com)** (`GPL-2.0-or-later`)—combining OpenZFS `RAIDZ`/`dRAID` (`SMB3` + `NFSv4` + `LIO iSCSI`), incremental HA `zfs send -w -I`, `OpenEBS ZFS-LocalPV`/`Mayastor`, and a hardened SeaweedFS WORM Vault under a single Git-auditable `/etc/axonwall/*.yaml` control plane.

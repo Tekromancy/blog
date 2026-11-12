@@ -22,7 +22,7 @@ export default function KubernetesStorageArchitectSimulator() {
 	const [activeTab, setActiveTab] = useState<SimTab>("csi_arena");
 
 	// Tab 1 state: K8s CSI Arena
-	const [nodeCount, setNodeCount] = useState<3 | 6 | 12 | 32>(6);
+	const [nodeCount, setNodeCount] = useState<2 | 3 | 6 | 12 | 32>(6);
 	const [fabric, setFabric] = useState<FabricSpeed>("25g_tcp");
 	const [workload, setWorkload] = useState<WorkloadKind>("oltp_db");
 
@@ -117,12 +117,15 @@ export default function KubernetesStorageArchitectSimulator() {
 				idleCpuCoresPerNode: 0.65,
 				ramGbPerNode: 5.0,
 				fitScore:
+					nodeCount <= 2 ? 15 :
 					nodeCount < 4 ? 45 :
 					workload === "shared_rwx" ? 96 :
 					workload === "ai_lakehouse" ? 92 :
 					workload === "oltp_db" ? 82 : 50,
 				verdict:
-					nodeCount < 4
+					nodeCount <= 2
+						? "Cannot satisfy 3-MON quorum or 3-replica host failure domains on 2 nodes without an external arbiter."
+						: nodeCount < 4
 						? "Under-provisioned at 3 nodes: single node maintenance leaves minimal failure domains for OSD rebuilds."
 						: "The sovereign enterprise standard when you need unified Block (RBD), POSIX Shared File (CephFS), and Object (RGW) in one cluster."
 			},
@@ -157,6 +160,26 @@ export default function KubernetesStorageArchitectSimulator() {
 					workload === "shared_rwx" ? 93 :
 					workload === "homelab_edge" ? 86 : 42,
 				verdict: "Unbeatable MinIO replacement & AI/ML RWX engine: write via S3 API and mount the exact same namespace via POSIX CSI!"
+			},
+			{
+				id: "axonwall_converged",
+				name: "Axonwall (core-nas ZFS + SeaweedFS Vault + core-k3s OpenEBS)",
+				plane: "OpenZFS + BPF-LSM SeaweedFS WORM + ZFS-LocalPV / 2x Mayastor",
+				license: "GPL-2.0-or-later",
+				accessModes: "RWO + SMB3/NFSv4 RWX + iSCSI + WORM S3",
+				iops4k: nodeCount <= 2 ? 580000 : Math.round(395000 * netMult),
+				p99LatencyMs: nodeCount <= 2 ? 0.11 : Number((0.22 * latPenalty).toFixed(2)),
+				idleCpuCoresPerNode: workload === "homelab_edge" || nodeCount <= 2 ? 0.15 : 1.1,
+				ramGbPerNode: 2.2,
+				fitScore:
+					nodeCount === 2 ? 99 :
+					workload === "homelab_edge" ? 97 :
+					workload === "oltp_db" ? 95 :
+					workload === "ai_lakehouse" ? 94 : 91,
+				verdict:
+					nodeCount === 2
+						? "Purpose-built 2-host sovereign HA: VRRP + incremental zfs send -w -I + OpenEBS ZFS-LocalPV/Mayastor + BPF-LSM SeaweedFS WORM Vault—zero 4-node Ceph tax."
+						: "Converges OpenZFS NAS/SAN, hardened SeaweedFS COMPLIANCE Vault (port 8333 only, Filer HTTP disabled), and K3s OpenEBS under declarative /etc/axonwall/*.yaml."
 			}
 		];
 
@@ -317,8 +340,8 @@ export default function KubernetesStorageArchitectSimulator() {
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-900/50 border border-gray-800 rounded-xl">
 						<div>
 							<div className="text-xs text-gray-400 mb-1.5">Cluster Node Count:</div>
-							<div className="grid grid-cols-4 gap-1.5">
-								{([3, 6, 12, 32] as const).map((n) => (
+							<div className="grid grid-cols-5 gap-1.5">
+								{([2, 3, 6, 12, 32] as const).map((n) => (
 									<button
 										key={n}
 										type="button"
