@@ -3,9 +3,10 @@ title: "Kubernetes GitOps Control-Plane Internals: Desired-Subset Drift Engines,
 description: "Why naive Git-to-cluster JSON diffs drown in API-server defaults and blind prunes break operators—and how to build deterministic desired-subset drift engines, CAS-backed admission guards, selfHeal-safe preview teardown, and digest-pinned OCI Helm pipelines."
 pubDate: "2026-11-24"
 updatedDate: "2026-11-24"
+heroImage: "44.jpg"
 tags: ["kubernetes", "gitops", "argocd", "security", "supply-chain"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Most Kubernetes GitOps tooling behaves cleanly on day one with a stateless `Deployment` and an `Ingress`. By month six—once operators, mutating admission webhooks, HorizontalPodAutoscalers, ephemeral preview environments, and dozens of Helm charts share the control plane—naive "diff Git YAML against `kubectl get -o json` and auto-sync everything" turns into an outage generator:
@@ -52,6 +53,9 @@ A resilient GitOps platform separates **supply-chain verification**, **semantic 
 |                                                                                   |
 +-----------------------------------------------------------------------------------+
 ```
+
+![GitOps Desired-Subset Drift Engine, SSA managedFields Ownership, and CAS Policy Guard](/images/k8s-gitops-desired-subset-ssa-pipeline.jpg)
+*Figure 1: Hardened GitOps control-plane pipeline separating desired-subset recursive diffing with strategic merge-key matching, Server-Side Apply `fieldsV1` controller ownership, and `resourceVersion` CAS policy persistence.*
 
 ### Naive GitOps vs. Hardened Control-Plane Engineering
 
@@ -129,20 +133,55 @@ var serverNoiseMetaKeys = map[string]bool{
 	"managedFields":     true,
 }
 
-// Well-known Kubernetes OpenAPI x-kubernetes-patch-merge-key mappings
+// Well-known Kubernetes OpenAPI x-kubernetes-patch-merge-key mappings.
+// Note: Service spec.ports and Container ports use composite merge keys
+// (port+protocol / containerPort+protocol) in full OpenAPI schemas; single-key
+// lookup assumes distinct ports per list entry.
 var mergeKeyByListPath = map[string]string{
 	"spec.containers":                    "name",
 	"spec.initContainers":                "name",
 	"spec.ephemeralContainers":           "name",
 	"spec.volumes":                       "name",
+	"spec.ports":                         "port",
 	"spec.template.spec.containers":      "name",
 	"spec.template.spec.initContainers":  "name",
 	"spec.template.spec.volumes":         "name",
+	"spec.template.spec.imagePullSecrets": "name",
 	"env":                                "name",
 	"volumeMounts":                       "mountPath",
 	"ports":                              "containerPort",
-	"rules":                              "host",
-	"subjects":                           "name",
+}
+
+// equalScalar normalizes integer/float representations before comparison so
+// YAML-parsed ints and Kubernetes unstructured JSON int64/float64 values match.
+func equalScalar(a, b any) bool {
+	if reflect.DeepEqual(a, b) {
+		return true
+	}
+	fa, okA := toFloat64(a)
+	fb, okB := toFloat64(b)
+	return okA && okB && fa == fb
+}
+
+func toFloat64(v any) (float64, bool) {
+	switch n := v.(type) {
+	case int:
+		return float64(n), true
+	case int32:
+		return float64(n), true
+	case int64:
+		return float64(n), true
+	case uint32:
+		return float64(n), true
+	case uint64:
+		return float64(n), true
+	case float32:
+		return float64(n), true
+	case float64:
+		return n, true
+	default:
+		return 0, false
+	}
 }
 
 // DiffDesiredSubset compares ONLY fields declared in desired against live.
@@ -204,7 +243,7 @@ func DiffDesiredSubset(path string, desired, live any) []DriftFinding {
 		return findings
 
 	default:
-		if !reflect.DeepEqual(desired, live) {
+		if !equalScalar(desired, live) {
 			return []DriftFinding{{Path: path, Desired: desired, Live: live, Reason: "value_drifted"}}
 		}
 		return nil
@@ -296,7 +335,13 @@ func ClassifyOrphans(liveObjects []map[string]any, desiredKeys map[string]bool) 
 			continue
 		}
 		anns, _ := meta["annotations"].(map[string]any)
-		trackedBy := fmt.Sprint(anns["argocd.argoproj.io/tracking-id"])
+		labels, _ := meta["labels"].(map[string]any)
+		trackedBy := ""
+		if v, ok := anns["argocd.argoproj.io/tracking-id"].(string); ok && v != "" {
+			trackedBy = v
+		} else if v, ok := labels["kustomize.toolkit.fluxcd.io/name"].(string); ok && v != "" {
+			trackedBy = "flux:" + v
+		}
 		out = append(out, OrphanClassification{
 			GVK: gvk, Namespace: ns, Name: name,
 			TrackedBy:  trackedBy,
@@ -322,9 +367,9 @@ Request -> AuthN -> AuthZ -> MutatingAdmissionWebhook -> OpenAPI Schema -> Valid
 Two anti-patterns routinely break GitOps policy and admission-guard controllers in production:
 
 1. **In-Memory Policy Toggles & Blind Overwrites**: Storing policy enforcement state in controller RAM resets whenever a pod restarts or scales horizontally. Conversely, calling `kubectl apply -f -` or `Update()` with a blank `ResourceVersion` silently clobbers rules edited concurrently by another operator or CI pipeline. Always use **etcd Optimistic Concurrency Control (CAS)** via `metadata.resourceVersion`: read the current `ConfigMap`, verify and mutate in memory, call `Update()` preserving `ResourceVersion`, retry cleanly on `apierrors.IsConflict(err)` (`HTTP 409`), fail loudly if stored JSON is malformed (never silently reset to defaults), and read back after write to confirm persistence.
-2. **Failing Open to "Zero Webhooks Installed"**: When inspecting live `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects to verify cluster admission guard coverage, RBAC denials (`403 Forbidden`) or API-server timeouts must transition UI and health probes to **`Unknown / Error`**, never report `"0 webhooks installed"`. Claiming no admission controllers exist during a transient API outage masks active policy enforcement—or worse, prompts operators to re-apply breaking configurations.
+2. **Failing Open to "Zero Webhooks Installed"**: When inspecting live `ValidatingWebhookConfiguration` and `MutatingWebhookConfiguration` objects to verify cluster admission guard coverage, RBAC denials (`403 Forbidden`) or API-server timeouts must transition UI and health probes to **`Unknown / Error`**, never report `"0 webhooks installed"`. Note also that in `admissionregistration.k8s.io/v1`, omitting `failurePolicy` defaults to `Fail`, and production audits should likewise inspect `timeoutSeconds` (default `10s`, max `30s`) and Kubernetes 1.30+ GA CEL `matchConditions` used to scope webhooks safely.
 
-The Go helper below (`cas_policy_guard.go`) implements both the `resourceVersion` CAS update loop and a webhook fail-closed safety audit:
+The Go helper below (`cas_policy_guard.go`) implements both the jittered `resourceVersion` CAS update loop and a webhook fail-closed safety audit:
 
 ```go
 // cas_policy_guard.go — etcd CAS policy store & admission webhook safety probe
@@ -336,6 +381,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math/rand"
+	"time"
 
 	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -354,11 +401,23 @@ type WebhookAudit struct {
 	UnsafeScope   bool   `json:"unsafeScope"`
 }
 
-// ToggleGuardRule atomically updates a ConfigMap policy rule using etcd resourceVersion CAS.
-// Rejects corrupt JSON loudly instead of silently resetting state.
+// ToggleGuardRule atomically updates a ConfigMap policy rule using etcd resourceVersion CAS
+// with bounded jittered backoff on HTTP 409 Conflict. Rejects corrupt JSON loudly.
 func ToggleGuardRule(ctx context.Context, cs kubernetes.Interface, ns, cmName, ruleID string, enable bool) (*PolicyRuleSet, error) {
 	const maxRetries = 5
 	for attempt := 0; attempt < maxRetries; attempt++ {
+		if attempt > 0 {
+			wait := time.Duration(25<<uint(attempt-1))*time.Millisecond +
+				time.Duration(rand.Intn(40))*time.Millisecond
+			t := time.NewTimer(wait)
+			select {
+			case <-ctx.Done():
+				t.Stop()
+				return nil, ctx.Err()
+			case <-t.C:
+			}
+		}
+
 		cm, err := cs.CoreV1().ConfigMaps(ns).Get(ctx, cmName, metav1.GetOptions{})
 		created := false
 		var state PolicyRuleSet
@@ -401,7 +460,7 @@ func ToggleGuardRule(ctx context.Context, cs kubernetes.Interface, ns, cmName, r
 			_, err = cs.CoreV1().ConfigMaps(ns).Update(ctx, cm, metav1.UpdateOptions{})
 		}
 		if apierrors.IsConflict(err) || apierrors.IsAlreadyExists(err) {
-			continue // Concurrent writer won; re-read fresh resourceVersion
+			continue // Concurrent writer won; back off and re-read fresh resourceVersion
 		}
 		if err != nil {
 			return nil, fmt.Errorf("CAS persist failed: %w", err)
@@ -415,6 +474,9 @@ func ToggleGuardRule(ctx context.Context, cs kubernetes.Interface, ns, cmName, r
 		var out PolicyRuleSet
 		if err := json.Unmarshal([]byte(verified.Data["rules.json"]), &out); err != nil {
 			return nil, fmt.Errorf("read-back decode failed: %w", err)
+		}
+		if got, ok := out.Enabled[ruleID]; !ok || got != enable {
+			return nil, fmt.Errorf("read-back verification mismatch for %s: got (%v, %t), want %t", ruleID, got, ok, enable)
 		}
 		return &out, nil
 	}
@@ -471,6 +533,9 @@ Consider what happens if your teardown code simply executes `kubectl delete name
 4. The API server rejects new creations in a terminating namespace (`Forbidden: unable to create new content in namespace because it is being terminated`), leaving the `Application` stuck in `ComparisonError` / `OutOfSync` indefinitely—or if `CreateNamespace=true` is enabled and deletion wasn't finished, recreating the namespace outright.
 5. Conversely, deleting the `Application` CR *without* `metadata.finalizers: [resources-finalizer.argocd.argoproj.io]` removes the ArgoCD CR from etcd immediately while leaving every `Deployment`, `PVC`, `Ingress`, and `LoadBalancer` running as billed cloud orphans.
 
+![ArgoCD selfHeal Namespace Resurrection Race vs. Finalizer-Ordered Cascade Teardown](/images/k8s-preview-finalizer-teardown-race.jpg)
+*Figure 2: Deleting an ephemeral preview `Namespace` directly races ArgoCD `selfHeal: true` and `namespace-controller`, whereas deleting the parent `Application` CR first triggers deterministic `resources-finalizer.argocd.argoproj.io` cascade cleanup before namespace termination.*
+
 ### Deterministic Preview Provisioning & Teardown Order
 
 Every ephemeral preview manager must implement an explicit state machine:
@@ -481,7 +546,7 @@ Every ephemeral preview manager must implement an explicit state machine:
   3. Create the preview-scoped ArgoCD `Application` CR (`resources-finalizer.argocd.argoproj.io`, `CreateNamespace=false`) and dedicated `Ingress`.
   4. Keep status as `provisioning` until `Namespace`, workload readiness, and `Ingress` status are confirmed live. If `deploy` fails, **immediately roll back and delete the created `Namespace`** so failed deploys never leave orphan namespaces behind.
 - **Teardown (`delete Application CR -> wait 404 -> delete Namespace -> wait 404`)**:
-  1. Delete the `Application` CR in `argocd` first. Because `resources-finalizer.argocd.argoproj.io` is set, ArgoCD synchronously cascades deletion of all managed workloads *before* removing its own finalizer and disappearing.
+  1. Delete the `Application` CR in `argocd` first. Because `resources-finalizer.argocd.argoproj.io` is set (use `resources-finalizer.argocd.argoproj.io/background` if asynchronous background propagation by Kubernetes garbage collection is preferred over foreground blocking), ArgoCD cascades deletion of all managed workloads *before* removing its own finalizer and disappearing.
   2. Poll until `Application` returns `404 NotFound`.
   3. Delete the preview `Namespace` and wait for `404 NotFound` (swept by a background TTL reaper, e.g. every 30s, so expired previews never accumulate).
 
@@ -508,7 +573,7 @@ metadata:
   namespace: argocd
   finalizers:
     # Forces ArgoCD to cascade-delete managed child resources BEFORE deleting this CR
-    - resources-finalizer.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: previews
   source:
@@ -532,7 +597,7 @@ spec:
       - ServerSideApply=true
 ```
 
-And the matching Go teardown routine (`teardown_preview.go`) that enforces strict ordering and inspects `Namespace.Status.Conditions` when finalizers stall:
+And the matching Go teardown routine (`teardown_preview.go`) that enforces strict ordering, fails immediately on RBAC errors, and propagates actionable `Namespace.Status.Conditions` stall diagnostics on timeout:
 
 ```go
 // teardown_preview.go — Finalizer-ordered preview teardown without selfHeal resurrection
@@ -541,6 +606,7 @@ package preview
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	corev1 "k8s.io/api/core/v1"
@@ -577,26 +643,33 @@ func DestroyPreview(ctx context.Context, dyn dynamic.Interface, cs kubernetes.In
 	if err != nil && !apierrors.IsNotFound(err) {
 		return fmt.Errorf("delete Namespace %s: %w", previewNS, err)
 	}
+	var lastStall string
 	if err := waitGone(ctx, 2*time.Minute, func() error {
 		nsObj, gErr := cs.CoreV1().Namespaces().Get(ctx, previewNS, metav1.GetOptions{})
 		if gErr == nil {
-			checkTerminatingStall(nsObj)
+			if msg := checkTerminatingStall(nsObj); msg != "" {
+				lastStall = msg
+			}
 		}
 		return gErr
 	}); err != nil {
+		if lastStall != "" {
+			return fmt.Errorf("Namespace %s teardown timed out (%s): %w", previewNS, lastStall, err)
+		}
 		return fmt.Errorf("Namespace %s teardown timed out: %w", previewNS, err)
 	}
 	return nil
 }
 
-func checkTerminatingStall(ns *corev1.Namespace) {
+func checkTerminatingStall(ns *corev1.Namespace) string {
+	var blockers []string
 	for _, cond := range ns.Status.Conditions {
 		if (cond.Type == corev1.NamespaceContentRemaining || cond.Type == corev1.NamespaceFinalizersRemaining) &&
 			cond.Status == corev1.ConditionTrue {
-			// Surface actionable blocker instead of blind timeout (e.g., stuck PVC finalizer)
-			_ = fmt.Sprintf("ns=%s condition=%s msg=%s", ns.Name, cond.Type, cond.Message)
+			blockers = append(blockers, fmt.Sprintf("%s=%s", cond.Type, cond.Message))
 		}
 	}
+	return strings.Join(blockers, "; ")
 }
 
 func waitGone(ctx context.Context, timeout time.Duration, probe func() error) error {
@@ -606,8 +679,12 @@ func waitGone(ctx context.Context, timeout time.Duration, probe func() error) er
 	defer ticker.Stop()
 
 	for {
-		if err := probe(); apierrors.IsNotFound(err) {
+		err := probe()
+		if apierrors.IsNotFound(err) {
 			return nil
+		}
+		if err != nil && (apierrors.IsForbidden(err) || apierrors.IsUnauthorized(err)) {
+			return fmt.Errorf("non-retryable RBAC failure polling teardown: %w", err)
 		}
 		select {
 		case <-ctx.Done():
@@ -638,10 +715,34 @@ Eliminating vendored bloat safely across a live fleet requires splitting the mig
 
 ### Split-CRD Sync Waves & Digest-Pinned OCI Artifacts
 
-To bypass Helm's `crds/` refusal and the 256 KiB client-side annotation limit simultaneously, deploy CRDs as a dedicated ArgoCD `Application` at `sync-wave: "-1"` with `ServerSideApply=true`, and deploy the operator chart at `sync-wave: "0"`. For OCI-distributed charts (`oci://`), pin immutable `sha256:` digests and verify signatures with Cosign:
+To bypass Helm's `crds/` refusal and the 256 KiB client-side annotation limit simultaneously, deploy CRDs as a dedicated ArgoCD `Application` at `sync-wave: "-1"` with `ServerSideApply=true`, and deploy the operator chart at `sync-wave: "0"`.
+
+**Crucial App-of-Apps Caveat**: Sync waves between separate `Application` CRs only wait for wave `-1` when deployed via a parent App-of-Apps (or `ApplicationSet` progressive sync) **and** when `argocd-cm` defines a custom Lua health check for `argoproj.io/Application`—because ArgoCD no longer evaluates child `Application` health by default (`Application` CRs would otherwise report Healthy immediately upon etcd creation).
+
+For OCI-distributed charts (`oci://`), use Flux GA `source.toolkit.fluxcd.io/v1` `OCIRepository` with `layerSelector` extraction, immutable `ref.digest` pinning (which takes precedence over `semver`/`tag` in Flux), Cosign keyless OIDC verification (`verify.provider: cosign`), and a `HelmRelease` (`helm.toolkit.fluxcd.io/v2`) consumer via `chartRef`:
+
+![Digest-Pinned OCI Helm Supply Chain with Cosign Verification and Split-CRD Sync Waves](/images/k8s-oci-helm-split-crd-supply-chain.jpg)
+*Figure 3: End-to-end OCI Helm supply chain combining Cosign keyless signature verification and `sha256` digest pinning with an `argocd-cm` Application health gate, wave `-1` Server-Side Apply CRDs (`prune: false`), and wave `0+` operator rollouts.*
 
 ```yaml
-# upstream-oci-split-crd-apps.yaml — Split-CRD SSA sync wave + Cosign-verified OCI chart
+# upstream-oci-split-crd-apps.yaml — App-of-Apps health gate, split-CRD SSA waves & Flux OCI digest pin
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  # Required so parent App-of-Apps sync waves block wave "0" until wave "-1" is Healthy
+  resource.customizations.health.argoproj.io_Application: |
+    hs = {}
+    hs.status = "Progressing"
+    hs.message = ""
+    if obj.status ~= nil and obj.status.health ~= nil then
+      hs.status = obj.status.health.status
+      hs.message = obj.status.health.message or ""
+    end
+    return hs
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -697,8 +798,8 @@ spec:
       - ServerSideApply=true
       - SkipDryRunOnMissingResource=true
 ---
-# Flux OCIRepository with immutable sha256 digest pin + Cosign keyless signature check
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+# Flux v1 OCIRepository with immutable sha256 digest pin + Cosign keyless signature check
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: spegel-chart
@@ -707,14 +808,29 @@ spec:
   interval: 10m
   url: oci://ghcr.io/spegel-org/helm-charts/spegel
   ref:
-    semver: "0.8.1"
-    # Pinning digest prevents silent tag mutation inside upstream OCI registries
-    digest: sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    # Pin immutable digest resolved from `crane digest` (takes precedence over semver/tag)
+    digest: sha256:<IMMUTABLE_CHART_DIGEST>
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
   verify:
     provider: cosign
     matchOIDCIdentity:
       - issuer: "^https://token\\.actions\\.githubusercontent\\.com$"
         subject: "^https://github\\.com/spegel-org/spegel/\\.github/workflows/.*$"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: spegel
+  namespace: flux-system
+spec:
+  interval: 30m
+  releaseName: spegel
+  targetNamespace: spegel
+  chartRef:
+    kind: OCIRepository
+    name: spegel-chart
 ```
 
 Notice `prune: false` on `mariadb-operator-crds`: deleting a CRD deletes **every instance of that Custom Resource across the entire cluster** via garbage collection. CRD applications must never run with automated pruning enabled.
@@ -725,7 +841,22 @@ Notice `prune: false` on `mariadb-operator-crds`: deleting a CRD deletes **every
 
 ### Trap 1: Server-Defaulting & HPA / Sidecar-Webhook `managedFields` Ping-Pong
 
-You enable `selfHeal: true` on a workload with a `HorizontalPodAutoscaler` and an injected service-mesh sidecar. Every 3 minutes, ArgoCD reconciles `spec.replicas` back to `2` while HPA scales it back to `8`, generating continuous etcd churn and pod restarts. **Fix**: Omit `spec.replicas` from Git manifests for HPA-managed workloads (desired-subset semantics), enable `ServerSideApply=true` + `RespectIgnoreDifferences=true`, and configure `ignoreDifferences` for webhook-mutated `jqPathExpressions` or `managedFieldsManagers: ["kube-controller-manager"]`.
+You enable `selfHeal: true` on a workload with a `HorizontalPodAutoscaler` and an injected service-mesh sidecar. Every 3 minutes, ArgoCD reconciles `spec.replicas` back to `2` while HPA scales it back to `8`, generating continuous etcd churn and pod restarts. **Fix**: Omit `spec.replicas` from Git manifests for HPA-managed workloads (desired-subset semantics), or configure `ignoreDifferences` with `managedFieldsManagers: ["kube-controller-manager"]` paired with `RespectIgnoreDifferences=true` and `ServerSideApply=true` (plus `jqPathExpressions` for webhook-injected sidecars):
+
+```yaml
+spec:
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      managedFieldsManagers:
+        - kube-controller-manager
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - RespectIgnoreDifferences=true
+      - ServerSideApply=true
+```
 
 ### Trap 2: The `selfHeal: true` Zombie Namespace & Dead Aggregated `APIService`
 
@@ -767,11 +898,12 @@ kubectl get ns --field-selector status.phase=Terminating -o json \
 kubectl get apiservice | awk 'NR==1 || $3 != "True"'
 
 # 5. Resolve immutable sha256 digest and verify Cosign signature of an OCI Helm chart before pinning
-crane digest ghcr.io/spegel-org/helm-charts/spegel:0.8.1
+DIGEST=$(crane digest ghcr.io/spegel-org/helm-charts/spegel:0.8.1)
+echo "Immutable digest: ${DIGEST}"
 cosign verify \
-  --certificate-oidc-issuer-regexp '^https://token\.actions\.githubusercontent\.com$' \
-  --certificate-identity-regexp '^https://github\.com/spegel-org/spegel/' \
-  ghcr.io/spegel-org/helm-charts/spegel@sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  --certificate-identity-regexp "^https://github\\.com/spegel-org/spegel/" \
+  "ghcr.io/spegel-org/helm-charts/spegel@${DIGEST}"
 ```
 
 ---
