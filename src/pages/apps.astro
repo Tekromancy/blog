@@ -12,6 +12,12 @@ import GeodesicCompassSimulator from "../components/interactive/GeodesicCompassS
 
 const apps = TEKROMANCY_APPS;
 
+const appIcons: Record<string, string> = {
+  sparetank: "tabler:battery-charging-2",
+  "silent-mode-control": "tabler:phone-off",
+  coordy: "tabler:compass",
+};
+
 const appsJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -66,25 +72,16 @@ const appsJsonLd = {
   <Header />
 
   <main id="main-content" role="main" class="min-h-screen" style="background-color: var(--token-color-background, #000000);">
-    <!-- Hero / HUD Header -->
-    <div class="max-w-6xl mx-auto px-4 pt-16 pb-12 md:pt-24 md:pb-16">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
       <header class="text-center mb-16">
         <ScrollReveal client:load>
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-5 border shadow-lg" style="background-color: var(--token-color-surface, #0f172a); border-color: rgba(34, 197, 94, 0.35); color: #22c55e;">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-[#22c55e]"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
-            </span>
-            <span class="font-bold tracking-wider">// SOVEREIGN CLIENT APPS &amp; UTILITIES //</span>
-          </div>
-
-          <h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-5" style="color: var(--token-color-text-primary, #f8fafc);">
+          <h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4 text-balance" style="color: var(--token-color-text-primary, #111827);">
             Tekromancy Applications
           </h1>
         </ScrollReveal>
 
-        <ScrollReveal client:load delay={0.2}>
-          <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style="color: var(--token-color-text-muted, #94a3b8);">
+        <ScrollReveal client:load delay={0.15}>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed tk-copy-secondary">
             Native Android applications and security-hardened tools engineered for longevity, privacy, and radical hardware autonomy. 100% on-device processing with zero telemetry surveillance.
           </p>
         </ScrollReveal>
@@ -92,232 +89,274 @@ const appsJsonLd = {
 
       <!-- Apps Roster Showcase -->
       <div class="space-y-12">
-        {apps.map((app, index) => (
-          <ScrollReveal client:load delay={0.15 * (index + 1)}>
-            <article
-              id={app.id}
-              class="relative rounded-2xl border p-6 md:p-10 overflow-hidden transition-all duration-300 hover:shadow-2xl group"
-              style={`background-color: var(--token-color-surface, #0b1120); border-color: rgba(255, 255, 255, 0.1);`}
-            >
-              <!-- Dynamic Neon Radial Glow -->
-              <div
-                class="absolute -top-24 -right-24 w-96 h-96 opacity-15 pointer-events-none rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-25"
-                style={`background: radial-gradient(circle, ${app.accentFrom}, ${app.accentTo});`}
-                aria-hidden="true"
-              ></div>
+        {apps.map((app, index) => {
+          const iconName = appIcons[app.id] || "tabler:apps";
+          return (
+            <ScrollReveal client:load delay={0.12 * (index + 1)}>
+              <article
+                id={app.id}
+                class="tk-plate p-6 md:p-10 relative overflow-hidden group"
+              >
+                <!-- Subtle Per-App Accent Wash -->
+                <div
+                  class="absolute -top-24 -right-24 w-80 h-80 opacity-10 pointer-events-none rounded-full blur-3xl transition-opacity duration-300 group-hover:opacity-20"
+                  style={`background: radial-gradient(circle, ${app.accentFrom}, ${app.accentTo});`}
+                  aria-hidden="true"
+                ></div>
 
-              <!-- Top Meta HUD Bar -->
-              <div class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b" style="border-color: rgba(255, 255, 255, 0.08);">
-                <div class="flex flex-wrap items-center gap-2.5">
-                  <span
-                    class="px-2.5 py-1 rounded text-[11px] font-mono font-bold tracking-wider uppercase border"
-                    style={`background-color: rgba(0, 0, 0, 0.6); border-color: ${app.accentFrom}60; color: ${app.accentFrom};`}
-                  >
-                    {app.category}
-                  </span>
-                  <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-white/5 text-gray-400 border border-white/10">
-                    {app.version}
-                  </span>
+                <!-- Top Meta HUD Bar -->
+                <div
+                  class="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b"
+                  style="border-color: var(--token-color-border, #1a291f);"
+                >
+                  <div class="flex flex-wrap items-center gap-2.5">
+                    <span
+                      class="px-2.5 py-1 rounded text-[11px] font-mono font-bold tracking-wider uppercase border"
+                      style={`background-color: var(--token-color-background, #000000); border-color: ${app.accentFrom}60; color: ${app.accentFrom};`}
+                    >
+                      {app.category}
+                    </span>
+                    <span
+                      class="text-xs font-mono font-bold px-2 py-0.5 rounded border tk-copy-meta"
+                      style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f);"
+                    >
+                      {app.version}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2" aria-hidden="true">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>
+                    </span>
+                    <span
+                      class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded border"
+                      style={`background-color: ${app.accentFrom}14; border-color: ${app.accentFrom}55; color: ${app.accentFrom};`}
+                    >
+                      {app.statusLabel}
+                    </span>
+                  </div>
                 </div>
 
-                <div class="flex items-center gap-2">
-                  <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>
-                  </span>
-                  <span
-                    class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded border"
-                    style={`background-color: ${app.accentFrom}15; border-color: ${app.accentFrom}50; color: ${app.accentFrom};`}
-                  >
-                    {app.statusLabel}
-                  </span>
-                </div>
-              </div>
+                <!-- App Main Body Layout (1px Hairline Split — No Nested Cards) -->
+                <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
+                  <!-- Left Details & Copy (7 cols) -->
+                  <div class="lg:col-span-7 space-y-5">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border shrink-0"
+                        style={`background: linear-gradient(135deg, ${app.accentFrom}22, ${app.accentTo}12); border-color: ${app.accentFrom}55; color: ${app.accentFrom};`}
+                      >
+                        <Icon name={iconName} class="w-7 h-7 sm:w-8 sm:h-8" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h2
+                          class="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight"
+                          style="color: var(--token-color-text-primary, #111827);"
+                        >
+                          {app.name}
+                        </h2>
+                        <p class="text-sm font-mono mt-1 font-semibold" style={`color: ${app.accentFrom};`}>
+                          {app.tagline}
+                        </p>
+                      </div>
+                    </div>
 
-              <!-- App Main Body Layout -->
-              <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-start">
-                <!-- Left Details & Copy (7 cols) -->
-                <div class="lg:col-span-7 space-y-5">
-                  <div class="flex items-center gap-4">
+                    <p class="text-sm sm:text-base leading-relaxed tk-copy-secondary">
+                      {app.description}
+                    </p>
+
+                    <!-- Highlights List (Hairline-divided rows, not nested boxes) -->
                     <div
-                      class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl shadow-xl border shrink-0"
-                      style={`background: linear-gradient(135deg, ${app.accentFrom}25, ${app.accentTo}15); border-color: ${app.accentFrom}50;`}
+                      class="space-y-3 pt-4 border-t"
+                      style="border-color: var(--token-color-border, #1a291f);"
                     >
-                      <span>{app.iconSymbol}</span>
+                      <div class="text-xs font-mono font-bold tracking-wider uppercase tk-copy-meta">
+                        Architectural Highlights
+                      </div>
+                      <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 text-xs font-mono tk-copy-secondary">
+                        {app.highlights.map((highlight) => (
+                          <li class="flex items-start gap-2">
+                            <Icon name="tabler:check" class="w-4 h-4 shrink-0 mt-0.5" style={`color: ${app.accentFrom};`} aria-hidden="true" />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
+
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                      {app.tags.map((tag) => (
+                        <span
+                          class="text-[11px] font-mono px-2.5 py-0.5 rounded-full border tk-copy-meta"
+                          style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f);"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- Right Technical Specs & CTAs (5 cols, separated by 1px hairline on desktop) -->
+                  <div
+                    class="lg:col-span-5 flex flex-col justify-between h-full pt-6 lg:pt-0 lg:pl-8 border-t lg:border-t-0 lg:border-l space-y-6"
+                    style="border-color: var(--token-color-border, #1a291f);"
+                  >
                     <div>
-                      <h2 class="text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-white flex items-center gap-3">
-                        <span>{app.name}</span>
-                      </h2>
-                      <p class="text-sm font-mono mt-1" style={`color: ${app.accentFrom};`}>
-                        {app.tagline}
-                      </p>
-                    </div>
-                  </div>
+                      <div
+                        class="text-xs font-mono font-bold uppercase tracking-wider mb-4 pb-2.5 border-b flex justify-between items-center tk-copy-meta"
+                        style="border-color: var(--token-color-border, #1a291f);"
+                      >
+                        <span>Telemetry &amp; Specs</span>
+                        <span class="text-[10px]" style="color: var(--token-color-primary, #22c55e);">VERIFIED</span>
+                      </div>
 
-                  <p class="text-sm sm:text-base leading-relaxed text-gray-300">
-                    {app.description}
-                  </p>
-
-                  <!-- Highlights List -->
-                  <div class="space-y-2 pt-2">
-                    <div class="text-xs font-mono font-bold tracking-wider text-gray-400 uppercase">
-                      // Architectural Highlights
-                    </div>
-                    <ul class="grid sm:grid-cols-2 gap-2 text-xs font-mono text-gray-300">
-                      {app.highlights.map((highlight) => (
-                        <li class="flex items-start gap-2 bg-black/40 p-2.5 rounded-lg border border-white/5">
-                          <span style={`color: ${app.accentFrom};`} class="font-bold shrink-0">✓</span>
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <!-- Tags -->
-                  <div class="flex flex-wrap gap-1.5 pt-1">
-                    {app.tags.map((tag) => (
-                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-gray-400 border border-white/10">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <!-- Right Technical Specs & CTAs (5 cols) -->
-                <div class="lg:col-span-5 flex flex-col justify-between h-full bg-black/60 rounded-xl p-5 sm:p-6 border border-white/10 space-y-6">
-                  <div>
-                    <div class="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-4 pb-2 border-b border-white/10 flex justify-between items-center">
-                      <span>Telemetry &amp; Specs</span>
-                      <span class="text-[10px] text-green-400">VERIFIED</span>
+                      <dl class="space-y-2.5 text-xs font-mono">
+                        {app.specs.map((spec) => (
+                          <div
+                            class="flex justify-between items-center gap-3 py-1.5 border-b"
+                            style="border-color: var(--token-color-border-muted, #131f17);"
+                          >
+                            <dt class="tk-copy-meta">{spec.label}</dt>
+                            <dd class="font-semibold text-right" style="color: var(--token-color-text-primary, #111827);">{spec.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
                     </div>
 
-                    <dl class="space-y-2.5 text-xs font-mono">
-                      {app.specs.map((spec) => (
-                        <div class="flex justify-between items-center gap-2 py-1 border-b border-white/5">
-                          <dt class="text-gray-400">{spec.label}</dt>
-                          <dd class="text-white font-semibold text-right">{spec.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-
-                  <!-- Actions / Portal Buttons -->
-                  <div class="space-y-3 pt-2">
-                    <a
-                      href={app.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-telemetry="app_portal_click"
-                      data-telemetry-app={app.id}
-                      class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono font-bold text-sm text-black transition-all hover:scale-[1.02] shadow-lg"
-                      style={`background: linear-gradient(135deg, ${app.accentFrom}, ${app.accentTo});`}
-                    >
-                      <span>Launch {app.shortName} Portal</span>
-                      <Icon name="tabler:arrow-up-right" class="w-4 h-4" aria-hidden="true" />
-                    </a>
-
-                    {app.playStoreUrl && (
+                    <!-- Actions / Portal Buttons -->
+                    <div class="space-y-3 pt-2">
                       <a
-                        href={app.playStoreUrl}
+                        href={app.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        data-telemetry="app_play_store_click"
+                        data-telemetry="app_portal_click"
                         data-telemetry-app={app.id}
-                        class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-mono font-semibold text-xs text-gray-300 bg-white/5 border border-white/15 hover:bg-white/10 hover:border-white/30 transition-all"
+                        class="tk-focus-ring w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg font-mono font-bold text-sm text-black transition-transform duration-200 hover:-translate-y-0.5"
+                        style={`background: linear-gradient(135deg, ${app.accentFrom}, ${app.accentTo}); box-shadow: 0 6px 18px -4px ${app.accentFrom}66;`}
                       >
-                        <Icon name="tabler:brand-google-play" class="w-4 h-4 text-green-400" aria-hidden="true" />
-                        <span>Google Play Closed Beta</span>
+                        <span>Launch {app.shortName} Portal</span>
+                        <Icon name="tabler:arrow-up-right" class="w-4 h-4" aria-hidden="true" />
                       </a>
-                    )}
+
+                      {app.playStoreUrl && (
+                        <a
+                          href={app.playStoreUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-telemetry="app_play_store_click"
+                          data-telemetry-app={app.id}
+                          class="tk-btn-secondary w-full !text-xs"
+                        >
+                          <Icon name="tabler:brand-google-play" class="w-4 h-4" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
+                          <span>Google Play Closed Beta</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Interactive Simulator Embed -->
-              {app.id === "sparetank" && (
-                <div class="mt-8 pt-6 border-t border-white/10">
-                  <BatteryRetentionCalculator client:visible />
-                </div>
-              )}
+                <!-- Interactive Simulator Embed -->
+                {app.id === "sparetank" && (
+                  <div class="mt-8 pt-6 border-t" style="border-color: var(--token-color-border, #1a291f);">
+                    <BatteryRetentionCalculator client:visible />
+                  </div>
+                )}
 
-              {app.id === "silent-mode-control" && (
-                <div class="mt-8 pt-6 border-t border-white/10">
-                  <TelecomTimelineMatrix client:visible />
-                </div>
-              )}
+                {app.id === "silent-mode-control" && (
+                  <div class="mt-8 pt-6 border-t" style="border-color: var(--token-color-border, #1a291f);">
+                    <TelecomTimelineMatrix client:visible />
+                  </div>
+                )}
 
-              {app.id === "coordy" && (
-                <div class="mt-8 pt-6 border-t border-white/10">
-                  <GeodesicCompassSimulator client:visible />
-                </div>
-              )}
-            </article>
-          </ScrollReveal>
-        ))}
+                {app.id === "coordy" && (
+                  <div class="mt-8 pt-6 border-t" style="border-color: var(--token-color-border, #1a291f);">
+                    <GeodesicCompassSimulator client:visible />
+                  </div>
+                )}
+              </article>
+            </ScrollReveal>
+          );
+        })}
       </div>
 
       <!-- Radical Sovereignty Principles -->
-      <section class="mt-20 pt-12 border-t border-white/10">
+      <section class="mt-20 pt-14 border-t" style="border-color: var(--token-color-border, #1a291f);">
         <div class="text-center max-w-2xl mx-auto mb-12">
-          <div class="text-xs font-mono font-bold text-green-400 uppercase tracking-widest mb-2">
-            // CORE DESIGN DOCTRINE //
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold font-mono text-white">
+          <h2 class="text-2xl sm:text-3xl font-bold font-mono tracking-tight" style="color: var(--token-color-text-primary, #111827);">
             Radical Hardware Autonomy
           </h2>
-          <p class="text-sm font-mono text-gray-400 mt-2">
+          <p class="text-sm sm:text-base mt-2 tk-copy-secondary">
             Every application built by Tekromancy adheres to strict privacy and local computational sovereignty tenets.
           </p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
-          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
-            <div class="text-2xl mb-3">🔒</div>
-            <h3 class="text-base font-bold font-mono text-white mb-2">100% On-Device Execution</h3>
-            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+          <div class="tk-card p-6">
+            <div
+              class="w-10 h-10 rounded-lg border flex items-center justify-center mb-4"
+              style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);"
+            >
+              <Icon name="tabler:lock" class="w-5 h-5" aria-hidden="true" />
+            </div>
+            <h3 class="text-base font-bold font-mono mb-2" style="color: var(--token-color-text-primary, #111827);">
+              100% On-Device Execution
+            </h3>
+            <p class="text-xs sm:text-sm leading-relaxed tk-copy-secondary">
               Zero central servers recording phone calls, contact books, charging logs, or location coordinates. Your data stays in local flash memory.
             </p>
           </div>
 
-          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
-            <div class="text-2xl mb-3">⚡</div>
-            <h3 class="text-base font-bold font-mono text-white mb-2">Hardware Longevity</h3>
-            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+          <div class="tk-card p-6">
+            <div
+              class="w-10 h-10 rounded-lg border flex items-center justify-center mb-4"
+              style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);"
+            >
+              <Icon name="tabler:cpu" class="w-5 h-5" aria-hidden="true" />
+            </div>
+            <h3 class="text-base font-bold font-mono mb-2" style="color: var(--token-color-text-primary, #111827);">
+              Hardware Longevity
+            </h3>
+            <p class="text-xs sm:text-sm leading-relaxed tk-copy-secondary">
               We design tools that actively mitigate planned obsolescence, prevent battery cell degradation, and optimize silicon duty cycles.
             </p>
           </div>
 
-          <div class="p-6 rounded-xl bg-black/40 border border-white/10">
-            <div class="text-2xl mb-3">🚫</div>
-            <h3 class="text-base font-bold font-mono text-white mb-2">Zero Surveillance SDKs</h3>
-            <p class="text-xs font-mono text-gray-400 leading-relaxed">
+          <div class="tk-card p-6">
+            <div
+              class="w-10 h-10 rounded-lg border flex items-center justify-center mb-4"
+              style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);"
+            >
+              <Icon name="tabler:eye-off" class="w-5 h-5" aria-hidden="true" />
+            </div>
+            <h3 class="text-base font-bold font-mono mb-2" style="color: var(--token-color-text-primary, #111827);">
+              Zero Surveillance SDKs
+            </h3>
+            <p class="text-xs sm:text-sm leading-relaxed tk-copy-secondary">
               No invasive advertising libraries, no hidden tracker analytics, and no background wake-lock drains masquerading as utilities.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Labs & Pipeline Teaser -->
-      <section class="mt-12 p-8 rounded-2xl border border-white/10 bg-gradient-to-r from-emerald-950/20 via-black to-cyan-950/20 text-center">
-        <h3 class="text-lg font-bold font-mono text-white mb-2">
+      <!-- Beta Access Callout -->
+      <section class="tk-plate mt-14 p-8 sm:p-10 text-center">
+        <h3 class="text-xl font-bold font-mono mb-2" style="color: var(--token-color-text-primary, #111827);">
           Want Early Beta Access to Tekromancy Builds?
         </h3>
-        <p class="text-xs font-mono text-gray-400 max-w-xl mx-auto mb-6">
-          Join our open closed-beta testing group to receive immediate APK updates and direct access to upcoming sovereign tool releases.
+        <p class="text-sm max-w-xl mx-auto mb-6 tk-copy-secondary">
+          Join our closed-beta testing group to receive immediate APK updates and direct access to upcoming sovereign tool releases.
         </p>
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-3.5">
           <a
             href="mailto:tekromancy@googlegroups.com?subject=Tekromancy%20Beta%20Access%20Request"
-            class="px-5 py-2.5 rounded-xl font-mono text-xs font-bold bg-[#22c55e] text-black hover:bg-[#22c55e]/90 transition-all shadow-md"
+            class="tk-btn-primary !text-xs"
           >
-            Request Beta Invite (tekromancy@googlegroups.com)
+            <Icon name="tabler:mail-forward" class="w-4 h-4" aria-hidden="true" />
+            <span>Request Beta Invite (tekromancy@googlegroups.com)</span>
           </a>
-          <a
-            href="/contact"
-            class="px-5 py-2.5 rounded-xl font-mono text-xs font-semibold bg-white/5 border border-white/15 text-gray-300 hover:bg-white/10 transition-all"
-          >
-            Direct Transmission Contact
+          <a href="/contact" class="tk-btn-secondary !text-xs">
+            <span>Direct Transmission Contact</span>
           </a>
         </div>
       </section>

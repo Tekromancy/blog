@@ -5,97 +5,272 @@ import sketchSvg from "../assets/sketch.svg";
 ---
 
 <section
-  class="hero-section py-24 md:py-36 relative overflow-hidden"
+  class="hero-section"
   aria-labelledby="hero-heading"
-  style={`background-color: var(--token-color-background, #000000); --sketch-svg: url('${sketchSvg.src}')`}
+  style={`--sketch-svg: url('${sketchSvg.src}')`}
 >
-  <div class="max-w-5xl mx-auto px-4 text-center">
-    <ScrollReveal client:load>
-      <h1 id="hero-heading" class="text-5xl md:text-7xl font-extrabold tracking-tight font-mono mb-6" style="color: var(--token-color-text-primary, #111827);">
-        Tekromancy
-      </h1>
-    </ScrollReveal>
+  <div class="hero-shell">
+    <div class="hero-plate">
+      <div class="hero-chamber">
+        <div class="hero-content">
+          <ScrollReveal client:load>
+            <h1 id="hero-heading" class="hero-title">Tekromancy</h1>
+          </ScrollReveal>
 
-    <ScrollReveal client:load delay={0.2}>
-      <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
-        Tekromancy, systems architecture, and low-level sorcery. Deep dives into <span class="font-semibold" style="color: var(--token-color-text-primary, #111827);">Linux internals</span>, <span class="font-semibold" style="color: var(--token-color-text-primary, #111827);">Kubernetes orchestration</span>, <span class="font-semibold" style="color: var(--token-color-text-primary, #111827);">AI/ML infrastructure</span>, <span class="font-semibold" style="color: var(--token-color-text-primary, #111827);">networking</span>, and <span class="font-semibold" style="color: var(--token-color-text-primary, #111827);">cybersecurity</span>.
-      </p>
-    </ScrollReveal>
+          <ScrollReveal client:load delay={0.15}>
+            <p class="hero-lead">
+              Tekromancy, systems architecture, and low-level sorcery. Deep dives into <strong>Linux internals</strong>, <strong>Kubernetes orchestration</strong>, <strong>AI/ML infrastructure</strong>, <strong>networking</strong>, and <strong>cybersecurity</strong>.
+            </p>
+          </ScrollReveal>
 
-    <!-- Tech focus pills -->
-    <ScrollReveal client:load delay={0.3}>
-      <div class="flex flex-wrap items-center justify-center gap-2 mb-10 text-xs font-mono">
-        <a href="/blog?tag=linux" class="px-3 py-1 rounded-md border transition-colors hover:border-[var(--token-color-primary)]" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-primary, #111827);">
-          🐧 Linux &amp; Kernel
-        </a>
-        <a href="/blog?tag=kubernetes" class="px-3 py-1 rounded-md border transition-colors hover:border-[var(--token-color-primary)]" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-primary, #111827);">
-          ☸️ Kubernetes
-        </a>
-        <a href="/blog?tag=ai-ml" class="px-3 py-1 rounded-md border transition-colors hover:border-[var(--token-color-primary)]" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-primary, #111827);">
-          🤖 AI / ML Systems
-        </a>
-        <a href="/blog?tag=networking" class="px-3 py-1 rounded-md border transition-colors hover:border-[var(--token-color-primary)]" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-primary, #111827);">
-          🌐 Networking &amp; BGP
-        </a>
-        <a href="/blog?tag=security" class="px-3 py-1 rounded-md border transition-colors hover:border-[var(--token-color-primary)]" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-text-primary, #111827);">
-          🛡️ Cybersecurity
-        </a>
+          <ScrollReveal client:load delay={0.25}>
+            <div class="hero-actions">
+              <a href="/blog" class="hero-btn-primary" aria-label="Read technical articles">
+                <Icon name="tabler:terminal" class="w-5 h-5" aria-hidden="true" />
+                <span>Read Articles</span>
+              </a>
+              <a href="#domains" class="hero-btn-secondary" aria-label="Explore technical domains">
+                <Icon name="tabler:cpu" class="w-5 h-5" aria-hidden="true" />
+                <span>Explore Domains</span>
+              </a>
+            </div>
+          </ScrollReveal>
+        </div>
       </div>
-    </ScrollReveal>
 
-    <ScrollReveal client:load delay={0.4}>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/blog"
-          class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg transition-opacity font-medium shadow-md"
-          style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);"
-          onmouseenter={(e) => e.currentTarget.style.opacity = '0.9'}
-          onmouseleave={(e) => e.currentTarget.style.opacity = '1'}
-          aria-label="Read technical articles"
-        >
-          <Icon name="tabler:terminal" class="w-5 h-5" aria-hidden="true" />
-          <span>Read Articles</span>
+      <nav class="hero-ledger" aria-label="Primary technical domains">
+        <a href="/blog?tag=linux" class="hero-ledger-cell">
+          <Icon name="tabler:terminal-2" aria-hidden="true" />
+          <span>Linux &amp; Kernel</span>
         </a>
-        <a
-          href="#domains"
-          class="inline-flex items-center justify-center gap-2 px-8 py-3.5 border rounded-lg transition-colors font-medium"
-          style="background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827); border-color: var(--token-color-border, #e5e7eb);"
-          onmouseenter={(e) => e.currentTarget.style.backgroundColor = 'var(--token-color-accent, rgba(0, 0, 0, 0.05))'}
-          onmouseleave={(e) => e.currentTarget.style.backgroundColor = 'var(--token-color-background, #ffffff)'}
-          aria-label="Explore technical domains"
-        >
-          <Icon name="tabler:cpu" class="w-5 h-5" aria-hidden="true" />
-          <span>Explore Domains</span>
+        <a href="/blog?tag=kubernetes" class="hero-ledger-cell">
+          <Icon name="tabler:topology-star-3" aria-hidden="true" />
+          <span>Kubernetes</span>
         </a>
-      </div>
-    </ScrollReveal>
+        <a href="/blog?tag=ai-ml" class="hero-ledger-cell">
+          <Icon name="tabler:brain" aria-hidden="true" />
+          <span>AI / ML Systems</span>
+        </a>
+        <a href="/blog?tag=networking" class="hero-ledger-cell">
+          <Icon name="tabler:network" aria-hidden="true" />
+          <span>Networking &amp; BGP</span>
+        </a>
+        <a href="/blog?tag=security" class="hero-ledger-cell">
+          <Icon name="tabler:shield-lock" aria-hidden="true" />
+          <span>Cybersecurity</span>
+        </a>
+      </nav>
+    </div>
   </div>
 </section>
 
 <style>
-  .hero-section {
-    position: relative;
+  .hero-section ::selection {
+    background-color: var(--token-color-active, rgba(34, 238, 68, 0.24));
+    color: var(--token-color-text-primary, #22EE44);
   }
 
-  .hero-section::before {
-    content: '';
+  .hero-section {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--token-color-background, #000000);
+    padding-block: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .hero-section {
+      padding-block: 5.5rem;
+    }
+  }
+
+  .hero-shell {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .hero-plate {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--token-radius-2xl, 1rem);
+    border: 1px solid var(--token-color-border, #1a291f);
+    background-color: color-mix(in srgb, var(--token-color-surface, #0a0e0b) 75%, var(--token-color-background, #000000));
+    box-shadow: 0 10px 22px -16px color-mix(in srgb, var(--token-color-primary, #22c55e) 22%, rgba(0, 0, 0, 0.7));
+  }
+
+  .hero-chamber {
+    position: relative;
+    padding: 3.75rem 1.75rem;
+    text-align: center;
+    background-color: color-mix(in srgb, var(--token-color-background, #000000) 75%, var(--token-color-surface, #0a0e0b));
+    box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--token-color-primary, #22c55e) 35%, transparent);
+  }
+
+  @media (min-width: 768px) {
+    .hero-chamber {
+      padding: 5rem 3.5rem;
+    }
+  }
+
+  .hero-chamber::before {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
     background-image: var(--sketch-svg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.45;
+    opacity: 0.26;
+    mask-image: radial-gradient(circle at 50% 45%, #000 28%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 28%, transparent 90%);
   }
 
-  /* Ensure Hero content is above the background */
-  .hero-section > div {
+  .hero-content {
     position: relative;
     z-index: 1;
+  }
+
+  .hero-title {
+    font-family: var(--token-font-family-mono);
+    font-size: clamp(2.85rem, 5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--token-color-text-primary, #111827);
+    margin: 0 0 1.25rem;
+    text-wrap: balance;
+  }
+
+  .hero-lead {
+    font-family: var(--token-font-family-sans);
+    font-size: clamp(1.0625rem, 1.75vw, 1.25rem);
+    line-height: 1.65;
+    max-width: 60ch;
+    margin: 0 auto 2.25rem;
+    color: color-mix(in srgb, var(--token-color-text-primary, #111827) 80%, var(--token-color-background, #000000));
+  }
+
+  .hero-lead strong {
+    font-weight: 600;
+    color: var(--token-color-text-primary, #111827);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-actions {
+      flex-direction: row;
+    }
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.8rem;
+    font-family: var(--token-font-family-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--token-radius-lg, 0.5rem);
+    text-decoration: none;
+    width: 100%;
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms cubic-bezier(0.16, 1, 0.3, 1), border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 640px) {
+    .hero-btn-primary,
+    .hero-btn-secondary {
+      width: auto;
+    }
+  }
+
+  .hero-btn-primary {
+    background-color: var(--token-color-primary, #22c55e);
+    color: var(--token-color-primary-foreground, #000000);
+    border: 1px solid transparent;
+    box-shadow: 0 6px 18px -4px color-mix(in srgb, var(--token-color-primary, #22c55e) 42%, transparent);
+  }
+
+  .hero-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px -4px color-mix(in srgb, var(--token-color-primary, #22c55e) 54%, transparent);
+  }
+
+  .hero-btn-secondary {
+    background-color: var(--token-color-background, #000000);
+    color: var(--token-color-text-primary, #111827);
+    border: 1px solid var(--token-color-border, #1a291f);
+  }
+
+  .hero-btn-secondary:hover {
+    border-color: var(--token-color-primary, #22c55e);
+    background-color: var(--token-color-hover, rgba(34, 238, 68, 0.12));
+  }
+
+  .hero-ledger {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--token-color-border, #1a291f);
+    background-color: var(--token-color-surface, #0a0e0b);
+  }
+
+  @media (min-width: 900px) {
+    .hero-ledger {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .hero-ledger-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.95rem 0.75rem;
+    font-family: var(--token-font-family-mono);
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--token-color-text-primary, #111827);
+    text-decoration: none;
+    border-right: 1px solid var(--token-color-border, #1a291f);
+    border-bottom: 1px solid var(--token-color-border, #1a291f);
+    transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1), color 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (min-width: 900px) {
+    .hero-ledger-cell {
+      border-bottom: none;
+    }
+
+    .hero-ledger-cell:last-child {
+      border-right: none;
+    }
+  }
+
+  .hero-ledger-cell :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--token-color-primary, #22c55e);
+    flex-shrink: 0;
+  }
+
+  .hero-ledger-cell:hover {
+    background-color: var(--token-color-hover, rgba(34, 238, 68, 0.12));
+  }
+
+  .hero-ledger-cell:focus-visible,
+  .hero-btn-primary:focus-visible,
+  .hero-btn-secondary:focus-visible {
+    outline: 2px solid var(--token-color-focus, #22EE44);
+    outline-offset: -2px;
   }
 </style>

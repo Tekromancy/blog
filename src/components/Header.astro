@@ -369,20 +369,10 @@ const systemDropdownItems = [
         <li>
           <a
             href={item.href}
-            class="relative flex items-center justify-between p-3 rounded-xl border transition-all"
-            style={item.isLive 
-              ? "background-color: rgba(18, 14, 4, 0.95); border-color: rgba(251, 191, 36, 0.45); box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.1);" 
-              : "background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"}
-            onmouseenter={(e) => {
-              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.9)' : 'rgba(34, 197, 94, 0.8)';
-              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(251, 191, 36, 0.2)' : 'rgba(34, 197, 94, 0.15)';
-              e.currentTarget.style.boxShadow = item.isLive ? '0 0 18px rgba(251, 191, 36, 0.4)' : '0 0 15px rgba(34, 197, 94, 0.3)';
-            }}
-            onmouseleave={(e) => {
-              e.currentTarget.style.borderColor = item.isLive ? 'rgba(251, 191, 36, 0.45)' : 'rgba(34, 197, 94, 0.25)';
-              e.currentTarget.style.backgroundColor = item.isLive ? 'rgba(18, 14, 4, 0.95)' : 'rgba(4, 9, 5, 0.9)';
-              e.currentTarget.style.boxShadow = item.isLive ? 'inset 0 0 15px rgba(251, 191, 36, 0.1)' : 'none';
-            }}
+            class:list={[
+              "mobile-drawer-link relative flex items-center justify-between p-3 rounded-xl border transition-all",
+              item.isLive ? "mobile-drawer-link-live" : "mobile-drawer-link-default"
+            ]}
             role="menuitem"
           >
             <!-- Stylized Wordmark SVG -->
@@ -394,7 +384,7 @@ const systemDropdownItems = [
                 </span>
               )}
             </div>
-            <span class="text-[11px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
+            <span class="text-[11px] font-mono text-[#94a3b8]">{item.desc}</span>
             <span class="sr-only">{item.label}</span>
           </a>
         </li>
@@ -415,22 +405,13 @@ const systemDropdownItems = [
           <li>
             <a
               href={item.href}
-              class="relative flex items-center justify-between p-2.5 rounded-xl border transition-all"
-              style="background-color: rgba(4, 9, 5, 0.9); border-color: rgba(34, 197, 94, 0.25);"
-              onmouseenter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.8)';
-                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
-              }}
-              onmouseleave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.25)';
-                e.currentTarget.style.backgroundColor = 'rgba(4, 9, 5, 0.9)';
-              }}
+              class="mobile-drawer-link mobile-drawer-link-default relative flex items-center justify-between p-2.5 rounded-xl border transition-all"
               role="menuitem"
             >
               <div class="flex items-center gap-2">
                 <img src={item.svg.src} alt={item.label} class="h-6 sm:h-7 w-auto object-contain drop-shadow-[0_0_6px_rgba(34,197,94,0.3)]" />
               </div>
-              <span class="text-[10px] font-mono text-[var(--token-color-text-muted)]">{item.desc}</span>
+              <span class="text-[10px] font-mono text-[#94a3b8]">{item.desc}</span>
               <span class="sr-only">{item.label}</span>
             </a>
           </li>
@@ -542,5 +523,33 @@ const systemDropdownItems = [
     opacity: 1 !important;
     transform: translateY(0) !important;
     pointer-events: auto !important;
+  }
+
+  .mobile-drawer-link-default {
+    background-color: rgba(4, 9, 5, 0.9);
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+
+  .mobile-drawer-link-default:hover {
+    border-color: rgba(34, 197, 94, 0.8);
+    background-color: rgba(34, 197, 94, 0.14);
+    box-shadow: 0 4px 14px -4px rgba(34, 197, 94, 0.3);
+  }
+
+  .mobile-drawer-link-live {
+    background-color: rgba(18, 14, 4, 0.95);
+    border-color: rgba(251, 191, 36, 0.45);
+    box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.1);
+  }
+
+  .mobile-drawer-link-live:hover {
+    border-color: rgba(251, 191, 36, 0.9);
+    background-color: rgba(251, 191, 36, 0.18);
+    box-shadow: 0 4px 16px -4px rgba(251, 191, 36, 0.38);
+  }
+
+  .mobile-drawer-link:focus-visible {
+    outline: 2px solid var(--token-color-focus, #22EE44);
+    outline-offset: -2px;
   }
 </style>

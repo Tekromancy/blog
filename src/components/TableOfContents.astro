@@ -1,5 +1,5 @@
 ---
-// TableOfContents.astro - Sticky Right-Rail Cyberpunk Navigation Tree
+// TableOfContents.astro - Sticky Right-Rail Navigation Tree
 import { Icon } from "astro-icon/components";
 
 interface Heading {
@@ -23,20 +23,29 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       class="hidden xl:block w-64 shrink-0 text-xs font-mono select-none"
       aria-label="Table of Contents"
     >
-      <div class="sticky top-28 p-4 rounded-xl border border-white/10 bg-black/60 backdrop-blur-md max-h-[calc(100vh-140px)] overflow-y-auto shadow-2xl">
-        <div class="flex items-center gap-2 mb-3 pb-2 border-b border-white/10 text-gray-400 font-bold uppercase tracking-wider text-[11px]">
-          <Icon name="tabler:list-tree" class="w-4 h-4 text-[#22EE44]" />
+      <div
+        class="sticky top-28 p-4 rounded-xl border max-h-[calc(100vh-140px)] overflow-y-auto"
+        style="background-color: var(--token-color-surface, #0a0e0b); border-color: var(--token-color-border, #1a291f);"
+      >
+        <div
+          class="flex items-center gap-2 mb-3 pb-2.5 border-b font-bold uppercase tracking-wider text-[11px]"
+          style="border-color: var(--token-color-border, #1a291f); color: var(--token-color-text-primary, #111827);"
+        >
+          <Icon name="tabler:list-tree" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
           <span>Table of Contents</span>
         </div>
 
         <nav>
-          <ul class="space-y-2">
+          <ul class="space-y-1.5">
             {filteredHeadings.map((h) => (
-              <li class={h.depth === 3 ? "pl-3 border-l border-white/5" : ""}>
+              <li
+                class={h.depth === 3 ? "pl-3 border-l" : ""}
+                style={h.depth === 3 ? "border-color: var(--token-color-border, #1a291f);" : undefined}
+              >
                 <a
                   href={`#${h.slug}`}
                   data-heading-slug={h.slug}
-                  class="toc-link block text-gray-400 hover:text-white transition-colors py-0.5 line-clamp-1"
+                  class="toc-link tk-focus-ring block tk-copy-meta hover:text-[var(--token-color-primary)] transition-colors py-0.5 line-clamp-1"
                 >
                   {h.text}
                 </a>
@@ -45,11 +54,14 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
           </ul>
         </nav>
 
-        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[10px] text-gray-500">
-          <span>// DISPATCH NAV //</span>
+        <div
+          class="mt-4 pt-3 border-t flex items-center justify-between text-[10px] tk-copy-meta"
+          style="border-color: var(--token-color-border, #1a291f);"
+        >
+          <span>DISPATCH NAV</span>
           <a
             href="#main-content"
-            class="hover:text-[#22EE44] transition-colors"
+            class="tk-focus-ring font-semibold hover:text-[var(--token-color-primary)] transition-colors"
           >
             TOP ↑
           </a>
@@ -78,8 +90,8 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
               var id = entry.target.id;
               links.forEach(function (link) {
                 if (link.getAttribute("data-heading-slug") === id) {
-                  link.style.color = "#22EE44";
-                  link.style.fontWeight = "bold";
+                  link.style.color = "var(--token-color-primary, #22c55e)";
+                  link.style.fontWeight = "700";
                 } else {
                   link.style.color = "";
                   link.style.fontWeight = "";

@@ -140,7 +140,7 @@ const postJsonLd = {
 				<ScrollReveal client:load>
 					<!-- Semantic Breadcrumbs for Navigation & SEO -->
 					<nav aria-label="Breadcrumb" class="mb-6 font-mono text-xs">
-						<ol class="inline-flex items-center gap-1.5 flex-wrap" style="color: var(--token-color-text-muted, #94a3b8);">
+						<ol class="inline-flex items-center gap-1.5 flex-wrap tk-copy-meta">
 							<li class="inline-flex items-center">
 								<a href="/" class="hover:text-[var(--token-color-primary)] transition-colors">Home</a>
 							</li>
@@ -206,17 +206,14 @@ const postJsonLd = {
 				<header class="mb-8">
 					<ScrollReveal client:load delay={0.2}>
 						<h1
-							class="text-4xl md:text-5xl font-bold mb-4"
+							class="text-3xl sm:text-4xl md:text-5xl font-extrabold font-mono tracking-tight leading-tight text-balance mb-4"
 							style="color: var(--token-color-text-primary, #111827);"
 						>
 							{post.data.title}
 						</h1>
 					</ScrollReveal>
 					<ScrollReveal client:load delay={0.3}>
-						<div
-							class="flex flex-wrap items-center gap-4 text-sm mb-6"
-							style="color: var(--token-color-text-muted, #374151);"
-						>
+						<div class="flex flex-wrap items-center gap-4 text-sm font-mono mb-6 tk-copy-meta">
 							<time datetime={post.data.pubDate.toISOString()}>
 								Published{" "}
 								{
@@ -930,20 +927,13 @@ const postJsonLd = {
 
 				<footer
 					class="mt-12 pt-8 border-t"
-					style="border-color: var(--token-color-border, #e5e7eb);"
+					style="border-color: var(--token-color-border, #1a291f);"
 				>
 					<a
 						href="/blog"
-						class="transition-colors inline-flex items-center gap-2"
-						style="color: var(--token-color-text-muted, #374151);"
-						onmouseenter={(e) =>
-							(e.currentTarget.style.color =
-								"var(--token-color-text-primary, #111827)")}
-						onmouseleave={(e) =>
-							(e.currentTarget.style.color =
-								"var(--token-color-text-muted, #374151)")}
+						class="tk-focus-ring font-mono text-sm font-semibold transition-colors inline-flex items-center gap-2 tk-copy-secondary hover:text-[var(--token-color-primary)]"
 					>
-						← Back to Blog
+						<span>← Back to Dispatches</span>
 					</a>
 				</footer>
 			</div>

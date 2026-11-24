@@ -2,6 +2,52 @@
 @plugin "@tailwindcss/typography";
 @import "../themes/themes.css";
 
+/* ==========================================================================
+   Browser Surfaces & Document Primitives (The Sovereign Telemetry Deck)
+   ========================================================================== */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--token-color-border-strong, #22c55e) var(--token-color-background, #000000);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--token-color-background, #000000);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--token-color-border, #1a291f);
+  border-radius: 9999px;
+  border: 2px solid var(--token-color-background, #000000);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--token-color-primary, #22c55e);
+}
+
+::selection {
+  background-color: var(--token-color-active, rgba(34, 238, 68, 0.22));
+  color: var(--token-color-text-primary, #22EE44);
+}
+
+a {
+  text-underline-offset: 0.22em;
+}
+
+input,
+textarea {
+  caret-color: var(--token-color-primary, #22c55e);
+}
+
+time,
+.tk-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
 /* Accessibility: Skip to content link */
 .sr-only {
   position: absolute;
@@ -41,17 +87,148 @@
   overflow: hidden;
 }
 
-/* Theme-aware headings */
+/* ==========================================================================
+   Shared Design-System Primitives (DESIGN.md Normative Classes)
+   ========================================================================== */
+
+/* Tinted Secondary Copy Rule: >=7:1 contrast across all 6 themes & light/dark modes */
+.tk-copy-secondary {
+  color: color-mix(in srgb, var(--token-color-text-primary, #111827) 80%, var(--token-color-background, #000000));
+}
+
+.tk-copy-meta {
+  color: color-mix(in srgb, var(--token-color-text-primary, #111827) 68%, var(--token-color-background, #000000));
+  font-variant-numeric: tabular-nums;
+}
+
+/* Flat-At-Rest Card Rule: 1px Trace Hairline at rest, tactile lift + border illumination on hover */
+.tk-card {
+  background-color: var(--token-color-surface, #0a0e0b);
+  border: 1px solid var(--token-color-border, #1a291f);
+  border-radius: var(--token-radius-xl, 0.75rem);
+  box-shadow: none;
+  transition:
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tk-card:hover {
+  border-color: var(--token-color-primary, #22c55e);
+  box-shadow: var(--token-shadow-2, 0 4px 12px -2px rgba(34, 197, 94, 0.25));
+  transform: translateY(-2px);
+}
+
+.tk-card:focus-visible,
+.tk-focus-ring:focus-visible {
+  outline: 2px solid var(--token-color-focus, #22EE44);
+  outline-offset: 2px;
+}
+
+/* Architectural Plate (1rem radius, subtle grounded elevation) */
+.tk-plate {
+  background-color: color-mix(in srgb, var(--token-color-surface, #0a0e0b) 82%, var(--token-color-background, #000000));
+  border: 1px solid var(--token-color-border, #1a291f);
+  border-radius: var(--token-radius-2xl, 1rem);
+  box-shadow: 0 10px 22px -16px color-mix(in srgb, var(--token-color-primary, #22c55e) 22%, rgba(0, 0, 0, 0.7));
+}
+
+/* Canonical Buttons */
+.tk-btn-primary,
+.tk-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.65rem;
+  font-family: var(--token-font-family-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  border-radius: var(--token-radius-lg, 0.5rem);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tk-btn-primary {
+  background-color: var(--token-color-primary, #22c55e);
+  color: var(--token-color-primary-foreground, #000000);
+  border: 1px solid transparent;
+  box-shadow: 0 6px 18px -4px color-mix(in srgb, var(--token-color-primary, #22c55e) 42%, transparent);
+}
+
+.tk-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -4px color-mix(in srgb, var(--token-color-primary, #22c55e) 54%, transparent);
+}
+
+.tk-btn-secondary {
+  background-color: var(--token-color-background, #000000);
+  color: var(--token-color-text-primary, #111827);
+  border: 1px solid var(--token-color-border, #1a291f);
+}
+
+.tk-btn-secondary:hover {
+  border-color: var(--token-color-primary, #22c55e);
+  background-color: var(--token-color-hover, rgba(34, 238, 68, 0.12));
+}
+
+.tk-btn-primary:focus-visible,
+.tk-btn-secondary:focus-visible {
+  outline: 2px solid var(--token-color-focus, #22EE44);
+  outline-offset: 2px;
+}
+
+/* CLI Grep Search Input Well */
+.tk-cli-well {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: var(--token-radius-xl, 0.75rem);
+  background-color: var(--token-color-surface, #0a0e0b);
+  border: 1px solid var(--token-color-border, #1a291f);
+  box-shadow: var(--token-shadow-inner, inset 0 2px 4px 0 rgb(34 197 94 / 0.08));
+  transition: border-color 180ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tk-cli-well:focus-within {
+  border-color: var(--token-color-focus, #22EE44);
+  box-shadow: 0 0 0 1px var(--token-color-focus, #22EE44);
+}
+
+.tk-cli-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--token-color-text-primary, #111827);
+  font-family: var(--token-font-family-mono);
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.tk-cli-input::placeholder {
+  color: color-mix(in srgb, var(--token-color-text-primary, #111827) 52%, var(--token-color-background, #000000));
+}
+
+/* ==========================================================================
+   Typography & Markdown Prose
+   ========================================================================== */
 h1, h2, h3, h4, h5, h6 {
   color: var(--token-color-text-primary, #111827);
 }
 
-/* Theme-aware text colors */
 p {
   color: var(--token-color-text-primary, #111827);
 }
 
-/* Theme-aware prose (for markdown content) */
 .prose {
   color: var(--token-color-text-primary, #111827);
 }
@@ -63,6 +240,8 @@ p {
 .prose h5,
 .prose h6 {
   color: var(--token-color-text-primary, #111827);
+  font-family: var(--token-font-family-mono);
+  letter-spacing: -0.02em;
 }
 
 .prose a {
@@ -75,14 +254,12 @@ p {
 }
 
 .prose pre {
-  /* Use lighter background in light mode for better visual appearance */
   background-color: var(--token-color-background, #ffffff);
   border: 1px solid var(--token-color-border, #e5e7eb);
   padding: 1rem;
   border-radius: var(--token-radius-lg, 0.5rem);
 }
 
-/* Light mode: ensure very dark text for maximum legibility */
 [data-mode="light"] .prose pre {
   background-color: var(--token-color-background, #ffffff);
   border-color: var(--token-color-border, #e5e7eb);
@@ -93,7 +270,6 @@ p {
   font-weight: 500;
 }
 
-/* Dark mode: use surface color for contrast */
 [data-mode="dark"] .prose pre {
   background-color: var(--token-color-surface, #1f2937);
   border-color: var(--token-color-border, #374151);
@@ -108,49 +284,26 @@ p {
 }
 
 .prose blockquote {
-  border-color: var(--token-color-border, #e5e7eb);
-  color: var(--token-color-text-muted, #374151);
+  border-left-width: 1px;
+  border-color: var(--token-color-primary, #22c55e);
+  color: color-mix(in srgb, var(--token-color-text-primary, #111827) 82%, var(--token-color-background, #000000));
 }
 
-/* Ensure list items and strong tags have proper contrast */
 .prose ul li,
-.prose ol li {
-  color: var(--token-color-text-primary, #111827);
-}
-
-.prose strong {
-  color: var(--token-color-text-primary, #111827);
-  font-weight: 600;
-}
-
-.prose li strong {
-  color: var(--token-color-text-primary, #111827);
-}
-
-/* Ensure minimum contrast for readability */
-/* Muted foreground should have sufficient contrast - minimum 4.5:1 ratio */
-/* This is handled by theme definitions, but we ensure opacity is never too low */
-p,
-span,
-div {
-  /* Ensure text is never too transparent for readability */
-  color: var(--token-color-text-primary, #111827);
-}
-
-/* Ensure list items have proper contrast */
+.prose ol li,
 ul li,
 ol li {
   color: var(--token-color-text-primary, #111827);
 }
 
-/* Ensure strong/bold text has proper contrast */
+.prose strong,
+.prose li strong,
 strong,
 b {
   color: var(--token-color-text-primary, #111827);
   font-weight: 600;
 }
 
-/* Ensure code elements have proper contrast */
 code {
   background-color: transparent;
   color: var(--token-color-text-primary, #111827);
@@ -158,7 +311,6 @@ code {
   border-radius: 0.25rem;
 }
 
-/* Code blocks (pre elements) can have background */
 pre {
   background-color: var(--token-color-surface, #f9fafb);
 }
@@ -167,135 +319,112 @@ pre code {
   background-color: transparent;
 }
 
-/* Text on colored backgrounds (like CTA) should use high contrast colors */
+/* Text on solid primary fills uses high-contrast primary foreground */
 [style*="--token-color-primary"] p,
 [style*="--token-color-primary"] span:not([class*="icon"]) {
   color: var(--token-color-primary-foreground, #ffffff);
 }
 
-/* Theme-aware form inputs */
-input[type="text"],
-input[type="email"],
-textarea {
+/* Low-specificity fallback for bare form inputs (yields cleanly to .tk-cli-input or Tailwind classes) */
+:where(input[type="text"], input[type="email"], textarea):not(.tk-cli-input) {
   border-color: var(--token-color-border, #e5e7eb);
   background-color: var(--token-color-background, #ffffff);
   color: var(--token-color-text-primary, #111827);
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
+:where(input[type="text"], input[type="email"], textarea):not(.tk-cli-input):focus-visible {
   border-color: var(--token-color-focus, #3b82f6);
   outline: 2px solid var(--token-color-focus, #3b82f6);
   outline-offset: 2px;
 }
 
 button[type="submit"]:hover:not(:disabled) {
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
-[data-language="plaintext"] span {
-	color: #fefefe!important;
+[data-mode="dark"] [data-language="plaintext"] span {
+  color: #fefefe !important;
 }
 
-/* Green Theme: Enforce #22EE44 for all white / primary text */
-[data-theme="green"] {
+/* Green Theme (Dark Mode Only): Enforce #22EE44 phosphor primary text without breaking Light Mode */
+[data-theme="green"][data-mode="dark"] {
   --token-color-text-primary: #22EE44;
 }
 
-[data-theme="green"] h1,
-[data-theme="green"] h2,
-[data-theme="green"] h3,
-[data-theme="green"] h4,
-[data-theme="green"] h5,
-[data-theme="green"] h6,
-[data-theme="green"] p,
-[data-theme="green"] .prose,
-[data-theme="green"] .prose h1,
-[data-theme="green"] .prose h2,
-[data-theme="green"] .prose h3,
-[data-theme="green"] .prose h4,
-[data-theme="green"] .prose h5,
-[data-theme="green"] .prose h6,
-[data-theme="green"] .prose p,
-[data-theme="green"] .prose ul li,
-[data-theme="green"] .prose ol li,
-[data-theme="green"] .prose strong,
-[data-theme="green"] .prose code,
-[data-theme="green"] .prose pre code,
-[data-theme="green"] .prose blockquote {
+[data-theme="green"][data-mode="dark"] h1,
+[data-theme="green"][data-mode="dark"] h2,
+[data-theme="green"][data-mode="dark"] h3,
+[data-theme="green"][data-mode="dark"] h4,
+[data-theme="green"][data-mode="dark"] h5,
+[data-theme="green"][data-mode="dark"] h6,
+[data-theme="green"][data-mode="dark"] .prose,
+[data-theme="green"][data-mode="dark"] .prose h1,
+[data-theme="green"][data-mode="dark"] .prose h2,
+[data-theme="green"][data-mode="dark"] .prose h3,
+[data-theme="green"][data-mode="dark"] .prose h4,
+[data-theme="green"][data-mode="dark"] .prose h5,
+[data-theme="green"][data-mode="dark"] .prose h6,
+[data-theme="green"][data-mode="dark"] .prose p,
+[data-theme="green"][data-mode="dark"] .prose ul li,
+[data-theme="green"][data-mode="dark"] .prose ol li,
+[data-theme="green"][data-mode="dark"] .prose strong,
+[data-theme="green"][data-mode="dark"] .prose code,
+[data-theme="green"][data-mode="dark"] .prose pre code {
   color: #22EE44;
 }
 
-[data-theme="green"] .text-white,
-[data-theme="green"] [style*="color: #ffffff"],
-[data-theme="green"] [style*="color:#ffffff"],
-[data-theme="green"] [style*="color: #f8fafc"],
-[data-theme="green"] [style*="color: #f9fafb"],
-[data-theme="green"] [style*="color: #f2f2f2"],
-[data-theme="green"] [style*="color: #e6e6e6"],
-[data-theme="green"] [style*="color:#e6e6e6"],
-[data-theme="green"] [style*="color: rgb(255, 255, 255)"],
-[data-theme="green"] [style*="color: rgb(230, 230, 230)"],
-[data-theme="green"] [style*="color:rgb(230,230,230)"],
+[data-theme="green"][data-mode="dark"] .text-white,
+[data-theme="green"][data-mode="dark"] [style*="color: #ffffff"],
+[data-theme="green"][data-mode="dark"] [style*="color:#ffffff"],
+[data-theme="green"][data-mode="dark"] [style*="color: #f8fafc"],
+[data-theme="green"][data-mode="dark"] [style*="color: #f9fafb"],
+[data-theme="green"][data-mode="dark"] [style*="color: #f2f2f2"],
 [data-theme="green"][data-mode="dark"] [style*="color: #e6e6e6"],
 [data-theme="green"][data-mode="dark"] [style*="color:#e6e6e6"],
+[data-theme="green"][data-mode="dark"] [style*="color: rgb(255, 255, 255)"],
 [data-theme="green"][data-mode="dark"] [style*="color: rgb(230, 230, 230)"],
 [data-theme="green"][data-mode="dark"] [style*="color:rgb(230,230,230)"] {
   color: #22EE44 !important;
 }
 
-[data-theme="green"] [data-language="plaintext"] span {
+[data-theme="green"][data-mode="dark"] [data-language="plaintext"] span {
   color: #22EE44 !important;
 }
 
 /* Cyberpunk Theme Synchronization: Shifts header chassis, lightning, circuitry, and hero vector art */
-[data-theme="green"] .cyber-theme-element {
+[data-theme="green"] .cyber-theme-element,
+[data-theme="green"] .hero-section::before,
+[data-theme="green"] .hero-chamber::before {
   filter: none;
 }
 
-[data-theme="purple"] .cyber-theme-element {
+[data-theme="purple"] .cyber-theme-element,
+[data-theme="purple"] .hero-section::before,
+[data-theme="purple"] .hero-chamber::before {
   filter: hue-rotate(140deg);
 }
 
-[data-theme="blue"] .cyber-theme-element {
+[data-theme="blue"] .cyber-theme-element,
+[data-theme="blue"] .hero-section::before,
+[data-theme="blue"] .hero-chamber::before {
   filter: hue-rotate(85deg);
 }
 
-[data-theme="orange"] .cyber-theme-element {
+[data-theme="orange"] .cyber-theme-element,
+[data-theme="orange"] .hero-section::before,
+[data-theme="orange"] .hero-chamber::before {
   filter: hue-rotate(255deg);
 }
 
-[data-theme="aurora"] .cyber-theme-element {
+[data-theme="aurora"] .cyber-theme-element,
+[data-theme="aurora"] .hero-section::before,
+[data-theme="aurora"] .hero-chamber::before {
   filter: hue-rotate(55deg);
 }
 
-[data-theme="obsidian"] .cyber-theme-element {
-  filter: grayscale(100%) brightness(1.2) contrast(1.1);
-}
-
-/* Also apply to Hero section background vector */
-[data-theme="green"] .hero-section::before {
-  filter: none;
-}
-
-[data-theme="purple"] .hero-section::before {
-  filter: hue-rotate(140deg);
-}
-
-[data-theme="blue"] .hero-section::before {
-  filter: hue-rotate(85deg);
-}
-
-[data-theme="orange"] .hero-section::before {
-  filter: hue-rotate(255deg);
-}
-
-[data-theme="aurora"] .hero-section::before {
-  filter: hue-rotate(55deg);
-}
-
-[data-theme="obsidian"] .hero-section::before {
+[data-theme="obsidian"] .cyber-theme-element,
+[data-theme="obsidian"] .hero-section::before,
+[data-theme="obsidian"] .hero-chamber::before {
   filter: grayscale(100%) brightness(1.2) contrast(1.1);
 }
 
@@ -308,11 +437,11 @@ button[type="submit"]:hover:not(:disabled) {
 /* Blog images: Ensure border-radius is applied immediately to prevent FOUC */
 main article img[alt],
 main article [data-astro-cid] img {
-	border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 /* Blog index page: Top corners only for card images */
 main article a > div img,
 main article a > div[data-astro-cid] img {
-	border-radius: 0.5rem 0.5rem 0 0;
+  border-radius: 0.5rem 0.5rem 0 0;
 }

@@ -42,18 +42,15 @@ const aboutJsonLd = {
   jsonLd={aboutJsonLd}
 >
   <Header />
-  <main id="main-content" role="main">
-    <section class="max-w-4xl mx-auto px-4 py-20">
+  <main id="main-content" role="main" style="background-color: var(--token-color-background, #000000);">
+    <section class="max-w-4xl mx-auto px-4 py-16 md:py-20">
       <ScrollReveal client:idle>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono mb-4 border" style="background-color: var(--token-color-surface, #1e293b); border-color: var(--token-color-border, #334155); color: var(--token-color-primary, #22EE44);">
-          <span style="color: var(--token-color-primary, #22EE44);">MANIFESTO &amp; IDENTITY</span>
-        </div>
-        <h1 class="text-4xl md:text-6xl font-bold font-mono tracking-tight mb-4" style="color: var(--token-color-text-primary, #111827);">
+        <h1 class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4 text-balance" style="color: var(--token-color-text-primary, #111827);">
           About Tekromancy
         </h1>
       </ScrollReveal>
       <ScrollReveal client:load delay={0.1}>
-        <p class="text-xl md:text-2xl mb-12 leading-relaxed" style="color: var(--token-color-text-muted, #374151);">
+        <p class="text-xl md:text-2xl mb-12 leading-relaxed tk-copy-secondary">
           Demystifying the arcane arts of modern computing—from Linux kernel internals and distributed Kubernetes clusters to local neural intelligence and hardened cryptographic networks.
         </p>
       </ScrollReveal>
@@ -90,79 +87,95 @@ const aboutJsonLd = {
         <ScrollReveal client:load delay={0.4}>
           <h2>Domains Explored</h2>
           <div class="not-prose grid sm:grid-cols-2 gap-4 my-8">
-            <div class="p-5 rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+            <a href="/blog?tag=linux" class="tk-card p-5 no-underline block">
               <h3 class="text-lg font-bold font-mono mb-2 flex items-center gap-2" style="color: var(--token-color-text-primary, #111827);">
-                <Icon name="tabler:terminal-2" class="w-5 h-5" style="color: var(--token-color-primary, #0ea5e9);" />
+                <Icon name="tabler:terminal-2" class="w-5 h-5 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
                 <span>Linux &amp; Kernel</span>
               </h3>
-              <p class="text-sm" style="color: var(--token-color-text-muted, #64748b);">
+              <p class="text-sm leading-relaxed tk-copy-secondary">
                 eBPF tracing, memory allocators, scheduler tuning, systemd architecture, and custom kernel configurations.
               </p>
-            </div>
-            <div class="p-5 rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+            </a>
+            <a href="/blog?tag=kubernetes" class="tk-card p-5 no-underline block">
               <h3 class="text-lg font-bold font-mono mb-2 flex items-center gap-2" style="color: var(--token-color-text-primary, #111827);">
-                <Icon name="tabler:topology-star-3" class="w-5 h-5" style="color: var(--token-color-primary, #0ea5e9);" />
+                <Icon name="tabler:topology-star-3" class="w-5 h-5 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
                 <span>Kubernetes &amp; Cloud</span>
               </h3>
-              <p class="text-sm" style="color: var(--token-color-text-muted, #64748b);">
+              <p class="text-sm leading-relaxed tk-copy-secondary">
                 Bare-metal clusters, Cilium CNI, GitOps with ArgoCD, custom controllers, and resilient distributed state.
               </p>
-            </div>
-            <div class="p-5 rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+            </a>
+            <a href="/blog?tag=ai-ml" class="tk-card p-5 no-underline block">
               <h3 class="text-lg font-bold font-mono mb-2 flex items-center gap-2" style="color: var(--token-color-text-primary, #111827);">
-                <Icon name="tabler:brain" class="w-5 h-5" style="color: var(--token-color-primary, #0ea5e9);" />
+                <Icon name="tabler:brain" class="w-5 h-5 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
                 <span>AI / ML Systems</span>
               </h3>
-              <p class="text-sm" style="color: var(--token-color-text-muted, #64748b);">
+              <p class="text-sm leading-relaxed tk-copy-secondary">
                 High-throughput inference with vLLM, PagedAttention, quantization, local agent orchestration, and GPU clustering.
               </p>
-            </div>
-            <div class="p-5 rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
+            </a>
+            <a href="/blog?tag=security" class="tk-card p-5 no-underline block">
               <h3 class="text-lg font-bold font-mono mb-2 flex items-center gap-2" style="color: var(--token-color-text-primary, #111827);">
-                <Icon name="tabler:shield-lock" class="w-5 h-5" style="color: var(--token-color-primary, #0ea5e9);" />
+                <Icon name="tabler:shield-lock" class="w-5 h-5 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
                 <span>SecOps &amp; Networking</span>
               </h3>
-              <p class="text-sm" style="color: var(--token-color-text-muted, #64748b);">
+              <p class="text-sm leading-relaxed tk-copy-secondary">
                 WireGuard mesh topologies, BGP routing, nftables, AppArmor enforcement, and zero-day threat mitigation.
               </p>
-            </div>
+            </a>
           </div>
         </ScrollReveal>
 
         <ScrollReveal client:load delay={0.5}>
           <h2>Authors &amp; Technomancers</h2>
-          <div class="not-prose grid grid-cols-1 gap-6 my-6">
+          <div class="not-prose grid grid-cols-1 gap-5 my-6">
             {getAllAuthors().map((author) => (
-              <div class="p-6 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center gap-6" style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e2e8f0);">
-                <div class="w-16 h-16 rounded-xl flex items-center justify-center font-mono font-bold text-2xl shrink-0" style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);">
+              <div class="tk-card p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div
+                  class="w-16 h-16 rounded-xl flex items-center justify-center font-mono font-bold text-2xl shrink-0"
+                  style="background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000);"
+                >
                   {author.initials || 'JC'}
                 </div>
                 <div class="flex-1 min-w-0">
-                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
                     <h3 class="text-xl font-bold font-mono" style="color: var(--token-color-text-primary, #111827);">
                       {author.name}
                     </h3>
                     {author.role && (
-                      <span class="text-xs font-mono px-2 py-0.5 rounded border self-start sm:self-auto" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0); color: var(--token-color-primary, #0ea5e9);">
+                      <span
+                        class="text-xs font-mono px-2.5 py-0.5 rounded border self-start sm:self-auto"
+                        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);"
+                      >
                         {author.role}
                       </span>
                     )}
                   </div>
                   {author.bio && (
-                    <p class="text-sm leading-relaxed mb-3" style="color: var(--token-color-text-muted, #64748b);">
+                    <p class="text-sm leading-relaxed mb-3 tk-copy-secondary">
                       {author.bio}
                     </p>
                   )}
-                  <div class="flex items-center gap-4 text-xs font-mono">
+                  <div class="flex flex-wrap items-center gap-4 text-xs font-mono">
                     {author.github && (
                       <a
                         href={author.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hover:underline"
-                        style="color: var(--token-color-primary, #0ea5e9);"
+                        class="tk-focus-ring font-semibold hover:underline"
+                        style="color: var(--token-color-primary, #22c55e);"
                       >
                         github ↗
+                      </a>
+                    )}
+                    {author.linkedin && (
+                      <a
+                        href={author.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="tk-focus-ring font-semibold hover:underline tk-copy-meta"
+                      >
+                        linkedin ↗
                       </a>
                     )}
                     {author.website && (
@@ -170,16 +183,15 @@ const aboutJsonLd = {
                         href={author.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hover:underline"
-                        style="color: var(--token-color-text-muted, #64748b);"
+                        class="tk-focus-ring hover:underline tk-copy-meta"
                       >
                         website ↗
                       </a>
                     )}
                     <a
-                      href={`/blog?author=${encodeURIComponent(author.name)}`}
-                      class="hover:underline ml-auto"
-                      style="color: var(--token-color-text-muted, #64748b);"
+                      href={`/author/${author.id}`}
+                      class="tk-focus-ring font-semibold hover:underline sm:ml-auto"
+                      style="color: var(--token-color-primary, #22c55e);"
                     >
                       View dispatches →
                     </a>
@@ -191,20 +203,12 @@ const aboutJsonLd = {
         </ScrollReveal>
 
         <ScrollReveal client:load delay={0.6}>
-          <div class="mt-12 flex flex-col sm:flex-row gap-4">
-            <a
-              href="/blog"
-              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium font-mono text-sm shadow-sm"
-              style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);"
-            >
+          <div class="not-prose mt-12 flex flex-col sm:flex-row gap-3.5">
+            <a href="/blog" class="tk-btn-primary">
               <Icon name="tabler:terminal" class="w-4 h-4" aria-hidden="true" />
               <span>Read Technical Articles</span>
             </a>
-            <a
-              href="/contact"
-              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium font-mono text-sm border"
-              style="background-color: var(--token-color-background, #ffffff); color: var(--token-color-text-primary, #111827); border-color: var(--token-color-border, #e2e8f0);"
-            >
+            <a href="/contact" class="tk-btn-secondary">
               <Icon name="tabler:mail" class="w-4 h-4" aria-hidden="true" />
               <span>Initiate Contact</span>
             </a>

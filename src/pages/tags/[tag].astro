@@ -155,10 +155,10 @@ const tagJsonLd = {
 		class="min-h-screen"
 		style="background-color: var(--token-color-background, #000000);"
 	>
-		<div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+		<div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
 			<!-- Breadcrumbs -->
 			<nav aria-label="Breadcrumb" class="mb-8 font-mono text-xs">
-				<ol class="inline-flex items-center gap-1.5 flex-wrap" style="color: var(--token-color-text-muted, #94a3b8);">
+				<ol class="inline-flex items-center gap-1.5 flex-wrap tk-copy-meta">
 					<li class="inline-flex items-center">
 						<a href="/" class="hover:text-[var(--token-color-primary)] transition-colors">Home</a>
 					</li>
@@ -167,52 +167,42 @@ const tagJsonLd = {
 						<a href="/blog" class="hover:text-[var(--token-color-primary)] transition-colors">Dispatches</a>
 					</li>
 					<li class="opacity-40">/</li>
-					<li class="inline-flex items-center font-bold uppercase" style="color: var(--token-color-primary, #22EE44);">
+					<li class="inline-flex items-center font-bold uppercase" style="color: var(--token-color-primary, #22c55e);">
 						#{tag}
 					</li>
 				</ol>
 			</nav>
 
 			<!-- Header -->
-			<header class="text-center mb-16">
+			<header class="text-center mb-14">
 				<ScrollReveal client:load>
-					<div
-						class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono mb-5 border shadow-lg"
-						style="background-color: var(--token-color-surface, #0f172a); border-color: rgba(34, 197, 94, 0.35); color: #22c55e;"
-					>
-						<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-						<span class="font-bold tracking-wider">// TOPIC CLUSTER TELEMETRY //</span>
-					</div>
-
 					<h1
-						class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-5"
-						style="color: var(--token-color-text-primary, #f8fafc);"
+						class="text-4xl md:text-6xl font-extrabold font-mono tracking-tight mb-4 text-balance"
+						style="color: var(--token-color-text-primary, #111827);"
 					>
 						#{tag}
 					</h1>
 				</ScrollReveal>
 
-				<ScrollReveal client:load delay={0.2}>
-					<p
-						class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
-						style="color: var(--token-color-text-muted, #94a3b8);"
-					>
+				<ScrollReveal client:load delay={0.15}>
+					<p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed tk-copy-secondary">
 						{currentMeta.desc}
 					</p>
 				</ScrollReveal>
 
 				<!-- Jump to other popular clusters -->
-				<ScrollReveal client:load delay={0.3}>
+				<ScrollReveal client:load delay={0.25}>
 					<div class="flex flex-wrap justify-center gap-2 mt-8 text-xs font-mono">
-						<span class="py-1 text-gray-400 mr-2 self-center">Related clusters:</span>
+						<span class="py-1 mr-2 self-center tk-copy-meta">Related clusters:</span>
 						{allTags.slice(0, 10).map((t) => (
 							<a
 								href={`/tags/${encodeURIComponent(t)}`}
-								class={`px-3 py-1 rounded-lg border transition-all ${
+								class="tk-focus-ring px-3 py-1 rounded-full border transition-all no-underline"
+								style={
 									t === tag
-										? "bg-[var(--token-color-primary,#22EE44)] text-black font-bold border-[var(--token-color-primary,#22EE44)]"
-										: "bg-white/5 border-white/10 text-gray-300 hover:border-[var(--token-color-primary,#22EE44)]/50 hover:text-white"
-								}`}
+										? "background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000); border-color: var(--token-color-primary, #22c55e); font-weight: 700;"
+										: "background-color: var(--token-color-surface, #0a0e0b); border-color: var(--token-color-border, #1a291f); color: var(--token-color-text-primary, #111827);"
+								}
 							>
 								#{t}
 							</a>
@@ -223,40 +213,37 @@ const tagJsonLd = {
 
 			<!-- Articles Section Header -->
 			<div
-				class="flex items-center justify-between pb-4 mb-8 border-b"
-				style="border-color: var(--token-color-border, #334155);"
+				class="flex items-center justify-between pb-3 mb-8 border-b"
+				style="border-color: var(--token-color-border, #1a291f);"
 			>
-				<div class="font-mono text-sm font-bold flex items-center gap-2 text-white">
-					<span style="color: var(--token-color-primary, #22EE44);">&gt;_</span>
+				<div class="font-mono text-sm font-bold flex items-center gap-2" style="color: var(--token-color-text-primary, #111827);">
+					<span style="color: var(--token-color-primary, #22c55e);">&gt;_</span>
 					<span>INDEXED TRANSMISSIONS IN #{tag.toUpperCase()}</span>
 				</div>
-				<span class="font-mono text-xs text-gray-400">
+				<span class="font-mono text-xs tk-copy-meta">
 					{posts.length} {posts.length === 1 ? "dispatch" : "dispatches"}
 				</span>
 			</div>
 
 			<!-- Grid of Articles -->
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{posts.map((post, index) => {
 					const heroImage = getBlogImage(post.data.heroImage);
 					const authors = getPostAuthors(post.data);
 					const authorNamesStr = formatAuthorNames(authors);
 					return (
 						<ScrollReveal client:load delay={0.05 * index}>
-							<article
-								class="rounded-xl border hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full group"
-								style="background-color: var(--token-color-surface, #0b1120); border-color: rgba(255, 255, 255, 0.1);"
-							>
+							<article class="tk-card overflow-hidden flex flex-col h-full group">
 								<a
 									href={`/blog/${post.id}`}
-									class="block group flex-1 flex flex-col"
+									class="block flex-1 flex flex-col no-underline"
 								>
 									{heroImage ? (
-										<div class="w-full h-48 md:h-52 overflow-hidden relative">
+										<div class="w-full aspect-video overflow-hidden relative border-b" style="border-color: var(--token-color-border, #1a291f);">
 											<Image
 												src={heroImage}
 												alt={post.data.title}
-												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
 												loading="lazy"
 												widths={[400, 800, 1200]}
 												sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -264,22 +251,22 @@ const tagJsonLd = {
 										</div>
 									) : (
 										<div
-											class="w-full h-32 flex items-center justify-between px-6 border-b"
-											style="background-color: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.05);"
+											class="w-full h-28 flex items-center justify-between px-6 border-b"
+											style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f);"
 										>
 											<span
-												class="font-mono text-xs opacity-75"
-												style="color: var(--token-color-primary, #22EE44);"
+												class="font-mono text-xs"
+												style="color: var(--token-color-primary, #22c55e);"
 											>
 												&gt;_ sys.dispatch
 											</span>
-											<span class="font-mono text-xs text-gray-500">
+											<span class="font-mono text-xs tk-copy-meta">
 												tekromancy.com
 											</span>
 										</div>
 									)}
 									<div class="p-6 flex flex-col flex-1">
-										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono text-gray-400">
+										<div class="flex items-center justify-between gap-3 mb-2 text-xs font-mono tk-copy-meta">
 											<time datetime={post.data.pubDate.toISOString()}>
 												{post.data.pubDate.toLocaleDateString("en-US", {
 													year: "numeric",
@@ -287,23 +274,30 @@ const tagJsonLd = {
 													day: "numeric",
 												})}
 											</time>
-											<span class="text-[11px] font-mono text-[#22EE44]">
+											<span class="text-[11px] font-mono font-semibold" style="color: var(--token-color-primary, #22c55e);">
 												#{tag}
 											</span>
 										</div>
 										<h2
-											class="text-lg font-bold font-mono mb-3 line-clamp-2 text-white group-hover:text-[#22EE44] transition-colors"
+											class="text-lg font-bold font-mono mb-3 line-clamp-2 group-hover:text-[var(--token-color-primary)] transition-colors"
+											style="color: var(--token-color-text-primary, #111827);"
 										>
 											{post.data.title}
 										</h2>
-										<p class="text-sm line-clamp-3 mb-4 text-gray-400 leading-relaxed">
+										<p class="text-sm line-clamp-3 mb-4 leading-relaxed tk-copy-secondary">
 											{post.data.description}
 										</p>
-										<div class="mt-auto pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono">
-											<span class="text-gray-400 truncate max-w-[180px]">
+										<div
+											class="mt-auto pt-3 border-t flex items-center justify-between text-xs font-mono"
+											style="border-color: var(--token-color-border, #1a291f);"
+										>
+											<span class="truncate max-w-[180px] tk-copy-meta">
 												by {authorNamesStr}
 											</span>
-											<span class="text-[#22EE44] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+											<span
+												class="font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1"
+												style="color: var(--token-color-primary, #22c55e);"
+											>
 												Read <span>→</span>
 											</span>
 										</div>
@@ -316,11 +310,8 @@ const tagJsonLd = {
 			</div>
 
 			<!-- Bottom CTA -->
-			<div class="text-center mt-16 pt-12 border-t border-white/10">
-				<a
-					href="/blog"
-					class="inline-flex items-center gap-2 font-mono text-sm px-6 py-3 rounded-lg border border-white/20 hover:border-[#22EE44] hover:text-[#22EE44] text-white transition-all"
-				>
+			<div class="text-center mt-16 pt-12 border-t" style="border-color: var(--token-color-border, #1a291f);">
+				<a href="/blog" class="tk-btn-secondary">
 					<span>← View All Dispatches &amp; Field Notes</span>
 				</a>
 			</div>

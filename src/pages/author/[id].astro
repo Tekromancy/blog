@@ -84,13 +84,13 @@ const authorJsonLd = {
 	noindex={true}
 >
 	<Header />
-	<main id="main-content" role="main" class="min-h-screen pb-20">
-		<div class="max-w-6xl mx-auto px-4 py-16">
-			
-			<div class="mb-12 border-b pb-12" style="border-color: var(--token-color-border, #e5e7eb);">
+	<main id="main-content" role="main" class="min-h-screen pb-20" style="background-color: var(--token-color-background, #000000);">
+		<div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
+
+			<div class="mb-12 border-b pb-12" style="border-color: var(--token-color-border, #1a291f);">
 				<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
 					<div class="w-24 h-24 rounded-2xl flex items-center justify-center font-mono font-bold text-3xl shrink-0"
-						style="background-color: var(--token-color-surface, #f8fafc); border: 1px solid var(--token-color-border, #e2e8f0); color: var(--token-color-primary, #0ea5e9);">
+						style="background-color: var(--token-color-surface, #0a0e0b); border: 1px solid var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);">
 						{author.initials}
 					</div>
 					<div>
@@ -98,28 +98,28 @@ const authorJsonLd = {
 							{author.name}
 						</h1>
 						{author.role && (
-							<p class="text-sm font-mono mb-4" style="color: var(--token-color-primary, #0ea5e9);">
-								// {author.role.toUpperCase()}
+							<p class="text-sm font-mono font-semibold mb-4" style="color: var(--token-color-primary, #22c55e);">
+								{author.role}
 							</p>
 						)}
 						{author.bio && (
-							<p class="text-lg max-w-2xl leading-relaxed" style="color: var(--token-color-text-muted, #64748b);">
+							<p class="text-lg max-w-2xl leading-relaxed tk-copy-secondary">
 								{author.bio}
 							</p>
 						)}
 						<div class="flex items-center gap-4 mt-6">
 							{author.github && (
-								<a href={author.github} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+								<a href={author.github} target="_blank" rel="noopener noreferrer" class="tk-focus-ring text-xs font-mono font-semibold hover:underline" style="color: var(--token-color-primary, #22c55e);">
 									GITHUB ↗
 								</a>
 							)}
 							{author.linkedin && (
-								<a href={author.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+								<a href={author.linkedin} target="_blank" rel="noopener noreferrer" class="tk-focus-ring text-xs font-mono font-semibold hover:underline tk-copy-meta">
 									LINKEDIN ↗
 								</a>
 							)}
 							{author.website && (
-								<a href={author.website} target="_blank" rel="noopener noreferrer" class="text-sm font-mono font-medium hover:underline" style="color: var(--token-color-text-muted, #64748b);">
+								<a href={author.website} target="_blank" rel="noopener noreferrer" class="tk-focus-ring text-xs font-mono font-semibold hover:underline tk-copy-meta">
 									WEBSITE ↗
 								</a>
 							)}
@@ -128,18 +128,18 @@ const authorJsonLd = {
 				</div>
 			</div>
 
-			<div class="mb-8">
-				<h2 class="text-2xl font-bold font-mono tracking-tight mb-2" style="color: var(--token-color-text-primary, #111827);">
+			<div class="mb-8 flex items-baseline justify-between gap-4">
+				<h2 class="text-2xl font-bold font-mono tracking-tight" style="color: var(--token-color-text-primary, #111827);">
 					Authored Dispatches
 				</h2>
-				<p class="font-mono text-sm" style="color: var(--token-color-text-muted, #64748b);">
+				<p class="font-mono text-xs tk-copy-meta">
 					{posts.length} {posts.length === 1 ? "article" : "articles"} published
 				</p>
 			</div>
 
 			{posts.length === 0 ? (
-				<div class="py-12 text-center rounded-xl border" style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
-					<p class="font-mono text-lg" style="color: var(--token-color-text-muted, #64748b);">
+				<div class="py-12 text-center rounded-xl border" style="background-color: var(--token-color-surface, #0a0e0b); border-color: var(--token-color-border, #1a291f);">
+					<p class="font-mono text-base tk-copy-secondary">
 						No public field notes found from this author.
 					</p>
 				</div>
@@ -148,15 +148,14 @@ const authorJsonLd = {
 					{posts.map((post, index) => {
 						const heroImage = getBlogImage(post.data.heroImage);
 						const firstTag = post.data.tags && post.data.tags.length > 0 ? post.data.tags[0] : null;
-						
+
 						return (
-							<ScrollReveal client:load delay={0.1 * index}>
-								<article class="rounded-xl border h-full flex flex-col justify-between transition-all hover:shadow-lg overflow-hidden group"
-									style="background-color: var(--token-color-background, #ffffff); border-color: var(--token-color-border, #e5e7eb);">
+							<ScrollReveal client:load delay={0.06 * index}>
+								<article class="tk-card h-full flex flex-col justify-between overflow-hidden group">
 									<div>
-										<a href={`/blog/${post.id}`} class="block overflow-hidden relative">
+										<a href={`/blog/${post.id}`} class="block overflow-hidden relative border-b" style="border-color: var(--token-color-border, #1a291f);">
 											{heroImage ? (
-												<div class="w-full h-48 overflow-hidden relative">
+												<div class="w-full aspect-video overflow-hidden relative">
 													<Image
 														src={heroImage}
 														alt={post.data.title}
@@ -167,39 +166,39 @@ const authorJsonLd = {
 													/>
 												</div>
 											) : (
-												<div class="w-full h-24 flex items-center justify-between px-6 border-b"
-													style="background-color: var(--token-color-surface, #f8fafc); border-color: var(--token-color-border, #e2e8f0);">
-													<span class="font-mono text-xs opacity-75" style="color: var(--token-color-primary, #0ea5e9);">
+												<div class="w-full h-24 flex items-center justify-between px-6"
+													style="background-color: var(--token-color-background, #000000);">
+													<span class="font-mono text-xs" style="color: var(--token-color-primary, #22c55e);">
 														&gt;_ sys.dispatch
 													</span>
 												</div>
 											)}
 										</a>
 										<div class="p-6">
-											<div class="flex items-center justify-between text-xs font-mono mb-2" style="color: var(--token-color-text-muted, #64748b);">
+											<div class="flex items-center justify-between text-xs font-mono mb-2 tk-copy-meta">
 												<time datetime={post.data.pubDate.toISOString()}>
 													{post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
 												</time>
 												{firstTag && (
-													<a href={`/tags/${encodeURIComponent(firstTag)}`} class="px-2 py-0.5 rounded font-mono font-medium hover:underline transition-colors"
-														style="background-color: var(--token-color-surface, #f1f5f9); color: var(--token-color-primary, #0ea5e9);">
+													<a href={`/tags/${encodeURIComponent(firstTag)}`} class="px-2 py-0.5 rounded font-mono font-semibold hover:underline transition-colors border"
+														style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-border, #1a291f); color: var(--token-color-primary, #22c55e);">
 														#{firstTag}
 													</a>
 												)}
 											</div>
-											<h3 class="text-xl font-bold font-mono mb-3 line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
+											<h3 class="text-lg font-bold font-mono mb-3 line-clamp-2" style="color: var(--token-color-text-primary, #111827);">
 												<a href={`/blog/${post.id}`} class="transition-colors hover:text-[var(--token-color-primary)]">
 													{post.data.title}
 												</a>
 											</h3>
-											<p class="text-sm line-clamp-3 mb-2" style="color: var(--token-color-text-muted, #64748b);">
+											<p class="text-sm leading-relaxed line-clamp-3 mb-2 tk-copy-secondary">
 												{post.data.description}
 											</p>
 										</div>
 									</div>
-									<div class="px-6 pb-6 pt-0 border-t pt-4" style="border-color: var(--token-color-border, #e5e7eb);">
-										<a href={`/blog/${post.id}`} class="inline-flex items-center gap-1.5 text-xs font-mono font-medium transition-colors hover:translate-x-1 duration-200"
-											style="color: var(--token-color-primary, #0ea5e9);">
+									<div class="px-6 pb-6 pt-4 border-t" style="border-color: var(--token-color-border, #1a291f);">
+										<a href={`/blog/${post.id}`} class="tk-focus-ring inline-flex items-center gap-1.5 text-xs font-mono font-semibold transition-transform group-hover:translate-x-1 duration-200"
+											style="color: var(--token-color-primary, #22c55e);">
 											<span>Read article</span>
 											<span>→</span>
 										</a>

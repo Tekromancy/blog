@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Impeccable developer-local config (keep shared .impeccable/* tracked)
+.impeccable/config.local.json

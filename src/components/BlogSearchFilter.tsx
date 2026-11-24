@@ -137,7 +137,7 @@ export default function BlogSearchFilter({ posts, allTags }: Props) {
         </div>
       </div>
 
-      <!-- Tag Filter Matrix -->
+      {/* Tag Filter Matrix */}
       <div className="flex flex-wrap justify-center items-center gap-2 max-w-4xl mx-auto">
         <button
           onClick={() => handleTagClick("all")}
@@ -169,14 +169,14 @@ export default function BlogSearchFilter({ posts, allTags }: Props) {
         })}
       </div>
 
-      <!-- Live Search / Counter Status -->
+      {/* Live Search / Counter Status */}
       <div className="text-center font-mono text-xs text-gray-400">
         FOUND <span className="text-[#22EE44] font-bold">{filteredPosts.length}</span> DISPATCHES
         {selectedTag !== "all" && <span> IN CATEGORY <span className="text-white font-bold">#{selectedTag}</span></span>}
         {searchQuery && <span> MATCHING VECTOR <span className="text-white font-bold">"{searchQuery}"</span></span>}
       </div>
 
-      <!-- Articles Grid -->
+      {/* Articles Grid */}
       {filteredPosts.length === 0 ? (
         <div className="p-12 text-center rounded-2xl border border-white/10 bg-black/40 max-w-2xl mx-auto font-mono space-y-3">
           <div className="text-3xl">⚠️</div>

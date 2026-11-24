@@ -10,305 +10,177 @@ import { Icon } from "astro-icon/components";
 >
 	<div
 		class="w-full border-t mb-12"
-		style="border-color: var(--token-color-border, #e5e7eb);"
+		style="border-color: var(--token-color-border, #1a291f);"
 	>
 	</div>
 	<div class="max-w-6xl mx-auto px-4">
-		<div class="grid md:grid-cols-4 gap-8 mb-8">
-			<div class="md:col-span-1 lg:col-span-1">
-				<div class="flex items-center gap-2 mb-4">
+		<div class="grid md:grid-cols-4 gap-8 mb-10">
+			<div class="md:col-span-1">
+				<div class="flex items-center gap-2.5 mb-4">
 					<span
-						class="inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold font-mono shadow-sm"
-						style="background-color: var(--token-color-primary, #0ea5e9); color: var(--token-color-primary-foreground, #ffffff);"
+						class="inline-flex items-center justify-center w-7 h-7 rounded text-xs font-bold font-mono"
+						style="background-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary-foreground, #000000);"
 					>
 						&gt;_
 					</span>
 					<h2
-						class="text-xl font-bold font-mono"
+						class="text-xl font-bold font-mono tracking-tight"
 						style="color: var(--token-color-text-primary, #111827);"
 					>
 						Tekromancy
 					</h2>
 				</div>
-				<p
-					class="text-sm leading-relaxed"
-					style="color: var(--token-color-text-muted, #374151);"
-				>
-					Tekromancy, Infrastructure & Systems Engineering. Deep dives into
+				<p class="text-sm leading-relaxed tk-copy-secondary">
+					Tekromancy, Infrastructure &amp; Systems Engineering. Deep dives into
 					Linux internals, Kubernetes orchestration, AI/ML systems, distributed
 					networking, and cybersecurity.
 				</p>
 			</div>
+
 			<div>
 				<h2
-					class="text-base font-semibold font-mono mb-4"
+					class="text-sm font-bold font-mono uppercase tracking-wider mb-4"
 					style="color: var(--token-color-text-primary, #111827);"
 				>
 					Core Domains
 				</h2>
-				<ul class="space-y-2 text-sm font-mono">
+				<ul class="space-y-2.5 text-sm font-mono">
 					<li>
-						<a
-							href="/blog?tag=linux"
-							class="transition-colors hover:underline"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
+						<a href="/blog?tag=linux" class="footer-link tk-copy-secondary">
 							# Linux &amp; Kernel Internals
 						</a>
 					</li>
 					<li>
-						<a
-							href="/blog?tag=kubernetes"
-							class="transition-colors hover:underline"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
+						<a href="/blog?tag=kubernetes" class="footer-link tk-copy-secondary">
 							# Kubernetes &amp; Cloud Native
 						</a>
 					</li>
 					<li>
-						<a
-							href="/blog?tag=ai-ml"
-							class="transition-colors hover:underline"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
+						<a href="/blog?tag=ai-ml" class="footer-link tk-copy-secondary">
 							# AI / ML Engineering
 						</a>
 					</li>
 					<li>
-						<a
-							href="/blog?tag=networking"
-							class="transition-colors hover:underline"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
+						<a href="/blog?tag=networking" class="footer-link tk-copy-secondary">
 							# Advanced Networking
 						</a>
 					</li>
 					<li>
-						<a
-							href="/blog?tag=security"
-							class="transition-colors hover:underline"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
+						<a href="/blog?tag=security" class="footer-link tk-copy-secondary">
 							# Cybersecurity &amp; SecOps
 						</a>
 					</li>
 				</ul>
 			</div>
+
 			<div>
 				<h2
-					class="text-base font-semibold font-mono mb-4"
+					class="text-sm font-bold font-mono uppercase tracking-wider mb-4"
 					style="color: var(--token-color-text-primary, #111827);"
 				>
 					Navigation
 				</h2>
-				<ul class="space-y-2 text-sm">
+				<ul class="space-y-2.5 text-sm font-mono">
 					<li>
-						<a
-							href="/blog"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:article" class="w-4 h-4" aria-hidden="true" />
+						<a href="/blog" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:article" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>All Articles</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="https://incantations.tekromancy.com"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #a855f7)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:wand" class="w-4 h-4 text-[#a855f7]" aria-hidden="true" />
+						<a href="https://incantations.tekromancy.com" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:wand" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>Arcane Incantations</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/apps"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:apps" class="w-4 h-4 text-[#22c55e]" aria-hidden="true" />
+						<a href="/apps" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:apps" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>Sovereign Apps</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/events"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:calendar-event" class="w-4 h-4 text-[#fbbf24]" aria-hidden="true" />
+						<a href="/events" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:calendar-event" class="w-4 h-4 shrink-0" style="color: var(--token-color-warning, #f59e0b);" aria-hidden="true" />
 							<span>Field Ops &amp; Events</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/about"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:user" class="w-4 h-4" aria-hidden="true" />
+						<a href="/about" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:user" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>About Tekromancy</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/contact"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:mail" class="w-4 h-4" aria-hidden="true" />
+						<a href="/contact" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:mail" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>Contact</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/rss.xml"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon
-								name="tabler:rss"
-								class="w-4 h-4 text-[#f59e0b]"
-								aria-hidden="true"
-							/>
+						<a href="/rss.xml" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:rss" class="w-4 h-4 shrink-0" style="color: var(--token-color-warning, #f59e0b);" aria-hidden="true" />
 							<span>RSS Feed</span>
 						</a>
 					</li>
 				</ul>
 			</div>
+
 			<div>
 				<h2
-					class="text-base font-semibold font-mono mb-4"
+					class="text-sm font-bold font-mono uppercase tracking-wider mb-4"
 					style="color: var(--token-color-text-primary, #111827);"
 				>
 					Legal &amp; Policy
 				</h2>
-				<ul class="space-y-2 text-sm">
+				<ul class="space-y-2.5 text-sm font-mono">
 					<li>
-						<a
-							href="/privacy"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:shield-lock" class="w-4 h-4" aria-hidden="true" />
+						<a href="/privacy" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:shield-lock" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>Privacy Policy</span>
 						</a>
 					</li>
 					<li>
-						<a
-							href="/terms"
-							class="flex items-center gap-2 transition-colors"
-							style="color: var(--token-color-text-muted, #374151);"
-							onmouseenter={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-primary, #0ea5e9)")}
-							onmouseleave={(e) =>
-								(e.currentTarget.style.color =
-									"var(--token-color-text-muted, #374151)")}
-						>
-							<Icon name="tabler:file-text" class="w-4 h-4" aria-hidden="true" />
+						<a href="/terms" class="footer-link flex items-center gap-2 tk-copy-secondary">
+							<Icon name="tabler:file-text" class="w-4 h-4 shrink-0" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
 							<span>Terms of Service</span>
 						</a>
 					</li>
 				</ul>
 			</div>
 		</div>
+
 		<div
 			class="w-full border-t pt-8"
-			style="border-color: var(--token-color-border, #e5e7eb);"
+			style="border-color: var(--token-color-border, #1a291f);"
 		>
-			<div
-				class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs font-mono"
-				style="color: var(--token-color-text-muted, #374151);"
-			>
-				<p>
+			<div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-mono tk-copy-meta">
+				<p class="tk-copy-meta">
 					&copy; {new Date().getFullYear()} Tekromancy. All rights reserved. By Joshua
 					Edward McLaughlin Cox.
 				</p>
-				<p class="mt-2 sm:mt-0 opacity-75">
+				<p class="tk-copy-meta">
 					Crafted with Astro &amp; Systems Wizardry
 				</p>
 			</div>
 		</div>
 	</div>
 </footer>
+
+<style>
+	.footer-link {
+		text-decoration: none;
+		transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.footer-link:hover {
+		color: var(--token-color-primary, #22c55e);
+		text-decoration: underline;
+	}
+
+	.footer-link:focus-visible {
+		outline: 2px solid var(--token-color-focus, #22EE44);
+		outline-offset: 2px;
+		border-radius: 0.25rem;
+	}
+</style>
