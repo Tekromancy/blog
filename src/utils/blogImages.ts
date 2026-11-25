@@ -43,6 +43,7 @@ import image41 from "../assets/blog/41.jpg";
 import image42 from "../assets/blog/42.jpg";
 import image43 from "../assets/blog/43.jpg";
 import image44 from "../assets/blog/44.jpg";
+import image45 from "../assets/blog/45.jpg";
 import talosBareMetal from "../assets/blog/talos-bare-metal.jpg";
 import type { ImageMetadata } from "astro";
 
@@ -92,6 +93,7 @@ export const blogImages: Record<string, ImageMetadata> = {
 	"42.jpg": image42,
 	"43.jpg": image43,
 	"44.jpg": image44,
+	"45.jpg": image45,
 	"talos-bare-metal.jpg": talosBareMetal,
 };
 
