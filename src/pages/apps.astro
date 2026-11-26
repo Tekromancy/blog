@@ -16,6 +16,7 @@ const appIcons: Record<string, string> = {
   sparetank: "tabler:battery-charging-2",
   "silent-mode-control": "tabler:phone-off",
   coordy: "tabler:compass",
+  glyphrig: "tabler:bookmarks",
 };
 
 const appsJsonLd = {
@@ -38,34 +39,49 @@ const appsJsonLd = {
         },
       ],
     },
-    ...apps.map((app) => ({
-      "@type": "MobileApplication",
-      "name": app.name,
-      "operatingSystem":
-        app.specs.find((s) => s.label === "Platform")?.value || "Android 10+",
-      "applicationCategory": "UtilitiesApplication",
-      "softwareVersion": app.version,
-      "description": app.description,
-      "url": `${SITE.url}/apps#${app.id}`,
-      "author": {
-        "@type": "Organization",
-        "name": SITE.title,
-        "url": SITE.url,
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-      },
-      ...(app.playStoreUrl ? { downloadUrl: app.playStoreUrl } : {}),
-    })),
+    ...apps.map((app) => {
+      const platform =
+        app.specs.find((s) => s.label === "Platform")?.value || "Android 10+";
+      const downloadUrl = app.playStoreUrl || app.chromeWebStoreUrl;
+      return {
+        "@type": platform.startsWith("Android")
+          ? "MobileApplication"
+          : "SoftwareApplication",
+        "name": app.name,
+        "operatingSystem": platform,
+        "applicationCategory": "UtilitiesApplication",
+        "softwareVersion": app.version,
+        "description": app.description,
+        "url": `${SITE.url}/apps#${app.id}`,
+        "author": {
+          "@type": "Organization",
+          "name": SITE.title,
+          "url": SITE.url,
+        },
+        ...(app.sponsored
+          ? {
+              "sponsor": {
+                "@type": "Organization",
+                "name": SITE.title,
+                "url": SITE.url,
+              },
+            }
+          : {}),
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+        },
+        ...(downloadUrl ? { downloadUrl } : {}),
+      };
+    }),
   ],
 };
 ---
 
 <Layout
   title={`Sovereign Applications & Utilities | ${SITE.title}`}
-  description="Native Android applications and sovereign utilities built by Tekromancy. Featuring SpareTank for battery longevity and Silent Mode Control for granular telecom call screening."
+  description="Native Android applications, zero-backend web utilities, and Tekromancy-sponsored open-source tools including SpareTank, Silent Mode Control, Coordy, and Glyphrig."
   canonicalURL={`${SITE.url}/apps`}
   jsonLd={appsJsonLd}
 >
@@ -82,7 +98,7 @@ const appsJsonLd = {
 
         <ScrollReveal client:load delay={0.15}>
           <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed tk-copy-secondary">
-            Native Android applications and security-hardened tools engineered for longevity, privacy, and radical hardware autonomy. 100% on-device processing with zero telemetry surveillance.
+            Native Android applications, zero-backend web tools, and Tekromancy-sponsored open-source utilities including SpareTank, Silent Mode Control, Coordy, and Glyphrig—engineered for local-first longevity and zero telemetry surveillance.
           </p>
         </ScrollReveal>
       </header>
@@ -124,7 +140,15 @@ const appsJsonLd = {
                     </span>
                   </div>
 
-                  <div class="flex items-center gap-2">
+                  <div class="flex flex-wrap items-center gap-2">
+                    {app.sponsored && (
+                      <span
+                        class="text-xs font-mono font-bold tracking-wider px-2.5 py-0.5 rounded border"
+                        style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary, #22c55e);"
+                      >
+                        TEKROMANCY SPONSORED
+                      </span>
+                    )}
                     <span class="relative flex h-2 w-2" aria-hidden="true">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
                       <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>
@@ -250,6 +274,34 @@ const appsJsonLd = {
                         >
                           <Icon name="tabler:brand-google-play" class="w-4 h-4" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
                           <span>Google Play Closed Beta</span>
+                        </a>
+                      )}
+
+                      {app.chromeWebStoreUrl && (
+                        <a
+                          href={app.chromeWebStoreUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-telemetry="app_chrome_store_click"
+                          data-telemetry-app={app.id}
+                          class="tk-btn-secondary w-full !text-xs"
+                        >
+                          <Icon name="tabler:brand-chrome" class="w-4 h-4" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
+                          <span>Install on Chrome Web Store</span>
+                        </a>
+                      )}
+
+                      {app.githubUrl && (
+                        <a
+                          href={app.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-telemetry="app_github_click"
+                          data-telemetry-app={app.id}
+                          class="tk-btn-secondary w-full !text-xs"
+                        >
+                          <Icon name="tabler:brand-github" class="w-4 h-4" style="color: var(--token-color-primary, #22c55e);" aria-hidden="true" />
+                          <span>Source &amp; Releases on GitHub</span>
                         </a>
                       )}
                     </div>

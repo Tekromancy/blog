@@ -25,6 +25,9 @@ export interface TekromancyApp {
   glowColor: string;
   url: string;
   playStoreUrl?: string;
+  chromeWebStoreUrl?: string;
+  githubUrl?: string;
+  sponsored?: boolean;
   betaGroup?: string;
   iconSymbol: string;
   highlights: string[];
@@ -122,6 +125,38 @@ export const TEKROMANCY_APPS: TekromancyApp[] = [
       { label: 'Telemetry', value: '100% Client-Side / Zero Server Logs' },
     ],
     tags: ['Geospatial', 'OSINT', 'RF Sightlines', 'WMM2025', 'Zero Backend'],
+  },
+  {
+    id: 'glyphrig',
+    name: 'Glyphrig',
+    shortName: 'Glyphrig',
+    tagline: 'Local-First Git Bookmark Sync & Static Digital Garden',
+    description: 'A Tekromancy-sponsored, MIT-licensed browser extension and static site generator ecosystem for syncing a single chosen bookmark folder two-way across Chrome, Firefox, Firefox for Android, and mobile PWA—backed by a human-editable, data-only Git repository with zero developer servers.',
+    category: 'Git Sync • Browser Extension & SSG',
+    version: 'v0.4.5',
+    status: 'live',
+    statusLabel: 'LIVE • MIT',
+    sponsored: true,
+    accentFrom: '#f59e0b',
+    accentTo: '#d97706',
+    glowColor: 'rgba(245, 158, 11, 0.35)',
+    url: 'https://glyphrig.github.io/Glyphrig/',
+    chromeWebStoreUrl: 'https://chromewebstore.google.com/detail/glyphrig/ennpigbnodfiobgblonmckfeonnagjeg',
+    githubUrl: 'https://github.com/Glyphrig/Glyphrig',
+    iconSymbol: '🔖',
+    highlights: [
+      'Selective single-folder two-way 3-way merge across Chrome, Firefox & Android',
+      'Built-in public leak guards: blocks LAN/private IPs & strips utm_*, fbclid, gclid',
+      'Human-editable bookmarks/<folder>/README.md preserving YAML frontmatter & #tags',
+      'Multi-forge (GitHub, GitLab, Codeberg/Forgejo) + zero-boilerplate Astro Digital Garden CLI',
+    ],
+    specs: [
+      { label: 'Platform', value: 'Chrome MV3 / Firefox / Android / PWA' },
+      { label: 'Git Forges', value: 'GitHub, GitLab, Gitea / Forgejo' },
+      { label: 'License', value: 'MIT (Tekromancy Sponsored)' },
+      { label: 'Telemetry', value: '100% Local-First / Zero Dev Servers' },
+    ],
+    tags: ['Browser Extension', 'Git Sync', 'Astro SSG', 'Markdown', 'MIT Open Source'],
   },
 ];
 

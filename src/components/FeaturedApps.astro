@@ -9,6 +9,7 @@ const appIcons: Record<string, string> = {
   sparetank: "tabler:battery-charging-2",
   "silent-mode-control": "tabler:phone-off",
   coordy: "tabler:compass",
+  glyphrig: "tabler:bookmarks",
 };
 ---
 
@@ -22,7 +23,7 @@ const appIcons: Record<string, string> = {
         Featured Applications
       </h2>
       <p class="text-sm md:text-base tk-copy-secondary max-w-xl">
-        Sovereign client tools engineered for 100% on-device execution and zero surveillance telemetry.
+        Sovereign client tools and Tekromancy-sponsored open-source projects built for local-first execution and zero surveillance telemetry.
       </p>
     </div>
     <a
@@ -59,7 +60,15 @@ const appIcons: Record<string, string> = {
                 >
                   {app.category}
                 </span>
-                <div class="flex items-center gap-1.5">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  {app.sponsored && (
+                    <span
+                      class="text-[10px] font-mono font-bold px-2 py-0.5 rounded border"
+                      style="background-color: var(--token-color-background, #000000); border-color: var(--token-color-primary, #22c55e); color: var(--token-color-primary, #22c55e);"
+                    >
+                      SPONSORED
+                    </span>
+                  )}
                   <span class="relative flex h-2 w-2" aria-hidden="true">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={`background-color: ${app.accentFrom};`}></span>
                     <span class="relative inline-flex rounded-full h-2 w-2" style={`background-color: ${app.accentFrom};`}></span>

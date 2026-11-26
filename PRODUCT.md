@@ -21,7 +21,7 @@ Combines unapologetically low-level engineering dispatches—grounded in real Li
 ## Operating Context
 
 - **Reading & Interactive Lab (`/blog`, `/tags`, `/author`)**: Engineers read long-form Markdown/MDX dispatches (`src/content/blog/`) and manipulate embedded React 19 simulators to test storage engines, kernel schedulers, CXL memory tiering, post-quantum meshes, and hardware security trade-offs directly in the browser.
-- **Sovereign Applications Showcase (`/apps`)**: Visitors inspect specifications, interactive calculators/demos, and release channels for Tekromancy tools (`SpareTank`, `Silent Mode Control`, `Coordy`) defined in `src/data/apps.ts`.
+- **Sovereign Applications Showcase (`/apps`)**: Visitors inspect specifications, interactive calculators/demos, and release channels for Tekromancy and Tekromancy-sponsored tools (`SpareTank`, `Silent Mode Control`, `Coordy`, `Glyphrig`) defined in `src/data/apps.ts`.
 - **Field Operations & Events (`/events`)**: Security practitioners track Austin, TX and community Capture The Flag (CTF) wargames, meetups, and technical briefings defined in `src/data/events.ts`.
 - **Publishing & Syndication**: Static Astro builds generate per-article Satori OpenGraph cards (`/og/*.png`), RSS feeds (`/rss.xml`), sitemaps, and Schema.org JSON-LD metadata.
 
@@ -36,13 +36,13 @@ Combines unapologetically low-level engineering dispatches—grounded in real Li
 ## Brand Commitments
 
 - **Identity & Voice**: **Tekromancy** ("Tekromancy, Infrastructure & Code") speaks with direct, rigorous, practitioner-grade authority—demystifying systems down to hardware and kernel primitives without marketing fluff or shallow summaries.
-- **Client App Privacy**: Tekromancy client utilities (`SpareTank`, `Silent Mode Control`, `Coordy`) operate on-device without user-tracking telemetry or ad networks inside the apps.
+- **Client App Privacy**: Tekromancy client utilities and sponsored projects (`SpareTank`, `Silent Mode Control`, `Coordy`, `Glyphrig`) operate locally on-device without user-tracking telemetry or ad networks inside the apps.
 
 ## Evidence on Hand
 
 - **Published Dispatches & Artwork**: Long-form technical articles in `src/content/blog/`, hero artwork in `src/assets/blog/` (`src/utils/blogImages.ts`), and technical architecture schematics in `public/images/`.
 - **Interactive Simulators**: 24 domain-specific React simulators in `src/components/interactive/`.
-- **Registries**: Structured application metadata in `src/data/apps.ts`, community events in `src/data/events.ts`, and author profiles in `src/data/authors.ts`.
+- **Registries**: Structured application and sponsored-project metadata (`SpareTank`, `Silent Mode Control`, `Coordy`, `Glyphrig`) in `src/data/apps.ts`, community events in `src/data/events.ts`, and author profiles in `src/data/authors.ts`.
 - **Explicit Absences (Do Not Fabricate)**: No paid subscription tiers on `tekromancy.com`, no customer testimonials or enterprise logos, no fabricated install/download metrics, and no invented benchmark numbers.
 
 ## Product Principles
