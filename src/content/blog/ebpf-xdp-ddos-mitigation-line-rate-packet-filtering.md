@@ -1,8 +1,8 @@
 ---
 title: "Dropping 20M Packets per Second: eBPF XDP Line-Rate DDoS Mitigation in Linux"
 description: "A battle-tested production guide to filtering volumetric DDoS attacks at 20+ Mpps using eBPF eXpress Data Path (XDP), kernel ring buffers, and hardware NIC offloading."
-pubDate: "2026-09-27"
-updatedDate: "2026-09-27"
+pubDate: "2026-09-28"
+updatedDate: "2026-09-28"
 heroImage: "14.jpg"
 tags: ["linux", "ebpf", "networking", "security", "ddos"]
 author: "Joshua Edward McLaughlin Cox"

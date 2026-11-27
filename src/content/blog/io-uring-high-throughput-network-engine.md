@@ -1,7 +1,7 @@
 ---
 title: "Beyond epoll: Building a High-Throughput Linux Network Engine with io_uring and Zero-Copy"
 description: "Deep dive into the architecture of Linux io_uring, ring buffers, SQPOLL kernel threads, and building a 500k+ IOPS non-blocking TCP socket server in C and Rust."
-pubDate: "2026-09-22"
+pubDate: "2026-09-20"
 heroImage: "4.jpg"
 tags: ["linux", "kernel", "networking", "performance", "rust"]
 author: "Joshua Edward McLaughlin Cox"

@@ -6,7 +6,7 @@ updatedDate: "2026-11-27"
 heroImage: "47.jpg"
 tags: ["linux", "ebpf", "kernel", "security", "networking"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Compiling an eBPF C program cleanly with `clang -target bpf -O2` only tells you that LLVM accepted your syntax. It tells you nothing about whether **`kernel/bpf/verifier.c`** will load your bytecode on a production kernel—and even worse, passing the verifier tells you nothing about whether your Ring-0 program is silently corrupting telemetry, misattributing container identities, or racing userspace file descriptors.

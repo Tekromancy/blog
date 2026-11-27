@@ -1,7 +1,7 @@
 ---
 title: "vLLM vs SGLang vs TensorRT-LLM: The Definitive 2026 Production Inference Shootout"
 description: "Benchmarking throughput, Time to First Token (TTFT), RadixAttention prefix caching, AWQ vs FP8 quantization, and GPU memory overhead for local LLM serving."
-pubDate: "2026-09-22"
+pubDate: "2026-09-23"
 heroImage: "3.jpg"
 tags: ["ai-ml", "llm", "performance", "cuda", "infrastructure"]
 author: "Joshua Edward McLaughlin Cox"

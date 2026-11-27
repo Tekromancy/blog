@@ -2,11 +2,11 @@
 title: "Dark-Port Linux Perimeters: Kernel-Native nftables Port Knocking, Cryptographic SPA, and XDP Ephemeral Admission Gates"
 description: "How to eliminate WAN attack surface for self-hosted control planes, VPN enrollment portals, and SSH bastions—combining in-kernel nf_tables dynamic timeout automata, Noise_IK Single Packet Authorization, Netlink set actuation, and XDP_DRV line-rate stealth gates."
 pubDate: "2026-11-26"
-updatedDate: "2026-11-26"
+updatedDate: "2026-11-27"
 heroImage: "46.jpg"
 tags: ["linux", "networking", "nftables", "ebpf", "security"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Exposing an SSH bastion, a self-hosted WireGuard coordination control plane, or an emergency enrollment endpoint on a public WAN address puts a live, stateful parser directly in front of the entire internet. Even if your daemon enforces Ed25519 keys, mTLS, or hardware-backed FIDO2 tokens, **authentication runs *after* pre-auth socket accept and protocol framing**—leaving your kernel and edge exposed to pre-auth RCEs (`regreSSHion`-class signal races), TLS/HTTP/2 rapid-reset floods, and zero-day vulnerabilities in user-space TLS or SSH libraries.
@@ -397,8 +397,9 @@ const (
 )
 
 type AllowedPeer struct {
-	StaticPub [32]byte
-	Role      string
+	StaticPub    [32]byte
+	StaticShared [32]byte // Precomputed X25519(ServerSK, PeerStaticPK) ("ss" in Noise_IK)
+	Role         string
 }
 
 type SPAVerifier struct {
@@ -426,8 +427,10 @@ func (v *SPAVerifier) VerifyAndAdmit(pkt []byte, srcIP netip.Addr) error {
 		return errors.New("drop: malformed x25519 key")
 	}
 
-	// 1. Ephemeral-Static DH + HKDF-SHA256 key derivation bound to both public keys
-	shared, err := v.serverPriv.ECDH(ephemPub)
+	// 1. Ephemeral-Static DH ("es") + precomputed Static-Static DH ("ss") per peer:
+	//    Mixing ss = X25519(ClientStaticSK, ServerPK) proves the sender actually holds
+	//    ClientStaticSK, preventing public-key forgery against an allowlisted peer's S_pk.
+	es, err := v.serverPriv.ECDH(ephemPub)
 	if err != nil {
 		return errors.New("drop: ecdh failed")
 	}
@@ -436,41 +439,43 @@ func (v *SPAVerifier) VerifyAndAdmit(pkt []byte, srcIP netip.Addr) error {
 	info = append(info, ephemPubBytes...)
 	info = append(info, v.serverPub[:]...)
 
-	aeadKey, err := hkdf.Key(sha256.New, shared, nil, string(info), chacha20poly1305.KeySize)
-	if err != nil {
-		return err
-	}
-	aead, err := chacha20poly1305.New(aeadKey)
-	if err != nil {
-		return err
-	}
-
-	// 2. Single-use ephemeral key guarantees 12-byte zero nonce uniqueness; AAD authenticates header
 	var zeroNonce [chacha20poly1305.NonceSize]byte
-	plaintext, err := aead.Open(nil, zeroNonce[:], pkt[33:], pkt[:33])
-	if err != nil || len(plaintext) != 77 {
-		return errors.New("drop: aead tag mismatch")
-	}
-
-	// 3. Constant-time peer allowlist scan (avoids leaking allowlist membership via timing)
-	var clientStatic [32]byte
-	copy(clientStatic[:], plaintext[0:32])
-	authorized := 0
+	var plaintext []byte
+	matched := 0
 	for i := range v.peers {
-		authorized |= subtle.ConstantTimeCompare(clientStatic[:], v.peers[i].StaticPub[:])
+		var ikm [64]byte
+		copy(ikm[:32], es)
+		copy(ikm[32:], v.peers[i].StaticShared[:])
+
+		aeadKey, err := hkdf.Key(sha256.New, ikm[:], nil, string(info), chacha20poly1305.KeySize)
+		if err != nil {
+			continue
+		}
+		aead, err := chacha20poly1305.New(aeadKey)
+		if err != nil {
+			continue
+		}
+		// Single-use ephemeral key guarantees zero-nonce uniqueness; AAD authenticates header
+		pt, openErr := aead.Open(nil, zeroNonce[:], pkt[33:], pkt[:33])
+		if openErr == nil && len(pt) == 77 {
+			if subtle.ConstantTimeCompare(pt[0:32], v.peers[i].StaticPub[:]) == 1 {
+				plaintext = pt
+				matched = 1
+			}
+		}
 	}
-	if authorized != 1 {
-		return errors.New("drop: unauthorized peer")
+	if matched != 1 {
+		return errors.New("drop: aead tag mismatch or unauthorized peer")
 	}
 
-	// 4. Timestamp freshness check (+/-15s skew bounds replay cache lifetime)
+	// 2. Timestamp freshness check (+/-15s skew bounds replay cache lifetime)
 	tsNs := int64(binary.BigEndian.Uint64(plaintext[32:40]))
 	skew := time.Since(time.Unix(0, tsNs))
 	if skew > maxClockSkew || skew < -maxClockSkew {
 		return errors.New("drop: timestamp outside skew window")
 	}
 
-	// 5. Bounded nonce replay check
+	// 3. Bounded nonce replay check
 	var nonce [16]byte
 	copy(nonce[:], plaintext[40:56])
 	now := time.Now()
@@ -491,7 +496,7 @@ func (v *SPAVerifier) VerifyAndAdmit(pkt []byte, srcIP netip.Addr) error {
 	v.replayCache[nonce] = now.Add(2 * maxClockSkew)
 	v.mu.Unlock()
 
-	// 6. Bind admission IP to either cryptographically asserted IP or verified packet source
+	// 4. Bind admission IP to either cryptographically asserted IP or verified packet source
 	reqAddr, ok := netip.AddrFromSlice(plaintext[56:72])
 	if !ok {
 		return errors.New("drop: invalid req ip")
@@ -509,7 +514,7 @@ func (v *SPAVerifier) VerifyAndAdmit(pkt []byte, srcIP netip.Addr) error {
 		ttl = 60 * time.Second
 	}
 
-	// 7. Actuate kernel nf_tables set directly via Netlink (zero fork/exec)
+	// 5. Actuate kernel nf_tables set directly via Netlink (zero fork/exec)
 	if admitIP.Is4() {
 		v.mu.Lock()
 		defer v.mu.Unlock()
@@ -525,7 +530,9 @@ func (v *SPAVerifier) VerifyAndAdmit(pkt []byte, srcIP netip.Addr) error {
 }
 ```
 
-Notice step 6 (`reqAddr != admitIP`): binding the authorized client's public IP inside the encrypted payload blocks NAT-level hijacking *and* stops an attacker from stealing and re-sending a captured packet if they are off-path. (For roaming clients whose IP isn't pre-known via STUN/external lookup, set `reqAddr = ::` and fall back to `srcIP`—only *after* full AEAD + replay verification passes.)
+Notice two critical security properties here:
+- **True `Noise_IK` static-key authentication (`es || ss`)**: Mixing precomputed `StaticShared = X25519(ServerSK, PeerStaticPK)` alongside ephemeral `es` ensures a passive attacker who merely knows an authorized operator's public key `S_pk` cannot forge an SPA packet—possession of `ClientStaticSK` is mathematically required. For small operator allowlists (`<= 256` peers), scanning `v.peers` inside the 126-byte wire format stays sub-millisecond; larger fleets (`> 256` peers) can adopt the full two-tag `Noise_IK` 142-byte layout (a 48-byte `es`-encrypted static pubkey block for `O(1)` map lookup followed by a 61-byte `es+ss`-encrypted payload).
+- **IP binding (`reqAddr != admitIP`)**: binding the authorized client's public IP inside the encrypted payload blocks NAT-level hijacking *and* stops an attacker from stealing and re-sending a captured packet if they are off-path. (For roaming clients whose IP isn't pre-known via STUN/external lookup, set `reqAddr = ::` and fall back to `srcIP`—only *after* full AEAD + replay verification passes.)
 
 ---
 
@@ -685,6 +692,10 @@ int xdp_stealth_gate(struct xdp_md *ctx) {
     void *l4 = (void *)ip + ihl_len;
     if (l4 > data_end)
         return XDP_DROP;
+
+    // Non-initial IPv4 fragments carry payload bytes, not L4 ports; never misparse as TCP/UDP headers
+    if ((ip->frag_off & bpf_htons(0x1FFF)) != 0)
+        return XDP_PASS;
 
     __be16 dport = 0;
     __u8 proto = ip->protocol;

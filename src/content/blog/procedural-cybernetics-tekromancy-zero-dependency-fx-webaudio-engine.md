@@ -1,8 +1,8 @@
 ---
 title: "Procedural Cybernetics: Inside the Zero-Dependency @tekromancy/tekromancy FX & Web Audio Engine"
 description: "How we engineered a zero-dependency procedural Canvas 2D elemental effects library, proximity cursor tethering, an SLERP-interpolated 3D hologram globe, and a Web Audio API synthesizer without a single external asset."
-pubDate: "2026-10-14"
-updatedDate: "2026-10-14"
+pubDate: "2026-10-12"
+updatedDate: "2026-10-12"
 heroImage: "19.jpg"
 tags: ["open-source", "graphics", "webaudio", "javascript", "architecture"]
 author: "Joshua Edward McLaughlin Cox"

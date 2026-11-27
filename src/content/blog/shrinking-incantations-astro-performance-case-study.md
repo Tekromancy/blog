@@ -1,8 +1,8 @@
 ---
 title: "Shrinking a 3,526-Page Grimoire: How We Cut Incantations from 20 MB to 38 KB"
 description: "A deep-dive frontend and static-site generation postmortem on optimizing incantations.tekromancy.com: eliminating 3,371 Framer Motion hydration islands, fixing a 22.7M-operation O(N²) build bottleneck, and cutting initial wire weight by 99.8%."
-pubDate: "2026-10-14"
-updatedDate: "2026-10-14"
+pubDate: "2026-10-11"
+updatedDate: "2026-10-11"
 heroImage: "17.jpg"
 tags: ["performance", "astro", "architecture", "open-source", "webdev"]
 author: "Joshua Edward McLaughlin Cox"

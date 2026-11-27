@@ -1,8 +1,8 @@
 ---
 title: "Speculative Decoding in Production: Accelerating LLM Inference Without Accuracy Loss"
 description: "How speculative decoding leverages small draft models and vectorized tree verification to double generation speed on vLLM and TensorRT-LLM without sacrificing a single bit of model precision."
-pubDate: "2026-09-27"
-updatedDate: "2026-09-27"
+pubDate: "2026-09-30"
+updatedDate: "2026-09-30"
 heroImage: "15.jpg"
 tags: ["ai-ml", "vllm", "cuda", "inference", "llm"]
 author: "Joshua Edward McLaughlin Cox"

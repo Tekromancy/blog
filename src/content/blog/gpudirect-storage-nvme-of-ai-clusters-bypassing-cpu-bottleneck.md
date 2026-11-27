@@ -1,8 +1,8 @@
 ---
 title: "Bypassing the CPU Bottleneck: GPUDirect Storage (GDS) with NVMe-oF in AI Clusters"
 description: "A deep dive into NVIDIA GPUDirect Storage (GDS) and NVMe over Fabrics: streaming massive multi-terabyte dataset shards directly into GPU HBM without CPU bounce buffers."
-pubDate: "2026-09-27"
-updatedDate: "2026-09-27"
+pubDate: "2026-09-29"
+updatedDate: "2026-09-29"
 heroImage: "16.jpg"
 tags: ["ai-ml", "cuda", "storage", "hardware", "linux"]
 author: "Joshua Edward McLaughlin Cox"

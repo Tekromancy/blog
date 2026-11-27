@@ -1,12 +1,12 @@
 ---
 title: "Silicon Ghosts: Microarchitectural Branch History Injection (BHI), Data Memory-Dependent Prefetchers (DMP/GoFetch), and Constant-Time Compiler Defenses"
 description: "Why classic retpolines and eIBRS failed to stop Native Branch History Injection (CVE-2024-2201) and Data Memory-Dependent Prefetchers (GoFetch/Augury)—and how hardware BHI_DIS_S, lfence barriers, and LLVM Speculative Load Hardening (SLH) seal the microarchitectural leak."
-pubDate: "2026-11-08"
-updatedDate: "2026-11-08"
+pubDate: "2026-11-09"
+updatedDate: "2026-11-27"
 heroImage: "42.jpg"
 tags: ["security", "hardware", "linux", "kernel", "cryptography"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 When **Spectre v2 (`Branch Target Injection`, `CVE-2017-5715`)** was disclosed in 2018, CPU architects and kernel engineers believed they had two permanent fixes:
@@ -53,7 +53,19 @@ Because `eIBRS` only tags entries in the **Branch Target Buffer (`BTB`)** by pri
 
 Inside modern Intel and ARM CPUs, the Indirect Branch Predictor selects which target address to predict by hashing the current instruction address (`RIP`) together with the **Branch History Buffer (`BHB`)**—a shift register recording the source and destination bits of the last `66` to `194` taken branches.
 - Even though `eIBRS` prevents the kernel from jumping to a *userspace* address, the kernel itself contains thousands of valid indirect call targets.
-- By brute-forcing or symbolically solving the BHB shift-register polynomial in Ring-3 right before executing `syscall`, the attacker collides the predictor index so that a kernel indirect call (`call *f_op->unlocked_ioctl`) speculatively jumps to an existing **Ring-0 Disclosure Gadget** (`movzbl (%rdi), %eax; shl $12, %rax; mov (%rbx,%rax,1), %rcx`) that leaks arbitrary physical memory (`direct map`) into the L1/L3 cache timing channel at **3.5 KB/sec**!
+- By brute-forcing or symbolically solving the BHB shift-register polynomial in Ring-3 right before executing `syscall`, the attacker collides the predictor index so that a kernel indirect call (`call *f_op->unlocked_ioctl`) speculatively jumps to an existing **Ring-0 Disclosure Gadget** (`movzbl (%rdi), %eax; shl $12, %rax; mov (%rbx,%rax,1), %rcx`) that leaks arbitrary physical memory (`direct map`) into the L1/L3 cache timing channel at **3.5 KB/sec**.
+
+### How SLAM (`LAM` / `UAI` / `TBI`) Turns Ordinary Pointer-Chasing Code Into Spectre Gadgets
+
+Traditional Spectre v1/v2 disclosure gadgets required rare masked sequences that convert a leaked byte into a valid page-table offset. **SLAM (`Spectre based on Linear Address Masking`, VUSec)** bypasses that constraint by abusing hardware pointer-metadata features designed for memory tagging and software pointer compression:
+- **Intel Linear Address Masking (`LAM`)**
+- **AMD Upper Address Ignore (`UAI`)** (alongside earlier pointer-masking interactions tracked under `CVE-2020-12965`)
+- **Arm Top Byte Ignore (`TBI`)**
+
+Because `LAM`, `UAI`, and `TBI` relax upper-bit virtual address canonicality checks during address translation, an ordinary pointer-chasing sequence (`**secret`, i.e., `mov rax, [secret_ptr]; mov rbx, [rax]`) no longer faults cleanly before TLB/cache lookup when `secret_ptr` holds arbitrary secret kernel data. Paired with a Spectre-BHI branch steering primitive, SLAM turns ubiquitous kernel pointer-chasing code into **unmasked disclosure gadgets** capable of leaking high-entropy secrets such as root password hashes across the TLB/cache covert channel.
+
+![Microarchitectural BHI and SLAM Exploit Pipeline vs. Hardware BHI_DIS_S and BHB Clearing](/images/microarch-bhi-slam-btb-bhb-mitigations.jpg)
+*Figure 1: How Ring-3 Branch History Buffer collisions bypass `eIBRS` (`CVE-2024-2201`), how `LAM`/`UAI`/`TBI` unlock unmasked `SLAM` pointer-chasing gadgets, and how hardware `BHI_DIS_S`, `clear_bhb_loop`, `FineIBT`, and disabled unprivileged eBPF harden Linux `6.8+`–`6.12+`.*
 
 ---
 
@@ -64,15 +76,18 @@ For twenty years, cryptographic engineers followed three strict rules to write *
 2. Never use secret data as an array index (`table[secret_byte]`).
 3. Never pass secret data to variable-latency instructions (such as hardware integer division `idiv`).
 
-**Data Memory-Dependent Prefetchers (`DMP`)**—found in Apple M1/M2/M3 silicon and Intel Raptor Lake / Core Ultra (`ip_pfetch`)—violate the foundational assumption of constant-time programming: **the hardware cache controller inspects the *data values* loaded from L1 cache, and if a 64-bit value inside a register or cacheline *looks like a valid virtual memory pointer*, the DMP autonomously dereferences it and prefetches that address into L2 cache!**
+**Data Memory-Dependent Prefetchers (`DMP`)**—found in Apple M1/M2/M3 silicon and Intel 13th/14th-gen Raptor Lake (an L2 data-dependent prefetcher distinct from classic L1 IP stride prefetchers)—violate the foundational assumption of constant-time programming: **the hardware cache controller inspects the *data values* loaded from cache, and if a 64-bit value inside memory *looks like a valid virtual memory pointer*, the DMP autonomously dereferences it and prefetches that target address into cache!** (While `GoFetch` demonstrated practical end-to-end key recovery on Apple M1/M2/M3, Intel's Raptor Lake DMP enforces stricter activation criteria that block the out-of-the-box `GoFetch` attack.)
 
 ### How `GoFetch` Exploits Constant-Time Pointer Arithmetic
 
 Consider a constant-time Diffie-Hellman, RSA, or Post-Quantum (`ML-KEM` / `Kyber` or `ML-DSA` / `Dilithium`) implementation that mixes an attacker-chosen input with a secret key share. Even if the code never dereferences the intermediate state:
-1. The attacker crafts chosen ciphertexts/inputs so that when intermediate value $V = f(\text{input}, \text{secret\_bits})$ is written into an array in memory:
-   - If `secret_bits == 0x01`, $V$ equals `0x00007fff80041000` (a valid virtual pointer inside a probe array!).
-   - If `secret_bits != 0x01`, $V$ equals a non-canonical 64-bit integer (`0x9482a10049102210`).
-2. When the cryptographic routine reads the array sequentially, the **hardware DMP scans the 64-bit data payload of the cacheline**, mistakes $V = \text{0x00007fff80041000}$ for a pointer inside a struct/array of pointers, and **prefetches `*(0x00007fff80041000)` into the cache**, leaking `secret_bits` to a `Prime+Probe` observer!
+1. The attacker crafts chosen ciphertexts/inputs so that when intermediate value `V = f(input, secret_bits)` is written into an array in memory:
+   - If `secret_bits == 0x01`, `V` equals `0x00007fff80041000` (a valid virtual pointer inside a probe array!).
+   - If `secret_bits != 0x01`, `V` equals a non-canonical 64-bit integer (`0x9482a10049102210`).
+2. When the cryptographic routine reads the array sequentially, the **hardware DMP scans the 64-bit data payload of the cacheline**, mistakes `V` (`0x00007fff80041000`) for a pointer inside a struct/array of pointers, and **prefetches `*(0x00007fff80041000)` into the cache**, leaking `secret_bits` to a `Prime+Probe` observer!
+
+![Data Memory-Dependent Prefetcher GoFetch Side-Channel vs. DOITM, DIT, Pointer Blinding, and Clang SLH](/images/microarch-dmp-gofetch-doit-slh-pipeline.jpg)
+*Figure 2: `GoFetch` cacheline-value pointer dereferencing across constant-time crypto buffers, paired with Intel `DOITM` / Apple M3+ `PSTATE.DIT`, algorithmic pointer blinding for Apple M1/M2, and Clang Speculative Load Hardening (`SLH`).*
 
 ---
 
@@ -99,20 +114,20 @@ cat /sys/devices/system/cpu/vulnerabilities/spectre_v2
 #    spectre_bhi=on spec_rstack_overflow=safe-ret
 grep -E "spectre_bhi|mitigations" /proc/cmdline || true
 
-# 3. Verify MSR_IA32_SPEC_CTRL (0x48):
+# 3. Verify MSR_IA32_SPEC_CTRL (0x48) on CPU 0:
 #    Bit 0 = IBRS | Bit 1 = STIBP | Bit 2 = SSBD | Bit 10 (0x400) = BHI_DIS_S
-SPEC_CTRL_HEX=$(rdmsr -0 0x48)
+SPEC_CTRL_HEX=$(rdmsr -p 0 -0 0x48)
 printf "MSR_IA32_SPEC_CTRL (0x48) = 0x%s (BHI_DIS_S = %d)\n" \
   "$SPEC_CTRL_HEX" "$(( (16#${SPEC_CTRL_HEX} >> 10) & 1 ))"
 ```
 
-### 2. Disabling DMP via `DOIT` (`MSR_IA32_UARCH_MISC_CTL`) / `DIT` and Pointer Blinding
+### 2. Disabling DMP via `DOITM` (`MSR_IA32_UARCH_MISC_CTL`) / `DIT`, Blinding, and LLVM `SLH`
 
-To prevent Data Memory-Dependent Prefetchers (`DMP`) from scanning cryptographic buffers:
-- **Hardware Data Operand Independent Timing (`Intel DOIT` / `ARMv8.4-DIT`)**: Setting `MSR_IA32_UARCH_MISC_CTL[0] = 1` (`DOIT`, enabled in Linux for kernel crypto and exposed on ARM via `PSTATE.DIT`) or disabling the IP/Data prefetcher on sensitive cores prevents data-value-triggered prefetching on compliant microarchitectures.
+To prevent Data Memory-Dependent Prefetchers (`DMP`) from scanning cryptographic buffers—and to blunt `SLAM` and speculative disclosure gadgets in high-value userspace daemons:
+- **Hardware Data Operand Independent Timing (`Intel DOITM` / `ARMv8.4-DIT`)**: On supported Intel CPUs, setting Bit 0 of `MSR_IA32_UARCH_MISC_CTL` (`0x1B01`) enables **DOITM**, preventing data-operand-dependent prefetching. On **Apple M3+**, enabling `ARMv8.4-DIT` (`PSTATE.DIT`) suppresses the DMP across sensitive routines; critically, **Apple M1 and M2 lack a hardware DMP-disable toggle**, making algorithmic pointer blinding mandatory on earlier Apple Silicon.
 - **Cryptographic Pointer Masking / Blinding & LLVM Speculative Load Hardening (`-mllvm -x86-speculative-load-hardening`)**:
   1. To stop **DMP (`GoFetch`)**, never store raw 64-bit intermediate values that can collide with canonical virtual address prefixes (`0x00007f...` on x86_64 or `0x00000001...` on ARM64); pack arithmetic limbs into 32-bit or 51-bit non-pointer-aligned representations or XOR-mask stored words with a per-invocation random blinding mask (`val ^ blind_mask`) before writing to RAM!
-  2. To stop **Speculative Disclosure Gadgets (`BHI`)** inside high-value userspace daemons (`OpenSSH`, TLS terminators, KMS signers), compile critical translation units with **Clang Speculative Load Hardening (`__attribute__((speculative_load_hardening))`)**, which tracks conditional branch outcomes in a GPR predicate mask (`%r11 = -1` on misspeculation) and bitwise-ORs every loaded pointer or value with the speculation mask—turning any speculatively loaded secret into `0xFFFFFFFFFFFFFFFF` before it can index a cache line:
+  2. To stop **Speculative Disclosure Gadgets (`BHI`)** inside high-value userspace daemons (`OpenSSH`, TLS terminators, KMS signers), compile critical translation units with **Clang Speculative Load Hardening (`__attribute__((speculative_load_hardening))`)**, which tracks conditional branch outcomes in a GPR predicate mask (`0` on architecturally valid paths, `-1` = `0xFFFFFFFFFFFFFFFF` on misspeculation) and bitwise-ORs loaded pointers or values with that mask—forcing any speculatively loaded value to `0xFFFFFFFFFFFFFFFF` before it can index a cache line or leak:
 
 ```c
 // constant_time_slh_guard.c — Speculative Load Hardening + DMP Pointer Blinding
@@ -120,9 +135,10 @@ To prevent Data Memory-Dependent Prefetchers (`DMP`) from scanning cryptographic
 #include <stddef.h>
 
 /*
- * Clang __attribute__((speculative_load_hardening)) instruments every basic block
- * with `cmov` state tracking so that under a BHI/Spectre misprediction,
- * all memory loads are bitwise masked to 0 before reaching a cache-timing gadget.
+ * Clang __attribute__((speculative_load_hardening)) instruments conditional
+ * branches with `cmov` state tracking: on misspeculation, the predicate mask
+ * becomes all-1s (-1) and loaded pointers/values are bitwise-ORed to
+ * 0xFFFFFFFFFFFFFFFF before reaching any cache-timing gadget (no `lfence` stall).
  */
 __attribute__((speculative_load_hardening))
 uint64_t slh_safe_key_lookup(const uint64_t *key_slot_array,
@@ -136,10 +152,10 @@ uint64_t slh_safe_key_lookup(const uint64_t *key_slot_array,
 
     /*
      * Even if the CPU speculatively bypasses the bounds check above,
-     * SLH forces `slot_idx` / the loaded value to be masked with all-1s or all-0s
-     * at the architectural register level without needing a slow `lfence`!
-     * And XORing with `dmp_blind_mask` prevents stored values from matching
-     * canonical virtual address high-bits scanned by a hardware DMP.
+     * SLH bitwise-ORs the loaded value with 0xFFFFFFFFFFFFFFFF (-1) at the
+     * architectural register level without needing a slow `lfence`!
+     * XORing stored words with `dmp_blind_mask` also prevents values in RAM
+     * from matching canonical virtual address bit patterns scanned by a DMP.
      */
     uint64_t blinded_val = key_slot_array[slot_idx];
     return blinded_val ^ dmp_blind_mask;
@@ -148,7 +164,8 @@ uint64_t slh_safe_key_lookup(const uint64_t *key_slot_array,
 
 | Microarchitectural Attack Vector | Bypassed Legacy Defense | Root Hardware Cause | Production Remediation (`Linux 6.8+` / `Clang 19+`) |
 | :--- | :--- | :--- | :--- |
-| **Spectre-BHB (`CVE-2022-0001`)** | Classic `eIBRS` | Shared global `BHB` across privilege rings | `SPEC_CTRL_BHI_DIS_S` or software `clear_bhb_loop` |
+| **Spectre-BHB (`CVE-2022-0001`)** | Classic `eIBRS` | Shared global `BHB` across privilege rings | `SPEC_CTRL_BHI_DIS_S` (`MSR 0x48[10]`) or software `clear_bhb_loop` |
 | **Native BHI / InSpectre (`CVE-2024-2201`)** | `spectre_bhi=auto` (early kernels) | Residual Ring-0 disclosure gadgets in supervisor BTB | `spectre_bhi=on` (`BHI_DIS_S` + `FineIBT` / `CET`) |
-| **DMP / `GoFetch` / `Augury`** | Classic Constant-Time code | Cache prefetcher dereferences 64-bit data values matching pointers | `DOIT` / `PSTATE.DIT` + Non-Canonical Limb Packing & Blinding |
+| **SLAM (`LAM` / `UAI` / `TBI`)** | Canonical address checks | Upper-bit pointer masking turns `**secret` into unmasked gadget | Disable unused `LAM`/`UAI`, enforce `spectre_bhi=on`, `unprivileged_bpf_disabled=2` |
+| **DMP / `GoFetch` / `Augury`** | Classic Constant-Time code | Cache prefetcher dereferences 64-bit data values matching pointers | `DOITM` (`MSR 0x1B01[0]`) / Apple M3+ `PSTATE.DIT` + Non-Canonical Limb Blinding |
 | **Userspace Cross-Thread `BHI`** | Kernel-only `BHI_DIS_S` | Same-process sandbox (`Wasm`/`eBPF`/JIT) BTB+BHB sharing | `__attribute__((speculative_load_hardening))` / `lfence` |

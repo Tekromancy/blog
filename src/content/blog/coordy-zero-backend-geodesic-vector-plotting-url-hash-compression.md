@@ -1,8 +1,8 @@
 ---
 title: "Coordy: Zero-Backend Geodesic Vector Plotting, WMM2025 Declination & URL-Hash State Compression"
 description: "Inside Coordy—Tekromancy's zero-telemetry geospatial bearing calculator and tactical vector plotter featuring Slerp great-circle orthodromes, Rhumb line loxodromes, an offline WMM2025 spherical harmonic magnetic declination solver, universal OLC/DMS/what3words coordinate parsing, and serverless base64url hash serialization."
-pubDate: "2026-10-14"
-updatedDate: "2026-10-14"
+pubDate: "2026-10-13"
+updatedDate: "2026-10-13"
 heroImage: "18.jpg"
 tags: ["tools", "osint", "geospatial", "privacy", "open-source"]
 author: "Joshua Edward McLaughlin Cox"

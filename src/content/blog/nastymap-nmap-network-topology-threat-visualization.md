@@ -1,7 +1,7 @@
 ---
 title: "NastyMap: High-Performance Network Topology, GeoIP Threat Mapping & Scan Diffing for Nmap"
 description: "Visualizing Nmap XML scans into interactive force-directed topologies, GeoIP ballistic threat maps, and automated security diffs with Tekromancy's NastyMap."
-pubDate: "2026-09-01"
+pubDate: "2026-09-02"
 heroImage: "9.png"
 tags: ["security", "networking", "tools", "nmap", "react"]
 author: "Joshua Edward McLaughlin Cox"

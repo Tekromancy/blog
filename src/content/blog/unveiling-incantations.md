@@ -1,8 +1,8 @@
 ---
 title: "Unveiling Incantations: Arcane Design Patterns and Latent Space Constructs"
 description: "Announcing the open-source release of our Incantations repository—a grimoire bridging the 1994 Gang of Four design patterns, esoteric programming languages, and modern generative AI prompt structures."
-pubDate: "2026-10-08"
-updatedDate: "2026-10-08"
+pubDate: "2026-10-09"
+updatedDate: "2026-10-09"
 heroImage: "5.jpg"
 tags: ["open-source", "design-patterns", "software-engineering", "generative-ai", "architecture"]
 author: "Joshua Edward McLaughlin Cox"

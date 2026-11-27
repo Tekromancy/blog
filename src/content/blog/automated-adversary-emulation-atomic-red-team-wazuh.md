@@ -1,7 +1,7 @@
 ---
 title: "Automated Adversary Emulation: Simulating MITRE ATT&CK in an Isolated Cyber Range"
 description: "Building an automated offensive threat emulation lab with Atomic Red Team, Caldera, Wazuh SIEM, and Sigma detection rules in virtualized Linux topologies."
-pubDate: "2026-09-22"
+pubDate: "2026-09-18"
 heroImage: "8.png"
 tags: ["security", "ctf", "red-team", "blue-team", "sysadmin"]
 author: "Joshua Edward McLaughlin Cox"

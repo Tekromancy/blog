@@ -1,11 +1,12 @@
 ---
 title: "Closed-Loop Network Topology Reconciliation on Linux: Stitching Netlink, LLDP, SNMP FDB Tables, NetBox, and Kubernetes into a Live Fabric Graph"
 description: "Why static IPAM spreadsheets and single-layer SNMP maps drift into split-brain—and how to build a closed-loop L1-to-L7 topology reconciler on Linux combining rtnetlink, IEEE 802.1AB LLDP, Q-BRIDGE-MIB FDB indirection, NetBox cable conflict guards, and two-phase staged apply."
-pubDate: "2026-11-24"
-updatedDate: "2026-11-24"
+pubDate: "2026-11-23"
+updatedDate: "2026-11-27"
+heroImage: "49.jpg"
 tags: ["linux", "networking", "kubernetes", "netlink", "observability"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 In almost every multi-rack Linux and bare-metal Kubernetes environment, network truth fragments into three incompatible silos the moment an engineer swaps a DAC cable during an outage:
@@ -57,6 +58,9 @@ A resilient topology engine treats neither the switch nor the DCIM database as a
 |                                                                                   |
 +-----------------------------------------------------------------------------------+
 ```
+
+![Closed-Loop Triad Network Topology Reconciliation Engine and Two-Phase Staged Fabric Apply](/images/topology-triad-reconciliation-pipeline.jpg)
+*Figure 1: Three-way Triad fabric reconciliation fusing `AF_NETLINK` host state, switch SNMPv3 MIBs, and NetBox/Kubernetes intent into a quorum-gated, two-phase staged apply pipeline.*
 
 ### Telemetry Source Authority Matrix
 
@@ -184,9 +188,10 @@ int dump_links_once(int fd, uint32_t seq, int *interrupted) {
             if (errno == EINTR) continue;
             return -1;
         }
+        int rem = (int)n;
         for (struct nlmsghdr *nlh = (struct nlmsghdr *)buf;
-             NLMSG_OK(nlh, (int)n);
-             nlh = NLMSG_NEXT(nlh, n)) {
+             NLMSG_OK(nlh, rem);
+             nlh = NLMSG_NEXT(nlh, rem)) {
             if (nlh->nlmsg_flags & NLM_F_DUMP_INTR) {
                 // Kernel link table mutated mid-dump (e.g., pod CNI teardown)
                 *interrupted = 1;
@@ -246,6 +251,9 @@ Host probes only reveal one side of a patch panel. To validate the ToR and spine
 | **`BRIDGE-MIB::dot1dBasePortTable`** | `1.3.6.1.2.1.17.1.4.1` | `.1` `dot1dBasePort`, `.2` `dot1dBasePortIfIndex` | Mandatory translation bridge between bridge port indices and `IF-MIB` `ifIndex`. |
 | **`Q-BRIDGE-MIB::dot1qTpFdbTable`** | `1.3.6.1.2.1.17.7.1.2.2.1` | `.2` `dot1qTpFdbPort`, `.3` `dot1qTpFdbStatus` | Indexed by `<vlan_id>.<mac_dec_1..6>`; returns `dot1dBasePort`, **not** `ifIndex`! |
 | **`IP-MIB::ipNetToPhysicalTable`** | `1.3.6.1.2.1.4.35.1` | `.4` `ipNetToPhysicalPhysAddress` | Dual-stack IPv4/IPv6 ARP/NDP binding table for router SVIs (`Vlan100` -> MAC -> IP). |
+
+![SNMPv3 Q-BRIDGE-MIB FDB Indirection, LLDP Trunk Pruning, and Bare-Metal-to-Kubernetes Overlay Stitching](/images/topology-snmp-fdb-lldp-overlay-stitch.jpg)
+*Figure 2: Three-table `Q-BRIDGE-MIB` -> `BRIDGE-MIB` -> `IF-MIB` FDB join, hardware LLDP blackhole mitigations (`i40e`/`ice` and Linux `group_fwd_mask`), and five-hop bare-metal-to-Kubernetes overlay stitching.*
 
 ### The Mandatory Three-Table FDB Join & LLDP-First Trunk Pruning
 
@@ -318,6 +326,9 @@ func normalizeIfName(name string) string {
 	s = strings.ReplaceAll(s, " ", "")
 	if strings.HasPrefix(s, "ethernet") {
 		return "eth" + strings.TrimPrefix(s, "ethernet")
+	}
+	if len(s) > 2 && strings.HasPrefix(s, "et") && s[2] >= '0' && s[2] <= '9' {
+		return "eth" + strings.TrimPrefix(s, "et")
 	}
 	return s
 }

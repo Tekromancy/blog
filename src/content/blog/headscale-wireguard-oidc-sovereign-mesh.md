@@ -1,7 +1,7 @@
 ---
 title: "The Sovereign Mesh: Private WireGuard Overlay with Headscale, OIDC SSO, and Custom DERP"
 description: "Building an enterprise self-hosted WireGuard control plane with Headscale, Keycloak OIDC authentication, private DERP relays, and split-tunnel CoreDNS."
-pubDate: "2026-09-22"
+pubDate: "2026-09-19"
 heroImage: "6.jpg"
 tags: ["networking", "wireguard", "security", "sysadmin", "linux"]
 author: "Joshua Edward McLaughlin Cox"

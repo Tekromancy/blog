@@ -2,11 +2,11 @@
 title: "Zero-Lockout Linux Networking: Engineering commit confirmed Dead-Man's Switches Across rtnetlink, nftables, and Routing Tables"
 description: "Why Linux lacks a unified cross-subsystem network transaction—and how to engineer Juniper-style commit confirmed rollback across rtnetlink, nf_tables RCU batches, ECMP multipath routes, out-of-process systemd timers, and Management VRFs without locking yourself out of remote bare-metal infrastructure."
 pubDate: "2026-11-25"
-updatedDate: "2026-11-25"
+updatedDate: "2026-11-27"
 heroImage: "45.jpg"
 tags: ["linux", "networking", "nftables", "netlink", "sre"]
 author: "Joshua Edward McLaughlin Cox"
-draft: true
+draft: false
 ---
 
 Every systems engineer who has managed bare-metal Linux routers, edge firewalls, or remote Kubernetes nodes eventually learns the same visceral lesson: **Linux has no kernel-wide network transaction**. You can modify an unassigned secondary NIC over a management WebUI or SSH session, watch the HTTP request spin until timeout, and discover that a single bad prefix or route replacement permanently severed your remote control plane two states away.
@@ -537,7 +537,7 @@ Notice the subtle ordering invariant in `RestoreLiveNetSnapshot`:
 
 ## 4. Atomic `nftables` Generation Swaps & Anti-Lockout Guard Chains
 
-Unlike `iptables-legacy` (which historically walked rule chains locklessly or suffered read-modify-write races across `xtables.lock`), `nf_tables` compiles user rules into netlink bytecode inside `libnftables` and delivers an entire file inside one `NFNL_MSG_BATCH_BEGIN` ... `NFNL_MSG_BATCH_END` transaction. In the kernel (`net/netfilter/nf_tables_api.c`), `nf_tables_commit()` atomically advances the two-bit generation counter (`nft_gencursor_next()`), making the new table graph live for all CPUs in one RCU grace period—or rolling back every queued `nft_trans` object cleanly if any hook registration or set lookup fails.
+Unlike `iptables-legacy` (which historically walked rule chains locklessly or suffered read-modify-write races across `xtables.lock`), `nf_tables` compiles user rules into netlink bytecode inside `libnftables` and delivers an entire file inside one `NFNL_MSG_BATCH_BEGIN` ... `NFNL_MSG_BATCH_END` transaction. In the kernel (`net/netfilter/nf_tables_api.c`), `nf_tables_commit()` atomically advances the two-state generation cursor (`nft_gencursor_next()`), making the new table graph live for all CPUs in one RCU grace period—or rolling back every queued `nft_trans` object cleanly if any hook registration or set lookup fails.
 
 However, **atomic syntax commit does not protect against an operator shooting themselves in the foot with a syntactically valid `drop` policy**! A classic failure is flushing the ruleset and applying a restrictive `input` chain with `policy drop` that omits the operator's bastion CIDR, WireGuard UDP port, or `ct state established,related`.
 

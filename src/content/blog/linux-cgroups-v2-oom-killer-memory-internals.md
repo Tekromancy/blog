@@ -1,7 +1,7 @@
 ---
 title: "Linux cgroups v2 and the Silent OOM Killer: Taming Runaway Memory in Production Containers"
 description: "How the Linux kernel handles page cache reclaim, memory.max vs memory.high throttling, swap accounting, and debugging Exit Code 137 container crashes with eBPF."
-pubDate: "2026-09-22"
+pubDate: "2026-09-21"
 heroImage: "7.jpg"
 tags: ["linux", "kernel", "kubernetes", "sre", "performance"]
 author: "Joshua Edward McLaughlin Cox"
